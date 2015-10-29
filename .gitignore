@@ -8,9 +8,9 @@
 /.bundle
 
 # Ignore the build directory
-/bower_components
+#/bower_components
+#/source/packages
 /build
-/source/packages
 
 # Ignore cache
 /.sass-cache
