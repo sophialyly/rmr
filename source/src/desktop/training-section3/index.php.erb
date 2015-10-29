@@ -1,0 +1,46 @@
+---
+title: "The Josh's Portfolio Resume"
+layout: "layout-training-section3"
+imagePath: '../../../images/images-training-section3/'
+---
+
+
+<section>
+	<div class="container container-main">
+		
+		<img src="<%= current_page.data.imagePath + 'person.png' %>" class="profile-img">
+		<header>
+			<h1>HELLO, <br> my name is <strong>Anusorn Kanchanangkun (Josh)</strong> and I am a web & mobile developer</h1>
+		</header>
+
+		<img src="<%= current_page.data.imagePath + 'line.png' %>" class="line">
+		
+		<div class="row">
+			<!-- About Me, col-md-7  -->
+			<%= partial "_training-section3-aboutMe.erb" %>
+
+			<!-- Contact Info, col-md-5  -->
+			<%= partial "_training-section3-contactInfo.erb" %>
+		</div>
+
+		<div class="row">
+			<!-- Education & Experience, col-md-7  -->
+			<%= partial "_training-section3-education_experience.erb" %>
+
+			<!-- Programming skills, col-md-5  -->
+			<%= partial "_training-section3-programming_skills.erb" %>
+		</div>
+
+		<div class="row">
+			<!-- Services, col-md-7  -->
+			<%= partial "_training-section3-services.erb" %>
+
+			<!-- Recent Projects, col-md-5  -->
+			<%= partial "_training-section3-recent_projects.erb" %>
+		</div>
+
+	</div>
+</section>
+
+<!-- Footer -->
+<%= partial "_training-section3-footer.erb" %>
