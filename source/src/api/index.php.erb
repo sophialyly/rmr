@@ -1,0 +1,78 @@
+---
+title: MWA Academic Fun Fest - API
+layout: "layout-blank"
+---
+
+<?php
+    date_default_timezone_set("Asia/Bangkok");
+
+    require_once '../../packages/autoload.php';
+
+
+    // $dsn = "mysql:dbname=mwa_academic_week;host=localhost;charset=UTF8";
+    // $username = "root";
+    // $password = "";
+    // $pdo = new PDO($dsn, $username, $password);
+    // $db = new NotORM($pdo);
+
+    // $dsn_election_db = "mysql:dbname=mwa_election;host=localhost;charset=UTF8";
+    // $pdo_election_db = new PDO($dsn_election_db, $username, $password);
+    // $db_election_db = new NotORM($pdo_election_db);
+
+    // $dsn = "mysql:dbname=mwa_academic_week;host=localhost;charset=UTF8";
+    // $username = "root";
+    // $password = "aaa";
+    // $pdo = new PDO($dsn, $username, $password);
+    // $db = new NotORM($pdo);
+
+
+
+    /* Slim framework */
+    $app = new \Slim\Slim();
+
+
+    /**
+     *
+     * @apiName HelloWorld
+     * @apiGroup TEST SERVICE
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /hello/:name Test GET Service (v 0.1.0)
+     * @apiDescription คำอธิบาย : Hello World, Test Service
+     *
+     * localhost : http://localhost/iFire-Reporter-API/src/hello/:name
+     *
+     * remote host : http://128.199.166.211/iFire-Reporter-API/src/hello/:name
+     *
+     * @apiExample Example usage:
+     * "Using Advanced REST Client" : (localhost)   chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:projectEndpoint/31
+     * "Using Advanced REST Client" : (remote host) chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:projectEndpoint/30
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /hello/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+    $app->get('/hello/:name', function ($name) {
+        echo "Hello, $name";
+    });
+	
+
+	$app->run();
+
+    
+?>

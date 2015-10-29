@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= current_page.data.title %></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>  
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <%= stylesheet_link_tag "stylesheet-desktop-admin" %>
+        <!--== CSS Files ==-->
+
+        <!--== Google Fonts ==-->
+        <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+        <!-- <link href='http://fonts.googleapis.com/css?family=Belgrano' rel='stylesheet' type='text/css'> -->
+
+    </head>
+    <body>
+
+    <%= yield %>
+
+    <%= javascript_include_tag  "javascript-desktop-admin" %>
+
+    </body>
+</html>

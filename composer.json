@@ -1,0 +1,14 @@
+{
+    "require": {
+    	"slim/slim": "2.*",
+        "vrana/notorm": "dev-master",
+        "mobiledetect/mobiledetectlib": "dev-master",
+        "arcanedev/qr-code": "dev-master",
+        "tecnick.com/tcpdf": "dev-master",
+        "palanik/corsslim": "*",
+        "aferrandini/phpqrcode": "1.0.1"
+    },
+    "config" : {
+        "vendor-dir" : "./source/packages"
+    }
+}
