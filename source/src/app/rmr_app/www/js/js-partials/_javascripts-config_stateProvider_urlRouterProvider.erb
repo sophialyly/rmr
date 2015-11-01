@@ -1,0 +1,10 @@
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('home', {url: '/home', templateUrl:'views/home.html'})
+  .state('thor', {url: '/thor', templateUrl:'views/thor.html'})
+  .state('ironman', {url: '/ironman', templateUrl:'views/ironman.html'})
+  .state('hulk', {url: '/hulk', templateUrl:'views/hulk.html'})
+  .state('dpu', {url: '/dpu', templateUrl:'views/dpu.html'})
+
+  $urlRouterProvider.otherwise('/home');
+});
