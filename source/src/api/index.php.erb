@@ -67,8 +67,9 @@ layout: "layout-blank"
      *     }
      *
      */
-    $app->get('/hello/:name', function ($name) {
-        echo "Hello, $name";
+    $app->get('/hello/:name', function ($name) use ($app) {
+        $app->response()->header("Content-Type", "text/html;charset=utf-8");
+        echo "สวัสดี, $name";
     });
 	
 

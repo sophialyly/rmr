@@ -4,7 +4,15 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // angular.module('starter', ['ionic'])
-var app = angular.module('starter', ['ionic'])
+
+(function() {
+
+
+
+var app = angular.module('starter', ['ionic', 'angularMoment'])
+
+/* javascripts Config stateProvider and urlRouterProvider */
+<%= partial "js-partials/_javascripts-controller-RedditCtrl" %>
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,3 +30,5 @@ app.run(function($ionicPlatform) {
 
 /* javascripts Config stateProvider and urlRouterProvider */
 <%= partial "js-partials/_javascripts-config_stateProvider_urlRouterProvider" %>
+
+}());
