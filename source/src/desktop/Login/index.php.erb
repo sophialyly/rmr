@@ -1,0 +1,43 @@
+---
+title: "RMR - RTU Maintenance Records"
+layout: "layout-flaty_login"
+---
+
+
+    <nav class="navbar navbar-default navbar-fixed-top rmr-navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand logo-nav" href="index.html"><img src="<%= '../../../' + images_dir + '/images-flaty_theme/img/rmr/logo.png' %>"></a>
+        </div>
+      </div>
+    </nav>
+
+    <section id="login-section" class="footer navbar-fixed-bottom" >
+          
+        <div class="container">
+            <div class="row login-page">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+
+                    <!-- BEGIN Main Content -->
+                    <div class="login-wrapper">
+
+                        <!-- Login - Login Form  -->
+                        <%= partial "_Login-loginForm" %>
+
+                        <!-- Login - Forgot Password Form  -->
+                        <%= partial "_Login-forgotPasswordForm" %>
+
+                        <!-- Login - Register Form  -->
+                        <%= partial "_Login-registerForm" %>
+
+                    </div>
+                    <!-- END Main Content -->
+
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </section>

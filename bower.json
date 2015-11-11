@@ -6,7 +6,7 @@
     "normalize-css": "~2.1.3",
     "reveal.js": "~3.1.0",
     "fontawesome": "~4.4.*",
-    "bootstrap": "~3.3.4",
+    "bootstrap": "~3.0.2",
     "wow": "https://github.com/matthieua/WOW.git#~1.1.2",
     "jquery.easing": "https://github.com/gdsmith/jquery.easing.git#~1.3.2",
     "animate.css": "https://github.com/daneden/animate.css.git#~3.3.0",
@@ -17,7 +17,7 @@
     "highcharts-release": "~4.1.7",
     "fancybox": "2.1.5",
     "jquery-slotmachine": "~2.0.10",
-    "angular": "~1.4.2",
+    "angular": "~1.4.7",
     "jquery.lazyload": "~1.9.5",
     "jquery-unveil": "~1.3.0",
     "owl.carousel": "~2.0.0-beta.3",
@@ -31,6 +31,12 @@
     "fancyselect": "~1.1.0",
     "flexslider": "~2.5.0",
     "datatables-bootstrap3-plugin": "~0.4.0",
-    "chosen": "~1.4.2"
+    "chosen": "~1.4.2",
+    "slimScroll": "~1.3.6",
+    "jquery.cookie": "~1.4.1",
+    "jquery-flot": "0.8.2",
+    "flot.tooltip": "0.8.5",
+    "sparkline": "jquery.sparkline#~2.1.2",
+    "bower-jquery-sparkline": "~2.1.3"
   }
 }
