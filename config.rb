@@ -61,6 +61,14 @@ set :partials_desktop_Common_dir, 'src/desktop/Common'
 set :partials_desktop_Admin_blank_dir, 'src/desktop/Admin/blank'
 set :partials_desktop_Admin_index_dir, 'src/desktop/Admin/index'
 
+set :partials_desktop_Admin_rmr_reportCost, 'src/desktop/Admin/rmr_reportCost'
+set :partials_desktop_Admin_rmr_reportDeviceRepair, 'src/desktop/Admin/rmr_reportDeviceRepair'
+set :partials_desktop_Admin_rmr_reportRTU, 'src/desktop/Admin/rmr_reportRTU'
+set :partials_desktop_Admin_rmr_searchRTU, 'src/desktop/Admin/rmr_searchRTU'
+
+set :partials_desktop_Admin_administrator_member, 'src/desktop/Admin/administrator_member'
+set :partials_desktop_Admin_administrator_accessPolicy, 'src/desktop/Admin/administrator_accessPolicy'
+
 
 # Build-specific configuration
 configure :build do
@@ -73,6 +81,10 @@ configure :build do
   ignore '/javascripts/javascript-flaty_login/*'
   ignore '/javascripts/javascript-flaty_blank/*'
   ignore '/javascripts/javascript-flaty_index/*'
+  ignore '/javascripts/javascript-flaty_rmr_reportCost/*'
+  ignore '/javascripts/javascript-flaty_rmr_reportDeviceRepair/*'
+  ignore '/javascripts/javascript-flaty_rmr_reportRTU/*'
+  ignore '/javascripts/javascript-flaty_rmr_searchRTU/*'
   ignore '/javascripts/javascript-training-section1/*'
   ignore '/javascripts/javascript-training-section1.js.erb'
   ignore '/javascripts/javascript-training-section2/*'
@@ -81,6 +93,7 @@ configure :build do
   ignore '/javascripts/javascript-training-section3.js.erb'
   ignore '/javascripts/javascript-training-section4/*'
   ignore '/javascripts/javascript-training-section4.js.erb'
+  ignore '/javascripts/javascript-training-section5/*'
   ignore '/javascripts/all.js'
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
@@ -90,6 +103,10 @@ configure :build do
   ignore '/stylesheets/stylesheet-flaty_login/*'
   ignore '/stylesheets/stylesheet-flaty_blank/*'
   ignore '/stylesheets/stylesheet-flaty_index/*'
+  ignore '/stylesheets/stylesheet-flaty_rmr_reportCost/*'
+  ignore '/stylesheets/stylesheet-flaty_rmr_reportDeviceRepair/*'
+  ignore '/stylesheets/stylesheet-flaty_rmr_reportRTU/*'
+  ignore '/stylesheets/stylesheet-flaty_rmr_searchRTU/*'
   ignore '/stylesheets/stylesheet-training-section1/*'
   ignore '/stylesheets/stylesheet-training-section1.css.erb'
   ignore '/stylesheets/stylesheet-training-section2/*'
@@ -98,6 +115,7 @@ configure :build do
   ignore '/stylesheets/stylesheet-training-section3.scss'
   ignore '/stylesheets/stylesheet-training-section4/*'
   ignore '/stylesheets/stylesheet-training-section4.scss'
+  ignore '/stylesheets/stylesheet-training-section5/*'
   ignore '/stylesheets/stylesheet-flaty_theme.css.erb'
   ignore '/stylesheets/all.css'
   ignore '/stylesheets/hello.scss'
