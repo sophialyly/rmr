@@ -1,0 +1,44 @@
+// Landing Page
+
+.intro{
+    display:table;
+    width:100%;
+    height:auto;
+    padding:100px 0;
+    text-align:center;
+    color:$light;
+    background: url(<%= '../' + images_dir + '/images-training-section5/intro-bg.jpg' %>) no-repeat bottom center scroll;
+    background-color:$dark;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+}
+
+.intro-body{
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.brand-heading{
+    font-size:40px;
+}
+
+.intro-text{
+    font-size:18px;
+}
+
+@media(min-width:767px) {
+    .intro{
+        height:100%;
+        padding:0;
+    }
+
+    .brand-heading{
+        font-size:100px !important;
+    }
+
+    .intro-text{
+        font-size:25px;
+    }
+}

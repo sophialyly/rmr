@@ -116,6 +116,7 @@ configure :build do
   ignore '/stylesheets/stylesheet-training-section4/*'
   ignore '/stylesheets/stylesheet-training-section4.scss'
   ignore '/stylesheets/stylesheet-training-section5/*'
+  ignore '/stylesheets/stylesheet-training-section5-scss.scss'
   ignore '/stylesheets/stylesheet-flaty_theme.css.erb'
   ignore '/stylesheets/all.css'
   ignore '/stylesheets/hello.scss'

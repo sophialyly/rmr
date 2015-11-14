@@ -1,0 +1,16 @@
+$primary: #26a5d3;
+$dark: #333333;
+$light: #f4f4f4;
+
+html{
+	width:100%;
+	height:100%;
+}
+
+body{
+	width:100%;
+	height:100%;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:$dark;
+	background-color:$light;
+}
