@@ -1,6 +1,6 @@
 ---
 title: MWA Academic Fun Fest - API
-layout: "layout-blank"
+layout: "layout-api"
 ---
 
 <?php
@@ -9,11 +9,11 @@ layout: "layout-blank"
     require_once '../../packages/autoload.php';
 
 
-    // $dsn = "mysql:dbname=mwa_academic_week;host=localhost;charset=UTF8";
-    // $username = "root";
-    // $password = "";
-    // $pdo = new PDO($dsn, $username, $password);
-    // $db = new NotORM($pdo);
+    $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
+    $username = "root";
+    $password = "";
+    $pdo = new PDO($dsn, $username, $password);
+    $db = new NotORM($pdo);
 
     // $dsn_election_db = "mysql:dbname=mwa_election;host=localhost;charset=UTF8";
     // $pdo_election_db = new PDO($dsn_election_db, $username, $password);
@@ -71,9 +71,17 @@ layout: "layout-blank"
         $app->response()->header("Content-Type", "text/html;charset=utf-8");
         echo "สวัสดี, $name";
     });
+
+    /* Login manager */
+    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
+    $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
 	
 
 	$app->run();
+
+    /* Login Manager Partial */
+    <%= partial "/LoginManager/_checkUserPassword" %>
+    <%= partial "/LoginManager/_logout" %>
 
     
 ?>

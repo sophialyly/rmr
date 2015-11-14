@@ -4,56 +4,162 @@ layout: "layout-flaty_login"
 ---
 
 
-    <nav class="navbar navbar-default navbar-fixed-top rmr-navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <!--   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button> -->
-          <a class="navbar-brand logo-nav" href="index.html"><img src="<%= '../../../' + images_dir + '/images-flaty_theme/img/rmr/logo.png' %>"></a>
+    <nav class="navbar navbar-custom navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- <a class="navbar-brand" href="index.php">Digital Agency</a> -->
+                <a class="navbar-brand logo-nav" href="index.php"><img src="../../../images/images-flaty_theme/img/rmr/logo.png"></a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li> -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#why">Why Us?</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#who">Who are we?</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#clients">Clients</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <!-- <li><a href="#"><i class="fa fa-phone"></i><span>ติดต่อผู้ดูแลระบบ</span></a></li> -->
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
     </nav>
 
  
 
 
 
-    <section id="login-section" class="footer navbar-fixed-bottom" >
-          
-        <div class="container">
-            <div class="row login-page">
-                <div class="col-md-3">
-
-                </div>
-                <div class="col-md-6">
-
-                    <!-- BEGIN Main Content -->
-                    <div class="login-wrapper">
-
-                        <!-- Login - Login Form  -->
-                        <%= partial "_Login-loginForm" %>
-
-                        <!-- Login - Forgot Password Form  -->
-                        <%= partial "_Login-forgotPasswordForm" %>
-
-                        <!-- Login - Register Form  -->
-                        <%= partial "_Login-registerForm" %>
+    <section class="login-section">
+        <div class="login-body">
+            <div class="container">
+                <div class="row login-page">
+                    <div class="col-md-3">
 
                     </div>
-                    <!-- END Main Content -->
+                    <div class="col-md-6">
 
-                </div>
-                <div class="col-md-3">
+                        <!-- BEGIN Main Content -->
+                        <div class="login-wrapper">
+
+                            <!-- Login - Login Form  -->
+                            <%= partial "_Login-loginForm" %>
+
+                            <!-- Login - Forgot Password Form  -->
+                            <%= partial "_Login-forgotPasswordForm" %>
+
+                            <!-- Login - Register Form  -->
+                            <%= partial "_Login-registerForm" %>
+
+                        </div>
+                        <!-- END Main Content -->
+
+                    </div>
+                    <div class="col-md-3">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+    
+
+    <section id="why" class="container content-section">
+    <h2 class="text-center"> Why Choose Us?</h2>
+    <p class="text-center">Here are just a few reason to choose <strong>Digital Agency</strong> for all of my digital marketing needs.</p>
+    <br/>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="block block-icon-left">
+                <div class="icon">
+                    <i class="fa fa-briefcase fa-5x"></i>
+                </div>
+                <div class="icon-content">
+                    <h3>Professional</h3>
+                    <p>Lorem ipsum sit amet, consectatur apdipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="block block-icon-left">
+                <div class="icon">
+                    <i class="fa fa-money fa-5x"></i>
+                </div>
+                <div class="icon-content">
+                    <h3>Low Cost</h3>
+                    <p>Lorem ipsum sit amet, consectatur apdipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="block block-icon-left">
+                <div class="icon">
+                    <i class="fa fa-dashboard fa-5x"></i>
+                </div>
+                <div class="icon-content">
+                    <h3>Faster</h3>
+                    <p>Lorem ipsum sit amet, consectatur apdipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4">
+            <div class="block block-icon-left">
+                <div class="icon">
+                    <i class="fa fa-gear fa-5x"></i>
+                </div>
+                <div class="icon-content">
+                    <h3>Resources & Tools </h3>
+                    <p>Lorem ipsum sit amet, consectatur apdipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="block block-icon-left">
+                <div class="icon">
+                    <i class="fa fa-users fa-5x"></i>
+                </div>
+                <div class="icon-content">
+                    <h3>Large Community</h3>
+                    <p>Lorem ipsum sit amet, consectatur apdipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="block block-icon-left">
+                <div class="icon">
+                    <i class="fa fa-book fa-5x"></i>
+                </div>
+                <div class="icon-content">
+                    <h3>Online Course</h3>
+                    <p>Lorem ipsum sit amet, consectatur apdipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    

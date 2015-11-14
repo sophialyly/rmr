@@ -21,11 +21,11 @@ session_start(); //start session.
 
         <?php
 
-            if(isset($_SESSION['user']) && $_SESSION['user'] != "") {
+            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
                     //Task to do
             } else {
 
-                //header('Location: ../Login/index.php'); //redirect URL
+                header('Location: ../Login/index.php'); //redirect URL
             }
         ?>
 

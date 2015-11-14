@@ -1,0 +1,38 @@
+
+
+                $('#button-login').bind('click', function(e){
+
+                       var postParams = {
+                          "userName": "myUserName",
+                          "passWord": "1234"
+                      };
+
+
+                      $.ajax({
+                        url: '../../api/loginManager/checkUserPassword/',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSON.stringify(postParams),
+                        cache: false,
+                        //async: false,
+                        success: function(data) {
+                            // console.log(data);
+
+                            // window.location.href = '../Admin/index.php';
+                            var url = '../Admin/';
+                            $(location).attr('href',url);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                                alert('init error: ' + textStatus);
+                            }
+                        });
+
+                    return e.preventDefault();
+                });
+
+
+
+
+
