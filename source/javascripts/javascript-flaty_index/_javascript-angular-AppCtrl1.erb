@@ -1,0 +1,11 @@
+indexModule.controller("AppCtrl1", function($scope){
+	var app = this;
+
+	app.isHidden = false;
+	app.toggle = function() {
+		app.isHidden = !app.isHidden;
+	}
+
+	$scope.visible = true;
+
+});
