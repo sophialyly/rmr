@@ -1,0 +1,36 @@
+---
+title: "Dashboard - FLATY Admin"
+layout: "layout-home-index"
+pageTitle: " Dashboard"
+pageDescription: "Overview, stats, chat and more"
+baseURL: "/rmr/build/src/desktop/Home/"
+loginURL: "../Login/index.php"
+imageURL: "../../../images"
+
+
+menuDashboardIsActive: "active"
+menuRmr_IsActive: ""
+menuRmr_reportRtuIsActive: ""
+menuRmr_searchRtuIsActive: ""
+menuRmr_reportDeviceRepairIsActive: ""
+menuRmr_reportCostIsActive: ""
+menuAdministrator_IsActive: ""
+menuAdministrator_memberIsActive: ""
+menuAdministrator_accessPolicyIsActive: ""
+
+menuIndex_href: "./"
+menuRmr_reportRtu_href: "./RMR/ReportRTU/"
+menuRmr_reportDeviceRepair_href: "./RMR/ReportDeviceRepair/"
+menuRmr_reportCost_href: "./RMR/ReportCost/"
+menuRmr_searchRtu_href: "./RMR/SearchRTU/"
+---
+
+
+
+
+
+        <!-- Admin - Navbar  -->
+        <%= partial partials_desktop_Common_dir + "/_common-navbar" %>
+
+        <!-- Admin - Container  -->
+        <%= partial partials_desktop_Home_index_dir + "/_home-index-container" %>

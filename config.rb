@@ -59,12 +59,12 @@ set :helper_dir, 'helper'
 
 set :partials_desktop_Common_dir, 'src/desktop/Common'
 set :partials_desktop_Admin_blank_dir, 'src/desktop/Admin/blank'
-set :partials_desktop_Admin_index_dir, 'src/desktop/Admin/index'
+set :partials_desktop_Home_index_dir, 'src/desktop/Home'
 
-set :partials_desktop_Admin_rmr_reportCost, 'src/desktop/Admin/rmr_reportCost'
+set :partials_desktop_Admin_rmr_reportCost, 'src/desktop/Admin/rmrReportCost/partials-desktop-rmrReportCost'
 set :partials_desktop_Admin_rmr_reportDeviceRepair, 'src/desktop/Admin/rmr_reportDeviceRepair'
 set :partials_desktop_Admin_rmr_reportRTU, 'src/desktop/Admin/rmr_reportRTU'
-set :partials_desktop_Admin_rmr_searchRTU, 'src/desktop/Admin/rmr_searchRTU'
+set :partials_desktop_home_rmr_searchRTU, 'src/desktop/Home/rmr/searchRTU'
 
 set :partials_desktop_Admin_administrator_member, 'src/desktop/Admin/administrator_member'
 set :partials_desktop_Admin_administrator_accessPolicy, 'src/desktop/Admin/administrator_accessPolicy'
@@ -94,6 +94,7 @@ configure :build do
   ignore '/javascripts/javascript-training-section4/*'
   ignore '/javascripts/javascript-training-section4.js.erb'
   ignore '/javascripts/javascript-training-section5/*'
+  ignore '/javascripts/javascript-training-section5.js.erb'
   ignore '/javascripts/all.js'
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
@@ -117,6 +118,7 @@ configure :build do
   ignore '/stylesheets/stylesheet-training-section4.scss'
   ignore '/stylesheets/stylesheet-training-section5/*'
   ignore '/stylesheets/stylesheet-training-section5-scss.scss'
+  ignore '/stylesheets/stylesheet-training-section5.css.erb'
   ignore '/stylesheets/stylesheet-flaty_theme.css.erb'
   ignore '/stylesheets/all.css'
   ignore '/stylesheets/hello.scss'
@@ -126,11 +128,14 @@ configure :build do
   ignore '/src/desktop/training-section2/*'
   ignore '/src/desktop/training-section3/*'
   ignore '/src/desktop/training-section4/*'
+  ignore '/src/desktop/training-section5/*'
   ignore '/src/desktop/Admin_2015-11-10/*'
+  ignore '/src/desktop/Admin_2015-11-18/*'
 
   ignore '/images/images-training-section2/*'
   ignore '/images/images-training-section3/*'
   ignore '/images/images-training-section4/*'
+  ignore '/images/images-training-section5/*'
 
   # For example, change the Compass output style for deployment
   # activate :minify_css

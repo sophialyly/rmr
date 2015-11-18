@@ -1,0 +1,38 @@
+            <!-- BEGIN Sidebar -->
+            <!-- <div id="sidebar" class="navbar-collapse collapse"> -->
+            <div id="sidebar" class="navbar-collapse collapse sidebar-fixed">
+                <!-- BEGIN Navlist -->
+                <ul class="nav nav-list">
+                    <!-- BEGIN Search Form -->
+                    <li>
+                        <form target="#" method="GET" class="search-form">
+                            <span class="search-pan">
+                                <button type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" />
+                            </span>
+                        </form>
+                    </li>
+                    <!-- END Search Form -->
+
+                        <!-- sidebar - Dashboard  -->
+                        <%= partial partials_desktop_Common_dir + "/sidebar/_common-sidebar-dashboard" %>
+
+                        <!-- sidebar - RMR  -->
+                        <%= partial partials_desktop_Common_dir + "/sidebar/_common-sidebar-rmr" %>
+
+                        <!-- sidebar - USER  -->
+                        <%= partial partials_desktop_Common_dir + "/sidebar/_common-sidebar-administrator" %>
+
+                    
+                </ul>
+                <!-- END Navlist -->
+
+                <!-- BEGIN Sidebar Collapse Button -->
+                <div id="sidebar-collapse" class="visible-lg">
+                    <i class="fa fa-angle-double-left"></i>
+                </div>
+                <!-- END Sidebar Collapse Button -->
+            </div>
+            <!-- END Sidebar -->

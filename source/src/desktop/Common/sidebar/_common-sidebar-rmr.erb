@@ -1,0 +1,24 @@
+                    <li class="<%= current_page.data.menuRmr_IsActive %>">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-desktop"></i>
+                            <span>RMR</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+                            <li class="<%= current_page.data.menuRmr_reportRtuIsActive %>">
+                                <a href="<%= current_page.data.menuRmr_reportRtu_href %>">รายงานข้อมูล RTU ที่ใช้งาน</a>
+                            </li>
+                            <li class="<%= current_page.data.menuRmr_reportDeviceRepairIsActive %>">
+                                <a href="<%= current_page.data.menuRmr_reportDeviceRepair_href %>">รายการอุปกรณ์เสีย/ชำรุด</a>
+                            </li>
+                            <li class="<%= current_page.data.menuRmr_reportCostIsActive %>">
+                                <a href="<%= current_page.data.menuRmr_reportCost_href %>">รายงานงบประมาณ</a>
+                            </li>
+                            <li class="<%= current_page.data.menuRmr_searchRtuIsActive %>">
+                                <a href="<%= current_page.data.menuRmr_searchRtu_href %>">สืบค้นข้อมูลแยกตามสาขา</a>
+                            </li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>

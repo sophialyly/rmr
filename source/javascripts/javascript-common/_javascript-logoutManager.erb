@@ -19,6 +19,8 @@
                             var url = '../Login/';
                             $(location).attr('href',url);
 
+                            console.log(window.location.pathname);
+
                         },
                         error: function(jqXHR, textStatus, errorThrown){
                                 alert('init error: ' + textStatus);

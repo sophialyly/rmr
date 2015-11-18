@@ -59,6 +59,8 @@
 		session_destroy();					// ลบทั้งหมด
 
 	  	$return_m = array("msg" => "Good bye - user logout.");
+	  	
+	  	$app->response()->header("Content-Type", "application/json");
 	    echo json_encode($return_m);
 
 	 }

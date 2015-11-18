@@ -1,0 +1,7 @@
+indexModule.factory("myPost",function($resource){ 
+	return $resource("../../api/loginManager/logout/");
+});
+
+indexModule.factory("myGet",function($resource){ 
+	return $resource("../../api/hello/:name");
+});

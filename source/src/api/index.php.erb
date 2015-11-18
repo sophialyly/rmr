@@ -30,6 +30,21 @@ layout: "layout-api"
     /* Slim framework */
     $app = new \Slim\Slim();
 
+    // $corsOptions = array(
+    //     "origin" => "*",
+    //     "exposeHeaders" => array("X-My-Custom-Header", "X-Another-Custom-Header"),
+    //     "maxAge" => 1728000,
+    //     "allowCredentials" => True,
+    //     "allowMethods" => array("POST, GET"),
+    //     "allowHeaders" => array("X-PINGOTHER")
+    // );
+
+
+    /* CorsSlim is added */
+    // $app->add(new \CorsSlim\CorsSlim($corsOptions));
+
+
+
 
     /**
      *
@@ -68,13 +83,30 @@ layout: "layout-api"
      *
      */
     $app->get('/hello/:name', function ($name) use ($app) {
-        $app->response()->header("Content-Type", "text/html;charset=utf-8");
-        echo "สวัสดี, $name";
+
+        //echo "สวัสดี, $name";
+        $return_m = array("msg" => "สวัสดี, $name");
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($return_m);
     });
+
+
+
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
+
+
+    // $corsOptions = array("origin" => "*");
+    // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
+    //     logout($app, $pdo, $db); 
+    // });
+
+
+
+    
 	
 
 	$app->run();
