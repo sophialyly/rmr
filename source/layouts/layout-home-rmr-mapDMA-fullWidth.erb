@@ -1,0 +1,40 @@
+<?php
+session_start(); //start session.
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="<%= current_page.data.baseURL %>">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title><%= current_page.data.title %></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <%= stylesheet_link_tag "stylesheet-home-rmr-mapDMA" %>
+
+        <link rel="shortcut icon" href="<%= current_page.data.imageURL + '/images-flaty_theme/favicon/favicon.ico' %>">
+    </head>
+    <body>
+
+        <?php
+
+            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
+                    //Task to do
+            } else {
+
+                 header('Location: <%= current_page.data.loginURL %>'); //redirect URL
+            }
+        ?>
+
+        <%= yield %>
+
+        <%= javascript_include_tag  "javascript-home-rmr-mapDMA" %>
+
+
+
+    </body>
+</html>

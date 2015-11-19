@@ -1,20 +1,20 @@
 ---
-title: "RMR - สืบค้นข้อมูลแยกตามสาขา"
-layout: "layout-home-rmr-searchRTU"
-pageTitle: " สืบค้นข้อมูลแยกตามสาขา"
+title: "RMR - แผนที่ DMA"
+layout: "layout-home-rmr-mapDMA-fullWidth"
+pageTitle: " แผนที่ DMA"
 pageDescription: "You can start your customization from this one!"
 
-baseURL: "/rmr/build/src/desktop/Home/RMR/SearchRTU/"
+baseURL: "/rmr/build/src/desktop/Home/RMR/MapDMA/"
 loginURL: "../../../Login/index.php"
 imageURL: "../../../../../images"
 
 menuDashboardIsActive: ""
 menuRmr_IsActive: "active"
 menuRmr_reportRtuIsActive: ""
-menuRmr_searchRtuIsActive: "active"
+menuRmr_searchRtuIsActive: ""
 menuRmr_reportDeviceRepairIsActive: ""
 menuRmr_reportCostIsActive: ""
-menuRmr_mapDmaIsActive: ""
+menuRmr_mapDmaIsActive: "active"
 menuAdministrator_IsActive: ""
 menuAdministrator_memberIsActive: ""
 menuAdministrator_accessPolicyIsActive: ""
@@ -27,8 +27,8 @@ menuRmr_searchRtu_href: "../SearchRTU/"
 menuRmr_mapDma_href: "../MapDMA/"
 menuAdministrator_member_href: "../../Administrator/Member/"
 menuAdministrator_accessPolicy_href: "../../Administrator/AccessPolicy/"
----
 
+---
 
 
 
@@ -36,25 +36,5 @@ menuAdministrator_accessPolicy_href: "../../Administrator/AccessPolicy/"
         <!-- Admin - Navbar  -->
         <%= partial partials_desktop_Common_dir + "/_common-navbar" %>
 
-
-
-
-        <!-- BEGIN Container -->
-        <div class="container sidebar-blue" id="main-container">
-
-            <!-- Home - Container - Sidebar  -->
-            <%= partial partials_desktop_Common_dir + "/_Common-sidebar" %>
-
-            <!-- Home - Container - MainContent  -->
-            <%= partial partials_desktop_home_rmr_searchRTU + "/_home-rmr-searchRTU-container-mainContent" %>
-
-        </div>
-        <!-- END Container -->
-
-
-
-
-
-
-
-  
+        <!-- Home - Container - MainContent  -->
+        <%= partial partials_desktop_home_rmr_mapDMA + "/_home-rmr-mapDMA-container-mainContent" %>

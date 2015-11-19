@@ -65,6 +65,8 @@ set :partials_desktop_home_rmr_reportCost, 'src/desktop/Home/RMR/ReportCost'
 set :partials_desktop_home_rmr_reportDeviceRepair, 'src/desktop/Home/RMR/ReportDeviceRepair'
 set :partials_desktop_home_rmr_reportRTU, 'src/desktop/Home/RMR/reportRTU'
 set :partials_desktop_home_rmr_searchRTU, 'src/desktop/Home/RMR/searchRTU'
+set :partials_desktop_home_rmr_mapDMA, 'src/desktop/Home/RMR/mapDMA'
+
 
 set :partials_desktop_Admin_administrator_member, 'src/desktop/Admin/administrator_member'
 set :partials_desktop_Admin_administrator_accessPolicy, 'src/desktop/Admin/administrator_accessPolicy'
