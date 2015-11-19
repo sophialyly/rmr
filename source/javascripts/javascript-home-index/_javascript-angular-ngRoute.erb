@@ -1,0 +1,19 @@
+indexModule.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	// Your code here
+
+	$routeProvider
+		.when('/about', {
+			templateUrl: 'index-Views/about.html'
+		})
+		.when('/contact', {
+			templateUrl: 'index-Views/contact.html'
+		})
+		.when('/addEvent', {
+			templateUrl: 'index-Views/add-event.html'
+		})
+		.otherwise({templateUrl: 'index-Views/404.html'});
+
+		// use the HTML5 History API
+        $locationProvider.html5Mode(true);
+
+}]);
