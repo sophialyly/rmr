@@ -13,9 +13,9 @@ session_start(); //start session.
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <%= stylesheet_link_tag "stylesheet-flaty_rmr_reportRTU" %>
+        <%= stylesheet_link_tag "stylesheet-home-rmr-reportRTU" %>
 
-        <link rel="shortcut icon" href="<%= '../' + images_dir + '/images-flaty_theme/favicon/favicon.ico' %>">
+        <link rel="shortcut icon" href="<%= current_page.data.imageURL + '/images-flaty_theme/favicon/favicon.ico' %>">
     </head>
     <body>
 
@@ -25,14 +25,14 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../Login/index.php'); //redirect URL
+                header('Location: <%= current_page.data.loginURL %>'); //redirect URL
             }
         ?>
 
 
         <%= yield %>
 
-        <%= javascript_include_tag  "javascript-flaty_rmr_reportRTU" %>
+        <%= javascript_include_tag  "javascript-home-rmr-reportRTU" %>
 
     </body>
 </html>

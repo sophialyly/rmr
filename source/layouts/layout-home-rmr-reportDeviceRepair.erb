@@ -25,7 +25,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                //header('Location: ../../Login/index.php'); //redirect URL
+                 header('Location: <%= current_page.data.loginURL %>'); //redirect URL
             }
         ?>
 
