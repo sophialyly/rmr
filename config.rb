@@ -97,6 +97,7 @@ configure :build do
   ignore '/javascripts/javascript-training-section5/*'
   ignore '/javascripts/javascript-training-section5.js.erb'
   ignore '/javascripts/all.js'
+  ignore '/javascripts/javascript-home-index_2015-11-19/*'
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
   ignore '/stylesheets/stylesheet-desktop-admin.css.erb'
