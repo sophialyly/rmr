@@ -1,0 +1,43 @@
+//------------------------ Agenda Data List -----------------------//
+if (jQuery().dataTable) {
+
+$('#RTUInfoDataList').dataList({
+        "sPaginationType": "full_numbers",
+        "bFilter": false, 
+        "bInfo": false,
+
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bAutoWidth": false,
+        // กำหนดคอลัมภ์ให้สามารถ sort ได้หรือไม่
+        "aoColumnDefs": [
+                {
+                    'bSortable': false,
+                    'aTargets': [0]
+                }
+        ]
+    });
+
+// $('#AgendaDataList').on( 'click', '.msg-collapse > a', function (event) {
+//         event.preventDefault();
+//         //event.stopPropagation();
+
+//         //console.log(AgendaDataList.row($(this).parents('tr')).data());
+//         //console.log(AgendaDataList.row().data());
+//         //console.log("Click...");
+
+//         // $('.mail-messages .msg-collapse > a').click(function(e){
+//             $(this).children('i').addClass('anim-turn180');
+//             $(this).parents('td').find('.mail-msg-container').slideToggle(500, function(){
+//                 var i = $(this).parents('td').find('.msg-collapse > a').children('i');
+//                 if($(this).is(':hidden')) {
+//                     $(i).attr('class', 'fa fa-chevron-down');
+//                 } else {
+//                     $(i).attr('class', 'fa fa-chevron-up');
+//                 }
+//             });
+//         // });
+        
+//     } );
+
+}

@@ -1,0 +1,15 @@
+$.fn.dataList = function (options) {
+    this.each(function () {
+        var $table = $(this);
+        if ($table.is('ul')) {
+            var $ul = $table;
+            $table = $ul.wrap('<table id = '+ ($ul.data('id') || '') + '><tbody/></table').closest('table');
+            $ul.find('li').wrap('<tr><td/></tr>').contents().unwrap();
+            $ul.contents().unwrap()
+            //$table.prepend('<thead><tr><th>Heading</th></tr></thead>');
+            //$table.prepend('<thead><tr><th></th></tr></thead>');
+            $table.prepend('<thead><tr><th>' + ($ul.data('heading') || '') + '</th></tr></thead>');
+        }
+        $table.dataTable(options);
+    });
+}
