@@ -8,24 +8,8 @@ session_start(); //start session.
     require_once '../../packages/autoload.php';
 
 
-    $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
-    $username = "root";
-    $password = "";
-    $pdo = new PDO($dsn, $username, $password);
-    $db = new NotORM($pdo);
-
-    // $dsn_election_db = "mysql:dbname=mwa_election;host=localhost;charset=UTF8";
-    // $pdo_election_db = new PDO($dsn_election_db, $username, $password);
-    // $db_election_db = new NotORM($pdo_election_db);
-
-    // $dsn = "mysql:dbname=mwa_academic_week;host=localhost;charset=UTF8";
-    // $username = "root";
-    // $password = "aaa";
-    // $pdo = new PDO($dsn, $username, $password);
-    // $db = new NotORM($pdo);
-
-
-    // /* เชื่อมต่อ DB2 */
+    /* Connect Database Manager Partial */
+        // /* เชื่อมต่อ DB2 */
     $driver_db2 = "{IBM DB2 ODBC DRIVER}";
     $database_db2 = "iWLMA";
     $hostname_db2 = "172.16.194.210";
@@ -67,7 +51,17 @@ session_start(); //start session.
     catch (Exception $e) {
         //echo $e;
     }
-
+        $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
+    $username = "root";
+    $password = "";
+    $pdo = new PDO($dsn, $username, $password);
+    $db = new NotORM($pdo);
+        // /* เชื่อมต่อ MySQL บนเครื่อง 172.16.194.210 (http://wlma-mt.wms.mwa/) */
+    // $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
+    // $username = "root";
+    // $password = "P@ssw0rd";
+    // $pdo = new PDO($dsn, $username, $password);
+    // $db = new NotORM($pdo);
 
 
 
@@ -131,58 +125,11 @@ session_start(); //start session.
      */
     $app->get('/hello/:name', function ($name) use ($app, $conn_db2) {
 
+        //echo "สวัสดี, $name";
+        $return_m = array("msg" => "สวัสดี, $name");
 
-
-        /* ************************* */
-        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
-        /* ************************* */
-        $reports = array();
-
-        $sql = "select * from AUTH_USER_INFO order by USER_ID";
-
-        if ($conn_db2) {
-            # code...
-            $stmt = db2_exec($conn_db2, $sql);
-
-            while ($row = db2_fetch_array($stmt)) {
-                
-                $userID = iconv("TIS-620", "UTF-8",$row[0]);
-                //$name = iconv("UTF-8", "TIS-620",$row[1]);
-
-                $name = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
-
-                //print "$row[0] - $name \n";
-
-                //$row[0] = "aa";
-                //$row[1] = "aa";
-
-                $reports[] = array(
-                "USER_ID" => $userID,
-                "NAME" => $name
-                );
-            }
-        }
-
-        $rowCount = count($reports);
-
-        /* ************************* */
-        /* เริ่มกระบวนการส่งค่ากลับ */
-        /* ************************* */
-        $resultText = "success";
-
-        $reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name", "count" => $rowCount, "rows" => $reports);
-        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
-        //$reportResult = array("result" =>  $resultText);
-        
         $app->response()->header("Content-Type", "application/json");
-        //$app->response()->header("Content-Type", "application/json;charset=tis-620");
-        echo json_encode($reportResult);
-
-        // //echo "สวัสดี, $name";
-        // $return_m = array("msg" => "สวัสดี, $name");
-
-        // $app->response()->header("Content-Type", "application/json");
-        // echo json_encode($return_m);
+        echo json_encode($return_m);
     });
 
 
@@ -192,6 +139,9 @@ session_start(); //start session.
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
 
+
+    /* WLMA manager */
+    $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -340,5 +290,74 @@ session_start(); //start session.
 	 }
 	 
 
+    /* WLMA Manager Partial */
+    	/**
+	 *
+	 * @apiName CheckUserPasswordFromWLMA
+	 * @apiGroup Wlma Manager
+	 * @apiVersion 0.1.0
+	 *
+	 * @api {post} /wlmaManager/checkUserPasswordFromWLMA/ Check User Password from WLMA
+	 * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่ตรวจสอบสิทธิ์การเข้าใช้งานระบบ โดยจะเป็นการส่งค่า User & Password ไปตรวจสอบที่ฐานข้อมูลในระบบ WLMA
+	 *
+	 *
+	 * @apiSampleRequest /wlmaManager/checkUserPasswordFromWLMA/
+	 *
+	 * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+	 *
+	 * @apiSuccessExample Example data on success:
+	 * {
+	 *   "msg": "Hello, anusorn"
+	 * }
+	 *
+	 * @apiError UserNotFound The <code>id</code> of the User was not found.
+	 * @apiErrorExample {json} Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "error": "UserNotFound"
+	 *     }
+	 *
+	 */
+	 function checkUserPasswordFromWLMA($app, $pdo, $conn_db2) {
+
+	    /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+        $sql = "select * from AUTH_USER_INFO order by USER_ID";
+
+        if ($conn_db2) {
+            # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            while ($row = db2_fetch_array($stmt)) {
+                
+                $userID = iconv("TIS-620", "UTF-8",$row[0]);
+                $name = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
+
+                $reports[] = array(
+                	"USER_ID" => $userID,
+                	"NAME" => $name
+                );
+            }
+        }
+
+        $rowCount = count($reports);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name", "count" => $rowCount, "rows" => $reports);
+        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
+        //$reportResult = array("result" =>  $resultText);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+	 }
+	 
     
 ?>
