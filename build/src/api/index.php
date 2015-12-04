@@ -86,54 +86,8 @@ session_start(); //start session.
 
 
 
-
-    /**
-     *
-     * @apiName HelloWorld
-     * @apiGroup TEST SERVICE
-     * @apiVersion 0.1.0
-     *
-     * @api {get} /hello/:name Test GET Service (v 0.1.0)
-     * @apiDescription คำอธิบาย : Hello World, Test Service
-     *
-     * localhost : http://localhost/iFire-Reporter-API/src/hello/:name
-     *
-     * remote host : http://128.199.166.211/iFire-Reporter-API/src/hello/:name
-     *
-     * @apiExample Example usage:
-     * "Using Advanced REST Client" : (localhost)   chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:projectEndpoint/31
-     * "Using Advanced REST Client" : (remote host) chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:projectEndpoint/30
-     *
-     * @apiParam {String} name     New name of the user
-     *
-     * @apiSampleRequest /hello/:name
-     *
-     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
-     *
-     * @apiSuccessExample Example data on success:
-     * {
-     *   "msg": "Hello, anusorn"
-     * }
-     *
-     * @apiError UserNotFound The <code>id</code> of the User was not found.
-     * @apiErrorExample {json} Error-Response:
-     *     HTTP/1.1 404 Not Found
-     *     {
-     *       "error": "UserNotFound"
-     *     }
-     *
-     */
-    $app->get('/hello/:name', function ($name) use ($app, $conn_db2) {
-
-        //echo "สวัสดี, $name";
-        $return_m = array("msg" => "สวัสดี, $name");
-
-        $app->response()->header("Content-Type", "application/json");
-        echo json_encode($return_m);
-    });
-
-
-
+    /* Test Manager */
+    $app->get('/testManager/getMsg/:name',function($name) use ($app) { getMsg($app, $name); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
@@ -154,6 +108,46 @@ session_start(); //start session.
 	
 
 	$app->run();
+
+    /* Test Manager Partial */
+        /**
+     *
+     * @apiName GetMsg
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /testManager/getMsg/:name GET Msg (v 0.1.0)
+     * @apiDescription คำอธิบาย : ทดสอบ GET - RESTful Web Service
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function getMsg($app, $name) {
+
+        //echo "สวัสดี, $name";
+        $return_m = array("msg" => "สวัสดี, $name");
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($return_m);
+    });
 
     /* Login Manager Partial */
     	/**

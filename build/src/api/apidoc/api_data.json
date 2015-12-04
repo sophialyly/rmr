@@ -110,20 +110,13 @@
     "groupTitle": "Login_Manager"
   },
   {
-    "name": "HelloWorld",
-    "group": "TEST_SERVICE",
+    "name": "GetMsg",
+    "group": "TEST_Manager",
     "version": "0.1.0",
     "type": "get",
-    "url": "/hello/:name",
-    "title": "Test GET Service (v 0.1.0)",
-    "description": "<p>คำอธิบาย : Hello World, Test Service</p> <p>localhost : <a href=\"http://localhost/iFire-Reporter-API/src/hello/:name\">http://localhost/iFire-Reporter-API/src/hello/:name</a></p> <p>remote host : <a href=\"http://128.199.166.211/iFire-Reporter-API/src/hello/:name\">http://128.199.166.211/iFire-Reporter-API/src/hello/:name</a></p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "\"Using Advanced REST Client\" : (localhost)   chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:projectEndpoint/31\n\"Using Advanced REST Client\" : (remote host) chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:projectEndpoint/30",
-        "type": "json"
-      }
-    ],
+    "url": "/testManager/getMsg/:name",
+    "title": "GET Msg (v 0.1.0)",
+    "description": "<p>คำอธิบาย : ทดสอบ GET - RESTful Web Service</p> ",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -139,7 +132,7 @@
     },
     "sampleRequest": [
       {
-        "url": "http://localhost/rmr/build/src/api/hello/:name"
+        "url": "http://localhost/rmr/build/src/api/testManager/getMsg/:name"
       }
     ],
     "success": {
@@ -182,7 +175,7 @@
       ]
     },
     "filename": "./index.php",
-    "groupTitle": "TEST_SERVICE"
+    "groupTitle": "TEST_Manager"
   },
   {
     "name": "CheckUserPasswordFromWLMA",
