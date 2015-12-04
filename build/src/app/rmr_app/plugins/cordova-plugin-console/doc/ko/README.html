@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="src src_app src_app_rmr_app src_app_rmr_app_plugins src_app_rmr_app_plugins_cordova-plugin-console src_app_rmr_app_plugins_cordova-plugin-console_doc src_app_rmr_app_plugins_cordova-plugin-console_doc_ko src_app_rmr_app_plugins_cordova-plugin-console_doc_ko_README">
+    <!---
+# license: Licensed to the Apache Software Foundation (ASF) under one
+#         or more contributor license agreements.  See the NOTICE file
+#         distributed with this work for additional information
+#         regarding copyright ownership.  The ASF licenses this file
+#         to you under the Apache License, Version 2.0 (the
+#         "License"); you may not use this file except in compliance
+#         with the License.  You may obtain a copy of the License at
+#
+#           http://www.apache.org/licenses/LICENSE-2.0
+#
+#         Unless required by applicable law or agreed to in writing,
+#         software distributed under the License is distributed on an
+#         "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#         KIND, either express or implied.  See the License for the
+#         specific language governing permissions and limitations
+#         under the License.
+-->
+
+<h1 id="cordova-plugin-console">cordova-plugin-console</h1>
+
+<p><a href="https://travis-ci.org/apache/cordova-plugin-console"><img alt="Build Status" src="https://travis-ci.org/apache/cordova-plugin-console.svg" /></a></p>
+
+<p>이 플러그인을 console.log()로 수 유용 되도록 의미입니다. 그것은 iOS, 우분투, Windows Phone 8, 및 창에 대 한 추가 기능을 추가합니다. Console.log() 당신을 위해 작동 하는 어떻게 행복 한 경우에, 그때 당신은 아마 필요 하지 않습니다이 플러그인.</p>
+
+<p>이 플러그인 글로벌 <code>console</code> 개체를 정의합니다.</p>
+
+<p>개체가 전역 범위에 있지만,이 플러그인에 의해 제공 되는 기능 하지 사용할 수 있습니다까지 <code>deviceready</code> 이벤트 후.</p>
+
+<pre><code>document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    console.log("console.log works well");
+}
+</code></pre>
+
+<h2 id="section">설치</h2>
+
+<pre><code>cordova plugin add cordova-plugin-console
+</code></pre>
+
+<h3 id="section-1">안 드 로이드 단점</h3>
+
+<p>안 드 로이드 이외의 일부 플랫폼에서 console.log() console.log ("1", "2", "3")와 같이 여러 인수에 작동할 것 이다. 그러나, 안 드 로이드는 첫 번째 인수에만 작동할 것 이다. Console.log() 후속 인수는 무시 됩니다. 이 플러그인의 원인이 되지 않습니다, 그리고 그것은 안 드 로이드 자체의 한계입니다.</p>
+
+  </body>
+</html>

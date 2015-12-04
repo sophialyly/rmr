@@ -41,6 +41,8 @@
     "angular-route": "~1.4.7",
     "angular-mocks": "~1.4.7",
     "angular-resource": "~1.4.7",
-    "bootstrap-star-rating": "~3.5.5"
+    "bootstrap-star-rating": "~3.5.5",
+    "leaflet": "leaflet-dist#~0.7.2",
+    "openlayers": "*"
   }
 }

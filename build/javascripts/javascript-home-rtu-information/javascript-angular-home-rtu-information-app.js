@@ -1,0 +1,360 @@
+var rtuInformationModule = angular.module("rtuInformationModule", ['ngRoute', 'ngResource']);
+
+rtuInformationModule.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	// Your code here
+
+    //jquery to dynamically include controllers as needed
+    function controllers(controllers){
+
+    	console.log("Hello Josh");
+    	console.log(controllers);
+        
+  //   	 map = new OpenLayers.Map({
+		//     div: "map",
+		//     projection: "EPSG:900913",
+		//     layers: [
+		//         new OpenLayers.Layer.XYZ(
+		//             "Imagery",
+		//             [
+		//                 "http://oatile1.mqcdn.com/naip/${z}/${x}/${y}.png",
+		//                 "http://oatile2.mqcdn.com/naip/${z}/${x}/${y}.png",
+		//                 "http://oatile3.mqcdn.com/naip/${z}/${x}/${y}.png",
+		//                 "http://oatile4.mqcdn.com/naip/${z}/${x}/${y}.png"
+		//             ],
+		//             {
+		//                 attribution: "Tiles Courtesy of <a href='http://open.mapquest.co.uk/' target='_blank'>MapQuest</a>. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. <img src='http://developer.mapquest.com/content/osm/mq_logo.png' border='0'>",
+		//                 transitionEffect: "resize",
+		//                 wrapDateLine: true
+		//             }
+		//         )
+		//     ],
+		//     controls: [
+		//         new OpenLayers.Control.Navigation({
+		//             dragPanOptions: {
+		//                 enableKinetic: true
+		//             }
+		//         }),
+		//         new OpenLayers.Control.Zoom(),
+		//         new OpenLayers.Control.Attribution()
+		//     ],
+		//     center: [0, 0],
+		//     zoom: 1
+		// });
+var options = {
+    singleTile: true,
+    ratio: 1,
+    isBaseLayer: true,
+    wrapDateLine: true,
+    getURL: function() {
+        var center = this.map.getCenter().transform("EPSG:3857", "EPSG:4326"),
+            size = this.map.getSize();
+        return [
+            this.url, "&center=", center.lat, ",", center.lon,
+            "&zoom=", this.map.getZoom(), "&size=", size.w, "x", size.h
+        ].join("");
+    }
+};
+
+var map = new OpenLayers.Map({
+    div: "map",
+    projection: "EPSG:3857",
+    numZoomLevels: 22,
+    layers: [
+        new OpenLayers.Layer.Grid(
+            "Google Physical",
+            "http://maps.googleapis.com/maps/api/staticmap?sensor=false&maptype=terrain", 
+            null, options
+        ),
+        new OpenLayers.Layer.Grid(
+            "Google Streets",
+            "http://maps.googleapis.com/maps/api/staticmap?sensor=false&maptype=roadmap", 
+            null, options
+        ),
+        new OpenLayers.Layer.Grid(
+            "Google Hybrid",
+            "http://maps.googleapis.com/maps/api/staticmap?sensor=false&maptype=hybrid", 
+            null, options
+        ),
+        new OpenLayers.Layer.Grid(
+            "Google Satellite",
+            "http://maps.googleapis.com/maps/api/staticmap?sensor=false&maptype=satellite", 
+            null, options
+        ),
+        // the same layer again, but scaled to allow map sizes up to 1280x1280 pixels
+        new OpenLayers.Layer.Grid(
+            "Google Satellite (scale=2)",
+            "http://maps.googleapis.com/maps/api/staticmap?sensor=false&maptype=satellite&scale=2", 
+            null, OpenLayers.Util.applyDefaults({
+                getURL: function() {
+                    var center = this.map.getCenter().transform("EPSG:3857", "EPSG:4326"),
+                        size = this.map.getSize();
+                    return [
+                        this.url, "&center=", center.lat, ",", center.lon,
+                        "&zoom=", (this.map.getZoom() - 1),
+                        "&size=", Math.floor(size.w / 2), "x", Math.floor(size.h / 2)
+                    ].join("");
+                }
+            }, options)
+        )
+    ],
+    center: new OpenLayers.LonLat(10.2, 48.9).transform("EPSG:4326", "EPSG:3857"),
+    zoom: 5
+});
+map.addControl(new OpenLayers.Control.LayerSwitcher());
+
+
+		
+    }
+
+
+    function controllers2(controllers){
+
+    	if(!map) {
+    		map = new OpenLayers.Map('map');
+    	}
+
+    	var wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+    		"http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+    	map.addLayer(wms);
+    	map.zoomToMaxExtent();
+		
+    }
+
+	$routeProvider
+		.when('/B01', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา บางกอกน้อย (B01)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'บางกอกน้อย (B01)',
+								showBreadCrumbsArrowLevel3: false
+							 },
+			resolve: {
+                load: function () {
+                    controllers(['foo'])
+                }
+            }
+		})
+		.when('/B01/Map', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'แผนที่ สำนักงานประปาสาขา บางกอกน้อย (B01)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'บางกอกน้อย (B01)',
+								breadCrumbsMap: 'Map',
+								showBreadCrumbsArrowLevel3: true
+							 },
+			resolve: {
+                load: function () {
+                    controllers2(['foo'])
+                }
+            }
+		})
+		.when('/B02', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา ตากสิน (B02)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'ตากสิน (B02)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B03', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา พญาไท (B03)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'พญาไท (B03)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B04', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา นนทบุรี (B04)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'นนทบุรี (B04)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B05', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา ทุ่งมหาเมฆ (B05)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'ทุ่งมหาเมฆ (B05)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B06', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา แม้นศรี (B06)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'แม้นศรี (B06)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B07', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา สุขุมวิท (B07)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'สุขุมวิท (B07)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B11', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา ภาษีเจริญ (B11)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'ภาษีเจริญ (B11)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B12', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา ลาดพร้าว (B12)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'ลาดพร้าว (B12)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B13', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา พระโขนง (B13)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'พระโขนง (B13)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B14', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา สุขสวัสดิ์ (B14)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'สุขสวัสดิ์ (B14)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B15', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา ประชาชื่น (B15)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'ประชาชื่น (B15)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B16', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา บางเขน (B16)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'บางเขน (B16)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B17', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา สุมทรปราการ (B17)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'สุมทรปราการ (B17)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B53', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา มีนบุรี (B53)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'มีนบุรี (B53)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B54', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา บางบัวทอง (B54)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'บางบัวทอง (B54)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B55', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา สุวรรณภูมิ (B55)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'สุวรรณภูมิ (B55)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.when('/B56', {
+			templateUrl: 'rtu-information-views/rtu-details.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'สำนักงานประปาสาขา มหาสวัสดิ์ (B56)',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'มหาสวัสดิ์ (B56)',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		})
+		.otherwise({
+			templateUrl: 'rtu-information-views/rtu-dashboard.php',
+			controller: 'AppCtrl',
+			myConfiguration: {
+								pageTitle : 'ภาพรวมข้อมูล RTU ทั้งหมด',
+								pageDescription: 'You can start your customization from this one!',
+								breadCrumbs: 'ข้อมูล RTU',
+								showBreadCrumbsArrowLevel3: false
+							 }
+		});
+
+		// use the HTML5 History API
+        $locationProvider.html5Mode(true);
+
+}]);
+rtuInformationModule.controller("AppCtrl", function($scope, $route){
+
+	var app = this;
+
+	
+
+
+	// $scope.pageTitle = "ภาพรวมข้อมูล RTU ทั้งหมด";
+	// $scope.pageDescription = "You can start your customization from this one!";
+	// $scope.breadCrumbs = "ข้อมูล RTU";
+
+	$scope.pageTitle = $route.current.myConfiguration.pageTitle;
+	$scope.pageDescription = $route.current.myConfiguration.pageDescription;
+	$scope.breadCrumbs = $route.current.myConfiguration.breadCrumbs;
+	$scope.breadCrumbsMap = $route.current.myConfiguration.breadCrumbsMap;
+	$scope.showBreadCrumbsArrowLevel3 = $route.current.myConfiguration.showBreadCrumbsArrowLevel3;
+
+	
+
+});
+

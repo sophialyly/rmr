@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="src src_app src_app_rmr_app src_app_rmr_app_plugins src_app_rmr_app_plugins_com">
+    <h1 id="keyboard">Keyboard</h1>
+
+<p>The <code>cordova.plugins.Keyboard</code> object provides functions to make interacting with the keyboard easier, and fires events to indicate that the keyboard will hide/show.</p>
+
+<pre><code>cordova plugin add com.ionic.keyboard
+</code></pre>
+
+<h2 id="methods">Methods</h2>
+
+<ul>
+  <li>cordova.plugins.Keyboard.hideKeyboardAccessoryBar</li>
+  <li>cordova.plugins.Keyboard.close</li>
+  <li>cordova.plugins.Keyboard.disableScroll</li>
+  <li>cordova.plugins.Keyboard.show</li>
+</ul>
+
+<h2 id="properties">Properties</h2>
+
+<ul>
+  <li>cordova.plugins.Keyboard.isVisible</li>
+</ul>
+
+<h2 id="events">Events</h2>
+
+<p>These events are fired on the window.</p>
+
+<ul>
+  <li>native.keyboardshow
+    <ul>
+      <li>A number <code>keyboardHeight</code> is given on the event object, which is the pixel height of the keyboard.</li>
+    </ul>
+  </li>
+  <li>native.keyboardhide</li>
+</ul>
+
+<h1 id="keyboardhidekeyboardaccessorybar">Keyboard.hideKeyboardAccessoryBar</h1>
+
+<p>Hide the keyboard accessory bar with the next, previous and done buttons.</p>
+
+<pre><code>cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+</code></pre>
+
+<h2 id="supported-platforms">Supported Platforms</h2>
+
+<ul>
+  <li>iOS</li>
+</ul>
+
+<h1 id="keyboardclose">Keyboard.close</h1>
+
+<p>Close the keyboard if it is open.</p>
+
+<pre><code>cordova.plugins.Keyboard.close();
+</code></pre>
+
+<h2 id="supported-platforms-1">Supported Platforms</h2>
+
+<ul>
+  <li>iOS, Android, Blackberry 10</li>
+</ul>
+
+<h1 id="keyboarddisablescroll">Keyboard.disableScroll</h1>
+
+<p>Disable native scrolling, useful if you are using JavaScript to scroll</p>
+
+<pre><code>cordova.plugins.Keyboard.disableScroll(true);
+cordova.plugins.Keyboard.disableScroll(false);
+</code></pre>
+
+<h2 id="supported-platforms-2">Supported Platforms</h2>
+
+<ul>
+  <li>iOS</li>
+</ul>
+
+<h1 id="keyboardshow">Keyboard.show</h1>
+
+<p>Force keyboard to be shown on Android. This typically helps if autofocus on a text element does not pop up the keyboard automatically</p>
+
+<pre><code>cordova.plugins.Keyboard.show();
+</code></pre>
+
+<p>Supported Platforms</p>
+
+<ul>
+  <li>Android, Blackberry 10</li>
+</ul>
+
+<h1 id="nativekeyboardshow">native.keyboardshow</h1>
+
+<p>This event fires when the keyboard will be shown</p>
+
+<pre><code>window.addEventListener('native.keyboardshow', keyboardShowHandler);
+
+function keyboardShowHandler(e){
+    alert('Keyboard height is: ' + e.keyboardHeight);
+}
+</code></pre>
+
+<h2 id="properties-1">Properties</h2>
+
+<p>keyboardHeight: the height of the keyboard in pixels</p>
+
+<h2 id="supported-platforms-3">Supported Platforms</h2>
+
+<ul>
+  <li>iOS, Android, Blackberry 10</li>
+</ul>
+
+<h1 id="nativekeyboardhide">native.keyboardhide</h1>
+
+<p>This event fires when the keyboard will hide</p>
+
+<pre><code>window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+function keyboardHideHandler(e){
+    alert('Goodnight, sweet prince');
+}
+</code></pre>
+
+<h2 id="properties-2">Properties</h2>
+
+<p>None</p>
+
+<h2 id="supported-platforms-4">Supported Platforms</h2>
+
+<ul>
+  <li>iOS, Android, Blackberry 10</li>
+</ul>
+
+  </body>
+</html>

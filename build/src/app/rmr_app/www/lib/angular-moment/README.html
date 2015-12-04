@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="src src_app src_app_rmr_app src_app_rmr_app_www src_app_rmr_app_www_lib src_app_rmr_app_www_lib_angular-moment src_app_rmr_app_www_lib_angular-moment_README">
+    <h1 id="angular-moment">angular-moment</h1>
+
+<p>AngularJS directive and filters for <a href="http://www.momentjs.com">Moment.JS</a>.</p>
+
+<p>Copyright (C) 2013, 2014, 2015, Uri Shaked <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#117;&#114;&#105;&#064;&#117;&#114;&#105;&#115;&#104;&#046;&#111;&#114;&#103;">&#117;&#114;&#105;&#064;&#117;&#114;&#105;&#115;&#104;&#046;&#111;&#114;&#103;</a></p>
+
+<p><a href="https://travis-ci.org/urish/angular-moment"><img alt="Build Status" src="https://travis-ci.org/urish/angular-moment.png?branch=master" /></a>
+<a href="https://coveralls.io/r/urish/angular-moment"><img alt="Coverage Status" src="https://coveralls.io/repos/urish/angular-moment/badge.png" /></a></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>You can choose your preferred method of installation:
+* Through bower: <code>bower install angular-moment --save</code>
+* Through npm: <code>npm install angular-moment --save</code>
+* Through NuGet: <code>Install-Package angular-moment</code>
+* From a CDN: <a href="https://cdn.jsdelivr.net/angular.moment/0.10.3/angular-moment.min.js">jsDelivr</a> or <a href="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.3/angular-moment.min.js">CDNJS</a>
+* Download from github: <a href="https://raw.github.com/urish/angular-moment/master/angular-moment.min.js">angular-moment.min.js</a></p>
+
+<h2 id="usage">Usage</h2>
+<p>Include both moment.js and angular-moment.js in your application.</p>
+
+<p><code>html
+&lt;script src="components/moment/moment.js"&gt;&lt;/script&gt;
+&lt;script src="components/angular-moment/angular-moment.js"&gt;&lt;/script&gt;
+</code></p>
+
+<p>Add the module <code>angularMoment</code> as a dependency to your app module:</p>
+
+<p><code>js
+var myapp = angular.module('myapp', ['angularMoment']);
+</code></p>
+
+<p>If you need internationalization support, load specified moment.js locale file first:</p>
+
+<p><code>html
+&lt;script src="components/moment/locale/de.js"&gt;&lt;/script&gt;
+</code></p>
+
+<p>Then call the <code>amMoment.changeLocale()</code> method (e.g. inside your app's run() callback):</p>
+
+<p><code>js
+myapp.run(function(amMoment) {
+	amMoment.changeLocale('de');
+});
+</code></p>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>Parameter <code>preprocess</code>(e.g: <code>unix</code>, <code>utc</code>) would pre-execute before.</p>
+
+<p><code>js
+angular.module('myapp').constant('angularMomentConfig', {
+	preprocess: 'unix', // optional
+	timezone: 'Europe/London' // optional
+});
+</code></p>
+
+<h3 id="timeago-directive">Timeago directive</h3>
+<p>Use am-time-ago directive to format your relative timestamps. For example:</p>
+
+<p><code>html
+&lt;span am-time-ago="message.time"&gt;&lt;/span&gt;
+&lt;span am-time-ago="message.time" am-preprocess="unix"&gt;&lt;/span&gt;
+</code></p>
+
+<p>angular-moment will dynamically update the span to indicate how much time
+passed since the message was created. So, if your controller contains the following
+code:
+<code>js
+$scope.message = {
+   text: 'hello world!',
+   time: new Date()
+};
+</code></p>
+
+<p>The user will initially see "a few seconds ago", and about a minute
+after the span will automatically update with the text "a minute ago",
+etc.</p>
+
+<h3 id="amdateformat-filter">amDateFormat filter</h3>
+<p>Format dates using moment.js format() method. Example:</p>
+
+<p><code>html
+&lt;span&gt;{{message.time | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}&lt;/span&gt;
+</code></p>
+
+<p>This snippet will format the given time as "Monday, October 7th 2013, 12:36:29 am".</p>
+
+<p>For more information about Moment.JS formatting options, see the
+<a href="http://momentjs.com/docs/#/displaying/format/">docs for the format() function</a>.</p>
+
+<h3 id="amcalendar-filter">amCalendar filter</h3>
+
+<p>Format dates using moment.js calendar() method. Example:</p>
+
+<p><code>html
+&lt;span&gt;{{message.time | amCalendar}}&lt;/span&gt;
+</code></p>
+
+<p>This snippet will format the given time as e.g. "Today 2:30 AM" or "Last Monday 2:30 AM" etc..</p>
+
+<p>For more information about Moment.JS calendar time format, see the
+<a href="http://momentjs.com/docs/#/displaying/calendar-time/">docs for the calendar() function</a>.</p>
+
+<h3 id="amdifference-filter">amDifference filter</h3>
+
+<p>Get the difference between two dates in milliseconds.
+Parameters are date, units and usePrecision. Date defaults to current date. Example:</p>
+
+<p><code>html
+&lt;span&gt;Scheduled {{message.createdAt | amDifference : null : 'days' }} days from now&lt;/span&gt;
+</code></p>
+
+<p>This snippet will return the number of days between the current date and the date filtered.</p>
+
+<p>For more information about Moment.JS difference function, see the
+<a href="http://momentjs.com/docs/#/displaying/difference/">docs for the diff() function</a>.</p>
+
+<h3 id="amdurationformat-filter">amDurationFormat filter</h3>
+
+<p>Formats a duration (such as 5 days) in a human readable format. See <a href="http://momentjs.com/docs/#/durations/creating/">Moment.JS documentation</a> for a list of supported duration formats, and <a href="http://momentjs.com/docs/#/durations/humanize/"><code>humanize() documentation</code></a> for explanation about the formatting algorithm.</p>
+
+<p>Example:</p>
+
+<p><code>html
+&lt;span&gt;Message age: {{message.ageInMinutes | amDurationFormat : 'minute' }}&lt;/span&gt;
+</code></p>
+
+<p>Will display the age of the message (e.g. 10 minutes, 1 hour, 2 days, etc).</p>
+
+<h3 id="amsubtract-filter">amSubtract filter</h3>
+
+<p>Subtract values (hours, minutes, seconds …) from a specified date.</p>
+
+<p>See <a href="http://momentjs.com/docs/#/durations/creating/">Moment.JS documentation</a> for a list of supported duration formats.</p>
+
+<p>Example:</p>
+
+<p>```html
+<span>Start time: {{day.start | amSubtract : '1' : 'hours' | amDateFormat : 'hh'}} : {{day.start | amSubtract : '30' : 'minutes' | amDateFormat : 'mm'}}</span></p>
+
+<p>```</p>
+
+<h3 id="amadd-filter">amAdd filter</h3>
+
+<p>Add values (hours, minutes, seconds …) to a specified date.</p>
+
+<p>See <a href="http://momentjs.com/docs/#/durations/creating/">Moment.JS documentation</a> for a list of supported duration formats.</p>
+
+<p>Example:</p>
+
+<p>```html
+<span>Start time: {{day.start | amAdd : '1' : 'hours' | amDateFormat : 'hh'}} : {{day.start | amAdd : '30' : 'minutes' | amDateFormat : 'mm'}}</span></p>
+
+<p>```</p>
+
+<h3 id="time-zone-support">Time zone support</h3>
+
+<p>The <code>amDateFormat</code> and <code>amCalendar</code> filters can be configured to display dates aligned
+to a specific timezone. You can configure the timezone using the following syntax:</p>
+
+<p><code>js
+angular.module('myapp').constant('angularMomentConfig', {
+    timezone: 'Name of Timezone' // e.g. 'Europe/London'
+});
+</code></p>
+
+<p>Remember to include <code>moment-timezone.js</code> in your project, otherwise the custom timezone
+functionality will not be available. You will also need to include a timezone data file that
+you can create using the <a href="http://momentjs.com/timezone/data/">Timezone Data Builder</a>
+or simply download from <a href="https://rawgithub.com/qw4n7y/7282780/raw/6ae3b334b295f93047e8f3ad300db6bc4387e235/moment-timezone-data.js">here</a>.</p>
+
+<h2 id="license">License</h2>
+
+<p>Released under the terms of the <a href="/src/app/rmr_app/www/lib/angular-moment/LICENSE">MIT License</a>.</p>
+
+  </body>
+</html>

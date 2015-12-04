@@ -61,7 +61,7 @@ set :partials_desktop_Common_dir, 'src/desktop/Common'
 set :partials_desktop_Admin_blank_dir, 'src/desktop/Admin/blank'
 set :partials_desktop_Home_index_dir, 'src/desktop/Home'
 
-set :partials_desktop_home_rtu_information, 'src/desktop/Home/RTU/Infomation'
+set :partials_desktop_home_rtu_information, 'src/desktop/Home/RTU/Information'
 
 set :partials_desktop_home_rmr_reportCost, 'src/desktop/Home/RMR/ReportCost'
 set :partials_desktop_home_rmr_reportDeviceRepair, 'src/desktop/Home/RMR/ReportDeviceRepair'

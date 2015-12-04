@@ -1,0 +1,20 @@
+rtuInformationModule.controller("AppCtrl", function($scope, $route){
+
+	var app = this;
+
+	
+
+
+	// $scope.pageTitle = "ภาพรวมข้อมูล RTU ทั้งหมด";
+	// $scope.pageDescription = "You can start your customization from this one!";
+	// $scope.breadCrumbs = "ข้อมูล RTU";
+
+	$scope.pageTitle = $route.current.myConfiguration.pageTitle;
+	$scope.pageDescription = $route.current.myConfiguration.pageDescription;
+	$scope.breadCrumbs = $route.current.myConfiguration.breadCrumbs;
+	$scope.breadCrumbsMap = $route.current.myConfiguration.breadCrumbsMap;
+	$scope.showBreadCrumbsArrowLevel3 = $route.current.myConfiguration.showBreadCrumbsArrowLevel3;
+
+	
+
+});

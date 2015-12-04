@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="src src_app src_app_rmr_app src_app_rmr_app_plugins src_app_rmr_app_plugins_cordova-plugin-device src_app_rmr_app_plugins_cordova-plugin-device_RELEASENOTES">
+    <!--
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+# http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+-->
+<p># Release Notes</p>
+
+<h3 id="sept-5-2013">0.2.1 (Sept 5, 2013)</h3>
+<ul>
+  <li>removed extraneous print statement</li>
+  <li>[CB-4432] copyright notice change</li>
+</ul>
+
+<h3 id="sept-25-2013">0.2.3 (Sept 25, 2013)</h3>
+<ul>
+  <li>CB-4889 bumping&amp;resetting version</li>
+  <li>[windows8] commandProxy has moved</li>
+  <li>[BlackBerry10] removed uneeded permission tags in plugin.xml</li>
+  <li>CB-4889 renaming org.apache.cordova.core.device to org.apache.cordova.device</li>
+  <li>Rename CHANGELOG.md -&gt; RELEASENOTES.md</li>
+  <li>updated to use commandProxy for ffos</li>
+  <li>add firefoxos support</li>
+  <li>[CB-4752] Incremented plugin version on dev branch.</li>
+</ul>
+
+<h3 id="oct-28-2013">0.2.4 (Oct 28, 2013)</h3>
+<ul>
+  <li>CB-5128: added repo + issue tag in plugin.xml for device plugin</li>
+  <li>CB-5085 device.cordova returning wrong value</li>
+  <li>[CB-4915] Incremented plugin version on dev branch.</li>
+</ul>
+
+<h3 id="dec-4-2013">0.2.5 (Dec 4, 2013)</h3>
+<ul>
+  <li>CB-5316 Spell Cordova as a brand unless it's a command or script</li>
+  <li>[ubuntu] use cordova/exec/proxy</li>
+  <li>add ubuntu platform</li>
+  <li>Modify Device.platform logic to use amazon-fireos as the platform for Amazon Devices</li>
+  <li>
+    <ol>
+      <li>Added amazon-fireos platform. 2. Change to use cordova-amazon-fireos as the platform if user agent contains 'cordova-amazon-fireos'</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="jan-02-2014">0.2.6 (Jan 02, 2014)</h3>
+<ul>
+  <li>CB-5658 Add doc/index.md for Device plugin</li>
+  <li>CB-5504 Moving Telephony Logic out of Device</li>
+</ul>
+
+<h3 id="jan-07-2014">0.2.7 (Jan 07, 2014)</h3>
+<ul>
+  <li>CB-5737 Fix exception on close caused by left over telephony code from CB-5504</li>
+</ul>
+
+<h3 id="feb-05-2014">0.2.8 (Feb 05, 2014)</h3>
+<ul>
+  <li>Tizen support added</li>
+</ul>
+
+<h3 id="apr-17-2014">0.2.9 (Apr 17, 2014)</h3>
+<ul>
+  <li>CB-5105: [Android, windows8, WP, BlackBerry10] Removed dead code for device.version</li>
+  <li>CB-6422: [windows8] use cordova/exec/proxy</li>
+  <li>CB-6460: Update license headers</li>
+  <li>Add NOTICE file</li>
+</ul>
+
+<h3 id="jun-05-2014">0.2.10 (Jun 05, 2014)</h3>
+<ul>
+  <li>CB-6127 Spanish and French Translations added. Github close #12</li>
+  <li>Changing 1.5 to 2.0</li>
+  <li>added firefoxos version - conversion</li>
+  <li>added firefoxos version</li>
+  <li>CB-6800 Add license</li>
+  <li>CB-6491 add CONTRIBUTING.md</li>
+</ul>
+
+<h3 id="aug-06-2014">0.2.11 (Aug 06, 2014)</h3>
+<ul>
+  <li>[FFOS] update DeviceProxy.js</li>
+  <li>CB-6127 Updated translations for docs</li>
+  <li>Use Windows system calls to get better info</li>
+</ul>
+
+<h3 id="sep-17-2014">0.2.12 (Sep 17, 2014)</h3>
+<ul>
+  <li>CB-7471 cordova-plugin-device documentation translation</li>
+  <li>CB-7552 device.name docs have not been removed</li>
+  <li>[fxos] Fix cordova version</li>
+  <li>added status box and documentation to manual tests</li>
+  <li>[fxos] Fix cordova version</li>
+  <li>added status box and documentation to manual tests</li>
+  <li>Added plugin support for the browser</li>
+  <li>CB-7262 Adds support for universal windows apps.</li>
+</ul>
+
+<h3 id="dec-02-2014">0.2.13 (Dec 02, 2014)</h3>
+<ul>
+  <li>Changing <code>device.platform</code> to always report the platform as "browser".</li>
+  <li>CB-5892 - Remove deprecated <code>window.Settings</code></li>
+  <li>CB-7700 cordova-plugin-device documentation translation: cordova-plugin-device</li>
+  <li>CB-7571 Bump version of nested plugin to match parent plugin</li>
+</ul>
+
+<h3 id="feb-04-2015">0.3.0 (Feb 04, 2015)</h3>
+<ul>
+  <li>Added device.manufacturer property for Android, iOS, Blackberry, WP8</li>
+  <li>Support for Windows Phone 8 ANID2 ANID is only supported up to Windows Phone 7.5</li>
+  <li>CB-8351 Use a local copy of uniqueAppInstanceIdentifier rather than CordovaLib's version</li>
+  <li>browser: Fixed a bug that caused an "cannot call method of undefined" error if the browser's user agent wasn't recognized</li>
+</ul>
+
+<h3 id="apr-15-2015">1.0.0 (Apr 15, 2015)</h3>
+<ul>
+  <li>CB-8746 gave plugin major version bump</li>
+  <li>CB-8683 changed plugin-id to pacakge-name</li>
+  <li>CB-8653 properly updated translated docs to use new id</li>
+  <li>CB-8653 updated translated docs to use new id</li>
+  <li>Use TRAVIS_BUILD_DIR, install paramedic by npm</li>
+  <li>CB-8653 Updated Readme</li>
+  <li>remove defunct windows8 version</li>
+  <li>add travis badge</li>
+  <li>Add cross-plugin ios paramedic test running for TravisCI</li>
+  <li>CB-8538 Added package.json file</li>
+</ul>
+
+<h3 id="jun-17-2015">1.0.1 (Jun 17, 2015)</h3>
+<ul>
+  <li>CB-9128 cordova-plugin-device documentation translation: cordova-plugin-device</li>
+  <li>Attempts to corrent npm markdown issue</li>
+</ul>
+
+  </body>
+</html>

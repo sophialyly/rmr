@@ -1,0 +1,33 @@
+      <ion-view title="Reddit" >
+        <ion-content padding="true">
+          <!-- <div class="list">
+            <h1>Reddit</h1>
+          </div> -->
+
+          <!-- {{stories[0].title}} -->
+
+          <!-- <div ng-repeat="story in stories">
+          	<h4>{{story.title}} - {{story.domain}}</h4>
+          </div> -->
+
+     <!--      <div class="card" ng-repeat="story in stories">
+          	<div class="item item-text-wrap">
+          		{{story.title}} - {{story.domain}}
+          	</div>
+          </div> -->
+
+          <div class="list" ng-repeat="story in stories">
+
+          	<a class="item item-avatar" href="#">
+          		<img src="img/venkman.jpg">
+          		<h2>{{story.title}}</h2>
+          		<!-- <p>{{story.created_utc}} - {{story.domain}}</p> -->
+              <p><span am-time-ago="story.created_utc"></span> - {{story.domain}}</p>
+          	</a>
+
+          </div>
+
+
+
+        </ion-content>
+      </ion-view>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="src src_app src_app_rmr_app src_app_rmr_app_plugins src_app_rmr_app_plugins_cordova-plugin-splashscreen src_app_rmr_app_plugins_cordova-plugin-splashscreen_README">
+    <!--
+# license: Licensed to the Apache Software Foundation (ASF) under one
+#         or more contributor license agreements.  See the NOTICE file
+#         distributed with this work for additional information
+#         regarding copyright ownership.  The ASF licenses this file
+#         to you under the Apache License, Version 2.0 (the
+#         "License"); you may not use this file except in compliance
+#         with the License.  You may obtain a copy of the License at
+#
+#           http://www.apache.org/licenses/LICENSE-2.0
+#
+#         Unless required by applicable law or agreed to in writing,
+#         software distributed under the License is distributed on an
+#         "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#         KIND, either express or implied.  See the License for the
+#         specific language governing permissions and limitations
+#         under the License.
+-->
+
+<h1 id="cordova-plugin-splashscreen">cordova-plugin-splashscreen</h1>
+
+<p><a href="https://travis-ci.org/apache/cordova-plugin-splashscreen"><img alt="Build Status" src="https://travis-ci.org/apache/cordova-plugin-splashscreen.svg" /></a></p>
+
+<p>This plugin displays and hides a splash screen during application launch.</p>
+
+<h2 id="installation">Installation</h2>
+
+<pre><code>// npm hosted (new) id
+cordova plugin add cordova-plugin-splashscreen
+// you may also install directly from this repo
+cordova plugin add https://github.com/apache/cordova-plugin-splashscreen.git
+</code></pre>
+
+<h2 id="supported-platforms">Supported Platforms</h2>
+
+<ul>
+  <li>Amazon Fire OS</li>
+  <li>Android</li>
+  <li>BlackBerry 10</li>
+  <li>iOS</li>
+  <li>Windows Phone 7 and 8</li>
+  <li>Windows 8</li>
+  <li>Windows</li>
+  <li>Browser</li>
+</ul>
+
+<h2 id="methods">Methods</h2>
+
+<ul>
+  <li>splashscreen.show</li>
+  <li>splashscreen.hide</li>
+</ul>
+
+<h3 id="android-quirks">Android Quirks</h3>
+
+<p>In your <code>config.xml</code>, you need to add the following preferences:</p>
+
+<pre><code>&lt;preference name="SplashScreen" value="foo" /&gt;
+&lt;preference name="SplashScreenDelay" value="10000" /&gt;
+&lt;preference name="SplashMaintainAspectRatio" value="true|false" /&gt;
+</code></pre>
+
+<p>Where foo is the name of the splashscreen file, preferably a 9 patch file. Make sure to add your splashcreen files to your res/xml directory under the appropriate folders. The second parameter represents how long the splashscreen will appear in milliseconds. It defaults to 3000 ms. See <a href="http://cordova.apache.org/docs/en/edge/config_ref_images.md.html">Icons and Splash Screens</a>
+for more information.</p>
+
+<p>"SplashMaintainAspectRatio" preference is optional. If set to true, splash screen drawable is not stretched to fit screen, but instead simply "covers" the screen, like CSS "background-size:cover". This is very useful when splash screen images cannot be distorted in any way, for example when they contain scenery or text. This setting works best with images that have large margins (safe areas) that can be safely cropped on screens with different aspect ratios.</p>
+
+<p>The plugin reloads splash drawable whenever orientation changes, so you can specify different drawables for portrait and landscape orientations.</p>
+
+<h3 id="browser-quirks">Browser Quirks</h3>
+
+<p>You can use the following preferences in your <code>config.xml</code>:</p>
+
+<pre><code>&lt;platform name="browser"&gt;
+    &lt;preference name="SplashScreen" value="images/browser/splashscreen.jpg" /&gt; &lt;!-- defaults to "img/logo.png" --&gt;
+    &lt;preference name="SplashScreenDelay" value="10000" /&gt; &lt;!-- defaults to "3000" --&gt;
+    &lt;preference name="SplashScreenBackgroundColor" value="green" /&gt; &lt;!-- defaults to "#464646" --&gt;
+    &lt;preference name="ShowSplashScreen" value="false" /&gt; &lt;!-- defaults to "true" --&gt;
+    &lt;preference name="SplashScreenWidth" value="600" /&gt; &lt;!-- defaults to "170" --&gt;
+    &lt;preference name="SplashScreenHeight" value="300" /&gt; &lt;!-- defaults to "200" --&gt;
+&lt;/platform&gt;
+</code></pre>
+
+<h3 id="ios-quirks">iOS Quirks</h3>
+
+<ul>
+  <li>
+    <p><code>FadeSplashScreen</code> (boolean, defaults to <code>true</code>): Set to <code>false</code> to
+prevent the splash screen from fading in and out when its display
+state changes.</p>
+
+    <pre><code>  &lt;preference name="FadeSplashScreen" value="false"/&gt;
+</code></pre>
+  </li>
+  <li>
+    <p><code>FadeSplashScreenDuration</code> (float, defaults to <code>2</code>): Specifies the
+number of seconds for the splash screen fade effect to execute.</p>
+
+    <pre><code>  &lt;preference name="FadeSplashScreenDuration" value="4"/&gt;
+</code></pre>
+  </li>
+  <li>
+    <p><code>ShowSplashScreenSpinner</code> (boolean, defaults to <code>true</code>): Set to <code>false</code>
+to hide the splash-screen spinner.</p>
+
+    <pre><code>  &lt;preference name="ShowSplashScreenSpinner" value="false"/&gt;
+</code></pre>
+  </li>
+</ul>
+
+<h2 id="splashscreenhide">splashscreen.hide</h2>
+
+<p>Dismiss the splash screen.</p>
+
+<pre><code>navigator.splashscreen.hide();
+</code></pre>
+
+<h3 id="blackberry-10-wp8-ios-quirk">BlackBerry 10, WP8, iOS Quirk</h3>
+
+<p>The <code>config.xml</code> file's <code>AutoHideSplashScreen</code> setting must be
+<code>false</code>. To delay hiding the splash screen for two seconds, add a
+timer such as the following in the <code>deviceready</code> event handler:</p>
+
+<pre><code>    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 2000);
+</code></pre>
+
+<h2 id="splashscreenshow">splashscreen.show</h2>
+
+<p>Displays the splash screen.</p>
+
+<pre><code>navigator.splashscreen.show();
+</code></pre>
+
+<p>Your application cannot call <code>navigator.splashscreen.show()</code> until the app has
+started and the <code>deviceready</code> event has fired. But since typically the splash
+screen is meant to be visible before your app has started, that would seem to
+defeat the purpose of the splash screen.  Providing some configuration in
+<code>config.xml</code> will automatically <code>show</code> the splash screen immediately after your
+app launch and before it has fully started and received the <code>deviceready</code>
+event. See <a href="http://cordova.apache.org/docs/en/edge/config_ref_images.md.html">Icons and Splash Screens</a>
+for more information on doing this configuration. For this reason, it is
+unlikely you need to call <code>navigator.splashscreen.show()</code> to make the splash
+screen visible for app startup.</p>
+
+
+  </body>
+</html>

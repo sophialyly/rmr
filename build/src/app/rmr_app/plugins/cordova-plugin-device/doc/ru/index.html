@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="src src_app src_app_rmr_app src_app_rmr_app_plugins src_app_rmr_app_plugins_cordova-plugin-device src_app_rmr_app_plugins_cordova-plugin-device_doc src_app_rmr_app_plugins_cordova-plugin-device_doc_ru src_app_rmr_app_plugins_cordova-plugin-device_doc_ru_index">
+    <!---
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<h1 id="cordova-plugin-device">cordova-plugin-device</h1>
+
+<p>Этот плагин определяет глобальный объект <code>device</code>, который описывает оборудование и программное обеспечение устройства. Несмотря на то что объект в глобальной области видимости, он не доступен до того момента пока не произойдет событие <code>deviceready</code>.</p>
+
+<pre><code>document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    console.log(device.cordova);
+}
+</code></pre>
+
+<h2 id="section">Установка</h2>
+
+<pre><code>cordova plugin add cordova-plugin-device
+</code></pre>
+
+<h2 id="section-1">Параметры</h2>
+
+<ul>
+  <li>device.cordova</li>
+  <li>device.model</li>
+  <li>device.platform</li>
+  <li>device.uuid</li>
+  <li>device.version</li>
+</ul>
+
+<h2 id="devicecordova">device.cordova</h2>
+
+<p>Возвращает версию Cordova, работающую на устройстве.</p>
+
+<h3 id="section-2">Поддерживаемые платформы</h3>
+
+<ul>
+  <li>Amazon Fire OS</li>
+  <li>Android</li>
+  <li>BlackBerry 10</li>
+  <li>Обозреватель</li>
+  <li>Firefox OS</li>
+  <li>iOS</li>
+  <li>Tizen</li>
+  <li>Windows Phone 7 и 8</li>
+  <li>Windows 8</li>
+</ul>
+
+<h2 id="devicemodel">device.model</h2>
+
+<p>Свойство <code>device.model</code> возвращает имя устройства модели или продукта. Значение устанавливается производителем устройства и могут отличаться в разных версиях одного и того же продукта.</p>
+
+<h3 id="section-3">Поддерживаемые платформы</h3>
+
+<ul>
+  <li>Android</li>
+  <li>BlackBerry 10</li>
+  <li>Обозреватель</li>
+  <li>iOS</li>
+  <li>Tizen</li>
+  <li>Windows Phone 7 и 8</li>
+  <li>Windows 8</li>
+</ul>
+
+<h3 id="section-4">Краткий пример</h3>
+
+<pre><code>// Android:    Nexus One       returns "Passion" (Nexus One code name)
+//             Motorola Droid  returns "voles"
+// BlackBerry: Torch 9800      returns "9800"
+// Browser:    Google Chrome   returns "Chrome"
+//             Safari          returns "Safari"
+// iOS:     for the iPad Mini, returns iPad2,5; iPhone 5 is iPhone 5,1. See http://theiphonewiki.com/wiki/index.php?title=Models
+//
+var model = device.model;
+</code></pre>
+
+<h3 id="android">Особенности Android</h3>
+
+<ul>
+  <li>Возвращает <a href="http://developer.android.com/reference/android/os/Build.html#PRODUCT">имя продукта</a> , а не <a href="http://developer.android.com/reference/android/os/Build.html#MODEL">имя модели</a>, которое часто является производственным кодом. Например, Nexus One из них возвращает <code>Passion</code> , и Motorola Droid возвращает <code>voles</code>.</li>
+</ul>
+
+<h3 id="tizen">Особенности Tizen</h3>
+
+<ul>
+  <li>Возвращает модель устройства, назначенного вендором, например,<code>TIZEN</code></li>
+</ul>
+
+<h3 id="windows-phone-7--8">Особенности Windows Phone 7 и 8</h3>
+
+<ul>
+  <li>Возвращает модель устройства, указанной заводом-изготовителем. Например Samsung Focus возвращает <code>SGH-i917</code>.</li>
+</ul>
+
+<h2 id="deviceplatform">device.platform</h2>
+
+<p>Получите имя операционной системы устройства.</p>
+
+<pre><code>var string = device.platform;
+</code></pre>
+
+<h3 id="section-5">Поддерживаемые платформы</h3>
+
+<ul>
+  <li>Android</li>
+  <li>BlackBerry 10</li>
+  <li>Браузером4</li>
+  <li>Firefox OS</li>
+  <li>iOS</li>
+  <li>Tizen</li>
+  <li>Windows Phone 7 и 8</li>
+  <li>Windows 8</li>
+</ul>
+
+<h3 id="section-6">Краткий пример</h3>
+
+<pre><code>// Depending on the device, a few examples are:
+//   - "Android"
+//   - "BlackBerry 10"
+//   - Browser:         returns "MacIntel" on Mac
+//                      returns "Win32" on Windows
+//   - "iOS"
+//   - "WinCE"
+//   - "Tizen"
+var devicePlatform = device.platform;
+</code></pre>
+
+<h3 id="windows-phone-7">Особенности Windows Phone 7</h3>
+
+<p>Windows Phone 7 устройства сообщают платформу как <code>WinCE</code>.</p>
+
+<h3 id="windows-phone-8">Особенности Windows Phone 8</h3>
+
+<p>Устройства Windows Phone 8 сообщают платформу как <code>Win32NT</code>.</p>
+
+<h2 id="deviceuuid">device.uuid</h2>
+
+<p>Возвращает универсальный уникального идентификатора (<a href="http://en.wikipedia.org/wiki/Universally_Unique_Identifier">UUID</a> устройства).</p>
+
+<pre><code>var string = device.uuid;
+</code></pre>
+
+<h3 id="section-7">Описание</h3>
+
+<p>Подробная информация о том как UUID генерируется, определяются изготовителем устройства и являются специфическими для платформы или модели устройства.</p>
+
+<h3 id="section-8">Поддерживаемые платформы</h3>
+
+<ul>
+  <li>Android</li>
+  <li>BlackBerry 10</li>
+  <li>iOS</li>
+  <li>Tizen</li>
+  <li>Windows Phone 7 и 8</li>
+  <li>Windows 8</li>
+</ul>
+
+<h3 id="section-9">Краткий пример</h3>
+
+<pre><code>// Android: Возвращает случайное 64-разрядное целое число (в виде строки, опять!) 
+// целое число генерируется при первой загрузке устройства 
+//
+// BlackBerry: Возвращает номер PIN устройства 
+// это 9 значный уникальный целочисленный (как строка, хотя!) 
+// 
+// iPhone: (Перефразировано из документации класса UIDevice) 
+// возвращает строку хэш-значения, созданные из нескольких аппаратных определяет.
+// Это значение гарантированно является уникальным для каждого устройства и не может быть привязано 
+// к учетной записи пользователя.
+// Windows Phone 7: Возвращает хэш устройство + текущего пользователя, 
+// если пользователь не определен, формируется guid который и будет сохраняться до тех пор, пока приложение не удалиться 
+// Tizen: возвращает IMEI устройства (Международный идентификатор мобильного оборудования или IMEI это число 
+// уникальное для каждого мобильного телефона GSM и UMTS.
+var deviceID = device.uuid;
+</code></pre>
+
+<h3 id="ios">Особенности iOS</h3>
+
+<p>На iOS <code>uuid</code> не является уникальным для устройства, но варьируется для каждого приложения, и для каждой установки. Значение меняется, если удалить и повторно установить приложение, и возможно также когда вы обновите iOS, или даже обновить приложение до следующей версии (очевидно в iOS 5.1). Значение <code>uuid</code> не является надежным.</p>
+
+<h3 id="windows-phone-7--8-1">Особенности Windows Phone 7 и 8</h3>
+
+<p>Для Windows Phone 7 <code>uuid</code> требует разрешения <code>ID_CAP_IDENTITY_DEVICE</code> . Microsoft скорее всего скоро сделает это свойство устаревшим. Если возможность недоступна, приложение создает постоянные guid, который сохраняется на все время установки приложения на устройстве.</p>
+
+<h2 id="deviceversion">device.version</h2>
+
+<p>Возвращает версию операционной системы.</p>
+
+<pre><code>var string = device.version;
+</code></pre>
+
+<h3 id="section-10">Поддерживаемые платформы</h3>
+
+<ul>
+  <li>Android 2.1 +</li>
+  <li>BlackBerry 10</li>
+  <li>Обозреватель</li>
+  <li>iOS</li>
+  <li>Tizen</li>
+  <li>Windows Phone 7 и 8</li>
+  <li>Windows 8</li>
+</ul>
+
+<h3 id="section-11">Краткий пример</h3>
+
+<pre><code>// Android:    Froyo OS would return "2.2"
+//             Eclair OS would return "2.1", "2.0.1", or "2.0"
+//             Version can also return update level "2.1-update1"
+//
+// BlackBerry: Torch 9800 using OS 6.0 would return "6.0.0.600"
+//
+// Browser:    Returns version number for the browser
+//
+// iPhone:     iOS 3.2 returns "3.2"
+//
+// Windows Phone 7: returns current OS version number, ex. on Mango returns 7.10.7720
+// Tizen: returns "TIZEN_20120425_2"
+var deviceVersion = device.version;
+</code></pre>
+
+  </body>
+</html>

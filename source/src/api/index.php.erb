@@ -26,6 +26,54 @@ layout: "layout-api"
     // $db = new NotORM($pdo);
 
 
+    // /* เชื่อมต่อ DB2 */
+    $driver_db2 = "{IBM DB2 ODBC DRIVER}";
+    $database_db2 = "iWLMA";
+    $hostname_db2 = "172.16.194.210";
+    $port_db2 = 50000;
+    $user_db2 = "db2admin";
+    $password_db2 = "password";
+
+    $conn_string_db2 = "DRIVER=$driver_db2;DATABASE=$database_db2;";
+    $conn_string_db2 .= "HOSTNAME=$hostname_db2;PORT=$port_db2;PROTOCOL=TCPIP;";
+    $conn_string_db2 .= "UID=$user_db2;PWD=$password_db2;";
+
+    try {
+        $conn_db2 = db2_connect($conn_string_db2, '', '');
+
+        $client = db2_client_info($conn_db2);
+
+        // if ($client) {
+        //     echo var_dump($client->APPL_CODEPAGE);
+        //     echo "DRIVER_NAME: ";           var_dump( $client->DRIVER_NAME );
+        //     echo "DRIVER_VER: ";            var_dump( $client->DRIVER_VER );
+        //     echo "DATA_SOURCE_NAME: ";      var_dump( $client->DATA_SOURCE_NAME );
+        //     echo "DRIVER_ODBC_VER: ";       var_dump( $client->DRIVER_ODBC_VER );
+        //     echo "ODBC_VER: ";              var_dump( $client->ODBC_VER );
+        //     echo "ODBC_SQL_CONFORMANCE: ";  var_dump( $client->ODBC_SQL_CONFORMANCE );
+        //     echo "APPL_CODEPAGE: ";         var_dump( $client->APPL_CODEPAGE );
+        //     echo "CONN_CODEPAGE: ";         var_dump( $client->CONN_CODEPAGE );
+        // } else {
+        //     echo "Error";
+        // }
+
+
+        if(!$conn_db2) {
+            echo db2_conn_errormsg();
+        } else {
+            //echo "Hello World, from the IBM_DB2 PHP extension!";
+            //db2_close($conn_db2);
+        }
+    } 
+    catch (Exception $e) {
+        //echo $e;
+    }
+
+
+
+
+
+
 
     /* Slim framework */
     $app = new \Slim\Slim();
@@ -82,13 +130,60 @@ layout: "layout-api"
      *     }
      *
      */
-    $app->get('/hello/:name', function ($name) use ($app) {
+    $app->get('/hello/:name', function ($name) use ($app, $conn_db2) {
 
-        //echo "สวัสดี, $name";
-        $return_m = array("msg" => "สวัสดี, $name");
 
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+        $sql = "select * from AUTH_USER_INFO order by USER_ID";
+
+        if ($conn_db2) {
+            # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            while ($row = db2_fetch_array($stmt)) {
+                
+                $userID = iconv("TIS-620", "UTF-8",$row[0]);
+                //$name = iconv("UTF-8", "TIS-620",$row[1]);
+
+                $name = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
+
+                //print "$row[0] - $name \n";
+
+                //$row[0] = "aa";
+                //$row[1] = "aa";
+
+                $reports[] = array(
+                "USER_ID" => $userID,
+                "NAME" => $name
+                );
+            }
+        }
+
+        $rowCount = count($reports);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name", "count" => $rowCount, "rows" => $reports);
+        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
+        //$reportResult = array("result" =>  $resultText);
+        
         $app->response()->header("Content-Type", "application/json");
-        echo json_encode($return_m);
+        //$app->response()->header("Content-Type", "application/json;charset=tis-620");
+        echo json_encode($reportResult);
+
+        // //echo "สวัสดี, $name";
+        // $return_m = array("msg" => "สวัสดี, $name");
+
+        // $app->response()->header("Content-Type", "application/json");
+        // echo json_encode($return_m);
     });
 
 

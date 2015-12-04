@@ -1,0 +1,64 @@
+---
+title: "RTU Infomation - ข้อมูล RTU"
+layout: "layout-home-rtu-information"
+pageTitle: " ข้อมูล RTU"
+pageDescription: "You can start your customization from this one!"
+
+baseURL: "/rmr/build/src/desktop/Home/RTU/Information/"
+loginURL: "../../../Login/index.php"
+imageURL: "../../../../../images"
+
+menuDashboardIsActive: ""
+
+menuRtuInfo_IsActive: "active"
+
+
+menuRmr_IsActive: ""
+menuRmr_reportRtuIsActive: ""
+menuRmr_searchRtuIsActive: ""
+menuRmr_reportDeviceRepairIsActive: ""
+menuRmr_reportCostIsActive: ""
+menuRmr_mapDmaIsActive: ""
+
+menuAdministrator_IsActive: ""
+menuAdministrator_memberIsActive: ""
+menuAdministrator_accessPolicyIsActive: ""
+
+
+
+menuHome_Index_href: "../../"
+
+menuRtu_information_href: "../../RTU/Information/"
+
+menuRmr_reportRtu_href: "../../RMR/ReportRTU/"
+menuRmr_reportDeviceRepair_href: "../../RMR/ReportDeviceRepair/"
+menuRmr_reportCost_href: "../../RMR/ReportCost/"
+menuRmr_searchRtu_href: "../../RMR/SearchRTU/"
+menuRmr_mapDma_href: "../../RMR/MapDMA/"
+
+menuAdministrator_member_href: "../../Administrator/Member/"
+menuAdministrator_accessPolicy_href: "../../Administrator/AccessPolicy/"
+---
+
+
+        <!-- Admin - Navbar  -->
+        <%= partial partials_desktop_Common_dir + "/_common-navbar" %>
+
+
+        <!-- BEGIN Container -->
+        <div class="container sidebar-blue" id="main-container">
+
+
+            <!-- Home - Container - Sidebar  -->
+            <%= partial partials_desktop_Common_dir + "/_Common-sidebar" %>
+
+            <!-- Home - Container - MainContent  -->
+            <%= partial partials_desktop_home_rtu_information + "/_home-rtu-information-container-mainContent" %>
+
+
+
+
+
+
+        </div>
+        <!-- END Container -->
