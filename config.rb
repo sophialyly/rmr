@@ -61,6 +61,8 @@ set :partials_desktop_Common_dir, 'src/desktop/Common'
 set :partials_desktop_Admin_blank_dir, 'src/desktop/Admin/blank'
 set :partials_desktop_Home_index_dir, 'src/desktop/Home'
 
+set :partials_desktop_home, 'src/desktop/Home'
+
 set :partials_desktop_home_rtu_information, 'src/desktop/Home/RTU/Information'
 
 set :partials_desktop_home_rmr_reportCost, 'src/desktop/Home/RMR/ReportCost'
@@ -102,6 +104,15 @@ configure :build do
   ignore '/javascripts/javascript-training-section5.js.erb'
   ignore '/javascripts/all.js'
   ignore '/javascripts/javascript-home-index_2015-11-19/*'
+  ignore '/javascripts/javascript-flaty_administrator_accessPolicy/*'
+  ignore '/javascripts/javascript-flaty_administrator_member/*'
+  ignore '/javascripts/javascript-flaty_rmr_searchRTU/*'
+  ignore '/javascripts/javascript-home-index/*'
+  ignore '/javascripts/javascript-home-rmr-mapDMA/*'
+  ignore '/javascripts/javascript-home-rmr-reportDeviceRepair/*'
+  ignore '/javascripts/javascript-home-rmr-reportRTU/*'
+  ignore '/javascripts/javascript-home-rtu-information/*'
+  ignore '/javascripts/javascript-rmr-home/*'
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
   ignore '/stylesheets/stylesheet-desktop-admin.css.erb'
@@ -129,6 +140,14 @@ configure :build do
   ignore '/stylesheets/all.css'
   ignore '/stylesheets/hello.scss'
   ignore '/stylesheets/normalize.css'
+  ignore '/stylesheets/stylesheet-flaty_administrator_accessPolicy/*'
+  ignore '/stylesheets/stylesheet-flaty_administrator_member/*'
+  ignore '/stylesheets/stylesheet-home-rmr-mapDMA/*'
+  ignore '/stylesheets/stylesheet-home-rmr-reportDeviceRepair/*'
+  ignore '/stylesheets/stylesheet-home-rmr-reportRTU/*'
+  ignore '/stylesheets/stylesheet-home-rmr-searchRTU/*'
+  ignore '/stylesheets/stylesheet-home-rtu-information/*'
+  ignore '/stylesheets/stylesheet-rmr-home/*'
 
   ignore '/src/desktop/training-section1/*'
   ignore '/src/desktop/training-section2/*'
@@ -137,11 +156,18 @@ configure :build do
   ignore '/src/desktop/training-section5/*'
   ignore '/src/desktop/Admin_2015-11-10/*'
   ignore '/src/desktop/Admin_2015-11-18/*'
+  ignore '/src/desktop/Home_2015-12-14/*'
 
   ignore '/images/images-training-section2/*'
   ignore '/images/images-training-section3/*'
   ignore '/images/images-training-section4/*'
   ignore '/images/images-training-section5/*'
+
+  ignore '/helper/bootstrap-wizard/*'
+  ignore '/helper/jquery-validation/*'
+  ignore '/helper/bootstrap-datepicker-thai/*'
+  ignore '/helper/Abban-jQuery-Picture/*'
+
 
   # For example, change the Compass output style for deployment
   # activate :minify_css

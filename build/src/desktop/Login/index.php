@@ -27,14 +27,15 @@ session_start(); //start session.
                     <span class="icon-bar"></span>
                 </button>
                 <!-- <a class="navbar-brand" href="index.php">Digital Agency</a> -->
-                <a class="navbar-brand logo-nav" href="index.php"><img src="../../../images/images-flaty_theme/img/rmr/logo.png"></a>
+                <a class="navbar-brand logo-nav " href="index.php"><img style="height: 60px" src="../../../images/images-flaty_theme/img/rmr/logo.png"></a>
             </div>
             <div id="navbar" class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <!-- <li class="active"><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li> -->
-                    <li class="hidden">
+
+                    <!-- <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
@@ -48,7 +49,7 @@ session_start(); //start session.
                     </li>
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -186,7 +187,7 @@ session_start(); //start session.
 
     
 
-    <section id="why" class="container content-section">
+    <!-- <section id="why" class="container content-section">
     <h2 class="text-center"> Why Choose Us?</h2>
     <p class="text-center">Here are just a few reason to choose <strong>Digital Agency</strong> for all of my digital marketing needs.</p>
     <br/>
@@ -266,7 +267,7 @@ session_start(); //start session.
         </div>
 
     </div>
-</section>
+</section> -->
 
     
 

@@ -1,0 +1,105 @@
+html,body{height:100%;}
+
+#main-container {
+    height:100%;
+}
+
+
+#main-content {
+    display:table;
+    width:100%;
+    height:100%;
+    /*padding:100px 0;*/
+    /*color:#f4f4f4;*/
+    /*background-color:#333333;*/
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+}
+
+
+#main-content {
+    width:100%;
+    height:100%;
+    min-height:100%;
+    /*background-color:#990000 !important;*/
+    /*padding:10px;*/
+    /*color:#efefef;*/
+}
+
+
+@media (max-width: 300px) {
+  #main-content {
+    background-color: red !important;
+    background: url(<%= '../' + images_dir + '/rmr/rmr-home-200x300.png' %>) no-repeat bottom center scroll !important;
+  }
+}
+@media (min-width: 301px) and (max-width: 600px) {
+  #main-content {
+    background-color: green !important;
+    background: url(<%= '../' + images_dir + '/rmr/rmr-home-400x600.png' %>) no-repeat bottom center scroll !important;
+  }
+}
+@media (min-width: 601px) and (max-width: 768px) {
+  #main-content {
+    background-color: blue !important;
+    background: url(<%= '../' + images_dir + '/rmr/rmr-home-500x768.png' %>) no-repeat bottom center scroll !important;
+  }
+}
+@media (min-width: 769px) {
+  #main-content {
+    background-color: black !important;
+    background: url(<%= '../' + images_dir + '/rmr/rmr-home-800x1048.png' %>) no-repeat bottom center scroll !important;
+  }
+}
+
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+@media (max-width: @screen-xs-max) { 
+    #main-content {
+        background: url(<%= '../' + images_dir + '/rmr/rmr-home-200x300.png' %>) no-repeat bottom center scroll !important;
+    }
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+    #main-content {
+        background: url(<%= '../' + images_dir + '/rmr/rmr-home-500x768.png' %>) no-repeat bottom center scroll !important;
+    }
+ }
+ /* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+    #main-content {
+        background: url(<%= '../' + images_dir + '/rmr/rmr-home-800x1048.png' %>) no-repeat bottom center scroll !important;
+    }
+ }
+ /* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+    #main-content {
+        background: url(<%= '../' + images_dir + '/rmr/background-photo.jpg' %>) no-repeat bottom center scroll !important;
+    }
+ }
+
+ 
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+@media (max-width: @screen-xs-max) { 
+
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+
+ }
+ /* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+
+ }
+ /* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+
+ }
+
+
+

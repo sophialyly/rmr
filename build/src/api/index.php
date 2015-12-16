@@ -7,65 +7,13 @@ session_start(); //start session.
 
     require_once '../../packages/autoload.php';
 
-
     /* Connect Database Manager Partial */
-        // /* เชื่อมต่อ DB2 */
-    $driver_db2 = "{IBM DB2 ODBC DRIVER}";
-    $database_db2 = "iWLMA";
-    $hostname_db2 = "172.16.194.210";
-    $port_db2 = 50000;
-    $user_db2 = "db2admin";
-    $password_db2 = "password";
-
-    $conn_string_db2 = "DRIVER=$driver_db2;DATABASE=$database_db2;";
-    $conn_string_db2 .= "HOSTNAME=$hostname_db2;PORT=$port_db2;PROTOCOL=TCPIP;";
-    $conn_string_db2 .= "UID=$user_db2;PWD=$password_db2;";
-
-    try {
-        $conn_db2 = db2_connect($conn_string_db2, '', '');
-
-        $client = db2_client_info($conn_db2);
-
-        // if ($client) {
-        //     echo var_dump($client->APPL_CODEPAGE);
-        //     echo "DRIVER_NAME: ";           var_dump( $client->DRIVER_NAME );
-        //     echo "DRIVER_VER: ";            var_dump( $client->DRIVER_VER );
-        //     echo "DATA_SOURCE_NAME: ";      var_dump( $client->DATA_SOURCE_NAME );
-        //     echo "DRIVER_ODBC_VER: ";       var_dump( $client->DRIVER_ODBC_VER );
-        //     echo "ODBC_VER: ";              var_dump( $client->ODBC_VER );
-        //     echo "ODBC_SQL_CONFORMANCE: ";  var_dump( $client->ODBC_SQL_CONFORMANCE );
-        //     echo "APPL_CODEPAGE: ";         var_dump( $client->APPL_CODEPAGE );
-        //     echo "CONN_CODEPAGE: ";         var_dump( $client->CONN_CODEPAGE );
-        // } else {
-        //     echo "Error";
-        // }
-
-
-        if(!$conn_db2) {
-            echo db2_conn_errormsg();
-        } else {
-            //echo "Hello World, from the IBM_DB2 PHP extension!";
-            //db2_close($conn_db2);
-        }
-    } 
-    catch (Exception $e) {
-        //echo $e;
-    }
+    $conn_db2 = "";
         $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
     $username = "root";
     $password = "";
     $pdo = new PDO($dsn, $username, $password);
     $db = new NotORM($pdo);
-        // /* เชื่อมต่อ MySQL บนเครื่อง 172.16.194.210 (http://wlma-mt.wms.mwa/) */
-    // $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
-    // $username = "root";
-    // $password = "P@ssw0rd";
-    // $pdo = new PDO($dsn, $username, $password);
-    // $db = new NotORM($pdo);
-
-
-
-
 
 
     /* Slim framework */
@@ -93,7 +41,6 @@ session_start(); //start session.
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
 
-
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
 
@@ -101,10 +48,6 @@ session_start(); //start session.
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
     //     logout($app, $pdo, $db); 
     // });
-
-
-
-    
 	
 
 	$app->run();
@@ -147,7 +90,7 @@ session_start(); //start session.
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($return_m);
-    });
+    };
 
     /* Login Manager Partial */
     	/**

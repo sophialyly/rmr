@@ -20,22 +20,26 @@
 
 
             $(window).scroll(function(){
-                if($('.navbar').offset().top > 50){
-                    $('.navbar-fixed-top').addClass('top-nav-collapse');
-                } else {
-                    $('.navbar-fixed-top').removeClass('top-nav-collapse');
-                }
+
+                // if($('.navbar').offset().top > 50){
+                //     $('.navbar-fixed-top').addClass('top-nav-collapse');
+                // } else {
+                //     $('.navbar-fixed-top').removeClass('top-nav-collapse');
+                // }
+
             });
 
             $(function(){
-                $('.page-scroll a').bind('click', function(){
-                    var $anchor = $(this);
-                    $('html, body').stop().animate({
-                        scrollTop: $($anchor.attr('href')).offset().top
-                    }, 1500, 'easeInOutExpo');
-                    event.preventDefault();
-                });
+                // $('.page-scroll a').bind('click', function(){
+                //     var $anchor = $(this);
+                //     $('html, body').stop().animate({
+                //         scrollTop: $($anchor.attr('href')).offset().top
+                //     }, 1500, 'easeInOutExpo');
+                //     event.preventDefault();
+                // });
 
+                $('.navbar-fixed-top').addClass('top-nav-collapse');
+                
                 <%= partial "javascript-flaty_login/_javascript-flaty_loginManager" %>
                 
             });

@@ -2,21 +2,14 @@
 title: MWA Academic Fun Fest - API
 layout: "layout-api"
 ---
-
 <?php
     date_default_timezone_set("Asia/Bangkok");
 
     require_once '../../packages/autoload.php';
 
-
     /* Connect Database Manager Partial */
-    <%= partial "/ConnectDatabase/_connectDB2_Production" %>
+    <%= partial "/ConnectDatabase/_connectDB2_Localhost" %>
     <%= partial "/ConnectDatabase/_connectMySQL_Localhost" %>
-    <%= partial "/ConnectDatabase/_connectMySQL_Production" %>
-
-
-
-
 
 
     /* Slim framework */
@@ -44,7 +37,6 @@ layout: "layout-api"
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
 
-
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
 
@@ -52,16 +44,12 @@ layout: "layout-api"
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
     //     logout($app, $pdo, $db); 
     // });
-
-
-
-    
 	
 
 	$app->run();
 
     /* Test Manager Partial */
-    <%= partial "/testManager/_getMsg" %>
+    <%= partial "/TestManager/_getMsg" %>
 
     /* Login Manager Partial */
     <%= partial "/LoginManager/_checkUserPassword" %>

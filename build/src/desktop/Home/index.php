@@ -8,13 +8,13 @@ session_start(); //start session.
         <base href="/rmr/build/src/desktop/Home/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Dashboard - FLATY Admin</title>
+        <title>Home - RMR System</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link href="../../../stylesheets/stylesheet-flaty_index.css" rel="stylesheet" type="text/css" />
+        <link href="../../../stylesheets/stylesheet-rmr-home.css" rel="stylesheet" type="text/css" />
 
         <link rel="shortcut icon" href="../../../images/images-flaty_theme/favicon/favicon.ico">
     </head>
@@ -26,7 +26,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../Login/index.php'); //redirect URL
+                header('Location: ../../../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -139,281 +139,127 @@ session_start(); //start session.
         </div>
         <!-- END Navbar -->
 
-        <!-- Admin - Container  -->
-                <!-- BEGIN Container -->
+        <!-- BEGIN Container -->
         <div class="container sidebar-blue" id="main-container">
-
-            <!-- Home - Container - Sidebar  -->
-                        <!-- BEGIN Sidebar -->
-            <!-- <div id="sidebar" class="navbar-collapse collapse"> -->
-            <div id="sidebar" class="navbar-collapse collapse sidebar-fixed">
-                <!-- BEGIN Navlist -->
-                <ul class="nav nav-list">
-                    <!-- BEGIN Search Form -->
-                    <li>
-                        <form target="#" method="GET" class="search-form">
-                            <span class="search-pan">
-                                <button type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" />
-                            </span>
-                        </form>
-                    </li>
-                    <!-- END Search Form -->
-
-                        <!-- sidebar - Dashboard  -->
-                                            <li class="active">
-                        <a href="">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                        
-                        <!-- sidebar - RTU Info  -->
-                                            <li class="">
-                        <a href="./RTU/Information/" class="dropdown-toggle">
-                            <i class="fa fa-desktop"></i>
-                            <span>RTU Information</span>
-                            <b class="arrow fa fa-angle-right"></b>
-                        </a>
-
-                        <!-- BEGIN Submenu -->
-                        <ul class="submenu" id="sideMenuRtuInfo">
-                            <li class="">
-                                <a ng-href="./#/B01" >บางกอกน้อย (B01)</a>
-                                <ul>
-                                    <li>
-                                        <a ng-href="./#/B01/Map">
-                                            <i class="fa fa-globe"></i><span> แผนที่</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B02" >ตากสิน (B02)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B03" >พญาไท (B03)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B04" >นนทบุรี (B04)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B05" >ทุ่งมหาเมฆ (B05)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B06" >แม้นศรี (B06)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B07" >สุขุมวิท (B07)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B11" >ภาษีเจริญ (B11)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B12" >ลาดพร้าว (B12)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B13" >พระโขนง (B13)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B14" >สุขสวัสดิ์ (B14)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B15" >ประชาชื่น (B15)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B16" >บางเขน (B16)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B17" >สุมทรปราการ (B17)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B53" >มีนบุรี (B53)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B54" >บางบัวทอง (B54)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B55" >สุวรรณภูมิ (B55)</a>
-                            </li>
-                            <li class="">
-                                <a ng-href="./#/B56" >มหาสวัสดิ์ (B56)</a>
-                            </li>
-                        </ul>
-                        <!-- END Submenu -->
-                    </li>
-
-                        <!-- sidebar - RMR  -->
-                                            <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-desktop"></i>
-                            <span>RMR</span>
-                            <b class="arrow fa fa-angle-right"></b>
-                        </a>
-
-                        <!-- BEGIN Submenu -->
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="./RMR/ReportRTU/">รายงานข้อมูล RTU ที่ใช้งาน</a>
-                            </li>
-                            <li class="">
-                                <a href="./RMR/ReportDeviceRepair/">รายการอุปกรณ์เสีย/ชำรุด</a>
-                            </li>
-                            <li class="">
-                                <a href="./RMR/ReportCost/">รายงานงบประมาณ</a>
-                            </li>
-                            <li class="">
-                                <a href="./RMR/SearchRTU/">สืบค้นข้อมูลแยกตามสาขา</a>
-                            </li>
-                            <li class="">
-                                <a href="./RMR/MapDMA/">แผนที่ DMA</a>
-                            </li>
-                        </ul>
-                        <!-- END Submenu -->
-                    </li>
-
-                        <!-- sidebar - USER  -->
-                                            <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-desktop"></i>
-                            <span>Administrator</span>
-                            <b class="arrow fa fa-angle-right"></b>
-                        </a>
-
-                        <!-- BEGIN Submenu -->
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="./Administrator/Member/">ผู้ใช้งานระบบ</a>
-                            </li>
-                            <li class="">
-                                <a href="./Administrator/AccessPolicy/">กำหนดสิทธิการใช้งาน</a>
-                            </li>
-                        </ul>
-                        <!-- END Submenu -->
-                    </li>
-
-                    
-                </ul>
-                <!-- END Navlist -->
-
-                <!-- BEGIN Sidebar Collapse Button -->
-                <div id="sidebar-collapse" class="visible-lg">
-                    <i class="fa fa-angle-double-left"></i>
-                </div>
-                <!-- END Sidebar Collapse Button -->
-            </div>
-            <!-- END Sidebar -->
-
-            <!-- Home - Container - MainContent  -->
-                        <!-- BEGIN Content -->
-            <div id="main-content" ng-app="indexModule">
+			    <!-- BEGIN Content -->
+			    <div id="main-content" >
 
 
-                <!-- Home - Container - MainContent - PageTitle  -->
-                                <!-- BEGIN Page Title -->
+			    	<!-- Home - Container - MainContent - pageTitle  -->
+			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   Dashboard</h1>
-                        <h4>Overview, stats, chat and more</h4>
+                        <h1><i class="fa fa-file-o"></i>   WLMA-IT</h1>
+                        <h4>You can start your customization from this one!</h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
-
-
-                <!-- Home - Container - MainContent - breadCrumbs  -->
-                                <!-- BEGIN Breadcrumb -->
-                <div id="breadcrumbs">
+			    	<!-- Home - Container - MainContent - breadCrumbs  -->
+			    	                <!-- BEGIN Breadcrumb -->
+                <div>
                     <ul class="breadcrumb">
                         <li class="active"><i class="fa fa-home"></i> Home</li>
+                        <!-- <li class="active"> &nbsp; </li> -->
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->
 
 
 
+					
+					
 
-                <!-- BEGIN Main Content -->
-                <div class="row" >
-                    <div class="col-md-12" >
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	
+
+                <!-- BEGIN First Row -->
+                <div class="row" id="home-menuTile">
                     
-                        <!-- Home - Container - Blank - MainContent - sampleBox  -->
-                                                <div class="box" >
-                            <div class="box-title">
-                                <h3><i class="fa fa-file"></i> Sample Box</h3>
-                                <div class="box-tool">
-                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    <br/>
+                    
+                    <div class="col-md-4  col-md-offset-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tile tile-big">
+                                    <p class="title">WLMA-IT</p>
+                                    <hr/>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
                             </div>
-                            <div id="highChartContainer" class="box-content" style="height:400px;">
-                                <!-- <p>Blank page</p> -->
-
-                            </div>
                         </div>
+                    </div>
 
+                    <div class="col-md-4">
+                    
  
-                        <div class="box" ng-controller="AppCtrl1 as app">
-                            <div class="box-title">
-                                <h3><i class="fa fa-file"></i> Sample Box</h3>
-                                <div class="box-tool">
-                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-                                </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 tile-active">
+                                <a class="tile tile-lime" id="menuRmrID" href="#">
+                                    <div class="img">
+                                        <img  src="../../../images/rmr/Oval.png"/>
+                                    </div>
+                                    <div class="content">
+                                        <p class="big">RMR System</p>
+                                        <p class="title">RTU Maintenance Records System</p>
+                                    </div>
+                                </a>
+
+                                <a class="tile tile-blue" href="#">
+                                    <p class="title">RMR System</p>
+                                    <p>ระบบติดตามสถานะการบำรุงรักษา RTU</p>
+                                    <div class="img img-bottom">
+                                        <i class="fa fa-picture-o"></i>
+                                    </div>
+                                </a>
                             </div>
-                            <div id="highChartContainer" class="box-content" style="height:400px;">
-                                <!-- <p>Blank page</p> -->
-                                    <p>This is your first angular expression: {{ 1 + 2 }}</p>
-
-                                    <button id="jquery-button">jQuery Click </button>
-                                    <div id="jquery-content">I'm jQuery content. </div>
-
-                                    <div>
-                                        <button ng-click="app.toggle()"> Angular Click</button>
-                                        <div ng-hide="app.isHidden"> Angular Content </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 tile-active">
+                                <a class="tile tile-lime" id="menuRtuInfoID" href="./EventsManagement/">
+                                    <div class="img">
+                                        <img  src="../../../images/rmr/Oval.png"/>
                                     </div>
-
-                                    <div class="input-group">
-                                        <label>First Name : <input type="text" name="name" ng-model="firstname"> </label>
+                                    <div class="content">
+                                        <p class="big">RTU</p>
+                                        <p class="title">RTU Information</p>
                                     </div>
-                                    <div class="input-group">
-                                        <label>Last Name : <input type="text" name="name" ng-model="lastname"> </label>
+                                </a>
+
+                                <a class="tile tile-blue" href="./EventsManagement/">
+                                    <p class="title">RTU Info.</p>
+                                    <p>ระบบจัดการข้อมูล RTU</p>
+                                    <div class="img img-bottom">
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
-
-                                    <h1>Hello, {{printName()}} </h1>
-
-
-                                    <a ng-href="./#/about" >About</a> | <a ng-href="./#/contact" >Contact</a> | <a ng-href="./#/addEvent" >Add Event</a>
-
-                                    <ng-view></ng-view>
-
+                                </a>
                             </div>
                         </div>
 
-
-            
-                        
 
                     </div>
+
                 </div>
-                
-                <br><br><br><br><br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br>
-                
-                <!-- END Main Content -->
-                
+                <!-- END First Row -->
 
-     
+                
+      
 
-                <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
-            </div>
-            <!-- END Content -->
+			    	
+			    	
 
+			        <footer>
+			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			        </footer>
+			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+			    </div>
+			    <!-- END Content -->
         </div>
         <!-- END Container -->
 
-        <script src="../../../javascripts/javascript-home-index.js" type="text/javascript"></script>
+        <script src="../../../javascripts/javascript-rmr-home.js" type="text/javascript"></script>
 
     </body>
 </html>

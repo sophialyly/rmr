@@ -1,0 +1,53 @@
+---
+title: "Dashboard - FLATY Admin"
+layout: "layout-home-index"
+pageTitle: " Dashboard"
+pageDescription: "Overview, stats, chat and more"
+
+baseURL: "/rmr/build/src/desktop/Home/"
+loginURL: "../Login/index.php"
+imageURL: "../../../images"
+
+angularModule: "indexModule"
+
+
+
+
+menuDashboardIsActive: "active"
+
+menuRtuInfo_IsActive: ""
+
+menuRmr_IsActive: ""
+menuRmr_reportRtuIsActive: ""
+menuRmr_searchRtuIsActive: ""
+menuRmr_reportDeviceRepairIsActive: ""
+menuRmr_reportCostIsActive: ""
+menuRmr_mapDmaIsActive: ""
+menuAdministrator_IsActive: ""
+menuAdministrator_memberIsActive: ""
+menuAdministrator_accessPolicyIsActive: ""
+
+menuIndex_href: "./"
+
+menuRtu_information_href: "./RTU/Information/"
+
+
+menuRmr_reportRtu_href: "./RMR/ReportRTU/"
+menuRmr_reportDeviceRepair_href: "./RMR/ReportDeviceRepair/"
+menuRmr_reportCost_href: "./RMR/ReportCost/"
+menuRmr_searchRtu_href: "./RMR/SearchRTU/"
+menuRmr_mapDma_href: "./RMR/MapDMA/"
+
+menuAdministrator_member_href: "./Administrator/Member/"
+menuAdministrator_accessPolicy_href: "./Administrator/AccessPolicy/"
+---
+
+
+
+
+
+        <!-- Admin - Navbar  -->
+        <%= partial partials_desktop_Common_dir + "/_common-navbar" %>
+
+        <!-- Admin - Container  -->
+        <%= partial partials_desktop_Home_index_dir + "/_home-index-container" %>

@@ -1,53 +1,42 @@
 ---
-title: "Dashboard - FLATY Admin"
-layout: "layout-home-index"
-pageTitle: " Dashboard"
-pageDescription: "Overview, stats, chat and more"
+title: "Home - RMR System"
+layout: "layout-rmr-home"
 
 baseURL: "/rmr/build/src/desktop/Home/"
-loginURL: "../Login/index.php"
+loginURL: "../../../Login/index.php"
 imageURL: "../../../images"
 
-angularModule: "indexModule"
+pageTitle: " WLMA-IT"
+pageDescription: "You can start your customization from this one!"
 
-
-
-
-menuDashboardIsActive: "active"
-
-menuRtuInfo_IsActive: ""
-
-menuRmr_IsActive: ""
-menuRmr_reportRtuIsActive: ""
-menuRmr_searchRtuIsActive: ""
-menuRmr_reportDeviceRepairIsActive: ""
-menuRmr_reportCostIsActive: ""
-menuRmr_mapDmaIsActive: ""
-menuAdministrator_IsActive: ""
-menuAdministrator_memberIsActive: ""
-menuAdministrator_accessPolicyIsActive: ""
-
-menuIndex_href: "./"
-
-menuRtu_information_href: "./RTU/Information/"
-
-
-menuRmr_reportRtu_href: "./RMR/ReportRTU/"
-menuRmr_reportDeviceRepair_href: "./RMR/ReportDeviceRepair/"
-menuRmr_reportCost_href: "./RMR/ReportCost/"
-menuRmr_searchRtu_href: "./RMR/SearchRTU/"
-menuRmr_mapDma_href: "./RMR/MapDMA/"
-
-menuAdministrator_member_href: "./Administrator/Member/"
-menuAdministrator_accessPolicy_href: "./Administrator/AccessPolicy/"
 ---
 
-
-
-
-
         <!-- Admin - Navbar  -->
-        <%= partial partials_desktop_Common_dir + "/_common-navbar" %>
+        <%= partial partials_desktop_home + "/home-common-partials/_home-common-navbar" %>
 
-        <!-- Admin - Container  -->
-        <%= partial partials_desktop_Home_index_dir + "/_home-index-container" %>
+        <!-- BEGIN Container -->
+        <div class="container sidebar-blue" id="main-container">
+			    <!-- BEGIN Content -->
+			    <div id="main-content" >
+
+
+			    	<!-- Home - Container - MainContent - pageTitle  -->
+			    	<%= partial partials_desktop_home + "/home-container-partials/_home-container-mainContent-pageTitle" %>
+			    	<!-- Home - Container - MainContent - breadCrumbs  -->
+			    	<%= partial partials_desktop_home + "/home-container-partials/_home-container-mainContent-breadCrumbs" %>
+					
+					
+
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	<%= partial partials_desktop_home + "/home-container-partials/_home-container-mainContent-menuTile" %>
+			    	
+			    	
+
+			        <footer>
+			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			        </footer>
+			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+			    </div>
+			    <!-- END Content -->
+        </div>
+        <!-- END Container -->
