@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Slim\\Middleware\\' => array($vendorDir . '/tuupola/slim-jwt-auth/src', $vendorDir . '/tuupola/slim-basic-auth/src'),
+    'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'CorsSlim\\' => array($vendorDir . '/palanik/corsslim'),
     'Arcanedev\\QrCode\\' => array($vendorDir . '/arcanedev/qr-code/src'),
 );

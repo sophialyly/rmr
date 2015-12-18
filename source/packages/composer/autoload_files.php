@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    $vendorDir . '/ircmaxell/password-compat/lib/password.php',
     $vendorDir . '/vrana/notorm/NotORM.php',
     $vendorDir . '/arcanedev/qr-code/src/helpers.php',
 );

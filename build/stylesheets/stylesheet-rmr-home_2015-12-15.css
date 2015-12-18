@@ -6287,7 +6287,7 @@ html,body{height:100%;}
 
 body {
   /* Location of the image */
-  background-image: url(../images/rmr/MWA_BG2-no-logo.jpg) !important;
+  background-image: url(../images/rmr/MWA_BG2.jpg) !important;
   
   /* Image is centered vertically and horizontally at all times */
   background-position: bottom left;
@@ -6373,7 +6373,7 @@ body {
     display: block;
     margin: 0px auto;
 }#menuRtuInfoID {
-	background: url(../images/rmr/img-background-tile.png) no-repeat top center !important;
+	background: url(../images/rmr/img-background-tile2.png) no-repeat top center !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
 }

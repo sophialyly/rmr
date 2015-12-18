@@ -4,9 +4,11 @@
         "vrana/notorm": "dev-master",
         "mobiledetect/mobiledetectlib": "dev-master",
         "arcanedev/qr-code": "dev-master",
-        "tecnick.com/tcpdf": "dev-master",
+        "tecnickcom/tcpdf": "dev-master",
         "palanik/corsslim": "*",
-        "aferrandini/phpqrcode": "1.0.1"
+        "aferrandini/phpqrcode": "1.0.1",
+        "tuupola/slim-jwt-auth": "*",
+        "tuupola/slim-basic-auth": "*"
     },
     "config" : {
         "vendor-dir" : "./source/packages"

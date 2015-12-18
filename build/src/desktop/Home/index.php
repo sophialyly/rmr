@@ -41,7 +41,7 @@ session_start(); //start session.
             <a class="navbar-brand" href="#">
                 <small>
                     <i class="fa fa-desktop"></i>
-                    WLMA-MIS
+                    WLMA-Admin
                 </small>
             </a>
 
@@ -149,7 +149,7 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   WLMA-IT</h1>
+                        <h1><i class="fa fa-file-o"></i>   WLMA-Admin</h1>
                         <h4>You can start your customization from this one!</h4>
                     </div>
                 </div>
@@ -181,7 +181,7 @@ session_start(); //start session.
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="tile tile-big">
-                                    <p class="title">WLMA-IT</p>
+                                    <p class="title">WLMA-Admin</p>
                                     <hr/>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -198,19 +198,19 @@ session_start(); //start session.
                             <div class="col-md-12 tile-active">
                                 <a class="tile tile-lime" id="menuRmrID" href="#">
                                     <div class="img">
-                                        <img  src="../../../images/rmr/Oval.png"/>
+                                        <img  src="../../../images/rmr/Oval-rmr.png"/>
                                     </div>
                                     <div class="content">
-                                        <p class="big">RMR System</p>
-                                        <p class="title">RTU Maintenance Records System</p>
+                                        <p class="big">RMR</p>
+                                        <p class="title hidden-xs ">RTU Maintenance Records</p>
                                     </div>
                                 </a>
 
-                                <a class="tile tile-blue" href="#">
+                                <a class="tile tile-lime" href="#">
                                     <p class="title">RMR System</p>
                                     <p>ระบบติดตามสถานะการบำรุงรักษา RTU</p>
                                     <div class="img img-bottom">
-                                        <i class="fa fa-picture-o"></i>
+                                       <!--  <i class="fa fa-picture-o"></i> -->
                                     </div>
                                 </a>
                             </div>
@@ -224,15 +224,15 @@ session_start(); //start session.
                                     </div>
                                     <div class="content">
                                         <p class="big">RTU</p>
-                                        <p class="title">RTU Information</p>
+                                        <p class="title hidden-xs ">RTU Information</p>
                                     </div>
                                 </a>
 
-                                <a class="tile tile-blue" href="./EventsManagement/">
-                                    <p class="title">RTU Info.</p>
+                                <a class="tile tile-magenta" href="./EventsManagement/">
+                                    <p class="title">RTU Information</p>
                                     <p>ระบบจัดการข้อมูล RTU</p>
                                     <div class="img img-bottom">
-                                        <i class="fa fa-picture-o"></i>
+                                       <!--  <i class="fa fa-picture-o"></i> -->
                                     </div>
                                 </a>
                             </div>

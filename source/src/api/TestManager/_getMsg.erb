@@ -30,8 +30,13 @@
 
     function getMsg($app, $name) {
 
+        //$name = $request->getAttribute('name');
         //echo "สวัสดี, $name";
         $return_m = array("msg" => "สวัสดี, $name");
+
+        //$response->getBody()->write("Hello, $name");
+        // $response->header("Content-Type", "application/json");
+        // $response->getBody()->write($return_m);
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($return_m);

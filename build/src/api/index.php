@@ -16,26 +16,110 @@ session_start(); //start session.
     $db = new NotORM($pdo);
 
 
-    /* Slim framework */
+
+    /* Slim framework 2.x */
     $app = new \Slim\Slim();
 
-    // $corsOptions = array(
-    //     "origin" => "*",
-    //     "exposeHeaders" => array("X-My-Custom-Header", "X-Another-Custom-Header"),
-    //     "maxAge" => 1728000,
-    //     "allowCredentials" => True,
-    //     "allowMethods" => array("POST, GET"),
-    //     "allowHeaders" => array("X-PINGOTHER")
-    // );
+    use \Firebase\JWT\JWT;
+    $app->add(new \Slim\Middleware\JwtAuthentication([
+         //"secure" => false,
+        "secret" => "supersecretkeyyoushouldnotcommittogithub",
+        //"path"=> "/user",
+        "callback" => function ($options) use ($app) {
+            $app->jwt = $options["decoded"];
+        },
+        "rules" => [
+            new \Slim\Middleware\JwtAuthentication\RequestPathRule([
+                "path" => ["/token", "/user"],
+                "passthrough" => ["/user"]
+            ]),
+            new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
+                "passthrough" => ["OPTIONS"]
+            ])
+        ]
+    ]));
 
 
-    /* CorsSlim is added */
-    // $app->add(new \CorsSlim\CorsSlim($corsOptions));
+
+    $app->post("/token", function () use ($app) {
+
+      /* Here generate and return JWT to the client. */
+      // $key = "supersecretkeyyoushouldnotcommittogithub";
+      // $token = array(
+      //     "id" => "1",
+      //     "exp" => time() + (60 * 60 * 24)
+      //     );
+      // $jwt = JWT::encode($token, $key);
+      // $app->response->headers->set('Content-Type', 'application/json');
+      // echo json_encode(array("token" =>$jwt));
+
+       $secretKey = base64_decode("supersecretkeyyoushouldnotcommittogithub");
+
+
+       /*** Extract the jwt from the Bearer ***/
+       $request = $app->request();
+       $authHeader = $request->headers('authorization');
+       list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+
+       if (in_array("delete", $app->jwt->scope)) {
+        /* Code for deleting item */
+        $token = $app->jwt->id;
+      } else {
+        /* No scope so respond with 401 Unauthorized */
+        $this->app->response->status(401);
+      }
+
+       echo json_encode(array("AuthHeader" => $authHeader, "Hash_Token" => $jwt, "token" => $token));
+      //print_r($app->jwt);
+
+    });
+
+
 
 
 
     /* Test Manager */
     $app->get('/testManager/getMsg/:name',function($name) use ($app) { getMsg($app, $name); });
+
+
+
+    $app->get("/user", function () use ($app) {
+
+        // $app->response->headers->set('Content-Type', 'application/json');
+        // echo json_encode(array("token" => $$app->jwt));
+
+      $key = "supersecretkeyyoushouldnotcommittogithub";
+      $token = array(
+          "id" => "1",
+          "exp" => time() + (60 * 10),
+          "scope" => ["read", "write", "delete"]
+          );
+      $jwt = JWT::encode($token, $key);
+      $app->response->headers->set('Content-Type', 'application/json');
+      echo json_encode(array("token" =>$jwt));
+
+    });
+
+
+
+    $app->get('/login', function () use ($app) {
+
+      $params = $app->request()->getBody();
+      $key = "supersecretkeyyoushouldnotcommittogithub";
+      $token = array(
+          "id" => "2",
+          "exp" => time() + (60 * 60 * 24),
+          "scope" => ["read", "write", "delete"]
+          );
+      $jwt = JWT::encode($token, $key);
+      $app->response->headers->set('Content-Type', 'application/json');
+      echo json_encode(array("token" =>$jwt));
+
+    });
+
+
+
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
@@ -85,8 +169,13 @@ session_start(); //start session.
 
     function getMsg($app, $name) {
 
+        //$name = $request->getAttribute('name');
         //echo "สวัสดี, $name";
         $return_m = array("msg" => "สวัสดี, $name");
+
+        //$response->getBody()->write("Hello, $name");
+        // $response->header("Content-Type", "application/json");
+        // $response->getBody()->write($return_m);
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($return_m);
