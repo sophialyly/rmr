@@ -113,6 +113,7 @@ configure :build do
   ignore '/javascripts/javascript-home-rmr-reportRTU/*'
   ignore '/javascripts/javascript-home-rtu-information/*'
   ignore '/javascripts/javascript-rmr-home/*'
+  ignore '/javascripts/javascript-rmr-home-rmr/*'
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
   ignore '/stylesheets/stylesheet-desktop-admin.css.erb'
@@ -148,6 +149,7 @@ configure :build do
   ignore '/stylesheets/stylesheet-home-rmr-searchRTU/*'
   ignore '/stylesheets/stylesheet-home-rtu-information/*'
   ignore '/stylesheets/stylesheet-rmr-home/*'
+  ignore '/stylesheets/stylesheet-rmr-home-rmr/*'
 
   ignore '/src/desktop/training-section1/*'
   ignore '/src/desktop/training-section2/*'

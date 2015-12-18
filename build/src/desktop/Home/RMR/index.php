@@ -5,7 +5,7 @@ session_start(); //start session.
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="/rmr/build/src/desktop/Home/">
+        <base href="/rmr/build/src/desktop/Home/RMR/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Home - RMR System</title>
@@ -14,9 +14,9 @@ session_start(); //start session.
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link href="../../../stylesheets/stylesheet-rmr-home.css" rel="stylesheet" type="text/css" />
+        <link href="../../../../stylesheets/stylesheet-rmr-home-rmr.css" rel="stylesheet" type="text/css" />
 
-        <link rel="shortcut icon" href="../../../images/images-flaty_theme/favicon/favicon.ico">
+        <link rel="shortcut icon" href="../../../../images/rmr/favicon.ico">
     </head>
     <body>
 
@@ -26,7 +26,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../../Login/index.php'); //redirect URL
+                header('Location: ../../../../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -58,7 +58,7 @@ session_start(); //start session.
                                         <!-- BEGIN Button User -->
                 <li class="user-profile">
                     <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                        <img class="nav-user-photo" src="../../../images/images-flaty_theme/img/demo/avatar/avatar_kapook.jpg" alt="Kapook's Photo" />
+                        <img class="nav-user-photo" src="../../../../images/images-flaty_theme/img/demo/avatar/avatar_kapook.jpg" alt="Kapook's Photo" />
                         <span class="hhh" id="user_info">
                             Kapook
                         </span>
@@ -141,6 +141,77 @@ session_start(); //start session.
 
         <!-- BEGIN Container -->
         <div class="container sidebar-blue" id="main-container">
+
+        		<!-- Home - Container - Sidebar  -->
+			                <!-- BEGIN Sidebar -->
+            <!-- <div id="sidebar" class="navbar-collapse collapse"> -->
+            <div id="sidebar" class="navbar-collapse collapse sidebar-fixed">
+                <!-- BEGIN Navlist -->
+                <ul class="nav nav-list">
+                    <!-- BEGIN Search Form -->
+                    <li>
+                        <form target="#" method="GET" class="search-form">
+                            <span class="search-pan">
+                                <button type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" />
+                            </span>
+                        </form>
+                    </li>
+                    <!-- END Search Form -->
+
+                        <!-- sidebar - Dashboard  -->
+                                            <li class="active">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                        <!-- sidebar - RMR  -->
+                                            <li class="">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-desktop"></i>
+                            <span>RMR</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+                            <li class="">
+                                <a href="">รายงานข้อมูล RTU ที่ใช้งาน</a>
+                            </li>
+                            <li class="">
+                                <a href="">รายการอุปกรณ์เสีย/ชำรุด</a>
+                            </li>
+                            <li class="">
+                                <a href="">รายงานงบประมาณ</a>
+                            </li>
+                            <li class="">
+                                <a href="">สืบค้นข้อมูลแยกตามสาขา</a>
+                            </li>
+                            <li class="">
+                                <a href="">แผนที่ DMA</a>
+                            </li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>
+
+                   
+
+                    
+                </ul>
+                <!-- END Navlist -->
+
+                <!-- BEGIN Sidebar Collapse Button -->
+                <div id="sidebar-collapse" class="visible-lg">
+                    <i class="fa fa-angle-double-left"></i>
+                </div>
+                <!-- END Sidebar Collapse Button -->
+            </div>
+            <!-- END Sidebar -->
+
 			    <!-- BEGIN Content -->
 			    <div id="main-content" >
 
@@ -149,7 +220,7 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   WLMA-Admin</h1>
+                        <h1><i class="fa fa-file-o"></i>   RMR System</h1>
                         <h4>You can start your customization from this one!</h4>
                     </div>
                 </div>
@@ -168,85 +239,20 @@ session_start(); //start session.
 
 					
 					
-
-			        <!-- Home - Container - MainContent - menuTile  -->
 			    	
-
-                <!-- BEGIN First Row -->
-                <div class="row" id="home-menuTile">
-                    
-                    <br/>
-                    
-                    <div class="col-md-4  col-md-offset-2">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="tile tile-big">
-                                    <p class="title">WLMA-Admin</p>
-                                    <hr/>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	                        <div class="box" >
+                            <div class="box-title">
+                                <h3><i class="fa fa-file"></i> Sample Box</h3>
+                                <div class="box-tool">
+                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                    
- 
-                        
-                        <div class="row">
-                            <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRmrID" href="./RMR/">
-                                    <div class="img">
-                                        <img  src="../../../images/rmr/Oval-rmr.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">RMR</p>
-                                        <p class="title hidden-xs ">RTU Maintenance Records</p>
-                                    </div>
-                                </a>
-
-                                <a class="tile tile-lime" href="./RMR/">
-                                    <p class="title">RMR System</p>
-                                    <p>ระบบติดตามสถานะการบำรุงรักษา RTU</p>
-                                    <div class="img img-bottom">
-                                       <!--  <i class="fa fa-picture-o"></i> -->
-                                    </div>
-                                </a>
+                            <div class="box-content" style="height:400px;">
+                                <!-- <p>Blank page</p> -->
                             </div>
                         </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRtuInfoID" href="./EventsManagement/">
-                                    <div class="img">
-                                        <img  src="../../../images/rmr/Oval.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">RTU</p>
-                                        <p class="title hidden-xs ">RTU Information</p>
-                                    </div>
-                                </a>
-
-                                <a class="tile tile-magenta" href="./EventsManagement/">
-                                    <p class="title">RTU Information</p>
-                                    <p>ระบบจัดการข้อมูล RTU</p>
-                                    <div class="img img-bottom">
-                                       <!--  <i class="fa fa-picture-o"></i> -->
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-                <!-- END First Row -->
-
-                
-      
-
 			    	
 			    	
 
@@ -259,7 +265,7 @@ session_start(); //start session.
         </div>
         <!-- END Container -->
 
-        <script src="../../../javascripts/javascript-rmr-home.js" type="text/javascript"></script>
+        <script src="../../../../javascripts/javascript-rmr-home-rmr.js" type="text/javascript"></script>
 
     </body>
 </html>

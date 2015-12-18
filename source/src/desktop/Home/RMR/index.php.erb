@@ -1,0 +1,47 @@
+---
+title: "Home - RMR System"
+layout: "layout-rmr-home-rmr"
+
+baseURL: "/rmr/build/src/desktop/Home/RMR/"
+loginURL: "../../../../Login/index.php"
+imageURL: "../../../../images"
+
+pageTitle: " RMR System"
+pageDescription: "You can start your customization from this one!"
+
+---
+
+
+        <!-- Admin - Navbar  -->
+        <%= partial partials_desktop_home + "/home-common-partials/_home-common-navbar" %>
+
+        <!-- BEGIN Container -->
+        <div class="container sidebar-blue" id="main-container">
+
+        		<!-- Home - Container - Sidebar  -->
+			    <%= partial partials_desktop_home + "/RMR/home-rmr-common-partials/_home-rmr-common-sidebar" %>
+
+			    <!-- BEGIN Content -->
+			    <div id="main-content" >
+
+
+			    	<!-- Home - Container - MainContent - pageTitle  -->
+			    	<%= partial partials_desktop_home + "/RMR/home-rmr-container-partials/_home-rmr-container-mainContent-pageTitle" %>
+			    	<!-- Home - Container - MainContent - breadCrumbs  -->
+			    	<%= partial partials_desktop_home + "/RMR/home-rmr-container-partials/_home-rmr-container-mainContent-breadCrumbs" %>
+					
+					
+			    	
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	<%= partial partials_desktop_home + "/RMR/home-rmr-container-partials/_home-rmr-container-mainContent-sampleBox" %>
+			    	
+			    	
+
+			        <footer>
+			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			        </footer>
+			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+			    </div>
+			    <!-- END Content -->
+        </div>
+        <!-- END Container -->

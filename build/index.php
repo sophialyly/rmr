@@ -20,5 +20,12 @@
     <a href="http://middlemanapp.com/">Read Online Documentation</a>
   </p><!-- .doc -->
 </div><!-- .welcome -->
+
+
+<?php
+
+header('Location: ./src/desktop/Login/index.php'); //redirect URL
+
+?>
   </body>
 </html>

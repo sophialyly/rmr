@@ -1,0 +1,18 @@
+                    <li class="<%= current_page.data.menuAdministrator_IsActive %>">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-desktop"></i>
+                            <span>Administrator</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+                            <li class="<%= current_page.data.menuAdministrator_memberIsActive %>">
+                                <a href="<%= current_page.data.menuAdministrator_member_href %>">ผู้ใช้งานระบบ</a>
+                            </li>
+                            <li class="<%= current_page.data.menuAdministrator_accessPolicyIsActive %>">
+                                <a href="<%= current_page.data.menuAdministrator_accessPolicy_href %>">กำหนดสิทธิการใช้งาน</a>
+                            </li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>
