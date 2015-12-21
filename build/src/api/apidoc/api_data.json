@@ -233,31 +233,72 @@
     "groupTitle": "Wlma_Manager"
   },
   {
+    "name": "ReportPressureAverage",
+    "group": "Wlma_Manager",
+    "version": "0.1.0",
+    "type": "post",
+    "url": "/wlmaManager/reportPressureAverage/",
+    "title": "Report Pressure Average by DMA",
+    "description": "<p>คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงรายงานแรงดันเฉลี่ยแยกตามแต่ละ DMA ในช่วงวันที่กำหนด</p> ",
+    "sampleRequest": [
+      {
+        "url": "http://localhost/rmr/build/src/api/wlmaManager/reportPressureAverage/"
+      }
+    ],
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "optional": false,
-            "field": "varname1",
-            "description": "<p>No type.</p> "
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "varname2",
-            "description": "<p>With type.</p> "
+            "field": "msg",
+            "description": "<p>แสดงข้อความทักทายผู้ใช้งาน</p> "
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n  \"msg\": \"Hello, anusorn\"\n}",
+          "type": "json"
+        }
+      ]
     },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>The <code>id</code> of the User was not found.</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"UserNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./index.php",
+    "groupTitle": "Wlma_Manager"
+  },
+  {
+    "sampleRequest": [
+      {
+        "url": "http://localhost/rmr/build/src/api, iOS RESTKit use content-type is \"application/json\"\nWeb Form, Advance REST Client App use content-type is \"application/x-www-form-urlencoded\""
+      }
+    ],
     "type": "",
     "url": "",
     "version": "0.0.0",
-    "filename": "./apidoc/main.js",
-    "group": "_Applications_XAMPP_xamppfiles_htdocs_rmr_build_src_api_apidoc_main_js",
-    "groupTitle": "_Applications_XAMPP_xamppfiles_htdocs_rmr_build_src_api_apidoc_main_js",
+    "filename": "./index.php",
+    "group": "_Applications_XAMPP_xamppfiles_htdocs_rmr_build_src_api_index_php",
+    "groupTitle": "_Applications_XAMPP_xamppfiles_htdocs_rmr_build_src_api_index_php",
     "name": ""
   },
   {

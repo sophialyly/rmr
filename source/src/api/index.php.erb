@@ -123,6 +123,7 @@ layout: "layout-api"
 
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
+    $app->post('/wlmaManager/reportPressureAverage/',function() use ($app, $pdo, $conn_db2) { reportPressureAverage($app, $pdo, $conn_db2); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -141,5 +142,6 @@ layout: "layout-api"
 
     /* WLMA Manager Partial */
     <%= partial "/WlmaManager/_checkUserPasswordFromWLMA" %>
+    <%= partial "/WlmaManager/_reportPressureAverage" %>
     
 ?>

@@ -196,7 +196,7 @@ session_start(); //start session.
                         
                         <div class="row">
                             <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRmrID" href="./RMR/">
+                                <a class="tile tile-lime" id="menuRmrID" href="./RMR/" data-stop="10000">
                                     <div class="img">
                                         <img  src="../../../images/rmr/Oval-rmr.png"/>
                                     </div>
@@ -206,9 +206,9 @@ session_start(); //start session.
                                     </div>
                                 </a>
 
-                                <a class="tile tile-lime" href="./RMR/">
-                                    <p class="title">RMR System</p>
-                                    <p>ระบบติดตามสถานะการบำรุงรักษา RTU</p>
+                                <a class="tile tile-lime backgroundMenuTile" id="menuRmrID-backgroundMenuTile" href="./RMR/" data-stop="1000">
+                                    <p class="title" style="color:#4A4849">RMR System</p>
+                                    <p style="color:#4A4849">ระบบติดตามสถานะการบำรุงรักษา RTU</p>
                                     <div class="img img-bottom">
                                        <!--  <i class="fa fa-picture-o"></i> -->
                                     </div>
@@ -218,7 +218,7 @@ session_start(); //start session.
                         
                         <div class="row">
                             <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRtuInfoID" href="./RTU/">
+                                <a class="tile tile-lime" id="menuRtuInfoID" href="./RTU/" data-stop="11000">
                                     <div class="img">
                                         <img  src="../../../images/rmr/Oval.png"/>
                                     </div>
@@ -228,9 +228,31 @@ session_start(); //start session.
                                     </div>
                                 </a>
 
-                                <a class="tile tile-magenta" href="./RTU/">
-                                    <p class="title">RTU Information</p>
-                                    <p>ระบบจัดการข้อมูล RTU</p>
+                                <a class="tile tile-magenta backgroundMenuTile" id="menuRtuInfoID-backgroundMenuTile" href="./RTU/" data-stop="1000">
+                                    <p class="title" style="color:#4A4849">RTU Information</p>
+                                    <p style="color:#4A4849">ระบบจัดการข้อมูล RTU</p>
+                                    <div class="img img-bottom">
+                                       <!--  <i class="fa fa-picture-o"></i> -->
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 tile-active">
+                                <a class="tile tile-lime" id="menuReportID" href="./REPORT/" data-stop="12000">
+                                    <div class="img">
+                                        <img  src="../../../images/rmr/home-menuTile-report.png"/>
+                                    </div>
+                                    <div class="content">
+                                        <p class="big">Report</p>
+                                        <p class="title hidden-xs ">Report from WLMA</p>
+                                    </div>
+                                </a>
+
+                                <a class="tile tile-magenta " id="menuReportID-backgroundMenuTile" href="./REPORT/" data-stop="1000">
+                                    <p class="title" style="color:#4A4849">Report</p>
+                                    <p style="color:#4A4849">รายงานข้อมูลจากระบบ WLMA</p>
                                     <div class="img img-bottom">
                                        <!--  <i class="fa fa-picture-o"></i> -->
                                     </div>
