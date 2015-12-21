@@ -233,6 +233,34 @@
     "groupTitle": "Wlma_Manager"
   },
   {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p> "
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./apidoc/main.js",
+    "group": "_Applications_XAMPP_xamppfiles_htdocs_rmr_build_src_api_apidoc_main_js",
+    "groupTitle": "_Applications_XAMPP_xamppfiles_htdocs_rmr_build_src_api_apidoc_main_js",
+    "name": ""
+  },
+  {
     "sampleRequest": [
       {
         "url": "http://localhost/rmr/build/src/api, iOS RESTKit use content-type is \"application/json\"\nWeb Form, Advance REST Client App use content-type is \"application/x-www-form-urlencoded\""

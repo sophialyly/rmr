@@ -16,7 +16,7 @@ session_start(); //start session.
 
         <link href="../../../stylesheets/stylesheet-rmr-home.css" rel="stylesheet" type="text/css" />
 
-        <link rel="shortcut icon" href="../../../images/images-flaty_theme/favicon/favicon.ico">
+        <link rel="shortcut icon" href="../../../images/rmr/favicon.ico">
     </head>
     <body>
 
@@ -218,7 +218,7 @@ session_start(); //start session.
                         
                         <div class="row">
                             <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRtuInfoID" href="./EventsManagement/">
+                                <a class="tile tile-lime" id="menuRtuInfoID" href="./RTU/">
                                     <div class="img">
                                         <img  src="../../../images/rmr/Oval.png"/>
                                     </div>
@@ -228,7 +228,7 @@ session_start(); //start session.
                                     </div>
                                 </a>
 
-                                <a class="tile tile-magenta" href="./EventsManagement/">
+                                <a class="tile tile-magenta" href="./RTU/">
                                     <p class="title">RTU Information</p>
                                     <p>ระบบจัดการข้อมูล RTU</p>
                                     <div class="img img-bottom">

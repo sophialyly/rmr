@@ -13,7 +13,7 @@ session_start(); //start session.
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link href="../../../stylesheets/stylesheet-flaty_login.css" rel="stylesheet" type="text/css" />
 
-        <link rel="shortcut icon" href="../images/images-flaty_theme/favicon/favicon.ico">
+        <link rel="shortcut icon" href="../../../images/rmr/favicon.ico">
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
