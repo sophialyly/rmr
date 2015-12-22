@@ -163,7 +163,7 @@ session_start(); //start session.
 
                         <!-- sidebar - Dashboard  -->
                                             <li class="active">
-                        <a href="#">
+                        <a href="./">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
@@ -173,7 +173,7 @@ session_start(); //start session.
                                             <li class="">
                         <a href="#" class="dropdown-toggle">
                             <i class="fa fa-desktop"></i>
-                            <span>RMR</span>
+                            <span>RMR Manager</span>
                             <b class="arrow fa fa-angle-right"></b>
                         </a>
 
@@ -220,7 +220,7 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   RMR System</h1>
+                        <h1><i class="fa fa-file-o"></i>   RMR Manager</h1>
                         <h4>You can start your customization from this one!</h4>
                     </div>
                 </div>
@@ -229,8 +229,12 @@ session_start(); //start session.
 			    	                <!-- BEGIN Breadcrumb -->
                 <div>
                     <ul class="breadcrumb">
-                        <li class="active"><i class="fa fa-home"></i> Home</li>
-                        <!-- <li class="active"> &nbsp; </li> -->
+                        <li>
+                        	<i class="fa fa-home"></i> 
+                        	<a href="../">Home</a>
+                            <span class="divider"><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li class="active">RMR Manager</li>
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->

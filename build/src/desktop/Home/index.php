@@ -246,7 +246,7 @@ session_start(); //start session.
                                     </div>
                                     <div class="content">
                                         <p class="big">Report</p>
-                                        <p class="title hidden-xs ">Report from WLMA</p>
+                                        <p class="title hidden-xs ">WLMA Report</p>
                                     </div>
                                 </a>
 

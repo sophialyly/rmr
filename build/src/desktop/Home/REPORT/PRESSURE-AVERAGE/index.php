@@ -5,18 +5,18 @@ session_start(); //start session.
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="/rmr/build/src/desktop/Home/REPORT/">
+        <base href="/rmr/build/src/desktop/Home/REPORT/PRESSURE-AVERAGE/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Home - Report System</title>
+        <title>Report Manager - Pressure average</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link href="../../../../stylesheets/stylesheet-rmr-home-report.css" rel="stylesheet" type="text/css" />
+        <link href="../../../../../stylesheets/stylesheet-rmr-home-report-pressureAverage.css" rel="stylesheet" type="text/css" />
 
-        <link rel="shortcut icon" href="../../../../images/rmr/favicon.ico">
+        <link rel="shortcut icon" href="../../../../../images/rmr/favicon.ico">
     </head>
     <body>
 
@@ -26,7 +26,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../../../Login/index.php'); //redirect URL
+                header('Location: ../../../../../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -58,7 +58,7 @@ session_start(); //start session.
                                         <!-- BEGIN Button User -->
                 <li class="user-profile">
                     <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                        <img class="nav-user-photo" src="../../../../images/images-flaty_theme/img/demo/avatar/avatar_kapook.jpg" alt="Kapook's Photo" />
+                        <img class="nav-user-photo" src="../../../../../images/images-flaty_theme/img/demo/avatar/avatar_kapook.jpg" alt="Kapook's Photo" />
                         <span class="hhh" id="user_info">
                             Kapook
                         </span>
@@ -162,15 +162,15 @@ session_start(); //start session.
                     <!-- END Search Form -->
 
                         <!-- sidebar - Dashboard  -->
-                                            <li class="active">
-                        <a href="./">
+                                            <li class="">
+                        <a href="../">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 
                         <!-- sidebar - RMR  -->
-                                            <li class="">
+                                            <li class="active">
                         <a href="#" class="dropdown-toggle">
                             <i class="fa fa-desktop"></i>
                             <span>REPORT Manager</span>
@@ -180,7 +180,7 @@ session_start(); //start session.
                         <!-- BEGIN Submenu -->
                         <ul class="submenu">
                             <li class="">
-                                <a href="./PRESSURE-AVERAGE/">แรงดันเฉลี่ยแต่ละ DMA</a>
+                                <a href="./">แรงดันเฉลี่ยแต่ละ DMA</a>
                             </li>
                         </ul>
                         <!-- END Submenu -->
@@ -204,76 +204,7 @@ session_start(); //start session.
 			    <div id="main-content" >
 
 
-			    	<!-- Home - Container - MainContent - pageTitle  -->
-			    	                <!-- BEGIN Page Title -->
-                <div class="page-title">
-                    <div>
-                        <h1><i class="fa fa-file-o"></i>   REPORT Manager</h1>
-                        <h4>You can start your customization from this one!</h4>
-                    </div>
-                </div>
-                <!-- END Page Title -->
-			    	<!-- Home - Container - MainContent - breadCrumbs  -->
-			    	                <!-- BEGIN Breadcrumb -->
-                <div>
-                    <ul class="breadcrumb">
-                        <li>
-                        	<i class="fa fa-home"></i> 
-                        	<a href="../">Home</a>
-                            <span class="divider"><i class="fa fa-angle-right"></i></span>
-                        </li>
-                        <li class="active">Report Manager</li>
-                    </ul>
-                </div>
-                <!-- END Breadcrumb -->
-
-
-
-					
-					<!-- Home - Container - MainContent - menuTile  -->
-			    	                <!-- BEGIN Tiles -->
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-
-                                        <div class="tile tile-light-blue well well-sm">
-                                            <!-- <p class="title"><strong class="text-info">Events Manager</strong> - ระบบจัดการงานกิจกรรมภายใน MBK</p> -->
-                                            <h4><strong>Report Manager</strong> - ระบบจัดการรายงานข้อมูลจากระบบ WLMA</h4>
-                                            <p>ระบบจัดการรายงานข้อมูลที่มีในระบบ WLMA เพื่อสนับสนุนการบริหารจัดลดน้ำสูญเสีย กปน.</p>
-                                            <!-- <div  class="img img-bottom">
-                                                <i class="fa fa-dashboard"></i>
-                                            </div> -->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-5">
-                        <div class="row">
-                            <div  class="col-md-12">
-                                <div class="tile tile-light-blue" id="ReportLogoID">
-                                    <div class="img">
-                                        <!-- <i class="fa fa-calendar"></i> -->
-                                        <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">1</p>
-                                        <p class="title">จำนวนรายงาน</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- END Tiles -->
+			    
 					
 			    	
 			    	
@@ -287,7 +218,7 @@ session_start(); //start session.
         </div>
         <!-- END Container -->
 
-        <script src="../../../../javascripts/javascript-rmr-home-report.js" type="text/javascript"></script>
+        <script src="../../../../../javascripts/javascript-rmr-home-report-pressureAverage.js" type="text/javascript"></script>
 
     </body>
 </html>
