@@ -115,6 +115,10 @@ configure :build do
   ignore '/javascripts/javascript-rmr-home/*'
   ignore '/javascripts/javascript-rmr-home-rmr/*'
   ignore '/javascripts/javascript-rmr-home-rtu/*'
+  ignore '/javascripts/javascript-rmr-home-rtu-rtuList/*'
+  ignore '/javascripts/javascript-rmr-home-report/*'
+  ignore '/javascripts/javascript-rmr-home-report-pressureAverage/*'
+  
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
   ignore '/stylesheets/stylesheet-desktop-admin.css.erb'
@@ -152,6 +156,10 @@ configure :build do
   ignore '/stylesheets/stylesheet-rmr-home/*'
   ignore '/stylesheets/stylesheet-rmr-home-rmr/*'
   ignore '/stylesheets/stylesheet-rmr-home-rtu/*'
+  ignore '/stylesheets/stylesheet-rmr-home-rtu-rtuList/*'
+  ignore '/stylesheets/stylesheet-rmr-home-report/*'
+  ignore '/stylesheets/stylesheet-rmr-home-report-pressureAverage/*'
+  
 
   ignore '/src/desktop/training-section1/*'
   ignore '/src/desktop/training-section2/*'
@@ -171,6 +179,8 @@ configure :build do
   ignore '/helper/jquery-validation/*'
   ignore '/helper/bootstrap-datepicker-thai/*'
   ignore '/helper/Abban-jQuery-Picture/*'
+
+
 
 
   # For example, change the Compass output style for deployment

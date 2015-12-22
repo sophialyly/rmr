@@ -1,22 +1,22 @@
 ---
-title: "Home - RTU System"
-layout: "layout-rmr-home-rtu"
+title: "RTU Manager - RTU List"
+layout: "layout-rmr-home-rtu-rtuList"
 
-baseURL: "/rmr/build/src/desktop/Home/RTU/"
-loginURL: "../../../../Login/index.php"
-homeURL: "../"
-imageURL: "../../../../images"
+baseURL: "/rmr/build/src/desktop/Home/RTU/RTU-List/"
+loginURL: "../../../../../Login/index.php"
+homeURL: "../../"
+imageURL: "../../../../../images"
 
-pageTitle: " RTU Manager"
+pageTitle: " รายการข้อมูล RTU"
 pageDescription: "You can start your customization from this one!"
 
+sidebarDashboard_IsActive: ""
+sidebarDashboard_href: "../"
 
-sidebarDashboard_IsActive: "active"
-sidebarDashboard_href: "./"
+sidebarRmrManager_IsActive: "active"
+sidebarRmrList_IsActive: "active"
+sidebarRmrList_href: "./"
 
-sidebarRmrManager_IsActive: ""
-sidebarRmrList_IsActive: ""
-sidebarRmrList_href: "./RTU-List/"
 ---
 
 
@@ -34,14 +34,12 @@ sidebarRmrList_href: "./RTU-List/"
 
 
 			    	<!-- Home - Container - MainContent - pageTitle  -->
-			    	<%= partial partials_desktop_home + "/RTU/home-rtu-container-partials/_home-rtu-container-mainContent-pageTitle" %>
+			    	<%= partial partials_desktop_home + "/RTU/RTU-List/home-rtu-rtuList-container-partials/_home-rtu-rtuList-container-mainContent-pageTitle" %>
 			    	<!-- Home - Container - MainContent - breadCrumbs  -->
-			    	<%= partial partials_desktop_home + "/RTU/home-rtu-container-partials/_home-rtu-container-mainContent-breadCrumbs" %>
-					
-					<!-- Home - Container - MainContent - Dashboard Tile  -->
-			    	<%= partial partials_desktop_home + "/RTU/home-rtu-container-partials/_home-rtu-container-mainContent-dashboardTile" %>
+			    	<%= partial partials_desktop_home + "/RTU/RTU-List/home-rtu-rtuList-container-partials/_home-rtu-rtuList-container-mainContent-breadCrumbs" %>
 
-			    	
+			    	<!-- Home - Container - MainContent - sampleBox  -->
+			    	<%= partial partials_desktop_home + "/RTU/RTU-List/home-rtu-rtuList-container-partials/_home-rtu-rtuList-container-mainContent-rtuInformation" %>
 
 			    	
 

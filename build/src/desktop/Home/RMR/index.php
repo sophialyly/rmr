@@ -220,7 +220,7 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   RMR Manager</h1>
+                        <h1><i class="fa fa-dashboard"></i>   RMR Manager</h1>
                         <h4>You can start your customization from this one!</h4>
                     </div>
                 </div>
@@ -242,21 +242,39 @@ session_start(); //start session.
 
 
 					
-					
-			    	
-			        <!-- Home - Container - MainContent - menuTile  -->
-			    	                        <div class="box" >
-                            <div class="box-title">
-                                <h3><i class="fa fa-file"></i> Sample Box</h3>
-                                <div class="box-tool">
-                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+					<!-- Home - Container - MainContent - menuTile  -->
+			    	                <!-- BEGIN Tiles -->
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="tile tile-light-blue well well-sm">
+                                            <!-- <p class="title"><strong class="text-info">Events Manager</strong> - ระบบจัดการงานกิจกรรมภายใน MBK</p> -->
+                                            <h4><strong>RMR Manager</strong> - RTU Maintenance Records</h4>
+                                            <p>ระบบบันทึกข้อมูลการซ่อมและบำรุงรักษาอุปกรณ์ตรวจวัดภาคสนาม (RTU)</p>
+                                            <!-- <div  class="img img-bottom">
+                                                <i class="fa fa-dashboard"></i>
+                                            </div> -->
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="box-content" style="height:400px;">
-                                <!-- <p>Blank page</p> -->
-                            </div>
                         </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        
+                    </div>
+                </div>
+
+                <!-- END Tiles -->
+
+			    	
+			        
 			    	
 			    	
 
