@@ -1,0 +1,66 @@
+---
+title: "Report Manager - WLMA-1125"
+layout: "layout-rmr-home-report-wlma1125-report001"
+
+imageURL: "../../../../../../images"
+baseURL: "/rmr/build/src/desktop/Home/REPORT/WLMA-1125/REPORT-001/"
+loginURL: "../../../../../../Login/index.php"
+homeURL: "../../../"
+reportManagerURL: "../../"
+
+
+pageTitle: " สถานะการซ่อมท่อจ่ายน้ำ"
+pageDescription: "รายงานผลการดำเนินงานซ่อมท่อจ่ายน้ำที่รับแจ้งจาก Call Center 1125"
+
+sidebarDashboard_IsActive: ""
+sidebarDashboard_href: "../"
+
+
+sidebarReportManager_IsActive: "active"
+
+sidebarReport001_IsActive: "active"
+sidebarReport001_href: "./"
+
+
+
+#     *** Page DOM ID registered ***
+#     >> mainReport001DataTable (แสดงตาราง Datatable แสดงผลการดำเนินงานซ่อมท่อจ่ายน้ำที่รับแจ้งจาก Call Center 1125)
+
+---
+
+
+		<!-- Admin - Navbar  -->
+		<%= partial partials_desktop_home + "/home-common-partials/_home-common-navbar" %>
+
+
+		<!-- BEGIN Container -->
+        <div class="container sidebar-blue" id="main-container">
+
+        		<!-- Home - Container - Sidebar  -->
+			    <%= partial partials_desktop_home + "/REPORT/WLMA-1125/common-partials/_sidebar" %>
+
+			    <!-- BEGIN Content -->
+			    <div id="main-content" >
+
+		
+					<!-- Home - Container - MainContent - pageTitle  -->
+			    	<%= partial partials_desktop_home + "/REPORT/WLMA-1125/REPORT-001/content-partials/_pageTitle" %>
+			    	<!-- Home - Container - MainContent - breadCrumbs  -->
+			    	<%= partial partials_desktop_home + "/REPORT/WLMA-1125/REPORT-001/content-partials/_breadCrumbs" %>
+					
+					
+
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	<%= partial partials_desktop_home + "/REPORT/WLMA-1125/REPORT-001/content-partials/_report001Box" %>
+					
+			    	
+			    	
+
+			        <footer>
+			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			        </footer>
+			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+			    </div>
+			    <!-- END Content -->
+        </div>
+        <!-- END Container -->

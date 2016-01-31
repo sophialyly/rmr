@@ -1,0 +1,29 @@
+Apps: function () {
+            //console.log('Apps');
+
+            $('.goto-login').click(function(){
+                fn.GotoForm('login');
+            });
+            $('.goto-forgot').click(function(){
+                fn.GotoForm('forgot');
+            });
+            $('.goto-register').click(function(){
+                fn.GotoForm('register');
+            });
+
+            $(window).scroll(function(){
+                // if($('.navbar').offset().top > 50){
+                //     $('.navbar-fixed-top').addClass('top-nav-collapse');
+                // } else {
+                //     $('.navbar-fixed-top').removeClass('top-nav-collapse');
+                // }
+            });
+
+            $('.navbar-fixed-top').addClass('top-nav-collapse');
+
+
+            $('#button-login').bind('click', function(e) {
+                fn.LoginManager(e);
+            });
+
+}

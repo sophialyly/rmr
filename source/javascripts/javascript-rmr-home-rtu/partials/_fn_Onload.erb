@@ -1,0 +1,62 @@
+Onload: function () {
+    //console.log('Onload');
+
+    $.ajax({
+            url: '../../../api/loginManager/getJWT/',
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            async: false, //blocks window close
+            success: function(data) {
+                    // Decode and show the returned data nicely.
+                    console.log(data.jwt);
+
+                    //var tmpJWT = localStorage.getItem("jwt"); // => jwt
+                    var tmpJWT = data.jwt;
+
+                    //setTimeout(function(){
+
+                        $.ajax({
+                            url: '../../../api/rtuManager/informationOnload/',
+                            beforeSend: function(request){
+                                console.log('before send: ' + tmpJWT)
+                                request.setRequestHeader('Authorization', 'Bearer ' + tmpJWT);
+                            },
+                            // retryLimit: 0,
+                            // processData: false,
+                            // headers: {
+                            //     'Authorization':'Bearer' + tmpJWT
+                            // },
+                            type: 'GET',
+                            contentType: 'application/json',
+                            dataType: 'json',
+                            success: function(data) {
+                                // Decode and show the returned data nicely.
+                                console.log(data);
+                            },
+                            statusCode: {
+                                404: function() {
+                                  alert("page not found");
+                                },
+                                400: function() {
+                                  alert("Bad Request");
+                                }
+                            }
+                            // ,
+                            // error: function() {
+                            //     alert('error');
+                            // }
+                        });
+
+                    //},5000); 
+
+
+
+            },
+            error: function() {
+                alert('error');
+            }
+    });
+
+
+},

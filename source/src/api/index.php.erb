@@ -11,7 +11,8 @@ layout: "layout-api"
     <%= partial "/ConnectDatabase/_connectDB2_Localhost" %>
     <%= partial "/ConnectDatabase/_connectMySQL_Localhost" %>
 
-
+    /* Secret Key */
+    $key = "supersecretkeyyoushouldnotcommittogithub";
 
     /* Slim framework 2.x */
     $app = new \Slim\Slim();
@@ -26,7 +27,7 @@ layout: "layout-api"
         },
         "rules" => [
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
-                "path" => ["/token", "/user"],
+                "path" => ["/token", "/user", "/rtuManager/informationOnload/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
@@ -80,7 +81,7 @@ layout: "layout-api"
 
 
 
-    $app->get("/user", function () use ($app) {
+    $app->get("/user/", function () use ($app) {
 
         // $app->response->headers->set('Content-Type', 'application/json');
         // echo json_encode(array("token" => $$app->jwt));
@@ -92,6 +93,10 @@ layout: "layout-api"
           "scope" => ["read", "write", "delete"]
           );
       $jwt = JWT::encode($token, $key);
+      //$jwt = JWT::encode($token, $key, 'HS512');
+
+      $_SESSION['userName'] = "aaa";
+
       $app->response->headers->set('Content-Type', 'application/json');
       echo json_encode(array("token" =>$jwt));
 
@@ -99,18 +104,90 @@ layout: "layout-api"
 
 
 
-    $app->get('/login', function () use ($app) {
+    $app->get('/login/', function () use ($app) {
 
-      $params = $app->request()->getBody();
-      $key = "supersecretkeyyoushouldnotcommittogithub";
-      $token = array(
-          "id" => "2",
-          "exp" => time() + (60 * 60 * 24),
-          "scope" => ["read", "write", "delete"]
-          );
-      $jwt = JWT::encode($token, $key);
-      $app->response->headers->set('Content-Type', 'application/json');
-      echo json_encode(array("token" =>$jwt));
+      // $params = $app->request()->getBody();
+      // $key = "supersecretkeyyoushouldnotcommittogithub";
+      // $token = array(
+      //     "id" => "2",
+      //     "exp" => time() + (60 * 60 * 24),
+      //     "scope" => ["read", "write", "delete"]
+      //     );
+      // $jwt = JWT::encode($token, $key);
+      // $app->response->headers->set('Content-Type', 'application/json');
+      // echo json_encode(array("token" =>$jwt));
+
+
+      $tokenId    = base64_encode(mcrypt_create_iv(32));
+      $issuedAt   = time();
+      $notBefore  = $issuedAt + 10;             //Adding 10 seconds
+      $expire     = $notBefore + 60;            // Adding 60 seconds
+      $serverName = gethostname();              // Retrieve the server name from config file
+      
+      /*
+       * Create the token as an array
+       */
+      $data = [
+          'iat'  => $issuedAt,         // Issued at: time when the token was generated
+          'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
+          'iss'  => $serverName,       // Issuer
+          'nbf'  => $notBefore,        // Not before
+          'exp'  => $expire,           // Expire
+          'data' => [                  // Data related to the signer user
+              'userId'   => '1234', // userid from the users table
+              'userName' => 'josh', // User name
+          ]
+      ];
+
+
+      /*
+       * Code here...
+       */
+
+          /*
+           * Extract the key, which is coming from the config file. 
+           * 
+           * Best suggestion is the key to be a binary string and 
+           * store it in encoded in a config file. 
+           *
+           * Can be generated with base64_encode(openssl_random_pseudo_bytes(64));
+           *
+           * keep it secure! You'll need the exact key to verify the 
+           * token later.
+           */
+          $secretKey = base64_decode('supersecretkeyyoushouldnotcommittogithub');
+          
+          /*
+           * Encode the array to a JWT string.
+           * Second parameter is the key to encode the token.
+           * 
+           * The output string can be validated at http://jwt.io/
+           */
+          $jwt = JWT::encode(
+              $data,      //Data to be encoded in the JWT
+              $secretKey, // The signing key
+              'HS512'     // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
+              );
+          
+          $_SESSION['userName'] = "aaa";
+          
+          $unencodedArray = ['jwt' => $jwt];
+          echo json_encode($unencodedArray);
+
+
+
+      // $params = $app->request()->getBody();
+      // $key = "supersecretkeyyoushouldnotcommittogithub";
+
+      // $token = array(
+      //     "id" => "2",
+      //     "exp" => time() + (60 * 60 * 24),
+      //     "scope" => ["read", "write", "delete"]
+      //     );
+
+      // $jwt = JWT::encode($token, $key);
+      // $app->response->headers->set('Content-Type', 'application/json');
+      // echo json_encode(array("token" =>$jwt));
 
     });
 
@@ -118,12 +195,20 @@ layout: "layout-api"
 
 
     /* Login manager */
-    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db) { checkUserPassword($app, $pdo, $db); });
+    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $key) { checkUserPassword($app, $pdo, $db, $key); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
+    $app->get('/loginManager/getJWT/',function() use ($app) { getJWT($app); });
 
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportPressureAverage/',function() use ($app, $pdo, $conn_db2) { reportPressureAverage($app, $pdo, $conn_db2); });
+    $app->post('/wlmaManager/reportWLMA1125/',function() use ($app, $pdo, $conn_db2) { reportWLMA1125($app, $pdo, $conn_db2); });
+
+    /* RTU manager */
+    $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
+
+
+
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -139,9 +224,14 @@ layout: "layout-api"
     /* Login Manager Partial */
     <%= partial "/LoginManager/_checkUserPassword" %>
     <%= partial "/LoginManager/_logout" %>
+    <%= partial "/LoginManager/_getJWT" %>
 
     /* WLMA Manager Partial */
     <%= partial "/WlmaManager/_checkUserPasswordFromWLMA" %>
     <%= partial "/WlmaManager/_reportPressureAverage" %>
+    <%= partial "/WlmaManager/_reportWLMA1125" %>
+
+    /* RTU Manager Partial */
+    <%= partial "/RtuManager/_informationOnload" %>
     
 ?>

@@ -15,6 +15,20 @@ menuDashboard_href: "./"
 
 menuReportManager_IsActive: ""
 menuReportPressureAverage_href: "./PRESSURE-AVERAGE/"
+
+gotoWLMA1125_href: "./WLMA-1125/"
+
+#	  ************************************************
+#     *** Page DOM ID registered ***
+#	  ************************************************
+#     >> ตัวอย่าง - viewEvent-titile (แสดงชื่อกิจกรรม - Event)
+#     >> 
+#     >> 
+#	  ************************************************
+#     *** Link Page registered ***
+#	  ************************************************
+#     >> ตัวอย่าง - gotoWLMA1125_href (เป็นตัวแปรใน current_page.data ที่ใช้สำหรับลิงค์ไปยังหน้า WLMA-1125)
+#     >> gotoWLMA1125_href (เป็นตัวแปรใน current_page.data ที่ใช้สำหรับลิงค์ไปยังหน้า WLMA-1125)
 ---
 
 		<!-- Admin - Navbar  -->
@@ -23,8 +37,6 @@ menuReportPressureAverage_href: "./PRESSURE-AVERAGE/"
 		<!-- BEGIN Container -->
         <div class="container sidebar-blue" id="main-container">
 
-        		<!-- Home - Container - Sidebar  -->
-			    <%= partial partials_desktop_home + "/REPORT/home-report-common-partials/_home-report-common-sidebar" %>
 
 			    <!-- BEGIN Content -->
 			    <div id="main-content" >
@@ -35,8 +47,11 @@ menuReportPressureAverage_href: "./PRESSURE-AVERAGE/"
 			    	<!-- Home - Container - MainContent - breadCrumbs  -->
 			    	<%= partial partials_desktop_home + "/REPORT/home-report-container-partials/_home-report-container-mainContent-breadCrumbs" %>
 					
-					<!-- Home - Container - MainContent - menuTile  -->
-			    	<%= partial partials_desktop_home + "/REPORT/home-report-container-partials/_home-report-container-mainContent-dashboardTile" %>
+					<!-- Home - Container - MainContent - menuTile - First Row  -->
+			    	<%= partial partials_desktop_home + "/REPORT/home-report-container-partials/_home-report-container-mainContent-dashboardTile_firstRow" %>
+
+			    	<!-- Home - Container - MainContent - menuTile - Second Row  -->
+			    	<%= partial partials_desktop_home + "/REPORT/home-report-container-partials/_home-report-container-mainContent-dashboardTile_secondRow" %>
 					
 			    	
 			    	

@@ -6290,6 +6290,11 @@ table.dataTable{clear:both;margin:0.5em 0 !important;max-width:none !important;w
     display: block;
     margin: 0px auto;
 }
+.EventsManagerDataTable_Controls {
+    text-align: center ;
+    vertical-align: middle !important;
+}
+
 
 
 

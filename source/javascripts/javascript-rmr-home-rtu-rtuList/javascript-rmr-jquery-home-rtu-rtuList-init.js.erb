@@ -1,5 +1,51 @@
 $(function () {
 
+	<%= partial "javascript-rmr-home-rtu-rtuList/_objectRTU_RtuList" %>
     <%= partial "javascript-rmr-home-rtu-rtuList/_javascript-rmr-jquery-home-rtu-rtuList-logoutButtonClick" %>
 
 });
+
+
+(function ($) {
+    "use strict";
+
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+    
+    /////////////////////////////////////////////////// Adress
+
+    var fn = {
+
+        // Launch Functions
+        Launch: function () {
+            fn.OpenLayers();
+            //fn.Routers();
+            fn.Apps();
+        },
+
+        // OpenLayers
+        OpenLayers: function () {
+        	console.log('OpenLayers');
+        },
+
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Routers" %>
+
+        // Apps
+        Apps: function () {
+        	console.log('Apps');
+
+            // Go Register
+            $('#rtuList-goto-add').click(function () {
+                fn.Routers('add');
+            });
+
+        }
+
+
+    };
+
+    $(document).ready(function () {
+        fn.Launch();
+    });
+
+})(jQuery);

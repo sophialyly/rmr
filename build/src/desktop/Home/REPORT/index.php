@@ -142,63 +142,6 @@ session_start(); //start session.
 		<!-- BEGIN Container -->
         <div class="container sidebar-blue" id="main-container">
 
-        		<!-- Home - Container - Sidebar  -->
-			                <!-- BEGIN Sidebar -->
-            <!-- <div id="sidebar" class="navbar-collapse collapse"> -->
-            <div id="sidebar" class="navbar-collapse collapse sidebar-fixed">
-                <!-- BEGIN Navlist -->
-                <ul class="nav nav-list">
-                    <!-- BEGIN Search Form -->
-                    <li>
-                        <form target="#" method="GET" class="search-form">
-                            <span class="search-pan">
-                                <button type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" />
-                            </span>
-                        </form>
-                    </li>
-                    <!-- END Search Form -->
-
-                        <!-- sidebar - Dashboard  -->
-                                            <li class="active">
-                        <a href="./">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-
-                        <!-- sidebar - RMR  -->
-                                            <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-desktop"></i>
-                            <span>REPORT Manager</span>
-                            <b class="arrow fa fa-angle-right"></b>
-                        </a>
-
-                        <!-- BEGIN Submenu -->
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="./PRESSURE-AVERAGE/">แรงดันเฉลี่ยแต่ละ DMA</a>
-                            </li>
-                        </ul>
-                        <!-- END Submenu -->
-                    </li>
-
-                   
-
-                    
-                </ul>
-                <!-- END Navlist -->
-
-                <!-- BEGIN Sidebar Collapse Button -->
-                <div id="sidebar-collapse" class="visible-lg">
-                    <i class="fa fa-angle-double-left"></i>
-                </div>
-                <!-- END Sidebar Collapse Button -->
-            </div>
-            <!-- END Sidebar -->
 
 			    <!-- BEGIN Content -->
 			    <div id="main-content" >
@@ -230,31 +173,31 @@ session_start(); //start session.
 
 
 					
-					<!-- Home - Container - MainContent - menuTile  -->
-			    	                <!-- BEGIN Tiles -->
+					<!-- Home - Container - MainContent - menuTile - First Row  -->
+			    	                
+
+
+                <!-- BEGIN First Row -->
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-3">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-
-                                        <div class="tile tile-light-blue well well-sm">
-                                            <!-- <p class="title"><strong class="text-info">Events Manager</strong> - ระบบจัดการงานกิจกรรมภายใน MBK</p> -->
-                                            <h4><strong>Report Manager</strong> - ระบบจัดการรายงานข้อมูลจากระบบ WLMA</h4>
-                                            <p>ระบบจัดการรายงานข้อมูลที่มีในระบบ WLMA เพื่อสนับสนุนการบริหารจัดลดน้ำสูญเสีย กปน.</p>
-                                            <!-- <div  class="img img-bottom">
-                                                <i class="fa fa-dashboard"></i>
-                                            </div> -->
-                                        </div>
-
+                            <div  class="col-md-12">
+                                <a href="./WLMA-1125/" class="tile tile-light-blue" id="ReportLogoID">
+                                    <div class="img">
+                                        <!-- <i class="fa fa-calendar"></i> -->
+                                        <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
                                     </div>
-                                </div>
+                                    <div class="content">
+                                        <p class="big">WLMA-1125</p>
+                                        <p class="title">ติดตามสถานะการรับส่งข้อมูล</p>
+                                    </div>
+                                </a>
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <div class="row">
                             <div  class="col-md-12">
                                 <div class="tile tile-light-blue" id="ReportLogoID">
@@ -263,8 +206,71 @@ session_start(); //start session.
                                         <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
                                     </div>
                                     <div class="content">
-                                        <p class="big">1</p>
-                                        <p class="title">จำนวนรายงาน</p>
+                                        <p class="big">WLMA-RTU</p>
+                                        <p class="title">รายงานผลการ FTP</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div  class="col-md-12">
+                                <div class="tile tile-light-blue" id="ReportLogoID">
+                                    <div class="img">
+                                        <!-- <i class="fa fa-calendar"></i> -->
+                                        <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
+                                    </div>
+                                    <div class="content">
+                                        <p class="big">WLMA-CRM</p>
+                                        <p class="title">รายงานผลการเชื่อมโยงกับ CRM</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12 tile-active">
+                                <div class="tile tile-magenta" data-stop="4000" style="top: 0px;">
+                                    <div class="img img-center">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                    <p class="title text-center">SERVER Monitoring</p>
+                                </div>
+                                <div class="tile tile-pink" data-stop="5000" style="top: 0px;">
+                                    <p>ติดตามสถานะการทำงานของเครื่องแม่ข่าย</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END First Row -->
+
+
+
+
+			    	<!-- Home - Container - MainContent - menuTile - Second Row  -->
+			    	                
+
+
+                <!-- BEGIN First Row -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div  class="col-md-12">
+                                <div class="tile tile-light-blue" id="ReportLogoID">
+                                    <div class="img">
+                                        <!-- <i class="fa fa-calendar"></i> -->
+                                        <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
+                                    </div>
+                                    <div class="content">
+                                        <p class="big">WLMA-GIS</p>
+                                        <p class="title">แผนที่แสดงจุดรั่ว</p>
                                     </div>
                                 </div>
                             </div>
@@ -272,8 +278,10 @@ session_start(); //start session.
                         </div>
                     </div>
                 </div>
+                <!-- END First Row -->
 
-                <!-- END Tiles -->
+
+
 					
 			    	
 			    	

@@ -181,6 +181,7 @@ configure :build do
   ignore '/helper/Abban-jQuery-Picture/*'
 
 
+  ignore '/src/app/*'
 
 
   # For example, change the Compass output style for deployment

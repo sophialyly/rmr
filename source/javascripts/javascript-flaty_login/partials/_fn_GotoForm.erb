@@ -1,0 +1,6 @@
+GotoForm: function (form) {
+            //console.log('GotoForm');
+            $('.login-wrapper > form:visible').fadeOut(500, function(){
+                    $('#form-' + form).fadeIn(500);
+            });
+},

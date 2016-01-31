@@ -43,6 +43,9 @@
     "angular-resource": "~1.4.7",
     "bootstrap-star-rating": "~3.5.5",
     "leaflet": "leaflet-dist#~0.7.2",
-    "openlayers": "*"
+    "openlayers": "*",
+    "moment": "~2.10.6",
+    "moment-duration-format": "~1.3.0",
+    "jquery-ui": "~1.11.4"
   }
 }

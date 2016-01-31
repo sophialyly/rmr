@@ -17308,39 +17308,126 @@ $(function() {
 
 
 });
-$(function () {
-
-                    $('#button-logout').bind('click', function(){
-
-                      //alert('logout');
 
 
-                      $.ajax({
-                        url: '../../../api/loginManager/logout/',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        cache: false,
-                        //async: false,
-                        success: function(data) {
-                            //console.log(data);
 
-                            //window.location.href = '../Admin/';
-                            var url = '../../Login/';
-                            $(location).attr('href',url);
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+    
+    /////////////////////////////////////////////////// Adress
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            fn.Onload();
+            fn.Apps();
+        },
 
-                            //console.log(window.location.pathname);
+        // Onload
+        Onload: function () {
+    //console.log('Onload');
 
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                                alert('init error: ' + textStatus);
+    $.ajax({
+            url: '../../../api/loginManager/getJWT/',
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            async: false, //blocks window close
+            success: function(data) {
+                    // Decode and show the returned data nicely.
+                    console.log(data.jwt);
+
+                    //var tmpJWT = localStorage.getItem("jwt"); // => jwt
+                    var tmpJWT = data.jwt;
+
+                    //setTimeout(function(){
+
+                        $.ajax({
+                            url: '../../../api/rtuManager/informationOnload/',
+                            beforeSend: function(request){
+                                console.log('before send: ' + tmpJWT)
+                                request.setRequestHeader('Authorization', 'Bearer ' + tmpJWT);
+                            },
+                            // retryLimit: 0,
+                            // processData: false,
+                            // headers: {
+                            //     'Authorization':'Bearer' + tmpJWT
+                            // },
+                            type: 'GET',
+                            contentType: 'application/json',
+                            dataType: 'json',
+                            success: function(data) {
+                                // Decode and show the returned data nicely.
+                                console.log(data);
+                            },
+                            statusCode: {
+                                404: function() {
+                                  alert("page not found");
+                                },
+                                400: function() {
+                                  alert("Bad Request");
+                                }
+                            },
+                            error: function() {
+                                alert('error');
                             }
                         });
-                });
 
-});
+                    //},5000); 
 
 
+
+            },
+            error: function() {
+                alert('error');
+            }
+    });
+
+
+},
+
+        // LogoutManager
+        LogoutManager: function () {
+    //console.log('LogoutManager');
+    $.ajax({
+        url: '../../../api/loginManager/logout/',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        cache: false,
+            //async: false,
+            success: function(data) {
+                //console.log(data);
+                //window.location.href = '../Admin/';
+                var url = '../../Login/';
+                $(location).attr('href',url);
+                //console.log(window.location.pathname);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert('init error: ' + textStatus);
+            }
+    });
+
+},
+
+        // Apps
+        Apps: function () {
+    //console.log('Apps');
+    $('#button-logout').bind('click', function(){
+        fn.LogoutManager();
+    });
+}
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
+    });
+ 
+})(jQuery);
 
 
 

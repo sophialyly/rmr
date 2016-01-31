@@ -237,7 +237,7 @@ session_start(); //start session.
                 <!-- END Breadcrumb -->
 
 			    	<!-- Home - Container - MainContent - sampleBox  -->
-			    	                        <div class="box" >
+			    	                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-main">
                             <div class="box-title">
                                 <h3><i class="fa fa-file"></i> รายการ RTU</h3>
                                 <div class="box-tool">
@@ -245,10 +245,156 @@ session_start(); //start session.
                                     <a data-action="close" href="#"><i class="fa fa-times"></i></a>
                                 </div>
                             </div>
-                            <div class="box-content" style="height:400px;">
+                            <div class="box-content" >
                                 <!-- <p>Blank page</p> -->
+
+
+<div class="btn-toolbar pull-right clearfix">
+    <!-- <div class="btn-group">
+        <a class="btn btn-circle show-tooltip" title="Add new record" href="#"><i class="fa fa-plus"></i></a>
+        <a class="btn btn-circle show-tooltip" title="Edit selected" href="#"><i class="fa fa-edit"></i></a>
+        <a class="btn btn-circle show-tooltip" title="Delete selected" href="#"><i class="fa fa-trash-o"></i></a>
+    </div> -->
+    <div class="btn-group">
+        <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add">
+        <i class="fa fa-plus"></i>
+        </a>
+    </div>
+    <div class="btn-group">
+        <!-- <a class="btn btn-circle show-tooltip" title="Print" href="#"><i class="fa fa-print"></i></a> -->
+        <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
+        <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
+    </div>
+    <div class="btn-group">
+        <a class="btn btn-circle show-tooltip" title="Refresh" id="AttendeeParticipateEventDataTable_btnRefresh" href="#"><i class="fa fa-repeat"></i></a>
+    </div>
+</div>
+
+
+
+
+
+<br/><br/>
+<div class="clearfix"></div>
+
+
+<div class="table-responsive" style="border:0">
+<table class="table table-advance" id="mainRtuDataTable" style="width: 100% !important;" >
+ 
+<thead>
+    <tr>
+        <th >DM</th>
+        <th >Branch</th>
+        <th >IP</th>
+        <th >lat, lng</th>
+        <th ></th>
+    </tr>
+</thead>
+ 
+<tbody>
+ 
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    <tr>
+        <th >DM-01-01-01-01</th>
+        <th >B01</th>
+        <th >10.202.68.253</th>
+        <th ></th>
+        <th ></th>
+    </tr>
+    
+</tbody>
+                        
+</table>
+
+</div>
+
+
+
+                                
                             </div>
                         </div>
+
+                        
+			    	<div class="box canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
+    <div class="box-title">
+        <h3><i class="fa fa-file"></i> Add Box</h3>
+        <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+    <div class="box-content" style="height:400px;">
+        <!-- <p>Blank page</p> -->
+    </div>
+</div>
+
+
+
+
+
+
 
 			    	
 

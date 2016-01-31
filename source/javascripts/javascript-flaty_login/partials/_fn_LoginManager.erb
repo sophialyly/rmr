@@ -1,0 +1,59 @@
+LoginManager: function (e) {
+
+       var postParams = {
+          "userName": "myUserName",
+          "passWord": "1234"
+      };
+
+      $.ajax({
+        url: '../../api/loginManager/checkUserPassword/',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(postParams),
+        cache: false,
+        //async: false,
+        success: function(data) {
+             //console.log(data);
+             //alert(data);
+
+            //jwt = data.jwt;
+            // Storing the data:
+            //localStorage.setItem("jwt",jwt);
+
+
+            // window.location.href = '../Admin/index.php';
+            var url = '../Home/';
+            $(location).attr('href',url);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+                alert('init error: ' + textStatus);
+        }
+      });
+
+
+      // $.ajax({
+      //       url: '../../api/login/',
+      //       type: 'GET',
+      //       contentType: 'application/json',
+      //       dataType: 'json',
+      //       success: function(data) {
+
+      //           jwt = data.jwt;
+
+      //           // Storing the data:
+      //           localStorage.setItem("jwt",jwt);
+
+      //           var url = '../Home/';
+      //           $(location).attr('href',url);
+      //       },
+      //       error: function() {
+      //           alert('error');
+      //       }
+      //   });
+
+
+    return e.preventDefault();
+    
+},

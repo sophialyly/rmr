@@ -1,0 +1,17 @@
+        // Routers
+        Routers: function (canvasID) {
+            console.log('Routers');
+
+            if (canvasID != "default") {
+                $("#main-content > .canvas-rtuInformation:visible").hide("slide", { direction: "left" }, 1000, function(){
+                    $('#canvas-rtuInformation-' + canvasID).fadeIn(300);
+
+                });
+            } else {
+                $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
+                    $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 1000, function(){});
+                });
+            }
+
+
+        },

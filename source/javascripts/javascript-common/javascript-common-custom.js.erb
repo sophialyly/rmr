@@ -1,0 +1,108 @@
+// var SingletonClass = (function(){
+
+//     var globalJWT = "Hello";
+
+//     function SingletonClass() {
+//         //do stuff
+        
+//     }
+//     var instance;
+
+    
+//     return {
+//         getInstance: function(){
+//             if (instance == null) {
+//                 instance = new SingletonClass();
+//                 // Hide the constructor so the returned objected can't be new'd...
+//                 instance.constructor = null;
+//             }
+//             return instance;
+//         }
+//    };
+
+// })();
+
+
+// var Singleton = (function () {
+//     var instance;
+ 
+//     function createInstance() {
+//         var object = new Object("I am the instance");
+//         return object;
+//     }
+ 
+//     return {
+//         getInstance: function () {
+//             if (!instance) {
+//                 instance = createInstance();
+//             }
+//             return instance;
+//         }
+//     };
+// })();
+ 
+// function run() {
+ 
+//     var instance1 = Singleton.getInstance();
+//     var instance2 = Singleton.getInstance();
+ 
+//     alert("Same instance? " + (instance1 === instance2));  
+// }
+
+
+
+
+
+
+
+var mySingleton = (function () {
+
+  // Instance stores a reference to the Singleton
+  var instance;
+
+  function init() {
+
+    // Singleton
+
+    // Private methods and variables
+    function privateMethod(){
+        console.log( "I am private" );
+    }
+
+    var privateVariable = "Im also private";
+
+    return {
+
+      // Public methods and variables
+      publicMethod: function () {
+        console.log( "The public can see me!" );
+      },
+
+      publicProperty: "I am also public",
+      publicJWT: ""
+    };
+
+  };
+
+  return {
+
+    // Get the Singleton instance if one exists
+    // or create one if it doesn't
+    getInstance: function () {
+
+      if ( !instance ) {
+        instance = init();
+      }
+
+      return instance;
+    }
+
+  };
+
+})();
+
+// Usage:
+
+// var singleA = mySingleton.getInstance();  
+// var singleB = mySingleton.getInstance();  
+// console.log( singleA === singleB ); // true  

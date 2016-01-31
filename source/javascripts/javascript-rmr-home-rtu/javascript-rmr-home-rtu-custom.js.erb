@@ -1,3 +1,34 @@
 //= require javascript-flaty_common/flaty
 //= require javascript-flaty_common/flaty-demo-codes
-//= require javascript-rmr-home-rtu/javascript-rmr-jquery-home-rtu-init
+
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+    
+    /////////////////////////////////////////////////// Adress
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            fn.Onload();
+            fn.Apps();
+        },
+
+        // Onload
+        <%= partial "javascript-rmr-home-rtu/partials/_fn_Onload" %>
+
+        // LogoutManager
+        <%= partial "javascript-rmr-home-rtu/partials/_fn_LogoutManager" %>
+
+        // Apps
+        <%= partial "javascript-rmr-home-rtu/partials/_fn_Apps" %>
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
+    });
+ 
+})(jQuery);

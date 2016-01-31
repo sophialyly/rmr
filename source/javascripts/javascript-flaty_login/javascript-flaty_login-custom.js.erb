@@ -1,50 +1,33 @@
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+     var jwt;
+    
+    /////////////////////////////////////////////////// Adress
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            fn.Apps();
+        },
+ 
+        // LoginManager
+        <%= partial "javascript-flaty_login/partials/_fn_LoginManager" %>
 
-            function goToForm(form)
-            {
-                $('.login-wrapper > form:visible').fadeOut(500, function(){
-                    $('#form-' + form).fadeIn(500);
-                });
-            }
-            
-            $(function() {
-                $('.goto-login').click(function(){
-                    goToForm('login');
-                });
-                $('.goto-forgot').click(function(){
-                    goToForm('forgot');
-                });
-                $('.goto-register').click(function(){
-                    goToForm('register');
-                });
-            });
-
-
-            $(window).scroll(function(){
-
-                // if($('.navbar').offset().top > 50){
-                //     $('.navbar-fixed-top').addClass('top-nav-collapse');
-                // } else {
-                //     $('.navbar-fixed-top').removeClass('top-nav-collapse');
-                // }
-
-            });
-
-            $(function(){
-                // $('.page-scroll a').bind('click', function(){
-                //     var $anchor = $(this);
-                //     $('html, body').stop().animate({
-                //         scrollTop: $($anchor.attr('href')).offset().top
-                //     }, 1500, 'easeInOutExpo');
-                //     event.preventDefault();
-                // });
-
-                $('.navbar-fixed-top').addClass('top-nav-collapse');
-                
-                <%= partial "javascript-flaty_login/_javascript-flaty_loginManager" %>
-                
-            });
-
-
-            
+        // GotoForm
+        <%= partial "javascript-flaty_login/partials/_fn_GotoForm" %>
+ 
+        // Apps
+        <%= partial "javascript-flaty_login/partials/_fn_Apps" %>
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
+    });
+ 
+})(jQuery);
             
             

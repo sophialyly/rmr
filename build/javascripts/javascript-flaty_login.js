@@ -9232,95 +9232,132 @@ c,b,d){return-b*Math.cos(a/d*(Math.PI/2))+b+c},easeOutSine:function(e,a,c,b,d){r
 a)return c;if(1==(a/=d))return c+b;f||(f=.3*d);g<Math.abs(b)?(g=b,e=f/4):e=f/(2*Math.PI)*Math.asin(b/g);return g*Math.pow(2,-10*a)*Math.sin(2*(a*d-e)*Math.PI/f)+b+c},easeInOutElastic:function(e,a,c,b,d){e=1.70158;var f=0,g=b;if(0==a)return c;if(2==(a/=d/2))return c+b;f||(f=.3*d*1.5);g<Math.abs(b)?(g=b,e=f/4):e=f/(2*Math.PI)*Math.asin(b/g);return 1>a?-.5*g*Math.pow(2,10*--a)*Math.sin(2*(a*d-e)*Math.PI/f)+c:g*Math.pow(2,-10*--a)*Math.sin(2*(a*d-e)*Math.PI/f)*.5+b+c},easeInBack:function(e,a,c,b,d,f){void 0==
 f&&(f=1.70158);return b*(a/=d)*a*((f+1)*a-f)+c},easeOutBack:function(e,a,c,b,d,f){void 0==f&&(f=1.70158);return b*((a=a/d-1)*a*((f+1)*a+f)+1)+c},easeInOutBack:function(e,a,c,b,d,f){void 0==f&&(f=1.70158);return 1>(a/=d/2)?b/2*a*a*(((f*=1.525)+1)*a-f)+c:b/2*((a-=2)*a*(((f*=1.525)+1)*a+f)+2)+c},easeInBounce:function(e,a,c,b,d){return b-h.easing.easeOutBounce(e,d-a,0,b,d)+c},easeOutBounce:function(e,a,c,b,d){return(a/=d)<1/2.75?7.5625*b*a*a+c:a<2/2.75?b*(7.5625*(a-=1.5/2.75)*a+.75)+c:a<2.5/2.75?b*(7.5625*
 (a-=2.25/2.75)*a+.9375)+c:b*(7.5625*(a-=2.625/2.75)*a+.984375)+c},easeInOutBounce:function(e,a,c,b,d){return a<d/2?.5*h.easing.easeInBounce(e,2*a,0,b,d)+c:.5*h.easing.easeOutBounce(e,2*a-d,0,b,d)+.5*b+c}})})(jQuery);
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+     var jwt;
+    
+    /////////////////////////////////////////////////// Adress
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            fn.Apps();
+        },
+ 
+        // LoginManager
+        LoginManager: function (e) {
 
-            function goToForm(form)
-            {
-                $('.login-wrapper > form:visible').fadeOut(500, function(){
+       var postParams = {
+          "userName": "myUserName",
+          "passWord": "1234"
+      };
+
+      $.ajax({
+        url: '../../api/loginManager/checkUserPassword/',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(postParams),
+        cache: false,
+        //async: false,
+        success: function(data) {
+             //console.log(data);
+             //alert(data);
+
+            //jwt = data.jwt;
+            // Storing the data:
+            //localStorage.setItem("jwt",jwt);
+
+
+            // window.location.href = '../Admin/index.php';
+            var url = '../Home/';
+            $(location).attr('href',url);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+                alert('init error: ' + textStatus);
+        }
+      });
+
+
+      // $.ajax({
+      //       url: '../../api/login/',
+      //       type: 'GET',
+      //       contentType: 'application/json',
+      //       dataType: 'json',
+      //       success: function(data) {
+
+      //           jwt = data.jwt;
+
+      //           // Storing the data:
+      //           localStorage.setItem("jwt",jwt);
+
+      //           var url = '../Home/';
+      //           $(location).attr('href',url);
+      //       },
+      //       error: function() {
+      //           alert('error');
+      //       }
+      //   });
+
+
+    return e.preventDefault();
+    
+},
+
+        // GotoForm
+        GotoForm: function (form) {
+            //console.log('GotoForm');
+            $('.login-wrapper > form:visible').fadeOut(500, function(){
                     $('#form-' + form).fadeIn(500);
-                });
-            }
-            
-            $(function() {
-                $('.goto-login').click(function(){
-                    goToForm('login');
-                });
-                $('.goto-forgot').click(function(){
-                    goToForm('forgot');
-                });
-                $('.goto-register').click(function(){
-                    goToForm('register');
-                });
+            });
+},
+ 
+        // Apps
+        Apps: function () {
+            //console.log('Apps');
+
+            $('.goto-login').click(function(){
+                fn.GotoForm('login');
+            });
+            $('.goto-forgot').click(function(){
+                fn.GotoForm('forgot');
+            });
+            $('.goto-register').click(function(){
+                fn.GotoForm('register');
             });
 
-
             $(window).scroll(function(){
-
                 // if($('.navbar').offset().top > 50){
                 //     $('.navbar-fixed-top').addClass('top-nav-collapse');
                 // } else {
                 //     $('.navbar-fixed-top').removeClass('top-nav-collapse');
                 // }
-
             });
 
-            $(function(){
-                // $('.page-scroll a').bind('click', function(){
-                //     var $anchor = $(this);
-                //     $('html, body').stop().animate({
-                //         scrollTop: $($anchor.attr('href')).offset().top
-                //     }, 1500, 'easeInOutExpo');
-                //     event.preventDefault();
-                // });
-
-                $('.navbar-fixed-top').addClass('top-nav-collapse');
-                
-                
-
-                $('#button-login').bind('click', function(e){
-
-                       var postParams = {
-                          "userName": "myUserName",
-                          "passWord": "1234"
-                      };
+            $('.navbar-fixed-top').addClass('top-nav-collapse');
 
 
-                      $.ajax({
-                        url: '../../api/loginManager/checkUserPassword/',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        data: JSON.stringify(postParams),
-                        cache: false,
-                        //async: false,
-                        success: function(data) {
-                             //console.log(data);
-                             //alert(data);
-
-                            // window.location.href = '../Admin/index.php';
-                            var url = '../Home/';
-                            $(location).attr('href',url);
-
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                                alert('init error: ' + textStatus);
-                            }
-                        });
-
-                    return e.preventDefault();
-                });
-
-
-
-
-
-
-                
+            $('#button-login').bind('click', function(e) {
+                fn.LoginManager(e);
             });
 
+}
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
+    });
+ 
+})(jQuery);
+            
+            
 
-            
-            
-            
+
 
 
 

@@ -1,0 +1,147 @@
+    /**
+     *
+     * @apiName InformationOnload
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/informationOnload/ Information Onload event
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงข้อมูลเบื้องต้นในหน้าจอที่เกี่ยวข้องกับ RTU โดยแยกสิทธ์ตามผู้ใช้งาน
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /rtuManager/informationOnload/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function informationOnload($app, $pdo, $conn_db2, $key) {
+
+        /* *************************************** */
+        /* เริ่มกระบวนการ ถอดรหัส JWT (Decode JWT)  */
+        /* *************************************** */
+        $secretKey = base64_decode($key);
+
+        /*** Extract the jwt from the Bearer ***/
+        $request = $app->request();
+        $authHeader = $request->headers('authorization');
+        list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+        $token_jti = $app->jwt->jti;    // Json Token Id: an unique identifier for the token
+        $token_iss = $app->jwt->iss;    // Issuer
+
+        $epoch_exp = $app->jwt->exp + (7*60*60); 
+        $dt_exp = new DateTime("@$epoch_exp");  // convert UNIX timestamp to PHP DateTime
+        $token_exp = $dt_exp->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+        $epoch_nbf = $app->jwt->nbf + (7*60*60); 
+        $dt_nbf = new DateTime("@$epoch_nbf");  // convert UNIX timestamp to PHP DateTime
+        $token_nbf = $dt_nbf->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+        $epoch_iat = $app->jwt->iat + (7*60*60); 
+        $dt_iat = new DateTime("@$epoch_iat");  // convert UNIX timestamp to PHP DateTime
+        $token_iat = $dt_iat->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+
+        if (in_array("delete", $app->jwt->scope)) {
+            /* Code for deleting item */
+            $token_id = $app->jwt->id;
+        } else {
+            /* No scope so respond with 401 Unauthorized */
+            $this->app->response->status(401);
+        }
+
+        /* access parameter `data` : associative array */
+        $arr_data = $app->jwt->data;
+        $arr_data_info = [];
+        foreach ($arr_data as $key => $value){
+            $arr_data_info[] = array(
+                $key => $value
+            );
+        }
+
+        /* access parameter `scope` : array */
+        $arr_scope = $app->jwt->scope;
+        $arr_scope_info = [];
+        foreach ($arr_scope as $value) {
+            $arr_scope_info[] = $value;
+        }
+
+        /* access parameter `id` */
+        $data_id = $app->jwt->id;
+
+        /* access parameter `userName` */
+        $data_userName = $app->jwt->userName;
+
+        /* access parameter `branchCode` */
+        $data_branchCode = $app->jwt->branchCode;
+
+
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการรับค่าพารามิเตอร์จากส่วนของ Payload ซึ่งอยู่ในรูปแบบ JSON */
+        /* ************************* */
+        $headers = $app->request->headers;
+        $ContetnType = $app->request->headers->get('Content-Type');
+
+        /**
+        * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
+        * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
+        */
+        if ($ContetnType == "application/json") {
+
+            $request = $app->request();
+            $result = json_decode($request->getBody());
+
+            /* receive request */
+            // $postUserName = $result->userName;
+            // $postPassWord = $result->passWord;
+
+
+        } else if ($ContetnType == "application/x-www-form-urlencoded"){
+
+            //$userID = $app->request()->params('userID_param');
+            //$userID = $app->request()->post('userID_param');
+        }
+
+
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+
+        $tokenRequestInformation = array(
+            "jwt" => $jwt,
+            "JsonTokenId" => $token_jti,
+            "TokenIssuer" => $token_iss,
+            "TokenGenerated" => $token_iat,
+            "TokenNotBefore" => $token_nbf,
+            "TokenExpire" => $token_exp,
+            "Data" => $arr_data_info,
+            "Scope" => $arr_scope_info,
+            "id" => $data_id,
+            "UserName" => $data_userName,
+            "BranchCode" => $data_branchCode
+        );
+
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode(array("AuthHeader" => $authHeader, "tokenRequestInformation" => $tokenRequestInformation));
+
+    };

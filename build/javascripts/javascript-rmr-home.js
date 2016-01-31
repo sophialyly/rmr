@@ -17338,6 +17338,9 @@ $(function () {
                         });
                 });
 
+    // Receiving the data:
+    // console.log(localStorage.getItem("jwt"));
+
 });
 
 
