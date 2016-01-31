@@ -17371,10 +17371,11 @@ $(function() {
                                 400: function() {
                                   alert("Bad Request");
                                 }
-                            },
-                            error: function() {
-                                alert('error');
                             }
+                            // ,
+                            // error: function() {
+                            //     alert('error');
+                            // }
                         });
 
                     //},5000); 

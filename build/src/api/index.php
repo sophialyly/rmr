@@ -874,63 +874,97 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         /* *************************************** */
         /* เริ่มกระบวนการ ถอดรหัส JWT (Decode JWT)  */
         /* *************************************** */
-        $secretKey = base64_decode($key);
+        if ($key) {
 
-        /*** Extract the jwt from the Bearer ***/
-        $request = $app->request();
-        $authHeader = $request->headers('authorization');
-        list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+            $secretKey = base64_decode($key);
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
 
-        $token_jti = $app->jwt->jti;    // Json Token Id: an unique identifier for the token
-        $token_iss = $app->jwt->iss;    // Issuer
+            if ($request) {
 
-        $epoch_exp = $app->jwt->exp + (7*60*60); 
-        $dt_exp = new DateTime("@$epoch_exp");  // convert UNIX timestamp to PHP DateTime
-        $token_exp = $dt_exp->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+                $authHeader = $request->headers('authorization');
+                /*
+                 * Look for the 'authorization' header
+                 */
+                if ($authHeader) {
+                    
+                    list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
 
-        $epoch_nbf = $app->jwt->nbf + (7*60*60); 
-        $dt_nbf = new DateTime("@$epoch_nbf");  // convert UNIX timestamp to PHP DateTime
-        $token_nbf = $dt_nbf->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+                    if ($jwt) {
 
-        $epoch_iat = $app->jwt->iat + (7*60*60); 
-        $dt_iat = new DateTime("@$epoch_iat");  // convert UNIX timestamp to PHP DateTime
-        $token_iat = $dt_iat->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+                        $token_jti = $app->jwt->jti;    // Json Token Id: an unique identifier for the token
+                        $token_iss = $app->jwt->iss;    // Issuer
+
+                        $epoch_exp = $app->jwt->exp + (7*60*60); 
+                        $dt_exp = new DateTime("@$epoch_exp");  // convert UNIX timestamp to PHP DateTime
+                        $token_exp = $dt_exp->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+                        $epoch_nbf = $app->jwt->nbf + (7*60*60); 
+                        $dt_nbf = new DateTime("@$epoch_nbf");  // convert UNIX timestamp to PHP DateTime
+                        $token_nbf = $dt_nbf->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+                        $epoch_iat = $app->jwt->iat + (7*60*60); 
+                        $dt_iat = new DateTime("@$epoch_iat");  // convert UNIX timestamp to PHP DateTime
+                        $token_iat = $dt_iat->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
 
 
-        if (in_array("delete", $app->jwt->scope)) {
-            /* Code for deleting item */
-            $token_id = $app->jwt->id;
+                        if (in_array("delete", $app->jwt->scope)) {
+                            /* Code for deleting item */
+                            $token_id = $app->jwt->id;
+                        } else {
+                            /* No scope so respond with 401 Unauthorized */
+                            $this->app->response->status(401);
+                        }
+
+                        /* access parameter `data` : associative array */
+                        $arr_data = $app->jwt->data;
+                        $arr_data_info = [];
+                        foreach ($arr_data as $key => $value){
+                            $arr_data_info[] = array(
+                                $key => $value
+                            );
+                        }
+
+                        /* access parameter `scope` : array */
+                        $arr_scope = $app->jwt->scope;
+                        $arr_scope_info = [];
+                        foreach ($arr_scope as $value) {
+                            $arr_scope_info[] = $value;
+                        }
+
+                        /* access parameter `id` */
+                        $data_id = $app->jwt->id;
+
+                        /* access parameter `userName` */
+                        $data_userName = $app->jwt->userName;
+
+                        /* access parameter `branchCode` */
+                        $data_branchCode = $app->jwt->branchCode;
+
+                    } else {
+                        /*
+                         * No token was able to be extracted from the authorization header
+                         */
+                        // header('HTTP/1.0 400 Bad Request');
+                        $this->app->response->status(400);
+                    }
+
+                } else {
+                    /*
+                     * The request lacks the authorization token
+                     */
+                    // header('HTTP/1.0 400 Bad Request');
+                    $this->app->response->status(400);
+                }
+
+            } else {
+                // header('HTTP/1.0 405 Method Not Allowed');
+                $this->app->response->status(405);
+            }
         } else {
-            /* No scope so respond with 401 Unauthorized */
+            // header('HTTP/1.0 401 Unauthorized');
             $this->app->response->status(401);
         }
-
-        /* access parameter `data` : associative array */
-        $arr_data = $app->jwt->data;
-        $arr_data_info = [];
-        foreach ($arr_data as $key => $value){
-            $arr_data_info[] = array(
-                $key => $value
-            );
-        }
-
-        /* access parameter `scope` : array */
-        $arr_scope = $app->jwt->scope;
-        $arr_scope_info = [];
-        foreach ($arr_scope as $value) {
-            $arr_scope_info[] = $value;
-        }
-
-        /* access parameter `id` */
-        $data_id = $app->jwt->id;
-
-        /* access parameter `userName` */
-        $data_userName = $app->jwt->userName;
-
-        /* access parameter `branchCode` */
-        $data_branchCode = $app->jwt->branchCode;
-
-
 
 
 
