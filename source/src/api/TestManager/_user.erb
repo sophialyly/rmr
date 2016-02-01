@@ -1,0 +1,20 @@
+    $app->get("/user/", function () use ($app) {
+
+        // $app->response->headers->set('Content-Type', 'application/json');
+        // echo json_encode(array("token" => $$app->jwt));
+
+      $key = "supersecretkeyyoushouldnotcommittogithub";
+      $token = array(
+          "id" => "1",
+          "exp" => time() + (60 * 10),
+          "scope" => ["read", "write", "delete"]
+          );
+      $jwt = JWT::encode($token, $key);
+      //$jwt = JWT::encode($token, $key, 'HS512');
+
+      $_SESSION['userName'] = "aaa";
+
+      $app->response->headers->set('Content-Type', 'application/json');
+      echo json_encode(array("token" =>$jwt));
+
+    });

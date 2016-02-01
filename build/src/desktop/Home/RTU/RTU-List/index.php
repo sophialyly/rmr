@@ -237,7 +237,7 @@ session_start(); //start session.
                 <!-- END Breadcrumb -->
 
 			    	<!-- Home - Container - MainContent - sampleBox  -->
-			    	                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-main">
+			    	                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
                             <div class="box-title">
                                 <h3><i class="fa fa-file"></i> รายการ RTU</h3>
                                 <div class="box-tool">
@@ -377,7 +377,7 @@ session_start(); //start session.
                         </div>
 
                         
-			    	<div class="box canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
+			    	<!-- <div class="box canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
     <div class="box-title">
         <h3><i class="fa fa-file"></i> Add Box</h3>
         <div class="box-tool">
@@ -386,9 +386,173 @@ session_start(); //start session.
         </div>
     </div>
     <div class="box-content" style="height:400px;">
-        <!-- <p>Blank page</p> -->
+    </div>
+</div> -->
+
+<div class="row canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-title">
+                <h3><i class="fa fa-bars"></i> เพิ่มข้อมูล RTU</h3>
+                <div class="box-tool">
+                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <form action="#" class="form-horizontal" id="form-wizard-rtuList-validation">
+                   <div class="form-wizard" id="form-wizard-rtuList">
+                      <ul class="row steps steps-fill">
+                         <li class="col-xs-12 col-sm-6 col-lg-4">
+                            <a href="#tab2-1" data-toggle="tab" class="step active">
+                                <span class="number">1</span>
+                                <span class="desc"><i class="fa fa-check"></i> ข้อมูลพื้นฐาน</span>   
+                            </a>
+                         </li>
+                         <li class="col-xs-12 col-sm-6 col-lg-4">
+                            <a href="#tab2-2" data-toggle="tab" class="step">
+                                <span class="number">2</span>
+                                <span class="desc"><i class="fa fa-check"></i> ระบุพิกัด RTU</span>   
+                            </a>
+                         </li>
+                        <!--  <li class="col-xs-12 col-sm-6 col-lg-3">
+                            <a href="#tab2-3" data-toggle="tab" class="step">
+                                <span class="number">3</span>
+                                <span class="desc"><i class="fa fa-check"></i> Billing Setup</span>   
+                            </a>
+                         </li> -->
+                         <li class="col-xs-12 col-sm-6 col-lg-4">
+                            <a href="#tab2-4" data-toggle="tab" class="step">
+                                <span class="number">4</span>
+                                <span class="desc"><i class="fa fa-check"></i> Confirm</span>   
+                            </a> 
+                         </li>
+                      </ul>
+                      <div class="progress progress-striped">
+                         <div class="progress-bar progress-bar-primary"></div>
+                      </div>
+                      <div class="tab-content">
+
+
+                     <div class="tab-pane active" id="tab2-1">
+    <div class="form-group">
+        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">First Name</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="firstname2" id="firstname2" class="form-control" data-rule-required="true">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Last Name</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="lastname2" id="lastname2" class="form-control" data-rule-required="true">
+        </div>
+    </div>
+ </div>
+                     <div class="tab-pane" id="tab2-2">
+    <div class="form-group">
+        <label for="username2" class="col-sm-3 col-lg-2 control-label">Username</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="username2" id="username2" class="form-control" data-rule-required="true" data-rule-minlength="3">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password2" class="col-sm-3 col-lg-2 control-label">Password</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="password" name="password2" id="password2" class="form-control" data-rule-required="true" data-rule-minlength="6">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="re-password2" class="col-sm-3 col-lg-2 control-label">Password Again</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="password" name="re-password2" id="re-password2" class="form-control" data-rule-required="true" data-rule-minlength="6" data-rule-equalTo="#password2">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email2" class="col-sm-3 col-lg-2 control-label">Email</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="email2" id="email2" class="form-control" data-rule-required="true" data-rule-email="true">
+        </div>
+    </div>
+ </div>
+                     <div class="tab-pane" id="tab2-3">
+    <div class="form-group">
+        <label for="country2" class="col-sm-3 col-lg-2 control-label">Country</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="country2" id="country2" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="city2" class="col-sm-3 col-lg-2 control-label">City</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="city2" id="city2" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-lg-2 control-label">Gender</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <label class="radio-inline">
+                <input type="radio" name="gender"> Male
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="gender"> Female
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="textarea2" class="col-sm-3 col-lg-2 control-label">More info</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <textarea name="textarea2" id="textarea2" rows="5" class="form-control"></textarea>
+        </div>
+    </div>
+ </div>
+                     <div class="tab-pane" id="tab2-4">
+    <div class="form-group">
+        <label class="col-sm-3 col-lg-2 control-label">First Name</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <span class="text">Penny</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-lg-2 control-label">last Name</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <span class="text">Rodrigez</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-lg-2 control-label">Gender</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <span class="text">Female</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-lg-2 control-label">Username</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <span class="text">PennyRod</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-lg-2 control-label">Email</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <span class="text">pennyrod@domain.com</span>
+        </div>
+    </div>
+ </div>
+
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                            <a href="javascript:;" class="btn button-previous">Back</a>
+                            <a href="javascript:;" class="btn btn-primary button-next">Continue</a>
+                            <a href="javascript:;" class="btn btn-success button-submit">Submit</a>
+                        </div>
+                      </div>
+                   </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+<!-- END Main Content -->
 
 
 

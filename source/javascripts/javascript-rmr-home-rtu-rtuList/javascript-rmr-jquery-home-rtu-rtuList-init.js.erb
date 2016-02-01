@@ -19,28 +19,18 @@ $(function () {
         // Launch Functions
         Launch: function () {
             fn.OpenLayers();
-            //fn.Routers();
+            fn.FormWizard();
             fn.Apps();
         },
 
         // OpenLayers
-        OpenLayers: function () {
-        	console.log('OpenLayers');
-        },
-
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_OpenLayers" %>
+        // Routers
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Routers" %>
-
+        // Form Wizard
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_FormWizard" %>
         // Apps
-        Apps: function () {
-        	console.log('Apps');
-
-            // Go Register
-            $('#rtuList-goto-add').click(function () {
-                fn.Routers('add');
-            });
-
-        }
-
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Apps" %>
 
     };
 

@@ -1,0 +1,33 @@
+    $app->post("/token", function () use ($app) {
+
+      /* Here generate and return JWT to the client. */
+      // $key = "supersecretkeyyoushouldnotcommittogithub";
+      // $token = array(
+      //     "id" => "1",
+      //     "exp" => time() + (60 * 60 * 24)
+      //     );
+      // $jwt = JWT::encode($token, $key);
+      // $app->response->headers->set('Content-Type', 'application/json');
+      // echo json_encode(array("token" =>$jwt));
+
+       $secretKey = base64_decode("supersecretkeyyoushouldnotcommittogithub");
+
+
+       /*** Extract the jwt from the Bearer ***/
+       $request = $app->request();
+       $authHeader = $request->headers('authorization');
+       list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+
+       if (in_array("delete", $app->jwt->scope)) {
+        /* Code for deleting item */
+        $token = $app->jwt->id;
+      } else {
+        /* No scope so respond with 401 Unauthorized */
+        $this->app->response->status(401);
+      }
+
+       echo json_encode(array("AuthHeader" => $authHeader, "Hash_Token" => $jwt, "token" => $token));
+      //print_r($app->jwt);
+
+    });

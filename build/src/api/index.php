@@ -24,7 +24,7 @@ session_start(); //start session.
     use \Firebase\JWT\JWT;
     $app->add(new \Slim\Middleware\JwtAuthentication([
          //"secure" => false,
-        "secret" => "supersecretkeyyoushouldnotcommittogithub",
+        "secret" => $key,
         //"path"=> "/user",
         "callback" => function ($options) use ($app) {
             $app->jwt = $options["decoded"];
@@ -41,51 +41,9 @@ session_start(); //start session.
     ]));
 
 
-
-    $app->post("/token", function () use ($app) {
-
-      /* Here generate and return JWT to the client. */
-      // $key = "supersecretkeyyoushouldnotcommittogithub";
-      // $token = array(
-      //     "id" => "1",
-      //     "exp" => time() + (60 * 60 * 24)
-      //     );
-      // $jwt = JWT::encode($token, $key);
-      // $app->response->headers->set('Content-Type', 'application/json');
-      // echo json_encode(array("token" =>$jwt));
-
-       $secretKey = base64_decode("supersecretkeyyoushouldnotcommittogithub");
-
-
-       /*** Extract the jwt from the Bearer ***/
-       $request = $app->request();
-       $authHeader = $request->headers('authorization');
-       list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
-
-
-       if (in_array("delete", $app->jwt->scope)) {
-        /* Code for deleting item */
-        $token = $app->jwt->id;
-      } else {
-        /* No scope so respond with 401 Unauthorized */
-        $this->app->response->status(401);
-      }
-
-       echo json_encode(array("AuthHeader" => $authHeader, "Hash_Token" => $jwt, "token" => $token));
-      //print_r($app->jwt);
-
-    });
-
-
-
-
-
     /* Test Manager */
     $app->get('/testManager/getMsg/:name',function($name) use ($app) { getMsg($app, $name); });
-
-
-
-    $app->get("/user/", function () use ($app) {
+        $app->get("/user/", function () use ($app) {
 
         // $app->response->headers->set('Content-Type', 'application/json');
         // echo json_encode(array("token" => $$app->jwt));
@@ -105,10 +63,7 @@ session_start(); //start session.
       echo json_encode(array("token" =>$jwt));
 
     });
-
-
-
-    $app->get('/login/', function () use ($app) {
+        $app->get('/login/', function () use ($app) {
 
       // $params = $app->request()->getBody();
       // $key = "supersecretkeyyoushouldnotcommittogithub";
@@ -194,9 +149,39 @@ session_start(); //start session.
       // echo json_encode(array("token" =>$jwt));
 
     });
+        $app->post("/token", function () use ($app) {
+
+      /* Here generate and return JWT to the client. */
+      // $key = "supersecretkeyyoushouldnotcommittogithub";
+      // $token = array(
+      //     "id" => "1",
+      //     "exp" => time() + (60 * 60 * 24)
+      //     );
+      // $jwt = JWT::encode($token, $key);
+      // $app->response->headers->set('Content-Type', 'application/json');
+      // echo json_encode(array("token" =>$jwt));
+
+       $secretKey = base64_decode("supersecretkeyyoushouldnotcommittogithub");
 
 
+       /*** Extract the jwt from the Bearer ***/
+       $request = $app->request();
+       $authHeader = $request->headers('authorization');
+       list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
 
+
+       if (in_array("delete", $app->jwt->scope)) {
+        /* Code for deleting item */
+        $token = $app->jwt->id;
+      } else {
+        /* No scope so respond with 401 Unauthorized */
+        $this->app->response->status(401);
+      }
+
+       echo json_encode(array("AuthHeader" => $authHeader, "Hash_Token" => $jwt, "token" => $token));
+      //print_r($app->jwt);
+
+    });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $key) { checkUserPassword($app, $pdo, $db, $key); });
@@ -210,9 +195,6 @@ session_start(); //start session.
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
-
-
-
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -351,6 +333,7 @@ session_start(); //start session.
 	          "userName" => $postUserName,
 	          "branchCode" => "B01"
 	      ];
+
 	      $jwt = JWT::encode($data, $key);  // default algorithm: 'HS256'
 	      // $jwt = JWT::encode($data, $key, 'HS512');
 
@@ -876,7 +859,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         /* *************************************** */
         if ($key) {
 
-            $secretKey = base64_decode($key);
+            //$secretKey = base64_decode($key);
             /*** Extract the jwt from the Bearer ***/
             $request = $app->request();
 

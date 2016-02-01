@@ -212,5 +212,6 @@ after_configuration do
   #sprockets.append_path File.join "#{root}", @bower_config["directory"]
 
   sprockets.append_path File.join "#{root}", "bower_components"
+  sprockets.append_path File.join "#{root}", "source"
   #sprockets.import_asset 'jquery'
 end
