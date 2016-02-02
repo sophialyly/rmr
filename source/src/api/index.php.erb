@@ -55,6 +55,7 @@ layout: "layout-api"
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
+    $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $conn_db2, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -79,5 +80,7 @@ layout: "layout-api"
 
     /* RTU Manager Partial */
     <%= partial "/RtuManager/_informationOnload" %>
+    <%= partial "/RtuManager/_listRTUFromBranch" %>
+    
     
 ?>

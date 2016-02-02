@@ -415,15 +415,9 @@ session_start(); //start session.
                                 <span class="desc"><i class="fa fa-check"></i> ระบุพิกัด RTU</span>   
                             </a>
                          </li>
-                        <!--  <li class="col-xs-12 col-sm-6 col-lg-3">
+                         <li class="col-xs-12 col-sm-6 col-lg-4">
                             <a href="#tab2-3" data-toggle="tab" class="step">
                                 <span class="number">3</span>
-                                <span class="desc"><i class="fa fa-check"></i> Billing Setup</span>   
-                            </a>
-                         </li> -->
-                         <li class="col-xs-12 col-sm-6 col-lg-4">
-                            <a href="#tab2-4" data-toggle="tab" class="step">
-                                <span class="number">4</span>
                                 <span class="desc"><i class="fa fa-check"></i> Confirm</span>   
                             </a> 
                          </li>
@@ -435,21 +429,67 @@ session_start(); //start session.
 
 
                      <div class="tab-pane active" id="tab2-1">
+
     <div class="form-group">
-        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">First Name</label>
+        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">DM : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="firstname2" id="firstname2" class="form-control" data-rule-required="true">
+            <input type="text" name="firstname2" id="firstname2" class="form-control" >
         </div>
     </div>
+
     <div class="form-group">
-        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Last Name</label>
+        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">Branch : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="lastname2" id="lastname2" class="form-control" data-rule-required="true">
+            <input type="text" name="firstname2" id="firstname2" class="form-control" >
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">Zone : </label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="firstname2" id="firstname2" class="form-control" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">DMA : </label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="firstname2" id="firstname2" class="form-control" >
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">IP Address : </label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="lastname2" id="lastname2" class="form-control" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Logger Device</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="lastname2" id="lastname2" class="form-control" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Location</label>
+        <div class="col-sm-5 col-lg-3 controls">
+            <input type="text" name="lastname2" id="lastname2" class="form-control" >
+        </div>
+    </div>
+
+
  </div>
                      <div class="tab-pane" id="tab2-2">
-    <div class="form-group">
+
+   
+ <img style="width: 100%" src="../../../../../images/rmr/map-prototype.png">
+  
+
+
+    <!-- <div class="form-group">
         <label for="username2" class="col-sm-3 col-lg-2 control-label">Username</label>
         <div class="col-sm-5 col-lg-3 controls">
             <input type="text" name="username2" id="username2" class="form-control" data-rule-required="true" data-rule-minlength="3">
@@ -472,68 +512,55 @@ session_start(); //start session.
         <div class="col-sm-5 col-lg-3 controls">
             <input type="text" name="email2" id="email2" class="form-control" data-rule-required="true" data-rule-email="true">
         </div>
-    </div>
+    </div> -->
  </div>
                      <div class="tab-pane" id="tab2-3">
     <div class="form-group">
-        <label for="country2" class="col-sm-3 col-lg-2 control-label">Country</label>
+        <label class="col-sm-3 col-lg-2 control-label">DM : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="country2" id="country2" class="form-control">
+            <span class="text">DM-01-01-01-01</span>
         </div>
     </div>
     <div class="form-group">
-        <label for="city2" class="col-sm-3 col-lg-2 control-label">City</label>
+        <label class="col-sm-3 col-lg-2 control-label">Branch : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="city2" id="city2" class="form-control">
+            <span class="text">B01</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Gender</label>
+        <label class="col-sm-3 col-lg-2 control-label">Zone : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <label class="radio-inline">
-                <input type="radio" name="gender"> Male
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="gender"> Female
-            </label>
+            <span class="text">01</span>
         </div>
     </div>
     <div class="form-group">
-        <label for="textarea2" class="col-sm-3 col-lg-2 control-label">More info</label>
+        <label class="col-sm-3 col-lg-2 control-label">DMA : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <textarea name="textarea2" id="textarea2" rows="5" class="form-control"></textarea>
-        </div>
-    </div>
- </div>
-                     <div class="tab-pane" id="tab2-4">
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">First Name</label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">Penny</span>
+            <span class="text">DMA-01-01-01</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">last Name</label>
+        <label class="col-sm-3 col-lg-2 control-label">IP Address : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">Rodrigez</span>
+            <span class="text">10.102.13.24</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Gender</label>
+        <label class="col-sm-3 col-lg-2 control-label">Logger Device : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">Female</span>
+            <span class="text">WAGO</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Username</label>
+        <label class="col-sm-3 col-lg-2 control-label">Location : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">PennyRod</span>
+            <span class="text">จรัญสนิทวงค์ ใกล้ 7-11 ปากซอยวัดบัวขวัญ</span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Email</label>
+        <label class="col-sm-3 col-lg-2 control-label">พิกัด Lat,Lng : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">pennyrod@domain.com</span>
+            <span class="text">(13.757616, 100.567193)</span>
         </div>
     </div>
  </div>

@@ -118,6 +118,8 @@ configure :build do
   ignore '/javascripts/javascript-rmr-home-rtu-rtuList/*'
   ignore '/javascripts/javascript-rmr-home-report/*'
   ignore '/javascripts/javascript-rmr-home-report-pressureAverage/*'
+  ignore '/javascripts/javascript-rmr-home-report-wlma1125/*'
+  ignore '/javascripts/javascript-rmr-home-report-wlma1125-report001/*'
   
 
   ignore '/stylesheets/stylesheet-desktop-admin/*'
@@ -159,6 +161,8 @@ configure :build do
   ignore '/stylesheets/stylesheet-rmr-home-rtu-rtuList/*'
   ignore '/stylesheets/stylesheet-rmr-home-report/*'
   ignore '/stylesheets/stylesheet-rmr-home-report-pressureAverage/*'
+  ignore '/stylesheets/stylesheet-rmr-home-report-wlma1125/*'
+  ignore '/stylesheets/stylesheet-rmr-home-report-wlma1125-report001/*'
   
 
   ignore '/src/desktop/training-section1/*'

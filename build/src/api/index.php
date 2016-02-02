@@ -195,6 +195,7 @@ session_start(); //start session.
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
+    $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $conn_db2, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -1003,5 +1004,103 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         echo json_encode(array("AuthHeader" => $authHeader, "tokenRequestInformation" => $tokenRequestInformation));
 
     };
+        /**
+     *
+     * @apiName ListRTUFromBranch
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/listRTUFromBranch/ List RTU From Branch
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงรายการข้อมูล RTU จำแนกตามประปาสาขา
+     *
+     *
+     *
+     * @apiSampleRequest /rtuManager/listRTUFromBranch/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function listRTUFromBranch($app, $pdo, $conn_db2, $key) {
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+        $sql = "SELECT  CORE_AREA_meter.area_code AS DMA, 
+                        CORE_AREA_meter.meter_code AS DM, 
+                        iim_equip.IP_ADDRESS AS IPaddress, 
+                        iim_equip.LOGGER_CODE AS LoggerCode, 
+                        iim_equip.STATUS AS Status, 
+                        iim_equip.REMARK AS Remark
+                FROM  CORE_AREA_meter, iim_equip
+                WHERE CORE_AREA_meter.meter_code = iim_equip.equip_code";
+
+        if ($conn_db2) {
+            // # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            while ($row = db2_fetch_array($stmt)) {
+                
+                $tmpDMA = iconv("TIS-620", "UTF-8",$row[0]);
+                $tmpDM = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
+                $tmpIPaddress = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
+                $tmpLoggerCode = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[3]);
+                $tmpStatus = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[4]);
+                $tmpRemark = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[5]);
+
+                $tmpCommTypeStr = substr($tmpIPaddress, 0, 3);
+
+                if ($tmpCommTypeStr == "192") {
+                    $tmpCommType = "PSTN";
+                } else {
+                    $tmpCommType = "GPRS";
+                }
+
+                $reports[] = array(
+                    "dma" => $tmpDMA,
+                    "dm" => $tmpDM,
+                    "ip_address" => $tmpIPaddress,
+                    "logger_code" => $tmpLoggerCode,
+                    "ip_address" => $tmpIPaddress,
+                    "comm_type" => $tmpCommType,
+                    "status" => $tmpStatus,
+                    "remark" => $tmpRemark
+                );
+            }
+        }
+        $rowCount = count($reports);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
+        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
+        //$reportResult = array("result" =>  $resultText);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+        // $return_m = array("msg" => "สวัสดี");
+
+        // $app->response()->header("Content-Type", "application/json");
+        // echo json_encode($return_m);
+    };
+    
     
 ?>
