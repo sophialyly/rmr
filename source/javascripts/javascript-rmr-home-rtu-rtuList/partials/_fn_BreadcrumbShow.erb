@@ -1,0 +1,9 @@
+BreadcrumbShow: function (myTitle) {
+	// console.log('BreadcrumbShow');
+	$('.breadcrumb-rtuLink-rtuList span.rtuLink').html('<a href="#" class="goto-default" style="color:black">รายการข้อมูล RTU</a>');
+	$('.breadcrumb-angleRight-rtuList').fadeIn().css('display','inline-block');
+	$('.breadcrumb-title-rtuList').fadeIn().css('display','inline-block');
+	$('.breadcrumb-title-rtuList').text(myTitle);
+
+	$('#box-title-formWizard').text(" " + myTitle);
+},

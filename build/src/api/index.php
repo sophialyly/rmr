@@ -23,7 +23,8 @@ session_start(); //start session.
 
     use \Firebase\JWT\JWT;
     $app->add(new \Slim\Middleware\JwtAuthentication([
-         //"secure" => false,
+         "secure" => false,
+        "relaxed" => ["localhost"],
         "secret" => $key,
         //"path"=> "/user",
         "callback" => function ($options) use ($app) {

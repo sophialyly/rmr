@@ -1,0 +1,132 @@
+MainRtuDataTable: function () {
+    // console.log('MainRtuDataTable');
+
+    //------------------------ mainRtuDataTable -----------------------//
+    if (jQuery().dataTable) {
+
+        mainRtuDataTable = $('#mainRtuDataTable').DataTable( {
+            "processing": true,
+            "ajax": {
+                "url": "../../../../api/rtuManager/listRTUFromBranch.json",
+                "type": "GET",
+                "dataSrc": "rows",
+                // "success": function(data) {
+                //     console.log(data);
+                // },
+                // "error": function(jqXHR, textStatus, errorThrown){
+                //     alert('init error: ' + textStatus);
+                // }
+            },
+            "aLengthMenu": [
+                    [5, 10, 15, 25, 50, 100, -1],
+                    [5, 10, 15, 25, 50, 100, "All"]
+                ],
+            "iDisplayLength": 5,
+            "oLanguage": {
+                    "sLengthMenu": "_MENU_ Records per page",
+                    "sInfo": "_START_ - _END_ of _TOTAL_",
+                    "sInfoEmpty": "0 - 0 of 0",
+                    "oPaginate": {
+                        "sPrevious": "Prev",
+                        "sNext": "Next"
+                    }
+            },
+            "aoColumnDefs": [
+                    {
+                        'bSortable': true,
+                        "bAutoWidth": true,
+                        'aTargets': [0]
+                    },{
+                        // The `data` parameter refers to the data for the cell (defined by the
+                        // `data` option, which defaults to the column being worked with, in
+                        // this case `data: 0`.
+                        "render": function ( data, type, row ) {
+                            //return '<input type="checkbox" />';
+                            return row.dm;
+                        },
+                        "targets": 0
+                    },{
+                        "render": function ( data, type, row ) {
+                            return '-';
+                        },
+                        "targets": 1
+                    },{
+                        "render": function ( data, type, row ) {
+                            return '-';
+                        },
+                        "targets": 2
+                    },{
+                        "render": function ( data, type, row ) {
+                            return row.dma;
+                        },
+                        "targets": 3
+                    },{
+                        "render": function ( data, type, row ) {
+                            return row.ip_address;
+                        },
+                        "targets": 4
+                    },{
+                        "render": function ( data, type, row ) {
+                            return row.comm_type;
+                        },
+                        "targets": 5
+                    },{
+                        "render": function ( data, type, row ) {
+                            return '-';
+                        },
+                        "targets": 6
+                    },{
+                        "render": function ( data, type, row ) {
+                            return '-';
+                        },
+                        "targets": 7
+                    },{
+                        "render": function ( data, type, row ) {
+
+                            var tmpListEventControls = "";
+                            //tmpListEventControls = '<td class="text-center " style="vertical-align:middle">';
+                            tmpListEventControls += '<div class="btn-group">';
+                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="#" data-original-title="View"><i class="fa fa-search-plus"></i></a>';
+                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                            tmpListEventControls += '<a class="btn btn-sm btn-danger show-tooltip" title="" href="#" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>';
+                            tmpListEventControls += '</div>';
+                            //tmpListEventControls += '</td>';
+
+                            return tmpListEventControls;
+                        },
+                        "targets": 8
+                    },{ 
+                        "sClass": "EventsManagerDataTable_Controls", "aTargets": [8] 
+                    }
+            ],
+            "order" : [] //disable default sorting, eg sorting on 1st column
+            
+        });
+
+        $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
+            //console.log($(this).attr('data-original-title'));
+            //console.log(this);
+            // console.log ( 'Row index: ' + EventsManagerDataTable.row(this).index() );
+
+            var data = mainRtuDataTable.row($(this).closest('tr')).data();
+            console.log(data);
+            console.log( 'You clicked on ' + data.id+'\'s row' );
+            console.log( 'You clicked on rtu_dm :  ' + data.dm );
+            
+
+            if ($(this).attr('data-original-title') == 'View') {
+                //console.log('View');
+                fn.Routers('view');
+            } else if ($(this).attr('data-original-title') == 'Edit') {
+                //console.log('Edit');
+                fn.Routers('edit');
+            } else if ($(this).attr('data-original-title') == 'Delete') {
+                console.log('Delete');
+            }
+
+        });
+
+    }
+
+},
+

@@ -1,9 +1,17 @@
         Apps: function () {
-        	console.log('Apps');
+        	//console.log('Apps');
 
             // Go Register
             $('#rtuList-goto-add').click(function () {
                 fn.Routers('add');
+            });
+
+            $('body').on('click', '.goto-default', function () {
+                fn.Routers('default');
+            });
+
+            $('#button-logout').bind('click', function(){
+            	fn.Logout();
             });
 
         }

@@ -231,10 +231,24 @@ session_start(); //start session.
                             RTU Manager
                             <span class="divider"><i class="fa fa-angle-right"></i></span>
                         </li>
-                        <li class="active">รายการข้อมูล RTU</li>
+                        <!-- <li class="active">รายการข้อมูล RTU</li> -->
+                        <li class="active breadcrumb-rtuLink-rtuList">
+                            <span class="rtuLink"> รายการข้อมูล RTU </span>
+                            <span class="divider breadcrumb-angleRight-rtuList" style="display:none">   
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </li>
+                        <li class="active breadcrumb-title-rtuList" style="display:none">
+                            เพิ่มข้อมูล RTU / แก้ไขข้อมูล RTU
+                        </li>
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->
+
+
+
+
+
 
 			    	<!-- Home - Container - MainContent - sampleBox  -->
 			    	                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
@@ -284,16 +298,20 @@ session_start(); //start session.
 <thead>
     <tr>
         <th >DM</th>
-        <th >Branch</th>
+        <th >BRANCH</th>
+        <th >ZONE</th>
+        <th >DMA</th>
         <th >IP</th>
-        <th >lat, lng</th>
+        <th >COMM</th>
+        <th >(Lat, Lng)</th>
+        <th >LOCATION</th>
         <th ></th>
     </tr>
 </thead>
  
 <tbody>
  
-    <tr>
+    <!-- <tr>
         <th >DM-01-01-01-01</th>
         <th >B01</th>
         <th >10.202.68.253</th>
@@ -362,7 +380,7 @@ session_start(); //start session.
         <th >10.202.68.253</th>
         <th ></th>
         <th ></th>
-    </tr>
+    </tr> -->
     
 </tbody>
                         
@@ -389,11 +407,11 @@ session_start(); //start session.
     </div>
 </div> -->
 
-<div class="row canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
+<div class="row canvas-rtuInformation" id="canvas-rtuInformation-formWizard" style="display:none">
     <div class="col-md-12">
         <div class="box">
             <div class="box-title">
-                <h3><i class="fa fa-bars"></i> เพิ่มข้อมูล RTU</h3>
+                <h3><i class="fa fa-bars"></i> <span id="box-title-formWizard">เพิ่มข้อมูล RTU</span></h3>
                 <div class="box-tool">
                     <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
                     <a data-action="close" href="#"><i class="fa fa-times"></i></a>

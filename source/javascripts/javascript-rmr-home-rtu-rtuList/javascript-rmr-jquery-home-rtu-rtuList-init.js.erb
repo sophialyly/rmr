@@ -1,17 +1,9 @@
-$(function () {
-
-	<%= partial "javascript-rmr-home-rtu-rtuList/_objectRTU_RtuList" %>
-    <%= partial "javascript-rmr-home-rtu-rtuList/_javascript-rmr-jquery-home-rtu-rtuList-logoutButtonClick" %>
-
-});
-
-
 (function ($) {
     "use strict";
 
     ///////////////////////////////////////////////////// Your
     // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
-    
+    var mainRtuDataTable;
     /////////////////////////////////////////////////// Adress
 
     var fn = {
@@ -20,6 +12,7 @@ $(function () {
         Launch: function () {
             fn.OpenLayers();
             fn.FormWizard();
+            fn.MainRtuDataTable();
             fn.Apps();
         },
 
@@ -29,6 +22,14 @@ $(function () {
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Routers" %>
         // Form Wizard
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_FormWizard" %>
+        // Main RTU DataTable
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_MainRtuDataTable" %>
+        // Breadcrumb Show
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_BreadcrumbShow" %>
+        // Breadcrumb Hide
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_BreadcrumbHide" %>
+        // Logout
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Logout" %>
         // Apps
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Apps" %>
 

@@ -1,14 +1,25 @@
         Routers: function (canvasID) {
-            console.log('Routers');
+            // console.log('Routers');
 
             if (canvasID != "default") {
-                $("#main-content > .canvas-rtuInformation:visible").hide("slide", { direction: "left" }, 1000, function(){
-                    $('#canvas-rtuInformation-' + canvasID).fadeIn(300);
+                $("#main-content > .canvas-rtuInformation:visible").hide("slide", { direction: "left" }, 800, function(){
+                    // $('#canvas-rtuInformation-' + canvasID).fadeIn(300);
+                    $('#canvas-rtuInformation-formWizard').fadeIn(300);
+
+                    if (canvasID == 'add') {
+                        fn.BreadcrumbShow('เพิ่มข้อมูล RTU');
+                    } else if (canvasID == 'view') {
+                        fn.BreadcrumbShow('ดูข้อมูล RTU');
+                    } else if (canvasID == 'edit') {
+                        fn.BreadcrumbShow('แก้ไขข้อมูล RTU');
+                    }
 
                 });
             } else {
                 $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
-                    $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 1000, function(){});
+                    $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
+
+                    fn.BreadcrumbHide();
                 });
             }
 
