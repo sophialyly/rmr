@@ -75,16 +75,16 @@ session_start(); //start session.
                                         <!-- BEGIN Login Form -->
             <!-- <form id="form-login" action="../Admin/" method="get"> -->
             <form id="form-login" action="#">
-                <h3>Login - WLMA Admin</h3>
+                <h3>Login - WLMA Extension</h3>
                 <hr/>
                 <div class="form-group">
                     <div class="controls">
-                        <input type="text" placeholder="Username" class="form-control" />
+                        <input type="text" placeholder="Username" id="username" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="controls">
-                        <input type="password" placeholder="Password" class="form-control" />
+                        <input type="password" placeholder="Password" id="password" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -100,10 +100,10 @@ session_start(); //start session.
                     </div>
                 </div>
                 <hr/>
-                <p class="clearfix">
+                <!-- <p class="clearfix">
                     <a href="#" class="goto-forgot pull-left">Forgot Password?</a>
                     <a href="#" class="goto-register pull-right">Sign up now</a>
-                </p>
+                </p> -->
             </form>
             <!-- END Login Form -->
 

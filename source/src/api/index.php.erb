@@ -6,10 +6,32 @@ layout: "layout-api"
     date_default_timezone_set("Asia/Bangkok");
 
     require_once '../../packages/autoload.php';
+    
 
-    /* Connect Database Manager Partial */
+<% if config[:phase_environment] == "Development" %>
+
+    /* Connect Database Manager Partial : Localhost */
     <%= partial "/ConnectDatabase/_connectDB2_Localhost" %>
     <%= partial "/ConnectDatabase/_connectMySQL_Localhost" %>
+
+<% elsif config[:phase_environment] == "Test" %>
+
+    /* Connect Database Manager Partial : Localhost */
+    <%= partial "/ConnectDatabase/_connectDB2_Localhost" %>
+    <%= partial "/ConnectDatabase/_connectMySQL_Localhost" %>
+
+<% elsif config[:phase_environment] == "Production" %>
+
+    /* Connect Database Manager Partial : Production */
+    <%= partial "/ConnectDatabase/_connectDB2_Production" %>
+    <%= partial "/ConnectDatabase/_connectMySQL_Production" %>
+
+<% end %>
+
+
+
+
+
 
     /* Secret Key */
     $key = "supersecretkeyyoushouldnotcommittogithub";
@@ -28,7 +50,7 @@ layout: "layout-api"
         },
         "rules" => [
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
-                "path" => ["/token", "/user", "/rtuManager/informationOnload/"],
+                "path" => ["/token", "/user", "/rtuManager/informationOnload/", "/loginManager/checkJWT/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
@@ -45,9 +67,10 @@ layout: "layout-api"
     <%= partial "/TestManager/_token" %>
 
     /* Login manager */
-    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $key) { checkUserPassword($app, $pdo, $db, $key); });
+    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
     $app->get('/loginManager/getJWT/',function() use ($app) { getJWT($app); });
+    $app->post('/loginManager/checkJWT/',function() use ($app, $key) { checkJWT($app, $key); });
 
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
@@ -73,6 +96,7 @@ layout: "layout-api"
     <%= partial "/LoginManager/_checkUserPassword" %>
     <%= partial "/LoginManager/_logout" %>
     <%= partial "/LoginManager/_getJWT" %>
+    <%= partial "/LoginManager/_checkJWT" %>
 
     /* WLMA Manager Partial */
     <%= partial "/WlmaManager/_checkUserPasswordFromWLMA" %>

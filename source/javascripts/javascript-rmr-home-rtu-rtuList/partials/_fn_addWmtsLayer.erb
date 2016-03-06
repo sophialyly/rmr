@@ -1,0 +1,16 @@
+addWmtsLayer: function () {
+
+    var wmts = new OpenLayers.Layer.WMTS({
+        name: "Mwa Layer",
+        url: "http://gisonline.mwa.co.th:2558/arcgis/rest/services/mobileCache/mobileCache/MapServer/WMTS",
+        layer: "0",
+        matrixSet: "EPSG:3857",
+        format: "image/png",
+        style: "_null",
+        opacity: .8,
+        isBaseLayer: false
+    });
+    fn.map.addLayers([wmts]);
+
+    
+},

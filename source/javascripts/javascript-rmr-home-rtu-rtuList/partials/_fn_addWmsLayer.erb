@@ -1,0 +1,53 @@
+addWmsLayer: function () {
+
+    // var layer = new OpenLayers.Layer.WMS("DMA",
+    //     "http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", 
+    //     {'layers': '38,39', transparent: true, format: 'image/png'},
+    //     {isBaseLayer: false}
+    // );
+    // fn.map.addLayers([layer]);
+    
+    // var layer = new OpenLayers.Layer.WMS("ท่ออุโมงค์",
+    //     "http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", 
+    //     {'layers': '46', transparent: true, format: 'image/png'},
+    //     {isBaseLayer: false}
+    // );
+    // fn.map.addLayers([layer]);
+
+    // var layer = new OpenLayers.Layer.WMS("ท่อประธาน",
+    //     "http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", 
+    //     {'layers': '47', transparent: true, format: 'image/png'},
+    //     {isBaseLayer: false}
+    // );
+    // fn.map.addLayers([layer]);
+
+    // var layer = new OpenLayers.Layer.WMS("ท่อจ่าย",
+    //     "http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", 
+    //     {'layers': '48', transparent: true, format: 'image/png'},
+    //     {isBaseLayer: false}
+    // );
+    // fn.map.addLayers([layer]);
+
+    // var layer = new OpenLayers.Layer.WMS("ท่อบริการ",
+    //     "http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", 
+    //     {'layers': '49', transparent: true, format: 'image/png'},
+    //     {isBaseLayer: false}
+    // );
+    // fn.map.addLayers([layer]);
+
+    // var layer = new OpenLayers.Layer.WMS("หน่วยงาน กปน.",
+    //     "http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", 
+    //     {'layers': '207', transparent: true, format: 'image/png'},
+    //     {isBaseLayer: false}
+    // );
+    // fn.map.addLayers([layer]);
+
+    var layer = new OpenLayers.Layer.WMS("ขอบเขต DMA",
+        "http://gismapservice.mwa.co.th/arcgis/services/dss/WLMA/MapServer/WMSServer", 
+        {'layers': '0', transparent: true, format: 'image/png'},
+        {isBaseLayer: false}
+    );
+    fn.map.addLayers([layer]);
+
+    
+},

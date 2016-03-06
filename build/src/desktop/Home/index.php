@@ -26,7 +26,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../../Login/index.php'); //redirect URL
+                header('Location: ../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -149,8 +149,8 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   WLMA-Admin</h1>
-                        <h4>You can start your customization from this one!</h4>
+                        <h1><i class="fa fa-file-o"></i>   WLMA Extension</h1>
+                        <h4>ระบบ WLMA Extension</h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
@@ -181,10 +181,10 @@ session_start(); //start session.
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="tile tile-big">
-                                    <p class="title">WLMA-Admin</p>
+                                    <p class="title">WLMA Extension</p>
                                     <hr/>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <p><strong>ระบบ WLMA Extension</strong> คือ ระบบที่จัดทำขึ้นเพื่อเสริมศักยภาพ ระบบ WLMA ที่มีอยู่แล้วให้ดียิ่งขึ้นไป </p>
+                                    <p>นอกจากนี้ ระบบ WLMA Extension เป็นระบบที่จะรองรับความต้องการใหม่ๆ จากผู้ใช้งาน WLMA เพื่อให้การบริหารการลดน้ำสูญเสียมีประสิทธิภาพมากขึ้น</p>
                                 </div>
                             </div>
                         </div>

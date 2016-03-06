@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -137,7 +137,7 @@ OpenLayers.Event = {
     isTouchEvent: function(evt) {
         return ("" + evt.type).indexOf("touch") === 0 || (
                 "pointerType" in evt && (
-                     evt.pointerType === evt.MSPOINTER_TYPE_MOUSE /*IE10 pointer*/ ||
+                     evt.pointerType === evt.MSPOINTER_TYPE_TOUCH /*IE10 pointer*/ ||
                      evt.pointerType === "touch" /*W3C pointer*/));
     },
 

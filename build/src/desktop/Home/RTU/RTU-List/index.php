@@ -26,7 +26,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../../../../Login/index.php'); //redirect URL
+                header('Location: ../../../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -251,148 +251,72 @@ session_start(); //start session.
 
 
 			    	<!-- Home - Container - MainContent - sampleBox  -->
-			    	                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
-                            <div class="box-title">
-                                <h3><i class="fa fa-file"></i> รายการ RTU</h3>
-                                <div class="box-tool">
-                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-                                </div>
-                            </div>
-                            <div class="box-content" >
-                                <!-- <p>Blank page</p> -->
+			    	<div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
+        <div class="box-title">
+            <h3><i class="fa fa-file"></i> รายการ RTU</h3>
+            <div class="box-tool">
+                <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
+            </div>
+        </div>
+        <div class="box-content" >
 
-
-<div class="btn-toolbar pull-right clearfix">
-    <!-- <div class="btn-group">
-        <a class="btn btn-circle show-tooltip" title="Add new record" href="#"><i class="fa fa-plus"></i></a>
-        <a class="btn btn-circle show-tooltip" title="Edit selected" href="#"><i class="fa fa-edit"></i></a>
-        <a class="btn btn-circle show-tooltip" title="Delete selected" href="#"><i class="fa fa-trash-o"></i></a>
-    </div> -->
-    <div class="btn-group">
-        <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add">
-        <i class="fa fa-plus"></i>
-        </a>
-    </div>
-    <div class="btn-group">
-        <!-- <a class="btn btn-circle show-tooltip" title="Print" href="#"><i class="fa fa-print"></i></a> -->
-        <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
-        <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
-    </div>
-    <div class="btn-group">
-        <a class="btn btn-circle show-tooltip" title="Refresh" id="AttendeeParticipateEventDataTable_btnRefresh" href="#"><i class="fa fa-repeat"></i></a>
-    </div>
-</div>
-
-
-
-
+            <div class="btn-toolbar pull-right clearfix">
+                <!-- <div class="btn-group">
+                    <a class="btn btn-circle show-tooltip" title="Add new record" href="#"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Edit selected" href="#"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Delete selected" href="#"><i class="fa fa-trash-o"></i></a>
+                </div> -->
+                <div class="btn-group">
+                    <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add">
+                    <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <!-- <a class="btn btn-circle show-tooltip" title="Print" href="#"><i class="fa fa-print"></i></a> -->
+                    <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-circle show-tooltip" title="Refresh" id="AttendeeParticipateEventDataTable_btnRefresh" href="#"><i class="fa fa-repeat"></i></a>
+                </div>
+            </div>
 
 <br/><br/>
 <div class="clearfix"></div>
 
 
-<div class="table-responsive" style="border:0">
-<table class="table table-advance" id="mainRtuDataTable" style="width: 100% !important;" >
- 
-<thead>
-    <tr>
-        <th >DM</th>
-        <th >BRANCH</th>
-        <th >ZONE</th>
-        <th >DMA</th>
-        <th >IP</th>
-        <th >COMM</th>
-        <th >(Lat, Lng)</th>
-        <th >LOCATION</th>
-        <th ></th>
-    </tr>
-</thead>
- 
-<tbody>
- 
-    <!-- <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr> -->
-    
-</tbody>
+            <div class="table-responsive" style="border:0">
+                <table class="table table-advance" id="mainRtuDataTable" style="width: 100% !important;" >
+                    <thead>
+                        <tr>
+                            <th class="text-center " style="vertical-align:middle">DM</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">BRANCH</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">ZONE</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">DMA</th>
+                            <th class="text-center " style="vertical-align:middle">IP</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">COMM</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">(LAT, LNG)</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">LOCATION</th>
+                            <th ></th>
+                        </tr>
+                    </thead>
+                     
+                    <tbody>
+                     
+                        <!-- <tr>
+                            <th >DM-01-01-01-01</th>
+                            <th >B01</th>
+                            <th >10.202.68.253</th>
+                            <th ></th>
+                            <th ></th>
+                        </tr> -->
                         
-</table>
-
+                    </tbody>       
+                </table>
+            </div>             
+        </div>
 </div>
-
-
-
-                                
-                            </div>
-                        </div>
 
                         
 			    	<!-- <div class="box canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
@@ -414,7 +338,8 @@ session_start(); //start session.
                 <h3><i class="fa fa-bars"></i> <span id="box-title-formWizard">เพิ่มข้อมูล RTU</span></h3>
                 <div class="box-tool">
                     <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
+                    <a href="#" id="formWizard-btnClose"><i class="fa fa-times"></i></a>
                 </div>
             </div>
             <div class="box-content">
@@ -440,7 +365,7 @@ session_start(); //start session.
                             </a> 
                          </li>
                       </ul>
-                      <div class="progress progress-striped">
+                      <div class="progress progress-striped" id="progressID">
                          <div class="progress-bar progress-bar-primary"></div>
                       </div>
                       <div class="tab-content">
@@ -458,7 +383,21 @@ session_start(); //start session.
     <div class="form-group">
         <label for="firstname2" class="col-sm-3 col-lg-2 control-label">Branch : </label>
         <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="firstname2" id="firstname2" class="form-control" >
+            <!-- <input type="text" name="firstname2" id="firstname2" class="form-control" > -->
+            <select data-placeholder="Choose a Branch..." class="chosen-select">
+            <option value=""></option>
+            <option value="B01">สำนักงานประปาสาขาบางกอกน้อย</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Afghanistan">Afghanistan</option>
+            <option value="Aland Islands">Aland Islands</option>
+            <option value="Albania">Albania</option>
+            <option value="Algeria">Algeria</option>
+            <option value="American Samoa">American Samoa</option>
+            <option value="Andorra">Andorra</option>
+            <option value="Angola">Angola</option>
+            <option value="Anguilla">Anguilla</option>
+            <option value="Antarctica">Antarctica</option>
+          </select>
         </div>
     </div>
 
@@ -499,39 +438,42 @@ session_start(); //start session.
     </div>
 
 
+    
  </div>
-                     <div class="tab-pane" id="tab2-2">
+                    <!--  <div class="tab-pane" id="tab2-2"> -->
 
-   
- <img style="width: 100%" src="../../../../../images/rmr/map-prototype.png">
-  
+	<!-- <div class="form-group">
+		<div class="col-sm-5 col-lg-3"  style="height: 800px">
+		</div>
+	</div> -->
+
+<!-- 	<div class="form-group">
+		<div class="col-lg-12" id="map-rtuList" style="background: red; width: 100%; height: 500px">
+			
+		</div>
+	</div> -->
 
 
-    <!-- <div class="form-group">
-        <label for="username2" class="col-sm-3 col-lg-2 control-label">Username</label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="username2" id="username2" class="form-control" data-rule-required="true" data-rule-minlength="3">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password2" class="col-sm-3 col-lg-2 control-label">Password</label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="password" name="password2" id="password2" class="form-control" data-rule-required="true" data-rule-minlength="6">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="re-password2" class="col-sm-3 col-lg-2 control-label">Password Again</label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="password" name="re-password2" id="re-password2" class="form-control" data-rule-required="true" data-rule-minlength="6" data-rule-equalTo="#password2">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="email2" class="col-sm-3 col-lg-2 control-label">Email</label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="email2" id="email2" class="form-control" data-rule-required="true" data-rule-email="true">
-        </div>
-    </div> -->
+<!--    
+ </div> -->
+
+
+ <div class="tab-pane box" id="tab2-2">
+
+	 	<div class="col-lg-12 box-title" >
+	 		<h3><i class="fa fa-file"></i> แผนที่</h3>
+	 		<div class="box-tool">
+	 			<a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+	 			<a data-action="close" href="#"><i class="fa fa-times"></i></a>
+	 		</div>
+	 	</div>
+	 	<div class="box-content col-lg-12" style="height:400px" id="map">
+	 		<!-- <p>Blank page</p> -->
+	 	</div>
+	 	<div id="history" class="historyClass"></div>
+
  </div>
+ 
                      <div class="tab-pane" id="tab2-3">
     <div class="form-group">
         <label class="col-sm-3 col-lg-2 control-label">DM : </label>
@@ -584,6 +526,7 @@ session_start(); //start session.
  </div>
 
                       </div>
+                      <br/>
                       <div class="form-group">
                         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
                             <a href="javascript:;" class="btn button-previous">Back</a>
@@ -615,7 +558,9 @@ session_start(); //start session.
 			    <!-- END Content -->
         </div>
         <!-- END Container -->
+        
 
+        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
         <script src="../../../../../javascripts/javascript-rmr-home-rtu-rtuList.js" type="text/javascript"></script>
 
     </body>

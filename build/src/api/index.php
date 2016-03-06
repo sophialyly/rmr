@@ -6,14 +6,22 @@ session_start(); //start session.
     date_default_timezone_set("Asia/Bangkok");
 
     require_once '../../packages/autoload.php';
+    
 
-    /* Connect Database Manager Partial */
+
+    /* Connect Database Manager Partial : Localhost */
     $conn_db2 = "";
         $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
     $username = "root";
     $password = "";
     $pdo = new PDO($dsn, $username, $password);
     $db = new NotORM($pdo);
+
+
+
+
+
+
 
     /* Secret Key */
     $key = "supersecretkeyyoushouldnotcommittogithub";
@@ -32,7 +40,7 @@ session_start(); //start session.
         },
         "rules" => [
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
-                "path" => ["/token", "/user", "/rtuManager/informationOnload/"],
+                "path" => ["/token", "/user", "/rtuManager/informationOnload/", "/loginManager/checkJWT/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
@@ -185,9 +193,10 @@ session_start(); //start session.
     });
 
     /* Login manager */
-    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $key) { checkUserPassword($app, $pdo, $db, $key); });
+    $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
     $app->get('/loginManager/getJWT/',function() use ($app) { getJWT($app); });
+    $app->post('/loginManager/checkJWT/',function() use ($app, $key) { checkJWT($app, $key); });
 
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
@@ -279,7 +288,7 @@ session_start(); //start session.
 	 *     }
 	 *
 	 */
-	 function checkUserPassword($app, $pdo, $db, $key) {
+	 function checkUserPassword($app, $pdo, $db, $conn_db2, $key) {
 
 	 	/* ************************* */
         /* เริ่มกระบวนการรับค่าพารามิเตอร์จากส่วนของ Payload ซึ่งอยู่ในรูปแบบ JSON */
@@ -309,14 +318,94 @@ session_start(); //start session.
 
 
 
+		/* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+
+
+	        $tmpBranch_code = "ALL";
+	        $tmpRole = "admin";
+	        $rowCount = 1;
+
+
         /* ************************* */
         /* เริ่มกระบวนการส่งค่ากลับ */
         /* ************************* */
+        if ($rowCount > 0) {
+        			/* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+
+            // $tmpPermissions = [  
+				        //       "listRTU" => [ "path" => "", 
+				        //       				  "permission" => ["read", "write", "delete", "update"]
+				        //       			   ], 
+				        //       "listRMR" => [ "path" => "", 
+				        //       				  "permission" => ["read", "write", "delete", "update"]
+				        //       			   ],
+					       //    ];
+
+
+		    $tmpPermissions = array();
+
+		    // $sql_permissions = "SELECT * FROM permission_tb";
+		    // $results_permissions = $db->permission_tb->order("id ASC");
+
+		    $results_permissions = $db->permission_tb->select('DISTINCT page_name');
+
+	        foreach ($results_permissions as $result) {
+
+	        	$tmpPagePath = "";
+	        	$tmp_features = array();
+	        	$results_features = $db->permission_tb->where("page_name = ? and role = ?", $result["page_name"], $tmpRole);
+	        	
+	        	foreach ($results_features as $result_f) {
+
+	        		$tmpPermissions_list = array();
+
+if ($result_f["allow_read"] == "Y") {
+	$tmpPermissions_list[] = "read";
+	// array_push($tmpPermissions_list, "read");
+}
+
+if ($result_f["allow_write"] == "Y") {
+	$tmpPermissions_list[] = "write";
+	// array_push($tmpPermissions_list, "write");
+}
+
+if ($result_f["allow_update"] == "Y") {
+	$tmpPermissions_list[] = "update";
+	// array_push($tmpPermissions_list, "update");
+}
+
+if ($result_f["allow_delete"] == "Y") {
+	$tmpPermissions_list[] = "delete";
+	// array_push($tmpPermissions_list, "delete");
+}
+
+	        		$tmp_features[] = array(
+	                	"feature_name" => $result_f["feature_name"],
+	                	"feature_desc" => $result_f["feature_desc"],
+	                	"permission" => $tmpPermissions_list,
+	                	"remark" => $result_f["remark"]
+	            	);
+
+	            	$tmpPagePath = $result_f["page_path"];
+	        	}
+
+	            $tmpPermissions[] = array(
+	                "page_name" => $result["page_name"],
+	                "page_path" => $tmpPagePath,
+	                "features" => $tmp_features
+	            );
+	        }
+
+
 	      $tokenId    = base64_encode(mcrypt_create_iv(32));
 	      $issuedAt   = time();
 	      $notBefore  = $issuedAt + 1;             //Adding 1 seconds
-	      $expire     = $notBefore + 60;            // Adding 60 seconds
-	      $serverName = gethostname();              // Retrieve the server name from config file
+	      $expire     = $notBefore + (3600*3);     // Adding 3600*3 seconds (3 hours)
+	      $serverName = gethostname();             // Retrieve the server name from config file
 	      /*
 	       * Create the token as an array
 	       */
@@ -326,19 +415,21 @@ session_start(); //start session.
 	          'iss'  => $serverName,       // Issuer
 	          'nbf'  => $notBefore,        // Not before
 	          'exp'  => $expire,           // Expire
-	          'data' => [                  // Data related to the signer user
-	              'userId'   => '1234', // userid from the users table
-	              'userName' => 'josh', // User name
+	          "users" => [
+	          	   "user_id" => "1",
+	          	   "user_name" => $postUserName
 	          ],
-	          "scope" => ["read", "write", "delete"],
-	          "id" => "1",
-	          "userName" => $postUserName,
-	          "branchCode" => "B01"
+	          "roles" => $tmpRole,
+	          "permissions" => $tmpPermissions,
+	          "information" => [   			  // Data related to the signer user
+	              "branchCode" => $tmpBranch_code
+	          ]
 	      ];
+
+
 
 	      $jwt = JWT::encode($data, $key);  // default algorithm: 'HS256'
 	      // $jwt = JWT::encode($data, $key, 'HS512');
-
 
 
 	      /*
@@ -347,12 +438,29 @@ session_start(); //start session.
 	 	  $_SESSION['userName'] = $postUserName;
 	 	  $_SESSION['jwt'] = $jwt;
 
-	  	  $return_m = array("UserName" => $_SESSION['userName'], 
-	  					    "PassWord" => $postPassWord,
-	  					    "jwt" => $jwt);
+	 	  /*
+	       * Create - redirect url
+	       */
+	      $tmpRedirectURL = "";
 
+	 	  if ($tmpRole == "user") {
+	 	  	$tmpRedirectURL = "../Home/";
+	 	  } else if ($tmpRole == "admin") {
+	 	  	$tmpRedirectURL = "../Home/";
+	 	  } 
 
+	 	  $resultText = "success";
 
+	  	  $return_m = array("result" =>  $resultText,
+	  	  					"redirectURL" => $tmpRedirectURL, 
+	  					    "token" => $jwt);
+        } else {
+        	$tmpBranch_code = "";
+$resultText = "fail";
+
+$return_m = array("result" =>  $resultText);
+        }
+		
 	  	  $app->response->headers->set('Content-Type', 'application/json');
 	      echo json_encode($return_m);
 
@@ -464,6 +572,125 @@ session_start(); //start session.
 	  	  $app->response->headers->set('Content-Type', 'application/json');
 	      echo json_encode($return_m);
 
+	 }
+	 
+    	/**
+	 *
+	 * @apiName CheckJWT
+	 * @apiGroup Login Manager
+	 * @apiVersion 0.1.0
+	 *
+	 * @api {post} /loginManager/checkJWT/ Check JSON Web Token (JWT)
+	 * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่ตรวจสอบ JWT ที่เก็บไว้ในตัวแปร session กลับไป
+	 *
+	 *
+	 * @apiSampleRequest /loginManager/checkJWT/
+	 *
+	 * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+	 *
+	 * @apiSuccessExample Example data on success:
+	 * {
+	 *   "msg": "Hello, anusorn"
+	 * }
+	 *
+	 * @apiError UserNotFound The <code>id</code> of the User was not found.
+	 * @apiErrorExample {json} Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "error": "UserNotFound"
+	 *     }
+	 *
+	 */
+	 function checkJWT($app, $key) {
+
+
+	  	/*** Extract the jwt from the Session ***/
+		// if (!isset($_SESSION['jwt'])) {
+		//  	$jwt = "";
+		// } else {
+		//  	$jwt = $_SESSION['jwt'];
+		// }
+
+		// $token = JWT::decode($jwt, $key, array('HS256'));
+		// $role = $token->roles;
+		// $myInformation = $token->information;
+
+		// $app->response->headers->set('Content-Type', 'application/json');
+		// echo json_encode(array("role" => $role, "information" => $myInformation));
+
+
+
+
+	   /*** Extract the jwt from the Bearer ***/
+       $request = $app->request();
+       $authHeader = $request->headers('authorization');
+       list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+       /*** iat ***/
+       $myIatEpoch = $app->jwt->iat;				// Issued at: time when the token was generated
+
+	   $dtIat = new DateTime("@$myIatEpoch");  // convert UNIX timestamp to PHP DateTime
+	   $myIatHuman = $dtIat->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+	   $TimeZoneNameFrom="UTC";
+	   $TimeZoneNameTo="Asia/Bangkok";
+	   $myIatHumanWithTimeZone = date_create($myIatHuman, new DateTimeZone($TimeZoneNameFrom))->setTimezone(new DateTimeZone($TimeZoneNameTo))->format("Y-m-d H:i:s");
+	   /*********/
+
+	   /*** iat ***/
+	   $myJti = $app->jwt->jti;
+	   /*********/
+
+	   /*** iss ***/
+	   $myIss = $app->jwt->iss;
+	   /*********/
+
+	   /*** nbf ***/
+       $myNbfEpoch = $app->jwt->nbf;				// Not before
+
+	   $dtNbf = new DateTime("@$myNbfEpoch");  // convert UNIX timestamp to PHP DateTime
+	   $myNbfHuman = $dtNbf->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+	   $TimeZoneNameFrom="UTC";
+	   $TimeZoneNameTo="Asia/Bangkok";
+	   $myNbfHumanWithTimeZone = date_create($myNbfHuman, new DateTimeZone($TimeZoneNameFrom))->setTimezone(new DateTimeZone($TimeZoneNameTo))->format("Y-m-d H:i:s");
+	   /*********/
+
+	   /*** exp ***/
+       $myExpEpoch = $app->jwt->exp;				// Expire
+
+	   $dtExp = new DateTime("@$myExpEpoch");  // convert UNIX timestamp to PHP DateTime
+	   $myExpHuman = $dtExp->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+	   $TimeZoneNameFrom="UTC";
+	   $TimeZoneNameTo="Asia/Bangkok";
+	   $myExpHumanWithTimeZone = date_create($myExpHuman, new DateTimeZone($TimeZoneNameFrom))->setTimezone(new DateTimeZone($TimeZoneNameTo))->format("Y-m-d H:i:s");
+	   /*********/
+
+
+       $myUsers = $app->jwt->users;
+       $myRole = $app->jwt->roles;
+       $myPermissions = $app->jwt->permissions;
+       $myInformation = $app->jwt->information;
+
+       $app->response->headers->set('Content-Type', 'application/json');
+       echo json_encode(array("AuthHeader" => $authHeader, 
+       						  "iat-epoch" => $myIatEpoch,
+       						  "iat-human" => $myIatHuman,
+       						  "iat-human-timezone" => $myIatHumanWithTimeZone,
+       						  "jti" => $myJti,
+       						  "iss" => $myIss,
+       						  "nbf-epoch" => $myNbfEpoch,
+       						  "nbf-human" => $myNbfHuman,
+       						  "nbf-human-timezone" => $myNbfHumanWithTimeZone,
+       						  "exp-epoch" => $myExpEpoch,
+       						  "exp-human" => $myExpHuman,
+       						  "exp-human-timezone" => $myExpHumanWithTimeZone,
+       						  "users" => $myUsers,
+       						  "role" => $myRole, 
+       						  "permissions" => $myPermissions,
+       						  "information" => $myInformation));
+       
 	 }
 	 
 

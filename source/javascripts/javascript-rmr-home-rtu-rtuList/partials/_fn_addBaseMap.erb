@@ -1,0 +1,48 @@
+addBaseMap: function () {
+
+    var gmap = new OpenLayers.Layer.Google(
+        "Google Streets", // the default
+        {
+            numZoomLevels: 22,
+            sphericalMercator:true
+        });
+
+    var gphy = new OpenLayers.Layer.Google(
+        "Google Physical",
+        {
+            type: google.maps.MapTypeId.TERRAIN,
+            sphericalMercator:true
+        }
+        );
+    var ghyb = new OpenLayers.Layer.Google(
+        "Google Hybrid",
+        {
+            type: google.maps.MapTypeId.HYBRID, 
+            numZoomLevels: 20,
+            sphericalMercator:true
+        }
+        );
+    var gsat = new OpenLayers.Layer.Google(
+        "Google Satellite",
+        {
+            type: google.maps.MapTypeId.SATELLITE, 
+            numZoomLevels: 20,
+            sphericalMercator:true
+        }
+        ); 
+
+    var osm = new OpenLayers.Layer.OSM('OSM Map');
+
+    //fn.map.addLayers([gmap, ghyb, gsat, osm]);
+    fn.map.addLayer(gmap);
+
+    var osm2 = osm.clone();
+    var overlayOptions = {
+      maximized: true,
+      layers: [osm2]
+    };
+    fn.map.addControl(new OpenLayers.Control.OverviewMap(overlayOptions));
+
+
+
+},

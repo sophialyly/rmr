@@ -1,0 +1,119 @@
+	/**
+	 *
+	 * @apiName CheckJWT
+	 * @apiGroup Login Manager
+	 * @apiVersion 0.1.0
+	 *
+	 * @api {post} /loginManager/checkJWT/ Check JSON Web Token (JWT)
+	 * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่ตรวจสอบ JWT ที่เก็บไว้ในตัวแปร session กลับไป
+	 *
+	 *
+	 * @apiSampleRequest /loginManager/checkJWT/
+	 *
+	 * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+	 *
+	 * @apiSuccessExample Example data on success:
+	 * {
+	 *   "msg": "Hello, anusorn"
+	 * }
+	 *
+	 * @apiError UserNotFound The <code>id</code> of the User was not found.
+	 * @apiErrorExample {json} Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "error": "UserNotFound"
+	 *     }
+	 *
+	 */
+	 function checkJWT($app, $key) {
+
+
+	  	/*** Extract the jwt from the Session ***/
+		// if (!isset($_SESSION['jwt'])) {
+		//  	$jwt = "";
+		// } else {
+		//  	$jwt = $_SESSION['jwt'];
+		// }
+
+		// $token = JWT::decode($jwt, $key, array('HS256'));
+		// $role = $token->roles;
+		// $myInformation = $token->information;
+
+		// $app->response->headers->set('Content-Type', 'application/json');
+		// echo json_encode(array("role" => $role, "information" => $myInformation));
+
+
+
+
+	   /*** Extract the jwt from the Bearer ***/
+       $request = $app->request();
+       $authHeader = $request->headers('authorization');
+       list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+       /*** iat ***/
+       $myIatEpoch = $app->jwt->iat;				// Issued at: time when the token was generated
+
+	   $dtIat = new DateTime("@$myIatEpoch");  // convert UNIX timestamp to PHP DateTime
+	   $myIatHuman = $dtIat->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+	   $TimeZoneNameFrom="UTC";
+	   $TimeZoneNameTo="Asia/Bangkok";
+	   $myIatHumanWithTimeZone = date_create($myIatHuman, new DateTimeZone($TimeZoneNameFrom))->setTimezone(new DateTimeZone($TimeZoneNameTo))->format("Y-m-d H:i:s");
+	   /*********/
+
+	   /*** iat ***/
+	   $myJti = $app->jwt->jti;
+	   /*********/
+
+	   /*** iss ***/
+	   $myIss = $app->jwt->iss;
+	   /*********/
+
+	   /*** nbf ***/
+       $myNbfEpoch = $app->jwt->nbf;				// Not before
+
+	   $dtNbf = new DateTime("@$myNbfEpoch");  // convert UNIX timestamp to PHP DateTime
+	   $myNbfHuman = $dtNbf->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+	   $TimeZoneNameFrom="UTC";
+	   $TimeZoneNameTo="Asia/Bangkok";
+	   $myNbfHumanWithTimeZone = date_create($myNbfHuman, new DateTimeZone($TimeZoneNameFrom))->setTimezone(new DateTimeZone($TimeZoneNameTo))->format("Y-m-d H:i:s");
+	   /*********/
+
+	   /*** exp ***/
+       $myExpEpoch = $app->jwt->exp;				// Expire
+
+	   $dtExp = new DateTime("@$myExpEpoch");  // convert UNIX timestamp to PHP DateTime
+	   $myExpHuman = $dtExp->format('Y-m-d H:i:s'); // output = 2012-08-15 00:00:00 
+
+	   $TimeZoneNameFrom="UTC";
+	   $TimeZoneNameTo="Asia/Bangkok";
+	   $myExpHumanWithTimeZone = date_create($myExpHuman, new DateTimeZone($TimeZoneNameFrom))->setTimezone(new DateTimeZone($TimeZoneNameTo))->format("Y-m-d H:i:s");
+	   /*********/
+
+
+       $myUsers = $app->jwt->users;
+       $myRole = $app->jwt->roles;
+       $myPermissions = $app->jwt->permissions;
+       $myInformation = $app->jwt->information;
+
+       $app->response->headers->set('Content-Type', 'application/json');
+       echo json_encode(array("AuthHeader" => $authHeader, 
+       						  "iat-epoch" => $myIatEpoch,
+       						  "iat-human" => $myIatHuman,
+       						  "iat-human-timezone" => $myIatHumanWithTimeZone,
+       						  "jti" => $myJti,
+       						  "iss" => $myIss,
+       						  "nbf-epoch" => $myNbfEpoch,
+       						  "nbf-human" => $myNbfHuman,
+       						  "nbf-human-timezone" => $myNbfHumanWithTimeZone,
+       						  "exp-epoch" => $myExpEpoch,
+       						  "exp-human" => $myExpHuman,
+       						  "exp-human-timezone" => $myExpHumanWithTimeZone,
+       						  "users" => $myUsers,
+       						  "role" => $myRole, 
+       						  "permissions" => $myPermissions,
+       						  "information" => $myInformation));
+       
+	 }
+	 

@@ -71,6 +71,14 @@ FormWizard: function () {
                     $('#form-wizard-rtuList').find('.button-previous').show();
                 }
 
+                console.log(current);
+
+                //fn.OpenLayers();
+
+                if (current == 2) {
+                    fn.OpenLayers();
+                }
+
                 if (current >= total) {
                     $('#form-wizard-rtuList').find('.button-next').hide();
                     $('#form-wizard-rtuList').find('.button-submit').show();
@@ -99,6 +107,12 @@ FormWizard: function () {
                     $('#form-wizard-rtuList').find('.button-previous').hide();
                 } else {
                     $('#form-wizard-rtuList').find('.button-previous').show();
+                }
+
+                if (current == 2) {
+                    console.log('2');
+                    fn.OpenLayers();
+                    // fn.map.baseLayer().redraw();
                 }
 
                 if (current >= total) {

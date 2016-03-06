@@ -1,144 +1,68 @@
-                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
-                            <div class="box-title">
-                                <h3><i class="fa fa-file"></i> รายการ RTU</h3>
-                                <div class="box-tool">
-                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-                                </div>
-                            </div>
-                            <div class="box-content" >
-                                <!-- <p>Blank page</p> -->
+<div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
+        <div class="box-title">
+            <h3><i class="fa fa-file"></i> รายการ RTU</h3>
+            <div class="box-tool">
+                <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
+            </div>
+        </div>
+        <div class="box-content" >
 
-
-<div class="btn-toolbar pull-right clearfix">
-    <!-- <div class="btn-group">
-        <a class="btn btn-circle show-tooltip" title="Add new record" href="#"><i class="fa fa-plus"></i></a>
-        <a class="btn btn-circle show-tooltip" title="Edit selected" href="#"><i class="fa fa-edit"></i></a>
-        <a class="btn btn-circle show-tooltip" title="Delete selected" href="#"><i class="fa fa-trash-o"></i></a>
-    </div> -->
-    <div class="btn-group">
-        <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add">
-        <i class="fa fa-plus"></i>
-        </a>
-    </div>
-    <div class="btn-group">
-        <!-- <a class="btn btn-circle show-tooltip" title="Print" href="#"><i class="fa fa-print"></i></a> -->
-        <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
-        <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
-    </div>
-    <div class="btn-group">
-        <a class="btn btn-circle show-tooltip" title="Refresh" id="AttendeeParticipateEventDataTable_btnRefresh" href="#"><i class="fa fa-repeat"></i></a>
-    </div>
-</div>
-
-
-
-
+            <div class="btn-toolbar pull-right clearfix">
+                <!-- <div class="btn-group">
+                    <a class="btn btn-circle show-tooltip" title="Add new record" href="#"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Edit selected" href="#"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Delete selected" href="#"><i class="fa fa-trash-o"></i></a>
+                </div> -->
+                <div class="btn-group">
+                    <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add">
+                    <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <!-- <a class="btn btn-circle show-tooltip" title="Print" href="#"><i class="fa fa-print"></i></a> -->
+                    <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-circle show-tooltip" title="Refresh" id="AttendeeParticipateEventDataTable_btnRefresh" href="#"><i class="fa fa-repeat"></i></a>
+                </div>
+            </div>
 
 <br/><br/>
 <div class="clearfix"></div>
 
 
-<div class="table-responsive" style="border:0">
-<table class="table table-advance" id="mainRtuDataTable" style="width: 100% !important;" >
- 
-<thead>
-    <tr>
-        <th >DM</th>
-        <th >BRANCH</th>
-        <th >ZONE</th>
-        <th >DMA</th>
-        <th >IP</th>
-        <th >COMM</th>
-        <th >(Lat, Lng)</th>
-        <th >LOCATION</th>
-        <th ></th>
-    </tr>
-</thead>
- 
-<tbody>
- 
-    <!-- <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr>
-    <tr>
-        <th >DM-01-01-01-01</th>
-        <th >B01</th>
-        <th >10.202.68.253</th>
-        <th ></th>
-        <th ></th>
-    </tr> -->
-    
-</tbody>
+            <div class="table-responsive" style="border:0">
+                <table class="table table-advance" id="mainRtuDataTable" style="width: 100% !important;" >
+                    <thead>
+                        <tr>
+                            <th class="text-center " style="vertical-align:middle">DM</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">BRANCH</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">ZONE</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">DMA</th>
+                            <th class="text-center " style="vertical-align:middle">IP</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">COMM</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">(LAT, LNG)</th>
+                            <th class="text-center hidden-xs hidden-sm" style="vertical-align:middle">LOCATION</th>
+                            <th ></th>
+                        </tr>
+                    </thead>
+                     
+                    <tbody>
+                     
+                        <!-- <tr>
+                            <th >DM-01-01-01-01</th>
+                            <th >B01</th>
+                            <th >10.202.68.253</th>
+                            <th ></th>
+                            <th ></th>
+                        </tr> -->
                         
-</table>
-
+                    </tbody>       
+                </table>
+            </div>             
+        </div>
 </div>
-
-
-
-                                
-                            </div>
-                        </div>
 
                         

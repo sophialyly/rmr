@@ -21,7 +21,7 @@ MainRtuDataTable: function () {
                     [5, 10, 15, 25, 50, 100, -1],
                     [5, 10, 15, 25, 50, 100, "All"]
                 ],
-            "iDisplayLength": 5,
+            "iDisplayLength": 10,
             "oLanguage": {
                     "sLengthMenu": "_MENU_ Records per page",
                     "sInfo": "_START_ - _END_ of _TOTAL_",
@@ -33,9 +33,25 @@ MainRtuDataTable: function () {
             },
             "aoColumnDefs": [
                     {
+                        'sWidth': '100px',
+                        'bSortable': true,
+                        'aTargets': [0, 4, 6]
+                    },{
+                        'sWidth': '70px',
+                        'bSortable': true,
+                        'aTargets': [3]
+                    },{
+                        'sWidth': '50px',
+                        'bSortable': true,
+                        'aTargets': [1, 2, 5]
+                    },{
                         'bSortable': true,
                         "bAutoWidth": true,
-                        'aTargets': [0]
+                        'aTargets': [7]
+                    },{
+                        'sWidth': '100px',
+                        'bSortable': false,
+                        'aTargets': [8]
                     },{
                         // The `data` parameter refers to the data for the cell (defined by the
                         // `data` option, which defaults to the column being worked with, in
@@ -47,12 +63,12 @@ MainRtuDataTable: function () {
                         "targets": 0
                     },{
                         "render": function ( data, type, row ) {
-                            return '-';
+                            return 'Bxx';
                         },
                         "targets": 1
                     },{
                         "render": function ( data, type, row ) {
-                            return '-';
+                            return 'xx';
                         },
                         "targets": 2
                     },{
@@ -72,7 +88,7 @@ MainRtuDataTable: function () {
                         "targets": 5
                     },{
                         "render": function ( data, type, row ) {
-                            return '-';
+                            return '(13.8416683,100.6670969)';
                         },
                         "targets": 6
                     },{
@@ -96,7 +112,11 @@ MainRtuDataTable: function () {
                         },
                         "targets": 8
                     },{ 
-                        "sClass": "EventsManagerDataTable_Controls", "aTargets": [8] 
+                        "sClass": "MainRtuDataTable-common", 
+                        "aTargets": [0, 1, 2, 3, 4, 5, 6, 8] 
+                    },{ 
+                        "sClass": "MainRtuDataTable-col-07", 
+                        "aTargets": [7] 
                     }
             ],
             "order" : [] //disable default sorting, eg sorting on 1st column

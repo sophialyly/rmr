@@ -4,20 +4,39 @@
     ///////////////////////////////////////////////////// Your
     // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
     var mainRtuDataTable;
+
+    // Map Object
+    var map = null;
+    //Layers
+    var geolocateLayer = null;
+    var waterBranchLayer = null;
+    var flowWaterLayer = null;
+    //Controls
+    var geolocateControl = null;
+    // Others
+    var firstGeolocation = true;
+
+
     /////////////////////////////////////////////////// Adress
 
     var fn = {
 
         // Launch Functions
         Launch: function () {
-            fn.OpenLayers();
+            //fn.OpenLayers();
             fn.FormWizard();
             fn.MainRtuDataTable();
+            fn.ChosenBootstrap();
             fn.Apps();
         },
 
+        // Chosen-bootstrap
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_chosenBootstrap" %>
         // OpenLayers
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_OpenLayers" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addBaseMap" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addWmtsLayer" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addWmsLayer" %>
         // Routers
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Routers" %>
         // Form Wizard

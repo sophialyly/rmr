@@ -49,6 +49,10 @@ end
 #   end
 # end
 
+
+
+set :phase_environment, 'Development' # Development, Test, Production 
+
 set :css_dir, 'stylesheets'
 
 set :js_dir, 'javascripts'

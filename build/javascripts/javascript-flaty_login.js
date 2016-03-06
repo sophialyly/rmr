@@ -9251,10 +9251,17 @@ f&&(f=1.70158);return b*(a/=d)*a*((f+1)*a-f)+c},easeOutBack:function(e,a,c,b,d,f
         // LoginManager
         LoginManager: function (e) {
 
+      //alert("LoginManager");
+
+
+      // if ($('#username').val() != "") {}
+
        var postParams = {
-          "userName": "myUserName",
-          "passWord": "1234"
+          "userName": $('#username').val(),
+          "passWord": $('#password').val()
       };
+
+      // console.log(postParams);
 
       $.ajax({
         url: '../../api/loginManager/checkUserPassword/',
@@ -9267,15 +9274,22 @@ f&&(f=1.70158);return b*(a/=d)*a*((f+1)*a-f)+c},easeOutBack:function(e,a,c,b,d,f
         success: function(data) {
              //console.log(data);
              //alert(data);
+             //alert(data.result);
+             //alert(data.redirectURL);
 
             //jwt = data.jwt;
             // Storing the data:
             //localStorage.setItem("jwt",jwt);
 
-
             // window.location.href = '../Admin/index.php';
-            var url = '../Home/';
-            $(location).attr('href',url);
+
+            // var url = '../Home/';
+
+            if (data.result == 'success') {
+
+              var url = data.redirectURL;
+              $(location).attr('href',url);
+            } 
 
         },
         error: function(jqXHR, textStatus, errorThrown){

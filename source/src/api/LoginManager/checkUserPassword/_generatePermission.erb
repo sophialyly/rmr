@@ -1,0 +1,21 @@
+$tmpPermissions_list = array();
+
+if ($result_f["allow_read"] == "Y") {
+	$tmpPermissions_list[] = "read";
+	// array_push($tmpPermissions_list, "read");
+}
+
+if ($result_f["allow_write"] == "Y") {
+	$tmpPermissions_list[] = "write";
+	// array_push($tmpPermissions_list, "write");
+}
+
+if ($result_f["allow_update"] == "Y") {
+	$tmpPermissions_list[] = "update";
+	// array_push($tmpPermissions_list, "update");
+}
+
+if ($result_f["allow_delete"] == "Y") {
+	$tmpPermissions_list[] = "delete";
+	// array_push($tmpPermissions_list, "delete");
+}

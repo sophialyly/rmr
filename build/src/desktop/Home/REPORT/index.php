@@ -26,7 +26,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../../../Login/index.php'); //redirect URL
+                header('Location: ../../Login/index.php'); //redirect URL
             }
         ?>
 

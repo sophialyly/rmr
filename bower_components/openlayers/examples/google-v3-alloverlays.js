@@ -9,7 +9,7 @@ function init() {
     // map.
     var gsat = new OpenLayers.Layer.Google(
         "Google Satellite",
-        {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22}
+        {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22, visibility: false}
     );
     var gphy = new OpenLayers.Layer.Google(
         "Google Physical",
@@ -17,7 +17,7 @@ function init() {
     );
     var gmap = new OpenLayers.Layer.Google(
         "Google Streets", // the default
-        {numZoomLevels: 20, visibility: false}
+        {numZoomLevels: 20, visibility: true}
     );
     var ghyb = new OpenLayers.Layer.Google(
         "Google Hybrid",
