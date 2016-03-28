@@ -87,13 +87,13 @@ session_start(); //start session.
                         <input type="password" placeholder="Password" id="password" class="form-control" />
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div class="controls">
                         <label class="checkbox">
                             <input type="checkbox" value="remember" /> Remember me
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <div class="controls">
                         <button type="submit" class="btn btn-primary form-control" id="button-login">Log In</button>

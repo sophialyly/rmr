@@ -8,7 +8,8 @@
         "palanik/corsslim": "*",
         "aferrandini/phpqrcode": "1.0.1",
         "tuupola/slim-jwt-auth": "*",
-        "tuupola/slim-basic-auth": "*"
+        "tuupola/slim-basic-auth": "*",
+        "proj4php/proj4php": "*"
     },
     "config" : {
         "vendor-dir" : "./source/packages"

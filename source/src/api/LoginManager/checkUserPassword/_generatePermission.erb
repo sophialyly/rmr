@@ -1,5 +1,10 @@
 $tmpPermissions_list = array();
 
+if ($result_f["visible"] == "Y") {
+	$tmpPermissions_list[] = "visible";
+	// array_push($tmpPermissions_list, "visible");
+}
+
 if ($result_f["allow_read"] == "Y") {
 	$tmpPermissions_list[] = "read";
 	// array_push($tmpPermissions_list, "read");
@@ -18,4 +23,19 @@ if ($result_f["allow_update"] == "Y") {
 if ($result_f["allow_delete"] == "Y") {
 	$tmpPermissions_list[] = "delete";
 	// array_push($tmpPermissions_list, "delete");
+}
+
+if ($result_f["print"] == "Y") {
+	$tmpPermissions_list[] = "print";
+	// array_push($tmpPermissions_list, "print");
+}
+
+if ($result_f["pdf"] == "Y") {
+	$tmpPermissions_list[] = "pdf";
+	// array_push($tmpPermissions_list, "pdf");
+}
+
+if ($result_f["excel"] == "Y") {
+	$tmpPermissions_list[] = "excel";
+	// array_push($tmpPermissions_list, "excel");
 }

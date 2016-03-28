@@ -19,7 +19,7 @@ LoginManager: function (e) {
         dataType: 'json',
         data: JSON.stringify(postParams),
         cache: false,
-        //async: false,
+        // async: false,
         success: function(data) {
              //console.log(data);
              //alert(data);
@@ -36,8 +36,17 @@ LoginManager: function (e) {
 
             if (data.result == 'success') {
 
-              var url = data.redirectURL;
-              $(location).attr('href',url);
+              //sleep for 5 seconds
+              // sleep(5);
+
+              window.setTimeout(function() {
+
+                var url = data.redirectURL;
+                $(location).attr('href',url);
+
+              }, 1000);
+
+
             } 
 
         },

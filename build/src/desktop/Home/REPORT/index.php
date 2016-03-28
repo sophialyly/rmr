@@ -20,9 +20,10 @@ session_start(); //start session.
     </head>
     <body>
 
-        <?php
+        <!-- PHP Script - Check JWT Sesstion -->
+                <?php
 
-            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
+            if(isset($_SESSION['jwt']) && $_SESSION['jwt'] != "") {
                     //Task to do
             } else {
 
@@ -41,7 +42,7 @@ session_start(); //start session.
             <a class="navbar-brand" href="#">
                 <small>
                     <i class="fa fa-desktop"></i>
-                    WLMA-Admin
+                    WLMA-Extension
                 </small>
             </a>
 
@@ -263,7 +264,7 @@ session_start(); //start session.
                     <div class="col-md-3">
                         <div class="row">
                             <div  class="col-md-12">
-                                <div class="tile tile-light-blue" id="ReportLogoID">
+                                <a href="./WLMA-GIS/" class="tile tile-light-blue">
                                     <div class="img">
                                         <!-- <i class="fa fa-calendar"></i> -->
                                         <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
@@ -272,11 +273,14 @@ session_start(); //start session.
                                         <p class="big">WLMA-GIS</p>
                                         <p class="title">แผนที่แสดงจุดรั่ว</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                         </div>
                     </div>
+
+
+
                 </div>
                 <!-- END First Row -->
 

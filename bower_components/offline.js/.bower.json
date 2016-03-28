@@ -1,0 +1,36 @@
+{
+  "name": "offline.js",
+  "version": "1.0.1",
+  "description": "Enables access to recently retrieved data when the application becomes disconnected. Can also act as a simple expiring data cache, or as a wrapper for localStorage access.",
+  "main": "offline.js",
+  "keywords": [
+    "offline",
+    "expiring",
+    "data",
+    "cache",
+    "disconnected",
+    "localStorage"
+  ],
+  "authors": [
+    "Stephen M. McKamey (http://mck.me)"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/mckamey/offline-js",
+  "ignore": [
+    "./!(offline.js)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mckamey/offline-js.git"
+  },
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.1",
+    "commit": "bb77a026ca1106d5a21b1ce8900266d5e4176f11"
+  },
+  "_source": "git://github.com/mckamey/offline-js.git",
+  "_target": "^1.0.1",
+  "_originalSource": "offline.js",
+  "_direct": true
+}

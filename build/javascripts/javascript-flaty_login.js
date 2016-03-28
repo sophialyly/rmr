@@ -9270,7 +9270,7 @@ f&&(f=1.70158);return b*(a/=d)*a*((f+1)*a-f)+c},easeOutBack:function(e,a,c,b,d,f
         dataType: 'json',
         data: JSON.stringify(postParams),
         cache: false,
-        //async: false,
+        // async: false,
         success: function(data) {
              //console.log(data);
              //alert(data);
@@ -9287,8 +9287,17 @@ f&&(f=1.70158);return b*(a/=d)*a*((f+1)*a-f)+c},easeOutBack:function(e,a,c,b,d,f
 
             if (data.result == 'success') {
 
-              var url = data.redirectURL;
-              $(location).attr('href',url);
+              //sleep for 5 seconds
+              // sleep(5);
+
+              window.setTimeout(function() {
+
+                var url = data.redirectURL;
+                $(location).attr('href',url);
+
+              }, 1000);
+
+
             } 
 
         },

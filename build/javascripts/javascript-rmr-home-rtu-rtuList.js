@@ -19501,7 +19501,7 @@ $(function() {
         mainRtuDataTable = $('#mainRtuDataTable').DataTable( {
             "processing": true,
             "ajax": {
-                "url": "../../../../api/rtuManager/listRTUFromBranch.json",
+                "url": "../../../../api/rtuManager/listRTUFromBranch/",
                 "type": "GET",
                 "dataSrc": "rows",
                 // "success": function(data) {
@@ -19531,7 +19531,7 @@ $(function() {
                         'bSortable': true,
                         'aTargets': [0, 4, 6]
                     },{
-                        'sWidth': '70px',
+                        'sWidth': '90px',
                         'bSortable': true,
                         'aTargets': [3]
                     },{
@@ -19557,12 +19557,12 @@ $(function() {
                         "targets": 0
                     },{
                         "render": function ( data, type, row ) {
-                            return 'Bxx';
+                            return row.branch;
                         },
                         "targets": 1
                     },{
                         "render": function ( data, type, row ) {
-                            return 'xx';
+                            return row.zone;
                         },
                         "targets": 2
                     },{
@@ -19582,12 +19582,17 @@ $(function() {
                         "targets": 5
                     },{
                         "render": function ( data, type, row ) {
-                            return '(13.8416683,100.6670969)';
+
+                            var tmpLatLng = "";
+
+                            tmpLatLng += '(' + row.lat + ',' + row.lng + ')';
+
+                            return tmpLatLng;
                         },
                         "targets": 6
                     },{
                         "render": function ( data, type, row ) {
-                            return '-';
+                            return row.location;
                         },
                         "targets": 7
                     },{

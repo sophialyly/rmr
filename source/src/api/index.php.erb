@@ -50,7 +50,9 @@ layout: "layout-api"
         },
         "rules" => [
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
-                "path" => ["/token", "/user", "/rtuManager/informationOnload/", "/loginManager/checkJWT/"],
+                "path" => ["/token", "/user", 
+                           "/rtuManager/informationOnload/", 
+                           "/loginManager/checkJWT/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
@@ -60,17 +62,37 @@ layout: "layout-api"
     ]));
 
 
+    /* proj4php */
+    // Use a PSR-4 autoloader for the `proj4php` root namespace.
+    use proj4php\Proj4php;
+    use proj4php\Proj;
+    use proj4php\Point;
+
+    // Initialise Proj4
+    $proj4 = new Proj4php();
+    // add it to proj4
+    $proj4->addDef("EPSG:32647",'+proj=utm +zone=47 +ellps=WGS84 +datum=WGS84 +units=m +no_defs');
+    $proj4->addDef("EPSG:24047", '+proj=utm +zone=47 +a=6377276.345 +b=6356075.41314024 +units=m +no_defs');
+
+
+
+
+
+
+
     /* Test Manager */
     $app->get('/testManager/getMsg/:name',function($name) use ($app) { getMsg($app, $name); });
     <%= partial "/TestManager/_user" %>
     <%= partial "/TestManager/_login" %>
     <%= partial "/TestManager/_token" %>
+    $app->post('/testManager/transformToLatLng/',function() use ($app, $proj4) { transformToLatLng($app, $proj4); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
     $app->get('/loginManager/getJWT/',function() use ($app) { getJWT($app); });
     $app->post('/loginManager/checkJWT/',function() use ($app, $key) { checkJWT($app, $key); });
+    $app->post('/loginManager/checkPermission/',function() use ($app, $pdo, $db, $key) { checkPermission($app, $pdo, $db, $key); });
 
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
@@ -79,7 +101,10 @@ layout: "layout-api"
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
-    $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $conn_db2, $key); });
+    $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $db, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $db, $conn_db2, $key); });
+    $app->get('/rtuManager/rtuDashboard/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuDashboard($app, $pdo, $db, $conn_db2, $key); });
+    $app->post('/rtuManager/addNewRTU/',function() use ($app, $pdo, $db, $conn_db2, $key) { addNewRTU($app, $pdo, $db, $conn_db2, $key); });
+    $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -87,16 +112,19 @@ layout: "layout-api"
     // });
 	
 
+
 	$app->run();
 
     /* Test Manager Partial */
     <%= partial "/TestManager/_getMsg" %>
+    <%= partial "/TestManager/_transformToLatLng" %>
 
     /* Login Manager Partial */
     <%= partial "/LoginManager/_checkUserPassword" %>
     <%= partial "/LoginManager/_logout" %>
     <%= partial "/LoginManager/_getJWT" %>
     <%= partial "/LoginManager/_checkJWT" %>
+    <%= partial "/LoginManager/_checkPermission" %>
 
     /* WLMA Manager Partial */
     <%= partial "/WlmaManager/_checkUserPasswordFromWLMA" %>
@@ -106,6 +134,9 @@ layout: "layout-api"
     /* RTU Manager Partial */
     <%= partial "/RtuManager/_informationOnload" %>
     <%= partial "/RtuManager/_listRTUFromBranch" %>
+    <%= partial "/RtuManager/_rtuDashboard" %>
+    <%= partial "/RtuManager/_addNewRTU" %>
+    <%= partial "/RtuManager/_syncRTUFromWLMA" %>
     
     
 ?>

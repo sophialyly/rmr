@@ -1,0 +1,48 @@
+	/**
+	 *
+	 * @apiName CheckPermission
+	 * @apiGroup Login Manager
+	 * @apiVersion 0.1.0
+	 *
+	 * @api {post} /loginManager/checkPermission/ Check Permission
+	 * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่ตรวจสอบสิทธิ์การเข้าใช้งานของผู้ใช้แต่ละระดับ (user, admin)
+	 *
+	 *
+	 * @apiSampleRequest /loginManager/checkPermission/
+	 *
+	 * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+	 *
+	 * @apiSuccessExample Example data on success:
+	 * {
+	 *   "msg": "Hello, anusorn"
+	 * }
+	 *
+	 * @apiError UserNotFound The <code>id</code> of the User was not found.
+	 * @apiErrorExample {json} Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "error": "UserNotFound"
+	 *     }
+	 *
+	 */
+	 function checkPermission($app, $pdo, $db, $key) {
+
+
+	   	/*** Extract the jwt from the Session ***/
+		if (!isset($_SESSION['jwt'])) {
+		 	$jwt = "";
+		} else {
+		 	$jwt = $_SESSION['jwt'];
+		}
+
+		$token = JWT::decode($jwt, $key, array('HS256'));
+		// $role = $token->roles;
+		// $myInformation = $token->information;
+		$myPermissions = $token->permissions;
+
+		$app->response->headers->set('Content-Type', 'application/json');
+		// echo json_encode(array("role" => $role, "information" => $myInformation, "permissions" => $myPermissions));
+		echo json_encode(array("permissions" => $myPermissions));
+
+	 }
+	 

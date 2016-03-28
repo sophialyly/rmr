@@ -20,9 +20,10 @@ session_start(); //start session.
     </head>
     <body>
 
-        <?php
+        <!-- PHP Script - Check JWT Sesstion -->
+                <?php
 
-            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
+            if(isset($_SESSION['jwt']) && $_SESSION['jwt'] != "") {
                     //Task to do
             } else {
 
@@ -41,7 +42,7 @@ session_start(); //start session.
             <a class="navbar-brand" href="#">
                 <small>
                     <i class="fa fa-desktop"></i>
-                    WLMA-Admin
+                    WLMA-Extension
                 </small>
             </a>
 

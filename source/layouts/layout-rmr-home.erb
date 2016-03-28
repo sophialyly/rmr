@@ -20,20 +20,15 @@ session_start(); //start session.
     </head>
     <body>
 
-        <?php
-
-            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
-                    //Task to do
-            } else {
-
-                header('Location: <%= current_page.data.loginURL %>'); //redirect URL
-            }
-        ?>
+        <!-- PHP Script - Check JWT Sesstion -->
+        <%= partial "layouts/common/_check_jwt_session" %>
 
 
         <%= yield %>
 
         <%= javascript_include_tag  "javascript-rmr-home" %>
+
+        <%= partial  "javascripts/javascript-rmr-home/partials/handlebars-template/_home-rmr-template" %>
 
     </body>
 </html>

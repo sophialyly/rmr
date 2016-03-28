@@ -1,0 +1,32 @@
+<?php
+session_start(); //start session.
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="<%= current_page.data.baseURL %>">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title><%= current_page.data.title %></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <%= stylesheet_link_tag "stylesheet-rmr-home-report-wlma_gis-report001" %>
+
+        <link rel="shortcut icon" href="<%= current_page.data.imageURL + '/rmr/favicon.ico' %>">
+    </head>
+    <body>
+
+        <!-- PHP Script - Check JWT Sesstion -->
+        <%= partial "layouts/common/_check_jwt_session" %>
+
+
+        <%= yield %>
+
+        <%= javascript_include_tag  "javascript-rmr-home-report-wlma_gis-report001" %>
+
+    </body>
+</html>

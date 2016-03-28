@@ -19,6 +19,7 @@
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">Cross-origin resource sharing</a> (CORS) Middleware for PHP <a href="http://www.slimframework.com/">Slim Framework</a>.</p>
 
 <p><a href="https://packagist.org/packages/palanik/corsslim"><img alt="Latest Stable Version" src="https://poser.pugx.org/palanik/corsslim/v/stable.svg" /></a>
+<a href="https://travis-ci.org/palanik/CorsSlim"><img alt="Build Status" src="https://travis-ci.org/palanik/CorsSlim.svg" /></a>
 <a href="https://github.com/palanik/CorsSlim/blob/master/LICENSE"><img alt="License" src="https://poser.pugx.org/palanik/corsslim/license.svg" /></a></p>
 
 <h2 id="usage">Usage</h2>
@@ -81,6 +82,22 @@ $corsOptions = array(
 $cors = new \CorsSlim\CorsSlim($corsOptions);
 </code></p>
 
+<h2 id="whitelisted-origins">Whitelisted Origins</h2>
+<p>Set an array of allowed origins to <code>origin</code> option. If a matching request origin found it is used.</p>
+
+<h3 id="example-1">Example</h3>
+<p><code>php
+$corsOptions = array(
+    "origin" =&gt; array('http://one.allowed-origin.com', 'http://two.allowed-origin.com),
+    "exposeHeaders" =&gt; array("X-My-Custom-Header", "X-Another-Custom-Header"),
+    "maxAge" =&gt; 1728000,
+    "allowCredentials" =&gt; True,
+    "allowMethods" =&gt; array("POST, GET"),
+    "allowHeaders" =&gt; array("X-PINGOTHER")
+    );
+$cors = new \CorsSlim\CorsSlim($corsOptions);
+</code></p>
+
 <h2 id="route-middleware">Route Middleware</h2>
 <p>##### <em>New</em> #####
 You can now enable cors selectively for individual routes.</p>
@@ -108,7 +125,7 @@ require ('./vendor/autoload.php');
 $app = new \Slim\Slim();</p>
 
 <p>$corsOptions = array("origin" =&gt; "*");
-$app-&gt;post('/item', 
+$app-&gt;get('/item/:id', 
           \CorsSlim\CorsSlim::routeMiddleware($corsOptions), 
           function ($name) use ($app) {
             …
@@ -118,7 +135,27 @@ $app-&gt;post('/item',
 <p>?&gt;
 ```</p>
 
-<h2 id="license">License</h2>
+<p>For <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Preflighted_requests">Preflighted requests</a>, provide <code>OPTIONS</code> implementation for the corresponding routes.</p>
+
+<p>```php
+&lt;?php
+require ('./vendor/autoload.php');
+$app = new \Slim\Slim();</p>
+
+<p>$app-&gt;options('/item', 
+          \CorsSlim\CorsSlim::routeMiddleware(), 
+          function ($name) use ($app) {}
+        );
+$app-&gt;post('/item', 
+          \CorsSlim\CorsSlim::routeMiddleware(), 
+          function ($name) use ($app) {
+            …
+          }
+        );</p>
+
+<p>?&gt;
+```
+## License ##</p>
 
 <p><a href="/packages/palanik/corsslim/LICENSE">MIT</a></p>
 

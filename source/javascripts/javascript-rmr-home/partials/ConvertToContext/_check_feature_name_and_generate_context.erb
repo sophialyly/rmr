@@ -1,0 +1,25 @@
+if (val_features.feature_name == "rmr") {
+
+    if($.inArray("visible", val_features.permission) >= 0) { // It returns the index of a value in an array. It returns -1 if the array does not contain the value.
+        context["displayRMR"] = "";
+    } else {
+        context["displayRMR"] = "none";
+    }
+
+} else if (val_features.feature_name == "rtu") {
+
+    if($.inArray("visible", val_features.permission) >= 0) { // It returns the index of a value in an array. It returns -1 if the array does not contain the value.
+        context["displayRTU"] = "";
+    } else {
+        context["displayRTU"] = "none";
+    }
+
+} else if (val_features.feature_name == "report") {
+
+    if($.inArray("visible", val_features.permission) >= 0) { // It returns the index of a value in an array. It returns -1 if the array does not contain the value.
+        context["displayREPORT"] = "";
+    } else {
+        context["displayREPORT"] = "none";
+    }
+
+} 

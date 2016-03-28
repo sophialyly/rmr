@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "31e98a578f4809a8d8c62e29e2e70b82",
-    "content-hash": "c85f66be733f13b0b81d3a6478b49a05",
+    "hash": "0ccac9dd4795372ecb6b98d332911779",
+    "content-hash": "28112fcbbd4e7763b9ba7486d832b086",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -194,12 +194,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "7a94b349c761503598c325d3e49bbcdd55c5c55e"
+                "reference": "27941c623d90ddef14411a710a66bcb86e156989"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/7a94b349c761503598c325d3e49bbcdd55c5c55e",
-                "reference": "7a94b349c761503598c325d3e49bbcdd55c5c55e",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/27941c623d90ddef14411a710a66bcb86e156989",
+                "reference": "27941c623d90ddef14411a710a66bcb86e156989",
                 "shasum": ""
             },
             "require": {
@@ -240,24 +240,24 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2015-09-25 08:08:58"
+            "time": "2016-03-10 13:08:49"
         },
         {
             "name": "palanik/corsslim",
-            "version": "v0.0.5",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/palanik/CorsSlim.git",
-                "reference": "e315799762352028e24735f14bebdf63f9135cc8"
+                "reference": "ebd2bca1fcf4711a69db43f65bb63d10c7016030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palanik/CorsSlim/zipball/e315799762352028e24735f14bebdf63f9135cc8",
-                "reference": "e315799762352028e24735f14bebdf63f9135cc8",
+                "url": "https://api.github.com/repos/palanik/CorsSlim/zipball/ebd2bca1fcf4711a69db43f65bb63d10c7016030",
+                "reference": "ebd2bca1fcf4711a69db43f65bb63d10c7016030",
                 "shasum": ""
             },
             "require": {
-                "slim/slim": ">=2.4.0"
+                "slim/slim": ">=2.4.0 <3.0"
             },
             "type": "library",
             "autoload": {
@@ -284,7 +284,67 @@
                 "slim",
                 "slimphp"
             ],
-            "time": "2015-04-29 01:21:37"
+            "time": "2015-12-16 23:57:06"
+        },
+        {
+            "name": "proj4php/proj4php",
+            "version": "2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/proj4php/proj4php.git",
+                "reference": "0833273a4db653c36923f2e28bf8783c114a6400"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/proj4php/proj4php/zipball/0833273a4db653c36923f2e28bf8783c114a6400",
+                "reference": "0833273a4db653c36923f2e28bf8783c114a6400",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "proj4php\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Judge",
+                    "email": "jason.judge@academe.co.uk",
+                    "homepage": "http://academe.co.uk",
+                    "role": "Developer"
+                },
+                {
+                    "name": "julien2512",
+                    "email": "moquet.julien@gmail.com",
+                    "homepage": "https://github.com/julien2512",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Nick Blackwell",
+                    "email": "nickblackwell82@gmail.com",
+                    "homepage": "https://people.ok.ubc.ca/nblackwe",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP-Class for geographic coordinates transformation using proj4 definitions, thanks to a translation from Proj4JS",
+            "homepage": "https://github.com/proj4php/proj4php",
+            "keywords": [
+                "coordinates",
+                "geographic",
+                "proj4",
+                "proj4js"
+            ],
+            "time": "2015-12-29 23:08:16"
         },
         {
             "name": "psr/log",
@@ -483,16 +543,16 @@
         },
         {
             "name": "tuupola/slim-jwt-auth",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tuupola/slim-jwt-auth.git",
-                "reference": "9923f764a5a447f6d8da8f9d822cd4e2500f99fe"
+                "reference": "583685c7b88eea9964b844e099208304dd8a7c00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tuupola/slim-jwt-auth/zipball/9923f764a5a447f6d8da8f9d822cd4e2500f99fe",
-                "reference": "9923f764a5a447f6d8da8f9d822cd4e2500f99fe",
+                "url": "https://api.github.com/repos/tuupola/slim-jwt-auth/zipball/583685c7b88eea9964b844e099208304dd8a7c00",
+                "reference": "583685c7b88eea9964b844e099208304dd8a7c00",
                 "shasum": ""
             },
             "require": {
@@ -532,7 +592,7 @@
                 "middleware",
                 "slim"
             ],
-            "time": "2015-10-01 13:42:36"
+            "time": "2015-11-15 08:56:57"
         },
         {
             "name": "vrana/notorm",

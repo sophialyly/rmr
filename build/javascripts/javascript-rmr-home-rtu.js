@@ -17345,62 +17345,35 @@ $(function() {
 
         // Onload
         Onload: function () {
-    //console.log('Onload');
+    // console.log('Onload');
+
+
 
     $.ajax({
-            url: '../../../api/loginManager/getJWT/',
+            url: '../../../api/rtuManager/rtuDashboard/',
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
-            async: false, //blocks window close
+            async: false, 
             success: function(data) {
-                    // Decode and show the returned data nicely.
-                    console.log(data.jwt);
 
-                    //var tmpJWT = localStorage.getItem("jwt"); // => jwt
-                    var tmpJWT = data.jwt;
+                // console.log(data);
 
-                    //setTimeout(function(){
+                if (data.info.branchCode != "ALL") {
+                    $("#rtu-dashboard-subtitle").text("โมดูลสำหรับจัดการข้อมูล RTU (เฉพาะสาขา "+ data.info.branchCode +")");
+                } else {
+                    $("#rtu-dashboard-subtitle").text("โมดูลสำหรับจัดการข้อมูล RTU (ทุกสาขา)");
+                }
 
-                        $.ajax({
-                            url: '../../../api/rtuManager/informationOnload/',
-                            beforeSend: function(request){
-                                console.log('before send: ' + tmpJWT)
-                                request.setRequestHeader('Authorization', 'Bearer ' + tmpJWT);
-                            },
-                            // retryLimit: 0,
-                            // processData: false,
-                            // headers: {
-                            //     'Authorization':'Bearer' + tmpJWT
-                            // },
-                            type: 'GET',
-                            contentType: 'application/json',
-                            dataType: 'json',
-                            success: function(data) {
-                                // Decode and show the returned data nicely.
-                                console.log(data);
-                            },
-                            statusCode: {
-                                404: function() {
-                                  alert("page not found");
-                                },
-                                400: function() {
-                                  alert("Bad Request");
-                                }
-                            }
-                            // ,
-                            // error: function() {
-                            //     alert('error');
-                            // }
-                        });
-
-                    //},5000); 
-
-
+                $("#rtu-dashboard-num_dm").text(data.info.numDM);
+                $("#rtu-dashboard-num_dma").text(data.info.numDMA);
 
             },
             error: function() {
-                alert('error');
+                // alert('error 555');
+                // var url = '../../Login/';
+                // $(location).attr('href',url);
+                fn.LogoutManager();
             }
     });
 

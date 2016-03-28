@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="packages packages_proj4php packages_proj4php_proj4php packages_proj4php_proj4php_README">
+    <p><a href="https://travis-ci.org/proj4php/proj4php"><img alt="Build Status" src="https://img.shields.io/travis/proj4php/proj4php/master.svg" /></a>
+<a href="https://packagist.org/packages/proj4php/proj4php"><img alt="Latest Stable Version" src="https://img.shields.io/packagist/dt/proj4php/proj4php.svg" /></a></p>
+
+<h1 id="proj4php">proj4php</h1>
+<p>PHP-class for proj4
+This is a PHP-Class for geographic coordinates transformation using proj4 definitions,
+thanks to a translation from Proj4JS.</p>
+
+<h2 id="updated-requirements-and-features">Updated Requirements and Features</h2>
+
+<p>To keep up with the relentless pace of PHP versions and best practice, the following
+features are being implemented on this package:</p>
+
+<ul>
+  <li>[x] Namespacing.</li>
+  <li>[ ] PHP5.4+ syntax (not aiming to be bleeding edge here, just yet)</li>
+  <li>[ ] <a href="http://www.php-fig.org/psr/psr-2/">PSR-2 styling</a></li>
+  <li>[x] <a href="http://www.php-fig.org/psr/psr-4/">PSR-4 autoloader</a></li>
+  <li>[x] <a href="http://semver.org/">semver</a> relase numbers to packagist.org</li>
+  <li>[x] Full compatibility with <a href="https://getcomposer.org/">composer</a></li>
+  <li>[ ] Tests to come once the above is implemented.</li>
+</ul>
+
+<p>A <a href="https://github.com/proj4php/proj4php/tree/proj4php5.2">legacy branch php4proj5.2</a> will be
+maintained for older applications that need it.</p>
+
+<h2 id="using">Using</h2>
+
+<p>```php
+// Use a PSR-4 autoloader for the <code>proj4php</code> root namespace.
+include("vendor/autoload.php");</p>
+
+<p>use proj4php\Proj4php;
+use proj4php\Proj;
+use proj4php\Point;</p>
+
+<p>// Initialise Proj4
+$proj4 = new Proj4php();</p>
+
+<p>// Create two different projections.
+$projL93    = new Proj('EPSG:2154', $proj4);
+$projWGS84  = new Proj('EPSG:4326', $proj4);</p>
+
+<p>// Create a point.
+$pointSrc = new Point(652709.401, 6859290.946, $projL93);
+echo "Source: " . $pointSrc-&gt;toShortString() . " in L93 <br />";</p>
+
+<p>// Transform the point between datums.
+$pointDest = $proj4-&gt;transform($projWGS84, $pointSrc);
+echo "Conversion: " . $pointDest-&gt;toShortString() . " in WGS84<br /><br />";</p>
+
+<p>// Source: 652709.401 6859290.946 in L93
+// Conversion: 2.3557811127971 48.831938054369 in WGS84
+```</p>
+
+<p>There are also ways to define inline projections.
+Check http://spatialreference.org/ref/epsg/ and seek for your projection and proj4 or OGC WKT definitions.</p>
+
+<p>Add a new projection from proj4 definition :
+```php
+// add it to proj4
+$proj4-&gt;addDef("EPSG:27700",'+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs');</p>
+
+<p>// then Create your projections
+$projOSGB36 = new Proj('EPSG:27700',$proj4);
+```</p>
+
+<p>Or directly create your projection from OGC WKT definition :
+<code>php
+$projOSGB36 = new Proj('PROJCS["OSGB 1936 / British National Grid",GEOGCS["OSGB 1936",DATUM["OSGB_1936",SPHEROID["Airy 1830",6377563.396,299.3249646,AUTHORITY["EPSG","7001"]],AUTHORITY["EPSG","6277"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4277"]],UNIT["metre",1,AUTHORITY["EPSG","9001"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",49],PARAMETER["central_meridian",-2],PARAMETER["scale_factor",0.9996012717],PARAMETER["false_easting",400000],PARAMETER["false_northing",-100000],AUTHORITY["EPSG","27700"],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',$proj4);
+</code></p>
+
+<h2 id="developing---how-to-contribute">Developing - How to contribute</h2>
+
+<p>Feel free to fork us and submit your changes!</p>
+
+  </body>
+</html>

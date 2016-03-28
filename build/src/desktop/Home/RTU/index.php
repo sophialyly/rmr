@@ -20,9 +20,10 @@ session_start(); //start session.
     </head>
     <body>
 
-        <?php
+        <!-- PHP Script - Check JWT Sesstion -->
+                <?php
 
-            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
+            if(isset($_SESSION['jwt']) && $_SESSION['jwt'] != "") {
                     //Task to do
             } else {
 
@@ -41,7 +42,7 @@ session_start(); //start session.
             <a class="navbar-brand" href="#">
                 <small>
                     <i class="fa fa-desktop"></i>
-                    WLMA-Admin
+                    WLMA-Extension
                 </small>
             </a>
 
@@ -214,7 +215,7 @@ session_start(); //start session.
                 <div class="page-title">
                     <div>
                         <h1><i class="fa fa-dashboard"></i>   RTU Manager</h1>
-                        <h4>You can start your customization from this one!</h4>
+                        <h4 id="rtu-dashboard-subtitle">You can start your customization from this one!</h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
@@ -265,7 +266,7 @@ session_start(); //start session.
                                         <img  src="../../../../images/rmr/rtu-menuTile-rtuCountLogo.png"/>
                                     </div>
                                     <div class="content">
-                                        <p class="big">1</p>
+                                        <p class="big" id="rtu-dashboard-num_dm">1</p>
                                         <p class="title">จำนวน RTU</p>
                                     </div>
                                 </div>
@@ -278,7 +279,7 @@ session_start(); //start session.
                                         <img  src="../../../../images/rmr/rtu-menuTile-dmaCountLogo.png"/>
                                     </div>
                                     <div class="content">
-                                        <p class="big">1</p>
+                                        <p class="big" id="rtu-dashboard-num_dma">1</p>
                                         <p class="title">จำนวน DMA</p>
                                     </div>
                                 </div>

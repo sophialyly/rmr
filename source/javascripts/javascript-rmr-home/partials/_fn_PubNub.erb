@@ -1,0 +1,72 @@
+PubNub: function () {
+
+// Initialize the instance
+pubnub = PUBNUB({           
+            subscribe_key: 'sub-c-ba6823c0-911c-11e5-a5d0-0619f8945a4f', // always required
+            publish_key: 'pub-c-42759e80-b392-4d1e-bb01-ca1cdd392c77'    // only required if publishing
+        });
+
+// Get List of Occupants and Occupancy Count.
+ 
+pubnub.here_now({
+    channel : 'askTheSpeaker',
+    callback : function(m){
+      //console.log("here_now : " + m)
+    }
+});
+
+pubnub.subscribe({
+    channel: "askTheSpeaker",
+    presence: function(m){
+      //console.log("subscribe - presence : " + m)
+    },
+    message: function(m){
+      //console.log("subscribe - message : " + m)
+    }
+});
+
+pubnub.subscribe({
+    channel: "checkConnection",
+    // resubscribe and reconnect
+    restore : true, 
+    // message received 
+    callback : function() {
+        //console.log(JSON.stingify(m))
+    }, 
+    //  conneciton lost
+    disconnect : function() {
+        //console.log("Connection Lost!")
+        // $('#btnAskTheSpeaker').attr('disabled' , true);
+        fn.GritterAdd();
+    }, 
+    // connection restored 
+    reconnect : function() {
+        console.log("And we're Back!")
+        // $('#btnAskTheSpeaker').attr('disabled' , false);
+        
+    },
+    // connection established 
+    connect : function() { 
+
+        fn.GritterRemoveAll();
+        
+        // send a message 
+        // PUBNUB.publish({ 
+        //     channel : "checkConnection", 
+        //     message : "Hi from PubNub." 
+        // }) 
+    }
+});
+
+
+pubnub.history({
+     channel: 'askTheSpeaker',
+     callback: function(m){
+        //console.log("history");
+        //console.log(JSON.stringify(m))
+    },
+     count: 100, // 100 is the default
+     reverse: false // false is the default
+ });
+
+},

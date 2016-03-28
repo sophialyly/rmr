@@ -27,56 +27,55 @@
      *
      */
 
-    function listRTUFromBranch($app, $pdo, $conn_db2, $key) {
+    function listRTUFromBranch($app, $pdo, $db, $conn_db2, $key) {
 
         /* ************************* */
-        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* เริ่มกระบวนการ Extract the jwt from the Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            $jwt = "";
+        } else {
+            $jwt = $_SESSION['jwt'];
+        }
+
+        $token = JWT::decode($jwt, $key, array('HS256'));
+        $myBranchCode = $token->information->branchCode;
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
         /* ************************* */
         $reports = array();
 
-        $sql = "SELECT  CORE_AREA_meter.area_code AS DMA, 
-                        CORE_AREA_meter.meter_code AS DM, 
-                        iim_equip.IP_ADDRESS AS IPaddress, 
-                        iim_equip.LOGGER_CODE AS LoggerCode, 
-                        iim_equip.STATUS AS Status, 
-                        iim_equip.REMARK AS Remark
-                FROM  CORE_AREA_meter, iim_equip
-                WHERE CORE_AREA_meter.meter_code = iim_equip.equip_code";
-
-        if ($conn_db2) {
-            // # code...
-            $stmt = db2_exec($conn_db2, $sql);
-
-            while ($row = db2_fetch_array($stmt)) {
-                
-                $tmpDMA = iconv("TIS-620", "UTF-8",$row[0]);
-                $tmpDM = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
-                $tmpIPaddress = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
-                $tmpLoggerCode = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[3]);
-                $tmpStatus = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[4]);
-                $tmpRemark = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[5]);
-
-                $tmpCommTypeStr = substr($tmpIPaddress, 0, 3);
-
-                if ($tmpCommTypeStr == "192") {
-                    $tmpCommType = "PSTN";
-                } else {
-                    $tmpCommType = "GPRS";
-                }
-
-                $reports[] = array(
-                    "dma" => $tmpDMA,
-                    "dm" => $tmpDM,
-                    "ip_address" => $tmpIPaddress,
-                    "logger_code" => $tmpLoggerCode,
-                    "ip_address" => $tmpIPaddress,
-                    "comm_type" => $tmpCommType,
-                    "status" => $tmpStatus,
-                    "remark" => $tmpRemark
-                );
-            }
+        if ($myBranchCode != "ALL") {
+            $results = $db->rtu_main_tb->where("branch_code = ? ", $myBranchCode)->order("dm_code ASC");
+        } else {
+            $results = $db->rtu_main_tb->order("dm_code ASC");
         }
-        $rowCount = count($reports);
+        
+        foreach ($results as $result) {
+
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? ", $result["dm_code"])->fetch();
+
+            $reports[] = array(
+                "dm" => $result["dm_code"],
+                "dma" => $result["dma_code"],
+                "branch" => $result["branch_code"],
+                "zone" => $result["zone_code"],
+                "ip_address" => $result["ip_address"],
+                "logger_code" => $result["logger_code"],
+                "comm_type" => $result["comm_type"],
+                "status" => $result["rtu_status"],
+                "remark" => $result["remark"],
+                "lat" => $result_rtu_pin_code["lat"],
+                "lng" => $result_rtu_pin_code["lng"],
+                "location" => $result_rtu_pin_code["location"]
+                );
+
+        }
+
+
+        $rowCount = count($results);
 
         /* ************************* */
         /* เริ่มกระบวนการส่งค่ากลับ */
@@ -84,14 +83,9 @@
         $resultText = "success";
 
         $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
-        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
-        //$reportResult = array("result" =>  $resultText);
         
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
 
-        // $return_m = array("msg" => "สวัสดี");
 
-        // $app->response()->header("Content-Type", "application/json");
-        // echo json_encode($return_m);
     };

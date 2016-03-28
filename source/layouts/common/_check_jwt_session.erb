@@ -1,0 +1,9 @@
+        <?php
+
+            if(isset($_SESSION['jwt']) && $_SESSION['jwt'] != "") {
+                    //Task to do
+            } else {
+
+                header('Location: <%= current_page.data.loginURL %>'); //redirect URL
+            }
+        ?>

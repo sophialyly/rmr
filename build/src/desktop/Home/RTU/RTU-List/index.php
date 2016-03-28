@@ -20,9 +20,10 @@ session_start(); //start session.
     </head>
     <body>
 
-        <?php
+        <!-- PHP Script - Check JWT Sesstion -->
+                <?php
 
-            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
+            if(isset($_SESSION['jwt']) && $_SESSION['jwt'] != "") {
                     //Task to do
             } else {
 
@@ -41,7 +42,7 @@ session_start(); //start session.
             <a class="navbar-brand" href="#">
                 <small>
                     <i class="fa fa-desktop"></i>
-                    WLMA-Admin
+                    WLMA-Extension
                 </small>
             </a>
 
@@ -424,14 +425,14 @@ session_start(); //start session.
     </div>
 
     <div class="form-group">
-        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Logger Device</label>
+        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Logger Device : </label>
         <div class="col-sm-5 col-lg-3 controls">
             <input type="text" name="lastname2" id="lastname2" class="form-control" >
         </div>
     </div>
 
     <div class="form-group">
-        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Location</label>
+        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Location : </label>
         <div class="col-sm-5 col-lg-3 controls">
             <input type="text" name="lastname2" id="lastname2" class="form-control" >
         </div>
@@ -528,12 +529,13 @@ session_start(); //start session.
                       </div>
                       <br/>
                       <div class="form-group">
-                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2" >
                             <a href="javascript:;" class="btn button-previous">Back</a>
                             <a href="javascript:;" class="btn btn-primary button-next">Continue</a>
                             <a href="javascript:;" class="btn btn-success button-submit">Submit</a>
                         </div>
                       </div>
+
                    </div>
                 </form>
             </div>

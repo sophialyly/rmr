@@ -1,8 +1,48 @@
-$(function () {
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
 
-    <%= partial "javascript-rmr-home/_javascript-rmr-jquery-home-logoutButtonClick" %>
+    var pageName = "home";
+    var pubnub;
+    
+    /////////////////////////////////////////////////// Adress
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            // fn.GritterShowResultInfo("ทดสอบ", "ข้อความแสดง");
+            // fn.PubNub();
+            // fn.Offline_func();
+            fn.CheckPermissions();
+            fn.Apps();
+        },
+        
+        // ConvertToContext
+        <%= partial "javascript-rmr-home/partials/_fn_ConvertToContext" %>
+        // CheckPermissions
+        <%= partial "javascript-rmr-home/partials/_fn_CheckPermissions" %>
+ 		// GritterShowResultInfo
+        <%= partial "javascript-rmr-home/partials/_fn_GritterShowResultInfo" %>
+        // GritterAdd
+        <%= partial "javascript-rmr-home/partials/_fn_GritterAdd" %>
+        // GritterRemoveAll
+        <%= partial "javascript-rmr-home/partials/_fn_GritterRemoveAll" %>
+        // Logout
+        <%= partial "javascript-rmr-home/partials/_fn_Logout" %>
+        // PubNub
+        <%= partial "javascript-rmr-home/partials/_fn_PubNub" %>
+ 		// Apps
+        <%= partial "javascript-rmr-home/partials/_fn_Apps" %>
 
-    // Receiving the data:
-    // console.log(localStorage.getItem("jwt"));
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
+    });
+ 
+})(jQuery);
 
-});
+

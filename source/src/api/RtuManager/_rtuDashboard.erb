@@ -1,0 +1,87 @@
+    /**
+     *
+     * @apiName RtuDashboard
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/rtuDashboard/ RTU Dashboard
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงข้อมูลบนหน้าจอ Dashboard ของ RTU Manager
+     *
+     *
+     *
+     * @apiSampleRequest /rtuManager/rtuDashboard/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function rtuDashboard($app, $pdo, $db, $conn_db2, $key) {
+
+        $reports = array();
+
+
+
+        /*** Extract the jwt from the Session ***/
+        if (!isset($_SESSION['jwt'])) {
+            $jwt = "";
+        } else {
+            $jwt = $_SESSION['jwt'];
+        }
+
+        $token = JWT::decode($jwt, $key, array('HS256'));
+        // $role = $token->roles;
+        $myBranchCode = $token->information->branchCode;
+        //$myPermissions = $token->permissions;
+
+
+        // $myNumDM = 99;
+        // $myNumDMA = 55;
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+
+
+
+        if ($myBranchCode == "ALL") {
+            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->count();
+            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->count();
+        } else {
+            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->where("branch_code = ?", $myBranchCode)->count();
+            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->where("branch_code = ?", $myBranchCode)->count();
+        }
+
+        
+
+
+
+        $reports = array("branchCode" => $myBranchCode,
+                                "numDM" => $myNumDM,
+                               "numDMA" => $myNumDMA);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+
+        $reportResult = array("result" =>  $resultText, "info" => $reports);
+
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode($reportResult);
+
+
+
+    };

@@ -40,7 +40,9 @@ session_start(); //start session.
         },
         "rules" => [
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
-                "path" => ["/token", "/user", "/rtuManager/informationOnload/", "/loginManager/checkJWT/"],
+                "path" => ["/token", "/user", 
+                           "/rtuManager/informationOnload/", 
+                           "/loginManager/checkJWT/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
@@ -48,6 +50,24 @@ session_start(); //start session.
             ])
         ]
     ]));
+
+
+    /* proj4php */
+    // Use a PSR-4 autoloader for the `proj4php` root namespace.
+    use proj4php\Proj4php;
+    use proj4php\Proj;
+    use proj4php\Point;
+
+    // Initialise Proj4
+    $proj4 = new Proj4php();
+    // add it to proj4
+    $proj4->addDef("EPSG:32647",'+proj=utm +zone=47 +ellps=WGS84 +datum=WGS84 +units=m +no_defs');
+    $proj4->addDef("EPSG:24047", '+proj=utm +zone=47 +a=6377276.345 +b=6356075.41314024 +units=m +no_defs');
+
+
+
+
+
 
 
     /* Test Manager */
@@ -191,12 +211,14 @@ session_start(); //start session.
       //print_r($app->jwt);
 
     });
+    $app->post('/testManager/transformToLatLng/',function() use ($app, $proj4) { transformToLatLng($app, $proj4); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/loginManager/logout/',function() use ($app, $pdo, $db) { logout($app, $pdo, $db); });
     $app->get('/loginManager/getJWT/',function() use ($app) { getJWT($app); });
     $app->post('/loginManager/checkJWT/',function() use ($app, $key) { checkJWT($app, $key); });
+    $app->post('/loginManager/checkPermission/',function() use ($app, $pdo, $db, $key) { checkPermission($app, $pdo, $db, $key); });
 
     /* WLMA manager */
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
@@ -205,7 +227,8 @@ session_start(); //start session.
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
-    $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $conn_db2, $key); });
+    $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $db, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $db, $conn_db2, $key); });
+    $app->get('/rtuManager/rtuDashboard/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuDashboard($app, $pdo, $db, $conn_db2, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -255,6 +278,86 @@ session_start(); //start session.
         //$response->getBody()->write("Hello, $name");
         // $response->header("Content-Type", "application/json");
         // $response->getBody()->write($return_m);
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($return_m);
+    };
+        /**
+     *
+     * @apiName TransformToLatLng
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /testManager/transformToLatLng Test Transform To LatLng
+     * @apiDescription คำอธิบาย : ทดสอบแปลงค่าพิกัดใน WLMA 1.0 ให้เป็น LatLng
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function transformToLatLng($app, $proj4) {
+
+
+        // J5812R00001 673510.9375, 1524469.5
+        // J5812R00002 674006.5625, 1527902.5
+        // J5812R00003 671971.0625, 1527002.625
+        // J5812R00004 679441.5, 1529612.25
+        // J5812R00005 673989.1875, 1527974.25
+        // J5812R00006 672802.1875, 1525371.75
+
+
+        // then Create your projections
+        $proj32647 = new Proj('EPSG:32647',$proj4);
+        $proj24047 = new Proj('EPSG:24047', $proj4);
+        $projWGS84 = new Proj('EPSG:4326', $proj4);
+
+ 
+        // Create a point.
+        $pointSrc = new Point(674006.5625, 1527902.5, $proj32647);
+        $tmpPointSrc = $pointSrc->toShortString();
+        // echo "Source: " . $pointSrc->toShortString() . " in L93 <br>";
+
+        // Transform the point between datums.
+        $pointDest = $proj4->transform($projWGS84, $pointSrc);
+        $tmpPointDesc = $pointDest->toShortString();
+        // echo "Conversion: " . $pointDest->toShortString() . " in WGS84<br><br>";
+
+
+        // // Create two different projections.
+        // $projL93    = new Proj('EPSG:2154', $proj4);
+        // $projWGS84  = new Proj('EPSG:4326', $proj4);
+
+        // // Create a point.
+        // $pointSrc = new Point(652709.401, 6859290.946, $projL93);
+        // $tmpPointSrc = $pointSrc->toShortString();
+        // // echo "Source: " . $pointSrc->toShortString() . " in L93 <br>";
+
+        // // Transform the point between datums.
+        // $pointDest = $proj4->transform($projWGS84, $pointSrc);
+        // $tmpPointDesc = $pointDest->toShortString();
+        // // echo "Conversion: " . $pointDest->toShortString() . " in WGS84<br><br>";
+
+
+        $return_m = array("msg" => "ทดสอบแปลงค่าพิกัดจาก UTM (32647 หรือ 24047) เป็น LatLng", "pointSrc" => $tmpPointSrc, "pointDest" => $tmpPointDesc);
+
+        
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($return_m);
@@ -323,6 +426,10 @@ session_start(); //start session.
         /* ************************* */
 
 
+	        // $tmpBranch_code = "B01";
+	        // $tmpRole = "user";
+	        // $rowCount = 1;
+
 	        $tmpBranch_code = "ALL";
 	        $tmpRole = "admin";
 	        $rowCount = 1;
@@ -363,6 +470,11 @@ session_start(); //start session.
 
 	        		$tmpPermissions_list = array();
 
+if ($result_f["visible"] == "Y") {
+	$tmpPermissions_list[] = "visible";
+	// array_push($tmpPermissions_list, "visible");
+}
+
 if ($result_f["allow_read"] == "Y") {
 	$tmpPermissions_list[] = "read";
 	// array_push($tmpPermissions_list, "read");
@@ -382,6 +494,22 @@ if ($result_f["allow_delete"] == "Y") {
 	$tmpPermissions_list[] = "delete";
 	// array_push($tmpPermissions_list, "delete");
 }
+
+if ($result_f["print"] == "Y") {
+	$tmpPermissions_list[] = "print";
+	// array_push($tmpPermissions_list, "print");
+}
+
+if ($result_f["pdf"] == "Y") {
+	$tmpPermissions_list[] = "pdf";
+	// array_push($tmpPermissions_list, "pdf");
+}
+
+if ($result_f["excel"] == "Y") {
+	$tmpPermissions_list[] = "excel";
+	// array_push($tmpPermissions_list, "excel");
+}
+
 
 	        		$tmp_features[] = array(
 	                	"feature_name" => $result_f["feature_name"],
@@ -435,7 +563,7 @@ if ($result_f["allow_delete"] == "Y") {
 	      /*
 	       * Create the session
 	       */
-	 	  $_SESSION['userName'] = $postUserName;
+	 	  // $_SESSION['userName'] = $postUserName;
 	 	  $_SESSION['jwt'] = $jwt;
 
 	 	  /*
@@ -691,6 +819,54 @@ $return_m = array("result" =>  $resultText);
        						  "permissions" => $myPermissions,
        						  "information" => $myInformation));
        
+	 }
+	 
+    	/**
+	 *
+	 * @apiName CheckPermission
+	 * @apiGroup Login Manager
+	 * @apiVersion 0.1.0
+	 *
+	 * @api {post} /loginManager/checkPermission/ Check Permission
+	 * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่ตรวจสอบสิทธิ์การเข้าใช้งานของผู้ใช้แต่ละระดับ (user, admin)
+	 *
+	 *
+	 * @apiSampleRequest /loginManager/checkPermission/
+	 *
+	 * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+	 *
+	 * @apiSuccessExample Example data on success:
+	 * {
+	 *   "msg": "Hello, anusorn"
+	 * }
+	 *
+	 * @apiError UserNotFound The <code>id</code> of the User was not found.
+	 * @apiErrorExample {json} Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "error": "UserNotFound"
+	 *     }
+	 *
+	 */
+	 function checkPermission($app, $pdo, $db, $key) {
+
+
+	   	/*** Extract the jwt from the Session ***/
+		if (!isset($_SESSION['jwt'])) {
+		 	$jwt = "";
+		} else {
+		 	$jwt = $_SESSION['jwt'];
+		}
+
+		$token = JWT::decode($jwt, $key, array('HS256'));
+		// $role = $token->roles;
+		// $myInformation = $token->information;
+		$myPermissions = $token->permissions;
+
+		$app->response->headers->set('Content-Type', 'application/json');
+		// echo json_encode(array("role" => $role, "information" => $myInformation, "permissions" => $myPermissions));
+		echo json_encode(array("permissions" => $myPermissions));
+
 	 }
 	 
 
@@ -1261,56 +1437,55 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
      *
      */
 
-    function listRTUFromBranch($app, $pdo, $conn_db2, $key) {
+    function listRTUFromBranch($app, $pdo, $db, $conn_db2, $key) {
 
         /* ************************* */
-        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* เริ่มกระบวนการ Extract the jwt from the Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            $jwt = "";
+        } else {
+            $jwt = $_SESSION['jwt'];
+        }
+
+        $token = JWT::decode($jwt, $key, array('HS256'));
+        $myBranchCode = $token->information->branchCode;
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
         /* ************************* */
         $reports = array();
 
-        $sql = "SELECT  CORE_AREA_meter.area_code AS DMA, 
-                        CORE_AREA_meter.meter_code AS DM, 
-                        iim_equip.IP_ADDRESS AS IPaddress, 
-                        iim_equip.LOGGER_CODE AS LoggerCode, 
-                        iim_equip.STATUS AS Status, 
-                        iim_equip.REMARK AS Remark
-                FROM  CORE_AREA_meter, iim_equip
-                WHERE CORE_AREA_meter.meter_code = iim_equip.equip_code";
-
-        if ($conn_db2) {
-            // # code...
-            $stmt = db2_exec($conn_db2, $sql);
-
-            while ($row = db2_fetch_array($stmt)) {
-                
-                $tmpDMA = iconv("TIS-620", "UTF-8",$row[0]);
-                $tmpDM = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
-                $tmpIPaddress = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
-                $tmpLoggerCode = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[3]);
-                $tmpStatus = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[4]);
-                $tmpRemark = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[5]);
-
-                $tmpCommTypeStr = substr($tmpIPaddress, 0, 3);
-
-                if ($tmpCommTypeStr == "192") {
-                    $tmpCommType = "PSTN";
-                } else {
-                    $tmpCommType = "GPRS";
-                }
-
-                $reports[] = array(
-                    "dma" => $tmpDMA,
-                    "dm" => $tmpDM,
-                    "ip_address" => $tmpIPaddress,
-                    "logger_code" => $tmpLoggerCode,
-                    "ip_address" => $tmpIPaddress,
-                    "comm_type" => $tmpCommType,
-                    "status" => $tmpStatus,
-                    "remark" => $tmpRemark
-                );
-            }
+        if ($myBranchCode != "ALL") {
+            $results = $db->rtu_main_tb->where("branch_code = ? ", $myBranchCode)->order("dm_code ASC");
+        } else {
+            $results = $db->rtu_main_tb->order("dm_code ASC");
         }
-        $rowCount = count($reports);
+        
+        foreach ($results as $result) {
+
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? ", $result["dm_code"])->fetch();
+
+            $reports[] = array(
+                "dm" => $result["dm_code"],
+                "dma" => $result["dma_code"],
+                "branch" => $result["branch_code"],
+                "zone" => $result["zone_code"],
+                "ip_address" => $result["ip_address"],
+                "logger_code" => $result["logger_code"],
+                "comm_type" => $result["comm_type"],
+                "status" => $result["rtu_status"],
+                "remark" => $result["remark"],
+                "lat" => $result_rtu_pin_code["lat"],
+                "lng" => $result_rtu_pin_code["lng"],
+                "location" => $result_rtu_pin_code["location"]
+                );
+
+        }
+
+
+        $rowCount = count($results);
 
         /* ************************* */
         /* เริ่มกระบวนการส่งค่ากลับ */
@@ -1318,16 +1493,98 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         $resultText = "success";
 
         $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
-        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
-        //$reportResult = array("result" =>  $resultText);
         
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
 
-        // $return_m = array("msg" => "สวัสดี");
 
-        // $app->response()->header("Content-Type", "application/json");
-        // echo json_encode($return_m);
+    };
+        /**
+     *
+     * @apiName RtuDashboard
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/rtuDashboard/ RTU Dashboard
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงข้อมูลบนหน้าจอ Dashboard ของ RTU Manager
+     *
+     *
+     *
+     * @apiSampleRequest /rtuManager/rtuDashboard/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function rtuDashboard($app, $pdo, $db, $conn_db2, $key) {
+
+        $reports = array();
+
+
+
+        /*** Extract the jwt from the Session ***/
+        if (!isset($_SESSION['jwt'])) {
+            $jwt = "";
+        } else {
+            $jwt = $_SESSION['jwt'];
+        }
+
+        $token = JWT::decode($jwt, $key, array('HS256'));
+        // $role = $token->roles;
+        $myBranchCode = $token->information->branchCode;
+        //$myPermissions = $token->permissions;
+
+
+        // $myNumDM = 99;
+        // $myNumDMA = 55;
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+
+
+
+        if ($myBranchCode == "ALL") {
+            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->count();
+            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->count();
+        } else {
+            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->where("branch_code = ?", $myBranchCode)->count();
+            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->where("branch_code = ?", $myBranchCode)->count();
+        }
+
+        
+
+
+
+        $reports = array("branchCode" => $myBranchCode,
+                                "numDM" => $myNumDM,
+                               "numDMA" => $myNumDMA);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+
+        $reportResult = array("result" =>  $resultText, "info" => $reports);
+
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode($reportResult);
+
+
+
     };
     
     

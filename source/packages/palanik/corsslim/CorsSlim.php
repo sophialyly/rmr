@@ -20,20 +20,38 @@ class CorsSlim extends \Slim\Middleware {
                                     $req->headers->get("Origin")
                                     );
         }
+
+	    // handle multiple allowed origins
+	    if(is_array($origin)) {
+
+		    $allowedOrigins = $origin;
+
+		    // default to the first allowed origin
+		    $origin = reset($allowedOrigins);
+
+		    // but use a specific origin if there is a match
+		    foreach($allowedOrigins as $allowedOrigin) {
+			    if($allowedOrigin === $req->headers->get("Origin")) {
+				    $origin = $allowedOrigin;
+				    break;
+			    }
+		    }
+	    }
+
         $rsp->headers->set('Access-Control-Allow-Origin', $origin);
     }
 
     protected function setExposeHeaders($req, $rsp) {
-        if (isset($this->settings->exposeHeaders)) {
-            $exposeHeaders = $this->settings->exposeHeaders;
+        if (isset($this->settings['exposeHeaders'])) {
+            $exposeHeaders = $this->settings['exposeHeaders'];
             if (is_array($exposeHeaders)) {
                 $exposeHeaders = implode(", ", $exposeHeaders);
             }
-            
+
             $rsp->headers->set('Access-Control-Expose-Headers', $exposeHeaders);
         }
     }
-
+    
     protected function setMaxAge($req, $rsp) {
         if (isset($this->settings['maxAge'])) {
             $rsp->headers->set('Access-Control-Max-Age', $this->settings['maxAge']);
@@ -102,8 +120,8 @@ class CorsSlim extends \Slim\Middleware {
 
     public static function routeMiddleware($settings = array()) {
         $cors = new CorsSlim($settings);
-        return function() use ($cors) {
-            $app = \Slim\Slim::getInstance();
+        return function() use ($cors, $settings) {
+            $app = (array_key_exists('appName', $settings)) ? \Slim\Slim::getInstance($settings['appName']) : \Slim\Slim::getInstance();
             $cors->setCorsHeaders($app);
         };
     }

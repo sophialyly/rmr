@@ -1,0 +1,31 @@
+// ConvertToContext
+ConvertToContext: function (data) {
+	// console.log('ConvertToContext');
+
+var context = {};
+
+$.each(data.permissions, function(i, val){
+
+    // console.log(i);
+    // console.log(val.page_name);
+    // console.log(pageName);
+
+    if (val.page_name == pageName) {
+
+        $.each(val.features, function(i_features, val_features){
+
+            // check feature_name "rmr" : ConvertToContext
+            <%= partial "javascript-rmr-home/partials/ConvertToContext/_check_feature_name_and_generate_context" %>
+
+
+
+        });
+    }
+
+});
+
+
+return context;
+            
+
+},

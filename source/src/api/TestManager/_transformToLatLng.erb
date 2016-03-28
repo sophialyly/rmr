@@ -1,0 +1,80 @@
+    /**
+     *
+     * @apiName TransformToLatLng
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /testManager/transformToLatLng Test Transform To LatLng
+     * @apiDescription คำอธิบาย : ทดสอบแปลงค่าพิกัดใน WLMA 1.0 ให้เป็น LatLng
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function transformToLatLng($app, $proj4) {
+
+
+        // J5812R00001 673510.9375, 1524469.5
+        // J5812R00002 674006.5625, 1527902.5
+        // J5812R00003 671971.0625, 1527002.625
+        // J5812R00004 679441.5, 1529612.25
+        // J5812R00005 673989.1875, 1527974.25
+        // J5812R00006 672802.1875, 1525371.75
+
+
+        // then Create your projections
+        $proj32647 = new Proj('EPSG:32647',$proj4);
+        $proj24047 = new Proj('EPSG:24047', $proj4);
+        $projWGS84 = new Proj('EPSG:4326', $proj4);
+
+ 
+        // Create a point.
+        $pointSrc = new Point(674006.5625, 1527902.5, $proj32647);
+        $tmpPointSrc = $pointSrc->toShortString();
+        // echo "Source: " . $pointSrc->toShortString() . " in L93 <br>";
+
+        // Transform the point between datums.
+        $pointDest = $proj4->transform($projWGS84, $pointSrc);
+        $tmpPointDesc = $pointDest->toShortString();
+        // echo "Conversion: " . $pointDest->toShortString() . " in WGS84<br><br>";
+
+
+        // // Create two different projections.
+        // $projL93    = new Proj('EPSG:2154', $proj4);
+        // $projWGS84  = new Proj('EPSG:4326', $proj4);
+
+        // // Create a point.
+        // $pointSrc = new Point(652709.401, 6859290.946, $projL93);
+        // $tmpPointSrc = $pointSrc->toShortString();
+        // // echo "Source: " . $pointSrc->toShortString() . " in L93 <br>";
+
+        // // Transform the point between datums.
+        // $pointDest = $proj4->transform($projWGS84, $pointSrc);
+        // $tmpPointDesc = $pointDest->toShortString();
+        // // echo "Conversion: " . $pointDest->toShortString() . " in WGS84<br><br>";
+
+
+        $return_m = array("msg" => "ทดสอบแปลงค่าพิกัดจาก UTM (32647 หรือ 24047) เป็น LatLng", "pointSrc" => $tmpPointSrc, "pointDest" => $tmpPointDesc);
+
+        
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($return_m);
+    };

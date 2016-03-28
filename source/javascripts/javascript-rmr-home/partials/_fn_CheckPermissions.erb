@@ -1,0 +1,41 @@
+// CheckPermissions
+CheckPermissions: function () {
+	// console.log('CheckPermissions');
+
+
+            
+          $.ajax({
+            url: '../../api/loginManager/checkPermission/',
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            cache: false,
+            //async: false,
+            success: function(data) {
+                // console.log(data);
+
+                //window.location.href = '../Admin/';
+                // var url = '../Login/';
+                // $(location).attr('href',url);
+
+                //console.log(window.location.pathname);
+
+                // $("#home-rmr-menuTile").remove();
+
+                var resultHomeRmrTemplate = Handlebars.compile($("#home-rmr-template").html());
+                // var context = {"test1": "none", "test2": "none", "test3": ""};
+                var context = fn.ConvertToContext(data);
+                $("#home-rmr-menuTile").append(resultHomeRmrTemplate(context));
+
+
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                    alert('init error: ' + textStatus);
+
+                    // var url = '../Login/';
+                    // $(location).attr('href',url);
+                    fn.Logout();
+                }
+            });
+
+},

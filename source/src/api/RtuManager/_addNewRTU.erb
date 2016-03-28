@@ -1,0 +1,43 @@
+    /**
+     *
+     * @apiName AddNewRTU
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /rtuManager/addNewRTU/ Add New RTU
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่เพิ่มข้อมูล RTU ตัวใหม่เข้าไปในระบบ
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function addNewRTU($app, $pdo, $db, $conn_db2, $key) {
+
+        //$name = $request->getAttribute('name');
+        //echo "สวัสดี, $name";
+        $return_m = array("msg" => "สวัสดี, $name");
+
+        //$response->getBody()->write("Hello, $name");
+        // $response->header("Content-Type", "application/json");
+        // $response->getBody()->write($return_m);
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($return_m);
+    };

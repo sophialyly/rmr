@@ -20,9 +20,10 @@ session_start(); //start session.
     </head>
     <body>
 
-        <?php
+        <!-- PHP Script - Check JWT Sesstion -->
+                <?php
 
-            if(isset($_SESSION['userName']) && $_SESSION['userName'] != "") {
+            if(isset($_SESSION['jwt']) && $_SESSION['jwt'] != "") {
                     //Task to do
             } else {
 
@@ -41,7 +42,7 @@ session_start(); //start session.
             <a class="navbar-brand" href="#">
                 <small>
                     <i class="fa fa-desktop"></i>
-                    WLMA-Admin
+                    WLMA-Extension
                 </small>
             </a>
 
@@ -190,75 +191,9 @@ session_start(); //start session.
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="home-rmr-menuTile">
                     
- 
                         
-                        <div class="row">
-                            <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRmrID" href="./RMR/" data-stop="10000">
-                                    <div class="img">
-                                        <img  src="../../../images/rmr/Oval-rmr.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">RMR</p>
-                                        <p class="title hidden-xs ">RTU Maintenance Records</p>
-                                    </div>
-                                </a>
-
-                                <a class="tile tile-lime backgroundMenuTile" id="menuRmrID-backgroundMenuTile" href="./RMR/" data-stop="1000">
-                                    <p class="title" style="color:#4A4849">RMR System</p>
-                                    <p style="color:#4A4849">ระบบติดตามสถานะการบำรุงรักษา RTU</p>
-                                    <div class="img img-bottom">
-                                       <!--  <i class="fa fa-picture-o"></i> -->
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuRtuInfoID" href="./RTU/" data-stop="11000">
-                                    <div class="img">
-                                        <img  src="../../../images/rmr/Oval.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">RTU</p>
-                                        <p class="title hidden-xs ">RTU Information</p>
-                                    </div>
-                                </a>
-
-                                <a class="tile tile-magenta backgroundMenuTile" id="menuRtuInfoID-backgroundMenuTile" href="./RTU/" data-stop="1000">
-                                    <p class="title" style="color:#4A4849">RTU Information</p>
-                                    <p style="color:#4A4849">ระบบจัดการข้อมูล RTU</p>
-                                    <div class="img img-bottom">
-                                       <!--  <i class="fa fa-picture-o"></i> -->
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 tile-active">
-                                <a class="tile tile-lime" id="menuReportID" href="./REPORT/" data-stop="12000">
-                                    <div class="img">
-                                        <img  src="../../../images/rmr/home-menuTile-report.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">Report</p>
-                                        <p class="title hidden-xs ">WLMA Report</p>
-                                    </div>
-                                </a>
-
-                                <a class="tile tile-magenta " id="menuReportID-backgroundMenuTile" href="./REPORT/" data-stop="1000">
-                                    <p class="title" style="color:#4A4849">Report</p>
-                                    <p style="color:#4A4849">รายงานข้อมูลจากระบบ WLMA</p>
-                                    <div class="img img-bottom">
-                                       <!--  <i class="fa fa-picture-o"></i> -->
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
 
 
                     </div>
@@ -273,7 +208,7 @@ session_start(); //start session.
 			    	
 
 			        <footer>
-			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			            <p>Copyright © 2016 MWA. All rights reserved.</p>
 			        </footer>
 			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
 			    </div>
@@ -282,6 +217,77 @@ session_start(); //start session.
         <!-- END Container -->
 
         <script src="../../../javascripts/javascript-rmr-home.js" type="text/javascript"></script>
+
+        <script id="home-rmr-template" type="text/x-handlebars-template">
+
+  	<div class="row" style="display: {{displayRMR}}">
+  		<div class="col-md-12 tile-active">
+  			<a class="tile tile-lime" id="menuRmrID" href="./RMR/" data-stop="10000">
+  				<div class="img">
+  					<img  src="../../../images/rmr/Oval-rmr.png"/>
+  				</div>
+  				<div class="content">
+  					<p class="big">RMR</p>
+  					<p class="title hidden-xs ">RTU Maintenance Records</p>
+  				</div>
+  			</a>
+
+  			<a class="tile tile-lime backgroundMenuTile" id="menuRmrID-backgroundMenuTile" href="./RMR/" data-stop="1000">
+  				<p class="title" style="color:#4A4849">RMR System</p>
+  				<p style="color:#4A4849">ระบบติดตามสถานะการบำรุงรักษา RTU</p>
+  				<div class="img img-bottom">
+  					<!--  <i class="fa fa-picture-o"></i> -->
+  				</div>
+  			</a>
+  		</div>
+  	</div>
+
+  	<div class="row" style="display: {{displayRTU}}">
+  		<div class="col-md-12 tile-active">
+  			<a class="tile tile-lime" id="menuRtuInfoID" href="./RTU/" data-stop="11000">
+  				<div class="img">
+  					<img  src="../../../images/rmr/Oval.png"/>
+  				</div>
+  				<div class="content">
+  					<p class="big">RTU</p>
+  					<p class="title hidden-xs ">RTU Information</p>
+  				</div>
+  			</a>
+
+  			<a class="tile tile-magenta backgroundMenuTile" id="menuRtuInfoID-backgroundMenuTile" href="./RTU/" data-stop="1000">
+  				<p class="title" style="color:#4A4849">RTU Information</p>
+  				<p style="color:#4A4849">ระบบจัดการข้อมูล RTU</p>
+  				<div class="img img-bottom">
+  					<!--  <i class="fa fa-picture-o"></i> -->
+  				</div>
+  			</a>
+  		</div>
+  	</div>
+
+  	<div class="row" style="display: {{displayREPORT}}">
+  		<div class="col-md-12 tile-active">
+  			<a class="tile tile-lime" id="menuReportID" href="./REPORT/" data-stop="12000">
+  				<div class="img">
+  					<img  src="../../../images/rmr/home-menuTile-report.png"/>
+  				</div>
+  				<div class="content">
+  					<p class="big">Report</p>
+  					<p class="title hidden-xs ">WLMA Report</p>
+  				</div>
+  			</a>
+
+  			<a class="tile tile-magenta " id="menuReportID-backgroundMenuTile" href="./REPORT/" data-stop="1000">
+  				<p class="title" style="color:#4A4849">Report</p>
+  				<p style="color:#4A4849">รายงานข้อมูลจากระบบ WLMA</p>
+  				<div class="img img-bottom">
+  					<!--  <i class="fa fa-picture-o"></i> -->
+  				</div>
+  			</a>
+  		</div>
+  	</div>
+
+
+</script>
 
     </body>
 </html>
