@@ -52,7 +52,8 @@ layout: "layout-api"
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
                 "path" => ["/token", "/user", 
                            "/rtuManager/informationOnload/", 
-                           "/loginManager/checkJWT/"],
+                           "/loginManager/checkJWT/", 
+                           "/rtuManager/syncRTUFromWLMA/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([

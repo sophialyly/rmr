@@ -1,0 +1,13 @@
+        $dbdata = array(
+            "sync_flag" => 1
+        );
+
+        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1")->fetch();
+        $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1");
+
+        if ($rtu_pin_code !== false) {
+            $result_rtu_pin_code = $rtu_pin_code->update($dbdata);
+            // echo $result;
+        } else {
+            //TODO;
+        }

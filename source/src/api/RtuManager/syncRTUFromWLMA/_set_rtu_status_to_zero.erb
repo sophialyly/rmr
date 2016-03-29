@@ -1,0 +1,17 @@
+                if ($flag_set_rtu_status) {
+
+                    $rtu_main_dbdata = array(
+                        "rtu_status" => 0
+                    );
+
+                    // $rtu_main = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
+                    $rtu_main = $db->rtu_main_tb;
+
+                    if ($rtu_main !== false) {
+                        $result_rtu_pin_code = $rtu_main->update($rtu_main_dbdata);
+                    } else {
+                        //TODO;
+                    }
+
+                    $flag_set_rtu_status = 0;
+                }

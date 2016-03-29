@@ -9,11 +9,53 @@ session_start(); //start session.
     
 
 
-    /* Connect Database Manager Partial : Localhost */
-    $conn_db2 = "";
-        $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
+    /* Connect Database Manager Partial : Production */
+        // /* เชื่อมต่อ DB2 */
+    $driver_db2 = "{IBM DB2 ODBC DRIVER}";
+    $database_db2 = "iWLMA";
+    $hostname_db2 = "172.16.194.210";
+    $port_db2 = 50000;
+    $user_db2 = "db2admin";
+    $password_db2 = "password";
+
+    $conn_string_db2 = "DRIVER=$driver_db2;DATABASE=$database_db2;";
+    $conn_string_db2 .= "HOSTNAME=$hostname_db2;PORT=$port_db2;PROTOCOL=TCPIP;";
+    $conn_string_db2 .= "UID=$user_db2;PWD=$password_db2;";
+
+    try {
+        $conn_db2 = db2_connect($conn_string_db2, '', '');
+
+        $client = db2_client_info($conn_db2);
+
+        // if ($client) {
+        //     echo var_dump($client->APPL_CODEPAGE);
+        //     echo "DRIVER_NAME: ";           var_dump( $client->DRIVER_NAME );
+        //     echo "DRIVER_VER: ";            var_dump( $client->DRIVER_VER );
+        //     echo "DATA_SOURCE_NAME: ";      var_dump( $client->DATA_SOURCE_NAME );
+        //     echo "DRIVER_ODBC_VER: ";       var_dump( $client->DRIVER_ODBC_VER );
+        //     echo "ODBC_VER: ";              var_dump( $client->ODBC_VER );
+        //     echo "ODBC_SQL_CONFORMANCE: ";  var_dump( $client->ODBC_SQL_CONFORMANCE );
+        //     echo "APPL_CODEPAGE: ";         var_dump( $client->APPL_CODEPAGE );
+        //     echo "CONN_CODEPAGE: ";         var_dump( $client->CONN_CODEPAGE );
+        // } else {
+        //     echo "Error";
+        // }
+
+
+        if(!$conn_db2) {
+            echo db2_conn_errormsg();
+        } else {
+            //echo "Hello World, from the IBM_DB2 PHP extension!";
+            //db2_close($conn_db2);
+        }
+    } 
+    catch (Exception $e) {
+        //echo $e;
+    }
+        /* เชื่อมต่อ MySQL บนเครื่อง 172.16.194.210 (http://wlma-mt.wms.mwa/) */
+    $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
     $username = "root";
-    $password = "";
+    $password = "P@ssw0rd";
     $pdo = new PDO($dsn, $username, $password);
     $db = new NotORM($pdo);
 
@@ -42,7 +84,8 @@ session_start(); //start session.
             new \Slim\Middleware\JwtAuthentication\RequestPathRule([
                 "path" => ["/token", "/user", 
                            "/rtuManager/informationOnload/", 
-                           "/loginManager/checkJWT/"],
+                           "/loginManager/checkJWT/", 
+                           "/rtuManager/syncRTUFromWLMA/"],
                 "passthrough" => ["/user"]
             ]),
             new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
@@ -229,12 +272,15 @@ session_start(); //start session.
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
     $app->get('/rtuManager/listRTUFromBranch/',function() use ($app, $pdo, $db, $conn_db2, $key) { listRTUFromBranch($app, $pdo, $db, $conn_db2, $key); });
     $app->get('/rtuManager/rtuDashboard/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuDashboard($app, $pdo, $db, $conn_db2, $key); });
+    $app->post('/rtuManager/addNewRTU/',function() use ($app, $pdo, $db, $conn_db2, $key) { addNewRTU($app, $pdo, $db, $conn_db2, $key); });
+    $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
     //     logout($app, $pdo, $db); 
     // });
 	
+
 
 	$app->run();
 
@@ -426,13 +472,42 @@ session_start(); //start session.
         /* ************************* */
 
 
-	        // $tmpBranch_code = "B01";
-	        // $tmpRole = "user";
-	        // $rowCount = 1;
+	        $tmpUserName = $postUserName;
+	        $tmpPassword_MD5 = md5($postPassWord);
 
-	        $tmpBranch_code = "ALL";
-	        $tmpRole = "admin";
-	        $rowCount = 1;
+	        $tmpBranch_code = "";
+	        $tmpRole = "";
+	        $rowCount = 0;
+
+	        $sql = "select * from AUTH_USER_INFO Where (USER_ID = '".$tmpUserName."' and PASSWORD = '".$tmpPassword_MD5."')";
+
+	        if ($conn_db2) {
+	            // # code...
+	            $stmt = db2_exec($conn_db2, $sql);
+
+	            while ($row = db2_fetch_both($stmt)) {
+	                $tmpBranch_code = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["BRANCH_CODE"]);
+	                $tmpWorkUnit = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["WORKUNIT"]);
+
+	                /* ******* Check Role ******* */
+
+	                $sql_checkRole = "select * from CT_WORKUNIT Where (WORKUNIT_CODE = '".$tmpWorkUnit."')";
+	                $stmt_checkRole = db2_exec($conn_db2, $sql_checkRole);
+	                while ($row_checkRole = db2_fetch_both($stmt_checkRole)) {
+	                	$tmpBranchWorkUnitFlag = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkRole["BRANCH_WORKUNIT_FLAG"]);
+
+		                if ($tmpBranchWorkUnitFlag == "N") {
+		                  	$tmpBranch_code = "ALL";
+		                  	$tmpRole = "admin";
+		                } else {
+		                  	$tmpBranch_code = "B".$tmpBranch_code;
+		                  	$tmpRole = "user";
+		                }
+	                }
+
+	                $rowCount++;
+	            }
+	        }
 
 
         /* ************************* */
@@ -1585,6 +1660,292 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
 
 
+    };
+        /**
+     *
+     * @apiName AddNewRTU
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /rtuManager/addNewRTU/ Add New RTU
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่เพิ่มข้อมูล RTU ตัวใหม่เข้าไปในระบบ
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function addNewRTU($app, $pdo, $db, $conn_db2, $key) {
+
+        //$name = $request->getAttribute('name');
+        //echo "สวัสดี, $name";
+        $return_m = array("msg" => "สวัสดี, $name");
+
+        //$response->getBody()->write("Hello, $name");
+        // $response->header("Content-Type", "application/json");
+        // $response->getBody()->write($return_m);
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($return_m);
+    };
+        /**
+     *
+     * @apiName SyncRTUFromWLMA
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /rtuManager/syncRTUFromWLMA/ Sync RTU from WLMA
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่ Sync ข้อมูล RTU จากระบบ WLMA
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /rtuManager/syncRTUFromWLMA/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+             
+    function syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key) {
+
+        $myBranchCode = "";
+
+        /* ************************* */
+        /* เริ่มกระบวนการ Extract the jwt from the Header or Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            // $jwt = "";
+
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
+            $authHeader = $request->headers('authorization');
+            list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+            $myBranchCode = $app->jwt->information->branchCode;
+
+        } else {
+            /*** Extract the jwt from Session ***/
+            $jwt = $_SESSION['jwt'];
+
+            $token = JWT::decode($jwt, $key, array('HS256'));
+            $myBranchCode = $token->information->branchCode;
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+
+        
+                $dbdata = array(
+            "sync_flag" => 0
+        );
+
+        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1")->fetch();
+        $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1");
+
+        if ($rtu_pin_code !== false) {
+            $result_rtu_pin_code = $rtu_pin_code->update($dbdata);
+            // echo $result;
+        } else {
+            //TODO;
+        }
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+        if($myBranchCode != "") {
+
+            $tmpBranchCode = substr($myBranchCode,1,2);
+
+            if ($myBranchCode == "ALL") {
+                //$sql = "select * from IIM_EQUIP";
+                $sql = "SELECT  EQUIP_CODE,
+                                GIS_X,
+                                GIS_Y,
+                                EQUIP_ADDR,
+                                STATUS,BRANCH_CODE,
+                                IP_ADDRESS,
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( EQUIP_CODE LIKE 'DM%')";
+            } else {
+                //$sql = "select * from IIM_EQUIP where BRANCH_CODE = ".$tmpBranchCode;
+                $sql = "SELECT  EQUIP_CODE,
+                                GIS_X,
+                                GIS_Y,
+                                EQUIP_ADDR,
+                                STATUS,
+                                BRANCH_CODE,
+                                IP_ADDRESS,
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( BRANCH_CODE = ".$tmpBranchCode." AND EQUIP_CODE LIKE 'DM%')";
+            }
+        } 
+
+        if ($conn_db2) {
+            // # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            while ($row = db2_fetch_both($stmt)) {
+
+                $tmpEQUIP_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["EQUIP_CODE"]);
+                $tmpGIS_X = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["GIS_X"]);
+                $tmpGIS_Y = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["GIS_Y"]);
+                $tmpEQUIP_ADDR = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["EQUIP_ADDR"]);
+                $tmpSTATUS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["STATUS"]);
+                $tmpBRANCH_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["BRANCH_CODE"]);
+                $tmpIP_ADDRESS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["IP_ADDRESS"]);
+                $tmpLOGGER_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row['LOGGER_CODE']); 
+
+                if ($tmpLOGGER_CODE == "X20-2") {
+                    $tmpLOGGER_CODE = "X20";
+                } else if ($tmpLOGGER_CODE == "MOXA-2") {
+                    $tmpLOGGER_CODE = "MOXA";
+                } else if ($tmpLOGGER_CODE == "AC500-2") {
+                    $tmpLOGGER_CODE = "AC500";
+                } else if ($tmpLOGGER_CODE == "CTU800-SFTP") {
+                    $tmpLOGGER_CODE = "CTU800";
+                } 
+
+
+                                $rtu_main_dbdata = array(
+                    "rtu_status" => 0
+                );
+
+                $rtu_main = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
+                // $rtu_main = $db->rtu_main_tb;
+
+                if ($rtu_main !== false) {
+                    $result_rtu_pin_code = $rtu_main->update($rtu_main_dbdata);
+                } else {
+                    //TODO;
+                }
+
+                
+
+
+
+
+                $rtuMain_compare_iimEquip = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
+
+                if ($rtuMain_compare_iimEquip !== false) {
+                                        if (substr($tmpIP_ADDRESS,0,2) == "10") {
+                        $tmpCommType = "GPRS";
+                    } else {
+                        $tmpCommType = "PSTN";
+                    }
+                
+                    $rtuMain_compare_iimEquip_dbdata = array(
+                        "branch_code" => "B".$tmpBRANCH_CODE,
+                        "zone_code" => substr($tmpEQUIP_CODE,3,2),
+                        "dma_code" => "DMA-".substr($tmpEQUIP_CODE,3,8),
+                        "dm_code" => $tmpEQUIP_CODE,
+                        "ip_address" => $tmpIP_ADDRESS,
+                        "comm_type" => $tmpCommType,
+                        "logger_code" => $tmpLOGGER_CODE,
+                        "rtu_status" => 1
+                    );
+
+                    $result_rtuMain_compare_iimEquip = $rtuMain_compare_iimEquip->update($rtuMain_compare_iimEquip_dbdata);
+                } else {
+                                        if (substr($tmpIP_ADDRESS,0,2) == "10") {
+                        $tmpCommType = "GPRS";
+                    } else {
+                        $tmpCommType = "PSTN";
+                    }
+                
+                    $rtuMain_compare_iimEquip_dbdata = array(
+                        "branch_code" => "B".$tmpBRANCH_CODE,
+                        "zone_code" => substr($tmpEQUIP_CODE,3,2),
+                        "dma_code" => "DMA-".substr($tmpEQUIP_CODE,3,8),
+                        "dm_code" => $tmpEQUIP_CODE,
+                        "ip_address" => $tmpIP_ADDRESS,
+                        "comm_type" => $tmpCommType,
+                        "logger_code" => $tmpLOGGER_CODE,
+                        "rtu_status" => 1
+                    );
+
+                    $rtuMain_compare_iimEquip = $db->rtu_main_tb;
+                    $result_rtuMain_compare_iimEquip = $rtuMain_compare_iimEquip->insert($rtuMain_compare_iimEquip_dbdata);
+
+                    
+                }
+
+
+
+                $reports[] = array(
+                    "dm_name" => $tmpEQUIP_CODE,
+                    "lat" => $tmpGIS_X,
+                    "lng" => $tmpGIS_Y,
+                    "address" => $tmpEQUIP_ADDR,
+                    "status" => $tmpSTATUS,
+                    "branch_code" => "B".$tmpBRANCH_CODE,
+                    "ip_address" => $tmpIP_ADDRESS,
+                    "logger_code" => $tmpLOGGER_CODE
+                );
+            }
+        }
+
+
+
+
+
+                $dbdata = array(
+            "sync_flag" => 1
+        );
+
+        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1")->fetch();
+        $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1");
+
+        if ($rtu_pin_code !== false) {
+            $result_rtu_pin_code = $rtu_pin_code->update($dbdata);
+            // echo $result;
+        } else {
+            //TODO;
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        if ($myBranchCode) {
+            $resultText = "success";
+        } else {
+            $resultText = "fail";
+        }
+
+        $reportResult = array("result" =>  $resultText, "sql" => $sql, "result" => $reports);
+
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
     };
     
     

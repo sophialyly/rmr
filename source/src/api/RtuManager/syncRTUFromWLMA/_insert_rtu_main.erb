@@ -1,0 +1,21 @@
+                    if (substr($tmpIP_ADDRESS,0,2) == "10") {
+                        $tmpCommType = "GPRS";
+                    } else {
+                        $tmpCommType = "PSTN";
+                    }
+                
+                    $rtuMain_compare_iimEquip_dbdata = array(
+                        "branch_code" => "B".$tmpBRANCH_CODE,
+                        "zone_code" => substr($tmpEQUIP_CODE,3,2),
+                        "dma_code" => "DMA-".substr($tmpEQUIP_CODE,3,8),
+                        "dm_code" => $tmpEQUIP_CODE,
+                        "ip_address" => $tmpIP_ADDRESS,
+                        "comm_type" => $tmpCommType,
+                        "logger_code" => $tmpLOGGER_CODE,
+                        "rtu_status" => 1
+                    );
+
+                    $rtuMain_compare_iimEquip = $db->rtu_main_tb;
+                    $result_rtuMain_compare_iimEquip = $rtuMain_compare_iimEquip->insert($rtuMain_compare_iimEquip_dbdata);
+
+                    

@@ -4,13 +4,13 @@
      * @apiGroup RTU Manager
      * @apiVersion 0.1.0
      *
-     * @api {post} /rtuManager/syncRTUFromWLMA/ Add New RTU
+     * @api {post} /rtuManager/syncRTUFromWLMA/ Sync RTU from WLMA
      * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่ Sync ข้อมูล RTU จากระบบ WLMA
      *
      *
      * @apiParam {String} name     New name of the user
      *
-     * @apiSampleRequest /testManager/getMsg/:name
+     * @apiSampleRequest /rtuManager/syncRTUFromWLMA/
      *
      * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
      *
@@ -30,14 +30,152 @@
              
     function syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key) {
 
-        //$name = $request->getAttribute('name');
-        //echo "สวัสดี, $name";
-        $return_m = array("msg" => "สวัสดี");
+        $myBranchCode = "";
 
-        //$response->getBody()->write("Hello, $name");
-        // $response->header("Content-Type", "application/json");
-        // $response->getBody()->write($return_m);
+        /* ************************* */
+        /* เริ่มกระบวนการ Extract the jwt from the Header or Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            // $jwt = "";
+
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
+            $authHeader = $request->headers('authorization');
+            list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+            $myBranchCode = $app->jwt->information->branchCode;
+
+        } else {
+            /*** Extract the jwt from Session ***/
+            $jwt = $_SESSION['jwt'];
+
+            $token = JWT::decode($jwt, $key, array('HS256'));
+            $myBranchCode = $token->information->branchCode;
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+
+        
+        <%= partial "/RtuManager/syncRTUFromWLMA/_set_sync_flag_to_zero" %>
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+        if($myBranchCode != "") {
+
+            $tmpBranchCode = substr($myBranchCode,1,2);
+
+            if ($myBranchCode == "ALL") {
+                //$sql = "select * from IIM_EQUIP";
+                $sql = "SELECT  EQUIP_CODE,
+                                GIS_X,
+                                GIS_Y,
+                                EQUIP_ADDR,
+                                STATUS,BRANCH_CODE,
+                                IP_ADDRESS,
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( EQUIP_CODE LIKE 'DM%')";
+            } else {
+                //$sql = "select * from IIM_EQUIP where BRANCH_CODE = ".$tmpBranchCode;
+                $sql = "SELECT  EQUIP_CODE,
+                                GIS_X,
+                                GIS_Y,
+                                EQUIP_ADDR,
+                                STATUS,
+                                BRANCH_CODE,
+                                IP_ADDRESS,
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( BRANCH_CODE = ".$tmpBranchCode." AND EQUIP_CODE LIKE 'DM%')";
+            }
+        } 
+
+        if ($conn_db2) {
+            // # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            $flag_set_rtu_status = 1;
+
+            while ($row = db2_fetch_both($stmt)) {
+
+                $tmpEQUIP_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["EQUIP_CODE"]);
+                $tmpGIS_X = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["GIS_X"]);
+                $tmpGIS_Y = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["GIS_Y"]);
+                $tmpEQUIP_ADDR = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["EQUIP_ADDR"]);
+                $tmpSTATUS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["STATUS"]);
+                $tmpBRANCH_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["BRANCH_CODE"]);
+                $tmpIP_ADDRESS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["IP_ADDRESS"]);
+                $tmpLOGGER_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row['LOGGER_CODE']); 
+
+                if ($tmpLOGGER_CODE == "X20-2") {
+                    $tmpLOGGER_CODE = "X20";
+                } else if ($tmpLOGGER_CODE == "MOXA-2") {
+                    $tmpLOGGER_CODE = "MOXA";
+                } else if ($tmpLOGGER_CODE == "AC500-2") {
+                    $tmpLOGGER_CODE = "AC500";
+                } else if ($tmpLOGGER_CODE == "CTU800-SFTP") {
+                    $tmpLOGGER_CODE = "CTU800";
+                } 
+
+                if ($flag_set_rtu_status) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_set_rtu_status_to_zero" %>
+                    $flag_set_rtu_status = 0;
+                }
+                
+
+            
+
+                $rtuMain_compare_iimEquip = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
+
+                if ($rtuMain_compare_iimEquip !== false) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_update_rtu_main" %>
+                } else {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_insert_rtu_main" %>
+                }
+
+
+                $rtuPinCode_compare_iimEquip = $db->rtu_pin_code_tb->where("dm_code = '".$tmpEQUIP_CODE."' and enable = 1")->fetch();
+
+                if ($rtuMain_compare_iimEquip !== false) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_update_rtu_pin_code" %>
+                } else {
+                }
+
+
+
+                $reports[] = array(
+                    "dm_name" => $tmpEQUIP_CODE,
+                    "lat" => $tmpGIS_X,
+                    "lng" => $tmpGIS_Y,
+                    "address" => $tmpEQUIP_ADDR,
+                    "status" => $tmpSTATUS,
+                    "branch_code" => "B".$tmpBRANCH_CODE,
+                    "ip_address" => $tmpIP_ADDRESS,
+                    "logger_code" => $tmpLOGGER_CODE
+                );
+            }
+        }
+
+
+
+
+
+        <%= partial "/RtuManager/syncRTUFromWLMA/_set_sync_flag_to_one" %>
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        if ($myBranchCode) {
+            $resultText = "success";
+        } else {
+            $resultText = "fail";
+        }
+
+        $reportResult = array("result" =>  $resultText, "sql" => $sql, "result" => $reports);
+
 
         $app->response()->header("Content-Type", "application/json");
-        echo json_encode($return_m);
+        echo json_encode($reportResult);
     };
