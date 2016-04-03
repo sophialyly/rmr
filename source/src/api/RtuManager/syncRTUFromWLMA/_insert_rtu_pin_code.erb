@@ -1,0 +1,20 @@
+                    $tmp_rtu_pin_code = $db->rtu_pin_code_tb->max("id");
+                    $tmp_rtu_pin_code = (int)$tmp_rtu_pin_code + 1;
+                    $tmp_rtu_pin_code = "RPC-".$tmp_rtu_pin_code;
+
+                    $tmp_dm_code = $tmpEQUIP_CODE;
+                    $tmp_location = $tmpEQUIP_ADDR;
+                
+                    $rtuPinCode_compare_iimEquip_dbdata = array(
+                        "rtu_pin_code_dm_code" =>  $tmp_rtu_pin_code."_".$tmp_dm_code,
+                        "rtu_pin_code" => $tmp_rtu_pin_code,
+                        "dm_code" => $tmp_dm_code,
+                        "location" => $tmp_location,
+                        "lat" => 0.0000000,
+                        "lng" => 0.0000000,
+                        "enable" => 1,
+                        "sync_flag" => 1
+                    );
+
+                    $rtuPinCode_compare_iimEquip = $db->rtu_pin_code_tb;
+                    $result_rtuPinCode_compare_iimEquip = $rtuPinCode_compare_iimEquip->insert($rtuPinCode_compare_iimEquip_dbdata);

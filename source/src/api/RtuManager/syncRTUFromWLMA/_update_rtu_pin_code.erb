@@ -1,0 +1,7 @@
+                    $rtuPinCode_compare_iimEquip_dbdata = array(
+                        "location" => $tmpEQUIP_ADDR,
+                        "sync_flag" => 1
+                    );
+
+                    $rtuPinCode_update = $db->rtu_pin_code_tb->where("dm_code = '".$tmpEQUIP_CODE."' and enable = 1");
+                    $result_rtuPinCode_compare_iimEquip = $rtuPinCode_update->update($rtuPinCode_compare_iimEquip_dbdata);

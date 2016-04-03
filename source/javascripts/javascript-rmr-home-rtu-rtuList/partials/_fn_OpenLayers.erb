@@ -4,7 +4,7 @@ OpenLayers: function () {
     //$('#map').width($('#tab2-2').width());
 
 
-    $("#map").css({'width':($("#progressID").width()+'px')});
+    // $("#map").css({'width':($("#progressID").width()+'px')});
     // console.log($("#progressID").width());
 
 	//Map Projection Config
@@ -83,7 +83,13 @@ OpenLayers: function () {
     fn.map.addControl(new OpenLayers.Control.OverviewMap(overlayOptions));
 
 
-    fn.map.setCenter(new OpenLayers.LonLat(100.470644 , 13.754470).transform(displayProjection , projection), 12);
+    fn.map.setCenter(new OpenLayers.LonLat(100.470644 , 13.754470).transform(displayProjection , projection), 20);
+
+    // console.log(rowDataTableSelected);
+    // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
+    // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
+    // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
+    // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
 
     // fn.addWmsLayer();
      

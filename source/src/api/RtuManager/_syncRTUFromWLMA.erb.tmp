@@ -76,10 +76,9 @@
                                 GIS_X,
                                 GIS_Y,
                                 EQUIP_ADDR,
-                                STATUS,
-                                BRANCH_CODE,
+                                STATUS,BRANCH_CODE,
                                 IP_ADDRESS,
-                                LOGGER_CODE FROM IIM_EQUIP WHERE ( EQUIP_CODE LIKE 'DM-%')";
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( EQUIP_CODE LIKE 'DM%')";
             } else {
                 //$sql = "select * from IIM_EQUIP where BRANCH_CODE = ".$tmpBranchCode;
                 $sql = "SELECT  EQUIP_CODE,
@@ -89,7 +88,7 @@
                                 STATUS,
                                 BRANCH_CODE,
                                 IP_ADDRESS,
-                                LOGGER_CODE FROM IIM_EQUIP WHERE ( BRANCH_CODE = ".$tmpBranchCode." AND EQUIP_CODE LIKE 'DM-%')";
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( BRANCH_CODE = ".$tmpBranchCode." AND EQUIP_CODE LIKE 'DM%')";
             }
         } 
 
@@ -124,46 +123,33 @@
                     $tmpLOGGER_CODE = "CTU800";
                 } 
 
-                <%= partial "/RtuManager/syncRTUFromWLMA/_search_dma_and_zone_from_dm" %>
+                if ($flag_set_rtu_status) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_set_rtu_status_to_zero" %>
+                    $flag_set_rtu_status = 0;
+                }
+                
 
-                if ($tmpDMA_CODE != "") {
+                $rtuMain_compare_iimEquip = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
 
-                    /* ****************************************************** */
-                    /* ตรวจสอบข้อมูล DM จากตารางข้อมูล IIM_EQUIP กับ rtu_main_tb */
-                    /* ****************************************************** */
-                     
-                    if ($flag_set_rtu_status) {
-                        <%= partial "/RtuManager/syncRTUFromWLMA/_set_rtu_status_to_zero" %>
-                        $flag_set_rtu_status = 0;
-                    }
-                    
-
-                    $rtuMain_compare_iimEquip = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
-
-                    if ($rtuMain_compare_iimEquip !== false) {
-                        <%= partial "/RtuManager/syncRTUFromWLMA/_update_rtu_main" %>
-                    } else {
-                        <%= partial "/RtuManager/syncRTUFromWLMA/_insert_rtu_main" %>
-                    }
+                if ($rtuMain_compare_iimEquip !== false) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_update_rtu_main" %>
+                } else {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_insert_rtu_main" %>
+                }
 
 
-                    /* ********************************************************** */
-                    /* ตรวจสอบข้อมูล DM จากตารางข้อมูล IIM_EQUIP กับ rtu_pin_code_tb */
-                    /* ********************************************************** */
+                if ($flag_set_sync_flag) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_set_sync_flag_to_blank" %>
+                    $flag_set_sync_flag = 0;
+                }
 
-                    if ($flag_set_sync_flag) {
-                        <%= partial "/RtuManager/syncRTUFromWLMA/_set_sync_flag_to_blank" %>
-                        $flag_set_sync_flag = 0;
-                    }
 
-                    $rtuPinCode_compare_iimEquip = $db->rtu_pin_code_tb->where("dm_code = '".$tmpEQUIP_CODE."' and enable = 1")->fetch();
+                $rtuPinCode_compare_iimEquip = $db->rtu_pin_code_tb->where("dm_code = '".$tmpEQUIP_CODE."' and enable = 1")->fetch();
 
-                    if ($rtuPinCode_compare_iimEquip !== false) {
-                        <%= partial "/RtuManager/syncRTUFromWLMA/_update_rtu_pin_code" %>
-                    } else {
-                        <%= partial "/RtuManager/syncRTUFromWLMA/_insert_rtu_pin_code" %>
-                    }
-
+                if ($rtuPinCode_compare_iimEquip !== false) {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_update_rtu_pin_code" %>
+                } else {
+                    <%= partial "/RtuManager/syncRTUFromWLMA/_insert_rtu_pin_code" %>
                 }
 
 
@@ -177,8 +163,7 @@
                     "branch_code" => "B".$tmpBRANCH_CODE,
                     "ip_address" => $tmpIP_ADDRESS,
                     "logger_code" => $tmpLOGGER_CODE,
-                    "DMA" => $tmpDMA_CODE,
-                    "ZONE" => $tmpZONE_CODE
+                    "RPC_Number" => $tmp_rtu_pin_code
                 );
             }
         }

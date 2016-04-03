@@ -1,0 +1,37 @@
+                    $sql_insertRTUMain = "select * from CORE_AREA_METER where METER_CODE = '".$tmpEQUIP_CODE."'";
+                    $tmpDMA_CODE = "";
+                    $tmpZONE_CODE = "";
+
+                    if ($conn_db2) {
+                        // # code...
+                        $stmt_insertRTUMain = db2_exec($conn_db2, $sql_insertRTUMain);
+                        
+                        while ($row_insertRTUMain = db2_fetch_both($stmt_insertRTUMain)) {
+
+                            $tmpDMA_checkAreaCode = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_insertRTUMain['AREA_CODE']);
+                            $tmpMETER_INOUT = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_insertRTUMain['METER_INOUT']); 
+
+                            if (($tmpMETER_INOUT == "I") and (strlen($tmpDMA_checkAreaCode) == 8)) {
+
+                                $sql_checkAreaCode = "select * from CORE_AREA where AREA_CODE = '".$tmpDMA_checkAreaCode."'";
+                                $stmt_checkAreaCode = db2_exec($conn_db2, $sql_checkAreaCode);
+
+                                while ($row_checkAreaCode = db2_fetch_both($stmt_checkAreaCode)) {
+                                
+                                if ($row_checkAreaCode) {
+                                    $tmpAREA_STATUS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkAreaCode['AREA_STATUS']); 
+
+                                    if ($tmpAREA_STATUS == "A") {
+                                        $tmpDMA_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkAreaCode['AREA_CODE']); 
+                                        $tmpZONE_CODE = substr($tmpDMA_CODE,3,2);
+                                    } else {
+                                        $tmpDMA_CODE = "";
+                                    } 
+                                }
+                              }
+
+                            }
+
+                        }
+                        
+                    }

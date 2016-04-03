@@ -1,3 +1,10 @@
+                    
+
+
+
+
+
+
                     if (substr($tmpIP_ADDRESS,0,2) == "10") {
                         $tmpCommType = "GPRS";
                     } else {
@@ -6,8 +13,8 @@
                 
                     $rtuMain_compare_iimEquip_dbdata = array(
                         "branch_code" => "B".$tmpBRANCH_CODE,
-                        "zone_code" => substr($tmpEQUIP_CODE,3,2),
-                        "dma_code" => "DMA-".substr($tmpEQUIP_CODE,3,8),
+                        "zone_code" => $tmpZONE_CODE,
+                        "dma_code" => "DMA-".$tmpDMA_CODE,
                         "dm_code" => $tmpEQUIP_CODE,
                         "ip_address" => $tmpIP_ADDRESS,
                         "comm_type" => $tmpCommType,

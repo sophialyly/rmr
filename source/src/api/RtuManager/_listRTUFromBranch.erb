@@ -48,16 +48,17 @@
         $reports = array();
 
         if ($myBranchCode != "ALL") {
-            $results = $db->rtu_main_tb->where("branch_code = ? ", $myBranchCode)->order("dm_code ASC");
+            $results = $db->rtu_main_tb->where("branch_code = ? and rtu_status = 1", $myBranchCode)->order("dm_code ASC");
         } else {
-            $results = $db->rtu_main_tb->order("dm_code ASC");
+            $results = $db->rtu_main_tb->where("rtu_status = 1")->order("dm_code ASC");
         }
         
         foreach ($results as $result) {
 
-            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? ", $result["dm_code"])->fetch();
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
 
             $reports[] = array(
+                "id" => $result["id"],
                 "dm" => $result["dm_code"],
                 "dma" => $result["dma_code"],
                 "branch" => $result["branch_code"],

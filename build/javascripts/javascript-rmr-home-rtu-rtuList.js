@@ -19058,6 +19058,7 @@ $(function() {
     ///////////////////////////////////////////////////// Your
     // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
     var mainRtuDataTable;
+    var rowDataTableSelected;
 
     // Map Object
     var map = null;
@@ -19108,7 +19109,7 @@ $(function() {
     //$('#map').width($('#tab2-2').width());
 
 
-    $("#map").css({'width':($("#progressID").width()+'px')});
+    // $("#map").css({'width':($("#progressID").width()+'px')});
     // console.log($("#progressID").width());
 
 	//Map Projection Config
@@ -19187,7 +19188,13 @@ $(function() {
     fn.map.addControl(new OpenLayers.Control.OverviewMap(overlayOptions));
 
 
-    fn.map.setCenter(new OpenLayers.LonLat(100.470644 , 13.754470).transform(displayProjection , projection), 12);
+    fn.map.setCenter(new OpenLayers.LonLat(100.470644 , 13.754470).transform(displayProjection , projection), 20);
+
+    // console.log(rowDataTableSelected);
+    // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
+    // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
+    // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
+    // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
 
     // fn.addWmsLayer();
      
@@ -19320,9 +19327,13 @@ $(function() {
             // console.log('Routers');
 
             if (canvasID != "default") {
+
                 $("#main-content > .canvas-rtuInformation:visible").hide("slide", { direction: "left" }, 800, function(){
                     // $('#canvas-rtuInformation-' + canvasID).fadeIn(300);
-                    $('#canvas-rtuInformation-formWizard').fadeIn(300);
+                    // $('#canvas-rtuInformation-formWizard').fadeIn(300);
+                    $('#canvas-rtuInformation-mapBox').fadeIn(300);
+
+                    fn.OpenLayers();
 
                     if (canvasID == 'add') {
                         fn.BreadcrumbShow('เพิ่มข้อมูล RTU');
@@ -19332,16 +19343,20 @@ $(function() {
                         fn.BreadcrumbShow('แก้ไขข้อมูล RTU');
                     }
 
+                    fn.SideMenuCollapse();
+
                 });
+                
             } else {
+
                 $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
                     $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
 
                     fn.BreadcrumbHide();
+                    fn.SideMenuExpand();
                 });
+
             }
-
-
         },
         // Form Wizard
         FormWizard: function () {
@@ -19628,9 +19643,20 @@ $(function() {
             // console.log ( 'Row index: ' + EventsManagerDataTable.row(this).index() );
 
             var data = mainRtuDataTable.row($(this).closest('tr')).data();
-            console.log(data);
-            console.log( 'You clicked on ' + data.id+'\'s row' );
-            console.log( 'You clicked on rtu_dm :  ' + data.dm );
+            // console.log(data);
+            // console.log( 'You clicked on ' + data.id+'\'s row' );
+            // console.log( 'You clicked on rtu_dm :  ' + data.dm );
+
+            if (rowDataTableSelected) {
+                rowDataTableSelected = null;
+            }
+
+            rowDataTableSelected = data;
+            // console.log(rowDataTableSelected);
+            // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
+            // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
+            // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
+            // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
             
 
             if ($(this).attr('data-original-title') == 'View') {
@@ -19659,6 +19685,9 @@ $(function() {
 	$('.breadcrumb-title-rtuList').text(myTitle);
 
 	$('#box-title-formWizard').text(" " + myTitle);
+
+	
+	
 },
         // Breadcrumb Hide
         BreadcrumbHide: function () {
@@ -19668,6 +19697,20 @@ $(function() {
 	$('.breadcrumb-angleRight-rtuList').fadeOut().css('display', 'none');
 	$('.breadcrumb-title-rtuList').fadeOut().css('display', 'none');
 	$('.breadcrumb-title-rtuList').text('');
+
+	
+},
+        // SideMenu Expand
+        SideMenuExpand: function () {
+	console.log('SideMenuExpand');
+	$("#sidebar").attr('class', 'navbar-collapse collapse sidebar-fixed');
+},
+        // SideMenu Collapse
+        SideMenuCollapse: function () {
+	// console.log('SideMenuCollapse');
+	$("#sidebar").attr('class', 'navbar-collapse collapse sidebar-fixed sidebar-collapsed');
+
+
 },
         // Logout
         Logout: function () {

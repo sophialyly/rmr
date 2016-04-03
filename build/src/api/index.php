@@ -9,53 +9,11 @@ session_start(); //start session.
     
 
 
-    /* Connect Database Manager Partial : Production */
-        // /* เชื่อมต่อ DB2 */
-    $driver_db2 = "{IBM DB2 ODBC DRIVER}";
-    $database_db2 = "iWLMA";
-    $hostname_db2 = "172.16.194.210";
-    $port_db2 = 50000;
-    $user_db2 = "db2admin";
-    $password_db2 = "password";
-
-    $conn_string_db2 = "DRIVER=$driver_db2;DATABASE=$database_db2;";
-    $conn_string_db2 .= "HOSTNAME=$hostname_db2;PORT=$port_db2;PROTOCOL=TCPIP;";
-    $conn_string_db2 .= "UID=$user_db2;PWD=$password_db2;";
-
-    try {
-        $conn_db2 = db2_connect($conn_string_db2, '', '');
-
-        $client = db2_client_info($conn_db2);
-
-        // if ($client) {
-        //     echo var_dump($client->APPL_CODEPAGE);
-        //     echo "DRIVER_NAME: ";           var_dump( $client->DRIVER_NAME );
-        //     echo "DRIVER_VER: ";            var_dump( $client->DRIVER_VER );
-        //     echo "DATA_SOURCE_NAME: ";      var_dump( $client->DATA_SOURCE_NAME );
-        //     echo "DRIVER_ODBC_VER: ";       var_dump( $client->DRIVER_ODBC_VER );
-        //     echo "ODBC_VER: ";              var_dump( $client->ODBC_VER );
-        //     echo "ODBC_SQL_CONFORMANCE: ";  var_dump( $client->ODBC_SQL_CONFORMANCE );
-        //     echo "APPL_CODEPAGE: ";         var_dump( $client->APPL_CODEPAGE );
-        //     echo "CONN_CODEPAGE: ";         var_dump( $client->CONN_CODEPAGE );
-        // } else {
-        //     echo "Error";
-        // }
-
-
-        if(!$conn_db2) {
-            echo db2_conn_errormsg();
-        } else {
-            //echo "Hello World, from the IBM_DB2 PHP extension!";
-            //db2_close($conn_db2);
-        }
-    } 
-    catch (Exception $e) {
-        //echo $e;
-    }
-        /* เชื่อมต่อ MySQL บนเครื่อง 172.16.194.210 (http://wlma-mt.wms.mwa/) */
-    $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
+    /* Connect Database Manager Partial : Localhost */
+    $conn_db2 = "";
+        $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
     $username = "root";
-    $password = "P@ssw0rd";
+    $password = "";
     $pdo = new PDO($dsn, $username, $password);
     $db = new NotORM($pdo);
 
@@ -472,42 +430,13 @@ session_start(); //start session.
         /* ************************* */
 
 
-	        $tmpUserName = $postUserName;
-	        $tmpPassword_MD5 = md5($postPassWord);
+	        // $tmpBranch_code = "B01";
+	        // $tmpRole = "user";
+	        // $rowCount = 1;
 
-	        $tmpBranch_code = "";
-	        $tmpRole = "";
-	        $rowCount = 0;
-
-	        $sql = "select * from AUTH_USER_INFO Where (USER_ID = '".$tmpUserName."' and PASSWORD = '".$tmpPassword_MD5."')";
-
-	        if ($conn_db2) {
-	            // # code...
-	            $stmt = db2_exec($conn_db2, $sql);
-
-	            while ($row = db2_fetch_both($stmt)) {
-	                $tmpBranch_code = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["BRANCH_CODE"]);
-	                $tmpWorkUnit = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["WORKUNIT"]);
-
-	                /* ******* Check Role ******* */
-
-	                $sql_checkRole = "select * from CT_WORKUNIT Where (WORKUNIT_CODE = '".$tmpWorkUnit."')";
-	                $stmt_checkRole = db2_exec($conn_db2, $sql_checkRole);
-	                while ($row_checkRole = db2_fetch_both($stmt_checkRole)) {
-	                	$tmpBranchWorkUnitFlag = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkRole["BRANCH_WORKUNIT_FLAG"]);
-
-		                if ($tmpBranchWorkUnitFlag == "N") {
-		                  	$tmpBranch_code = "ALL";
-		                  	$tmpRole = "admin";
-		                } else {
-		                  	$tmpBranch_code = "B".$tmpBranch_code;
-		                  	$tmpRole = "user";
-		                }
-	                }
-
-	                $rowCount++;
-	            }
-	        }
+	        $tmpBranch_code = "ALL";
+	        $tmpRole = "admin";
+	        $rowCount = 1;
 
 
         /* ************************* */
@@ -1533,16 +1462,17 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         $reports = array();
 
         if ($myBranchCode != "ALL") {
-            $results = $db->rtu_main_tb->where("branch_code = ? ", $myBranchCode)->order("dm_code ASC");
+            $results = $db->rtu_main_tb->where("branch_code = ? and rtu_status = 1", $myBranchCode)->order("dm_code ASC");
         } else {
-            $results = $db->rtu_main_tb->order("dm_code ASC");
+            $results = $db->rtu_main_tb->where("rtu_status = 1")->order("dm_code ASC");
         }
         
         foreach ($results as $result) {
 
-            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? ", $result["dm_code"])->fetch();
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
 
             $reports[] = array(
+                "id" => $result["id"],
                 "dm" => $result["dm_code"],
                 "dma" => $result["dma_code"],
                 "branch" => $result["branch_code"],
@@ -1632,11 +1562,11 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
 
         if ($myBranchCode == "ALL") {
-            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->count();
-            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->count();
+            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->where("rtu_status = 1")->count();
+            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->where("rtu_status = 1")->count();
         } else {
-            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->where("branch_code = ?", $myBranchCode)->count();
-            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->where("branch_code = ?", $myBranchCode)->count();
+            $myNumDM = $db->rtu_main_tb->select("DISTINCT dm_code")->where("branch_code = ? and rtu_status = 1", $myBranchCode)->count();
+            $myNumDMA = $db->rtu_main_tb->select("DISTINCT dma_code")->where("branch_code = ? and rtu_status = 1", $myBranchCode)->count();
         }
 
         
@@ -1764,19 +1694,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         /* ************************* */
 
         
-                $dbdata = array(
-            "sync_flag" => 0
-        );
 
-        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1")->fetch();
-        $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1");
-
-        if ($rtu_pin_code !== false) {
-            $result_rtu_pin_code = $rtu_pin_code->update($dbdata);
-            // echo $result;
-        } else {
-            //TODO;
-        }
 
 
         /* ************************* */
@@ -1794,9 +1712,10 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                                 GIS_X,
                                 GIS_Y,
                                 EQUIP_ADDR,
-                                STATUS,BRANCH_CODE,
+                                STATUS,
+                                BRANCH_CODE,
                                 IP_ADDRESS,
-                                LOGGER_CODE FROM IIM_EQUIP WHERE ( EQUIP_CODE LIKE 'DM%')";
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( EQUIP_CODE LIKE 'DM-%')";
             } else {
                 //$sql = "select * from IIM_EQUIP where BRANCH_CODE = ".$tmpBranchCode;
                 $sql = "SELECT  EQUIP_CODE,
@@ -1806,7 +1725,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                                 STATUS,
                                 BRANCH_CODE,
                                 IP_ADDRESS,
-                                LOGGER_CODE FROM IIM_EQUIP WHERE ( BRANCH_CODE = ".$tmpBranchCode." AND EQUIP_CODE LIKE 'DM%')";
+                                LOGGER_CODE FROM IIM_EQUIP WHERE ( BRANCH_CODE = ".$tmpBranchCode." AND EQUIP_CODE LIKE 'DM-%')";
             }
         } 
 
@@ -1814,7 +1733,13 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
             // # code...
             $stmt = db2_exec($conn_db2, $sql);
 
+            $flag_set_rtu_status = 1;
+            $flag_set_sync_flag = 1;
+            
+
             while ($row = db2_fetch_both($stmt)) {
+
+                $tmp_rtu_pin_code = 0;
 
                 $tmpEQUIP_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["EQUIP_CODE"]);
                 $tmpGIS_X = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["GIS_X"]);
@@ -1835,29 +1760,83 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                     $tmpLOGGER_CODE = "CTU800";
                 } 
 
+                                    $sql_insertRTUMain = "select * from CORE_AREA_METER where METER_CODE = '".$tmpEQUIP_CODE."'";
+                    $tmpDMA_CODE = "";
+                    $tmpZONE_CODE = "";
 
-                                $rtu_main_dbdata = array(
-                    "rtu_status" => 0
-                );
+                    if ($conn_db2) {
+                        // # code...
+                        $stmt_insertRTUMain = db2_exec($conn_db2, $sql_insertRTUMain);
+                        
+                        while ($row_insertRTUMain = db2_fetch_both($stmt_insertRTUMain)) {
 
-                $rtu_main = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
-                // $rtu_main = $db->rtu_main_tb;
+                            $tmpDMA_checkAreaCode = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_insertRTUMain['AREA_CODE']);
+                            $tmpMETER_INOUT = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_insertRTUMain['METER_INOUT']); 
 
-                if ($rtu_main !== false) {
-                    $result_rtu_pin_code = $rtu_main->update($rtu_main_dbdata);
-                } else {
-                    //TODO;
+                            if (($tmpMETER_INOUT == "I") and (strlen($tmpDMA_checkAreaCode) == 8)) {
+
+                                $sql_checkAreaCode = "select * from CORE_AREA where AREA_CODE = '".$tmpDMA_checkAreaCode."'";
+                                $stmt_checkAreaCode = db2_exec($conn_db2, $sql_checkAreaCode);
+
+                                while ($row_checkAreaCode = db2_fetch_both($stmt_checkAreaCode)) {
+                                
+                                if ($row_checkAreaCode) {
+                                    $tmpAREA_STATUS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkAreaCode['AREA_STATUS']); 
+
+                                    if ($tmpAREA_STATUS == "A") {
+                                        $tmpDMA_CODE = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkAreaCode['AREA_CODE']); 
+                                        $tmpZONE_CODE = substr($tmpDMA_CODE,3,2);
+                                    } else {
+                                        $tmpDMA_CODE = "";
+                                    } 
+                                }
+                              }
+
+                            }
+
+                        }
+                        
+                    }
+
+                if ($tmpDMA_CODE != "") {
+
+                    /* ****************************************************** */
+                    /* ตรวจสอบข้อมูล DM จากตารางข้อมูล IIM_EQUIP กับ rtu_main_tb */
+                    /* ****************************************************** */
+                     
+                    if ($flag_set_rtu_status) {
+                                        if ($flag_set_rtu_status) {
+
+                    $rtu_main_dbdata = array(
+                        "rtu_status" => 0
+                    );
+
+                    // $rtu_main = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
+                    $rtu_main = $db->rtu_main_tb;
+
+                    if ($rtu_main !== false) {
+                        $result_rtu_pin_code = $rtu_main->update($rtu_main_dbdata);
+                    } else {
+                        //TODO;
+                    }
+
+                    $flag_set_rtu_status = 0;
                 }
+                        $flag_set_rtu_status = 0;
+                    }
+                    
 
-                
+                    $rtuMain_compare_iimEquip = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
+
+                    if ($rtuMain_compare_iimEquip !== false) {
+                                            
 
 
 
 
-                $rtuMain_compare_iimEquip = $db->rtu_main_tb->where("dm_code = '".$tmpEQUIP_CODE."'")->fetch();
 
-                if ($rtuMain_compare_iimEquip !== false) {
-                                        if (substr($tmpIP_ADDRESS,0,2) == "10") {
+
+                    if (substr($tmpIP_ADDRESS,0,2) == "10") {
                         $tmpCommType = "GPRS";
                     } else {
                         $tmpCommType = "PSTN";
@@ -1865,8 +1844,8 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                 
                     $rtuMain_compare_iimEquip_dbdata = array(
                         "branch_code" => "B".$tmpBRANCH_CODE,
-                        "zone_code" => substr($tmpEQUIP_CODE,3,2),
-                        "dma_code" => "DMA-".substr($tmpEQUIP_CODE,3,8),
+                        "zone_code" => $tmpZONE_CODE,
+                        "dma_code" => "DMA-".$tmpDMA_CODE,
                         "dm_code" => $tmpEQUIP_CODE,
                         "ip_address" => $tmpIP_ADDRESS,
                         "comm_type" => $tmpCommType,
@@ -1875,8 +1854,8 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                     );
 
                     $result_rtuMain_compare_iimEquip = $rtuMain_compare_iimEquip->update($rtuMain_compare_iimEquip_dbdata);
-                } else {
-                                        if (substr($tmpIP_ADDRESS,0,2) == "10") {
+                    } else {
+                                            if (substr($tmpIP_ADDRESS,0,2) == "10") {
                         $tmpCommType = "GPRS";
                     } else {
                         $tmpCommType = "PSTN";
@@ -1884,8 +1863,8 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                 
                     $rtuMain_compare_iimEquip_dbdata = array(
                         "branch_code" => "B".$tmpBRANCH_CODE,
-                        "zone_code" => substr($tmpEQUIP_CODE,3,2),
-                        "dma_code" => "DMA-".substr($tmpEQUIP_CODE,3,8),
+                        "zone_code" => $tmpZONE_CODE,
+                        "dma_code" => "DMA-".$tmpDMA_CODE,
                         "dm_code" => $tmpEQUIP_CODE,
                         "ip_address" => $tmpIP_ADDRESS,
                         "comm_type" => $tmpCommType,
@@ -1897,6 +1876,64 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                     $result_rtuMain_compare_iimEquip = $rtuMain_compare_iimEquip->insert($rtuMain_compare_iimEquip_dbdata);
 
                     
+                    }
+
+
+                    /* ********************************************************** */
+                    /* ตรวจสอบข้อมูล DM จากตารางข้อมูล IIM_EQUIP กับ rtu_pin_code_tb */
+                    /* ********************************************************** */
+
+                    if ($flag_set_sync_flag) {
+                                $dbdata = array(
+            "sync_flag" => ""
+        );
+
+        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1")->fetch();
+        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1");
+        $rtu_pin_code = $db->rtu_pin_code_tb;
+
+        if ($rtu_pin_code !== false) {
+            $result_rtu_pin_code = $rtu_pin_code->update($dbdata);
+            // echo $result;
+        } else {
+            //TODO;
+        }
+                        $flag_set_sync_flag = 0;
+                    }
+
+                    $rtuPinCode_compare_iimEquip = $db->rtu_pin_code_tb->where("dm_code = '".$tmpEQUIP_CODE."' and enable = 1")->fetch();
+
+                    if ($rtuPinCode_compare_iimEquip !== false) {
+                                            $rtuPinCode_compare_iimEquip_dbdata = array(
+                        "location" => $tmpEQUIP_ADDR,
+                        "sync_flag" => 1
+                    );
+
+                    $rtuPinCode_update = $db->rtu_pin_code_tb->where("dm_code = '".$tmpEQUIP_CODE."' and enable = 1");
+                    $result_rtuPinCode_compare_iimEquip = $rtuPinCode_update->update($rtuPinCode_compare_iimEquip_dbdata);
+                    } else {
+                                            $tmp_rtu_pin_code = $db->rtu_pin_code_tb->max("id");
+                    $tmp_rtu_pin_code = (int)$tmp_rtu_pin_code + 1;
+                    $tmp_rtu_pin_code = "RPC-".$tmp_rtu_pin_code;
+
+                    $tmp_dm_code = $tmpEQUIP_CODE;
+                    $tmp_location = $tmpEQUIP_ADDR;
+                
+                    $rtuPinCode_compare_iimEquip_dbdata = array(
+                        "rtu_pin_code_dm_code" =>  $tmp_rtu_pin_code."_".$tmp_dm_code,
+                        "rtu_pin_code" => $tmp_rtu_pin_code,
+                        "dm_code" => $tmp_dm_code,
+                        "location" => $tmp_location,
+                        "lat" => 0.0000000,
+                        "lng" => 0.0000000,
+                        "enable" => 1,
+                        "sync_flag" => 1
+                    );
+
+                    $rtuPinCode_compare_iimEquip = $db->rtu_pin_code_tb;
+                    $result_rtuPinCode_compare_iimEquip = $rtuPinCode_compare_iimEquip->insert($rtuPinCode_compare_iimEquip_dbdata);
+                    }
+
                 }
 
 
@@ -1909,7 +1946,9 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                     "status" => $tmpSTATUS,
                     "branch_code" => "B".$tmpBRANCH_CODE,
                     "ip_address" => $tmpIP_ADDRESS,
-                    "logger_code" => $tmpLOGGER_CODE
+                    "logger_code" => $tmpLOGGER_CODE,
+                    "DMA" => $tmpDMA_CODE,
+                    "ZONE" => $tmpZONE_CODE
                 );
             }
         }
@@ -1918,19 +1957,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
 
 
-                $dbdata = array(
-            "sync_flag" => 1
-        );
 
-        // $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1")->fetch();
-        $rtu_pin_code = $db->rtu_pin_code_tb->where("enable = 1");
-
-        if ($rtu_pin_code !== false) {
-            $result_rtu_pin_code = $rtu_pin_code->update($dbdata);
-            // echo $result;
-        } else {
-            //TODO;
-        }
 
         /* ************************* */
         /* เริ่มกระบวนการส่งค่ากลับ */

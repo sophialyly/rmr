@@ -254,7 +254,7 @@ session_start(); //start session.
 			    	<!-- Home - Container - MainContent - sampleBox  -->
 			    	<div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
         <div class="box-title">
-            <h3><i class="fa fa-file"></i> รายการ RTU</h3>
+            <h3><i class="fa fa-file"></i> รายการข้อมูล RTU</h3>
             <div class="box-tool">
                 <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
                 <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
@@ -320,235 +320,23 @@ session_start(); //start session.
 </div>
 
                         
-			    	<!-- <div class="box canvas-rtuInformation" id="canvas-rtuInformation-add" style="display:none">
-    <div class="box-title">
-        <h3><i class="fa fa-file"></i> Add Box</h3>
-        <div class="box-tool">
-            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-        </div>
-    </div>
-    <div class="box-content" style="height:400px;">
-    </div>
-</div> -->
-
-<div class="row canvas-rtuInformation" id="canvas-rtuInformation-formWizard" style="display:none">
+			    	    
+<div class="row canvas-rtuInformation" id="canvas-rtuInformation-mapBox" style="display:none">
     <div class="col-md-12">
         <div class="box">
             <div class="box-title">
-                <h3><i class="fa fa-bars"></i> <span id="box-title-formWizard">เพิ่มข้อมูล RTU</span></h3>
+                <h3><i class="fa fa-file"></i> แผนที่แสดงตำแหน่ง RTU</h3>
                 <div class="box-tool">
                     <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                    <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
-                    <a href="#" id="formWizard-btnClose"><i class="fa fa-times"></i></a>
+                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
                 </div>
             </div>
-            <div class="box-content">
-                <form action="#" class="form-horizontal" id="form-wizard-rtuList-validation">
-                   <div class="form-wizard" id="form-wizard-rtuList">
-                      <ul class="row steps steps-fill">
-                         <li class="col-xs-12 col-sm-6 col-lg-4">
-                            <a href="#tab2-1" data-toggle="tab" class="step active">
-                                <span class="number">1</span>
-                                <span class="desc"><i class="fa fa-check"></i> ข้อมูลพื้นฐาน</span>   
-                            </a>
-                         </li>
-                         <li class="col-xs-12 col-sm-6 col-lg-4">
-                            <a href="#tab2-2" data-toggle="tab" class="step">
-                                <span class="number">2</span>
-                                <span class="desc"><i class="fa fa-check"></i> ระบุพิกัด RTU</span>   
-                            </a>
-                         </li>
-                         <li class="col-xs-12 col-sm-6 col-lg-4">
-                            <a href="#tab2-3" data-toggle="tab" class="step">
-                                <span class="number">3</span>
-                                <span class="desc"><i class="fa fa-check"></i> Confirm</span>   
-                            </a> 
-                         </li>
-                      </ul>
-                      <div class="progress progress-striped" id="progressID">
-                         <div class="progress-bar progress-bar-primary"></div>
-                      </div>
-                      <div class="tab-content">
-
-
-                     <div class="tab-pane active" id="tab2-1">
-
-    <div class="form-group">
-        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">DM : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="firstname2" id="firstname2" class="form-control" >
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">Branch : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <!-- <input type="text" name="firstname2" id="firstname2" class="form-control" > -->
-            <select data-placeholder="Choose a Branch..." class="chosen-select">
-            <option value=""></option>
-            <option value="B01">สำนักงานประปาสาขาบางกอกน้อย</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="Afghanistan">Afghanistan</option>
-            <option value="Aland Islands">Aland Islands</option>
-            <option value="Albania">Albania</option>
-            <option value="Algeria">Algeria</option>
-            <option value="American Samoa">American Samoa</option>
-            <option value="Andorra">Andorra</option>
-            <option value="Angola">Angola</option>
-            <option value="Anguilla">Anguilla</option>
-            <option value="Antarctica">Antarctica</option>
-          </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">Zone : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="firstname2" id="firstname2" class="form-control" >
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="firstname2" class="col-sm-3 col-lg-2 control-label">DMA : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="firstname2" id="firstname2" class="form-control" >
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">IP Address : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="lastname2" id="lastname2" class="form-control" >
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Logger Device : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="lastname2" id="lastname2" class="form-control" >
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="lastname2" class="col-sm-3 col-lg-2 control-label">Location : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <input type="text" name="lastname2" id="lastname2" class="form-control" >
-        </div>
-    </div>
-
-
-    
- </div>
-                    <!--  <div class="tab-pane" id="tab2-2"> -->
-
-	<!-- <div class="form-group">
-		<div class="col-sm-5 col-lg-3"  style="height: 800px">
-		</div>
-	</div> -->
-
-<!-- 	<div class="form-group">
-		<div class="col-lg-12" id="map-rtuList" style="background: red; width: 100%; height: 500px">
-			
-		</div>
-	</div> -->
-
-
-<!--    
- </div> -->
-
-
- <div class="tab-pane box" id="tab2-2">
-
-	 	<div class="col-lg-12 box-title" >
-	 		<h3><i class="fa fa-file"></i> แผนที่</h3>
-	 		<div class="box-tool">
-	 			<a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-	 			<a data-action="close" href="#"><i class="fa fa-times"></i></a>
-	 		</div>
-	 	</div>
-	 	<div class="box-content col-lg-12" style="height:400px" id="map">
-	 		<!-- <p>Blank page</p> -->
-	 	</div>
-	 	<div id="history" class="historyClass"></div>
-
- </div>
- 
-                     <div class="tab-pane" id="tab2-3">
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">DM : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">DM-01-01-01-01</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Branch : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">B01</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Zone : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">01</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">DMA : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">DMA-01-01-01</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">IP Address : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">10.102.13.24</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Logger Device : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">WAGO</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">Location : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">จรัญสนิทวงค์ ใกล้ 7-11 ปากซอยวัดบัวขวัญ</span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-lg-2 control-label">พิกัด Lat,Lng : </label>
-        <div class="col-sm-5 col-lg-3 controls">
-            <span class="text">(13.757616, 100.567193)</span>
-        </div>
-    </div>
- </div>
-
-                      </div>
-                      <br/>
-                      <div class="form-group">
-                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2" >
-                            <a href="javascript:;" class="btn button-previous">Back</a>
-                            <a href="javascript:;" class="btn btn-primary button-next">Continue</a>
-                            <a href="javascript:;" class="btn btn-success button-submit">Submit</a>
-                        </div>
-                      </div>
-
-                   </div>
-                </form>
+            <div class="box-content" style="height:400px;" id="map">
+                <!-- <p>Blank page</p> -->
             </div>
         </div>
     </div>
 </div>
-<!-- END Main Content -->
-
-
-
-
-
-
 
 			    	
 
