@@ -24,11 +24,13 @@
                 
             } else {
 
+                fn.SideMenuExpand();
+                
                 $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
                     $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
 
                     fn.BreadcrumbHide();
-                    fn.SideMenuExpand();
+                    
                 });
 
             }

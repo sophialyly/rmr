@@ -19112,6 +19112,8 @@ $(function() {
     // $("#map").css({'width':($("#progressID").width()+'px')});
     // console.log($("#progressID").width());
 
+    $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height());
+
 	//Map Projection Config
     var projection   = new OpenLayers.Projection("EPSG:3857"); // to Spherical Mercator Projection
     var displayProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
@@ -19349,11 +19351,13 @@ $(function() {
                 
             } else {
 
+                fn.SideMenuExpand();
+                
                 $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
                     $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
 
                     fn.BreadcrumbHide();
-                    fn.SideMenuExpand();
+                    
                 });
 
             }

@@ -320,23 +320,109 @@ session_start(); //start session.
 </div>
 
                         
-			    	    
-<div class="row canvas-rtuInformation" id="canvas-rtuInformation-mapBox" style="display:none">
+			    	<div class="row canvas-rtuInformation" id="canvas-rtuInformation-mapBox" style="display:none">
     <div class="col-md-12">
         <div class="box">
             <div class="box-title">
-                <h3><i class="fa fa-file"></i> แผนที่แสดงตำแหน่ง RTU</h3>
+                <h3><i class="fa fa-bars"></i> แผนที่แสดงตำแหน่ง RTU</h3>
                 <div class="box-tool">
                     <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
                     <a data-action="close" href="#"><i class="fa fa-times"></i></a>
                 </div>
             </div>
-            <div class="box-content" style="height:400px;" id="map">
-                <!-- <p>Blank page</p> -->
+            <div class="box-content" >
+                <form action="#" class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- BEGIN Left Side -->
+                        <div class="col-md-12" id="map"></div>
+                        <!-- END Left Side -->
+                    </div>
+                    <div class="col-md-4 " id="map-form-content">
+                        <!-- BEGIN Right Side -->
+                        <div class="form-group">
+                             <label class="col-sm-3 col-lg-3 control-label">ค้นหา : </label>
+                             <div class="col-sm-9 col-lg-9 controls">
+                              <label class="radio-inline">
+                                  <input type="radio" name="optionsRadios2" value="option1" /> ฐานข้อมูล RTU
+                              </label>
+                              <label class="radio-inline">
+                                  <input type="radio" name="optionsRadios2" value="option2" checked /> Google Map
+                              </label> 
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 col-lg-3 control-label"></label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <select class="form-control chosen" data-placeholder="Choose a Category" tabindex="1">
+                                    <option value=""> </option>
+                                    <option value="Category 1">Category 1</option>
+                                    <option value="Category 2">Category 2</option>
+                                    <option value="Category 3">Category 5</option>
+                                    <option value="Category 4">Category 4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                          <label class="col-sm-3 col-lg-3 control-label">DM : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 col-lg-3 control-label">DMA : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 col-lg-3 control-label">IP : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 col-lg-3 control-label">Logger Code : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">(Lat, Lng) : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <input class="form-control col-md-5" type="text" data-mask="(0.0000000, 0.0000000)" placeholder="">
+                                <span class="help-inline">(Latitude, Longitude)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Location : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Remark : </label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="map-form-submit-content">
+                            <div class="col-sm-9 col-sm-offset-3 col-lg-9 col-lg-offset-3">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+                                <button type="button" class="btn">Cancel</button>
+                            </div>
+                        </div>
+                        <!-- END Right Side -->
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 			    	
 
