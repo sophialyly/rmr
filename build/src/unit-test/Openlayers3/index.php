@@ -8,13 +8,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+        
         <link href="../../../stylesheets/stylesheet-unit-test-openlayers3.css" rel="stylesheet" type="text/css" />
+        
+        
 
     </head>
     <body>
 
-        
+        <div id="map" class="map"></div>
 
         <script src="../../../javascripts/javascript-unit-test-openlayers3.js" type="text/javascript"></script>
 

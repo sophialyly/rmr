@@ -16,8 +16,11 @@
         // Launch Functions
         Launch: function () {
             fn.Apps();
+            fn.OpenLayers();
         },
 
+        // Openlayers
+        <%= partial js_dir + "/javascript-unit-test-openlayers3/partials/_fn_OpenLayers" %>
         // Apps
         <%= partial js_dir + "/javascript-unit-test-openlayers3/partials/_fn_Apps" %>
 
