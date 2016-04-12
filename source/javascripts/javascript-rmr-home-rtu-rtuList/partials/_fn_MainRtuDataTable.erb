@@ -13,9 +13,11 @@ MainRtuDataTable: function () {
                 // "success": function(data) {
                 //     console.log(data);
                 // },
-                // "error": function(jqXHR, textStatus, errorThrown){
-                //     alert('init error: ' + textStatus);
-                // }
+                "error": function(jqXHR, textStatus, errorThrown){
+                    // alert('init error: ' + textStatus);
+                    // var url = '../../../Login/';
+                    // $(location).attr('href',url);
+                }
             },
             "aLengthMenu": [
                     [5, 10, 15, 25, 50, 100, -1],
@@ -107,11 +109,12 @@ MainRtuDataTable: function () {
                             var tmpListEventControls = "";
                             //tmpListEventControls = '<td class="text-center " style="vertical-align:middle">';
                             tmpListEventControls += '<div class="btn-group">';
-                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="#" data-original-title="View"><i class="fa fa-search-plus"></i></a>';
-                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                            // tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="#" data-original-title="View"><i class="fa fa-search-plus"></i></a>';
+                            // tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Map"><i class="fa fa-globe"></i></a>';
                             tmpListEventControls += '<a class="btn btn-sm btn-danger show-tooltip" title="" href="#" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>';
                             tmpListEventControls += '</div>';
-                            //tmpListEventControls += '</td>';
+                            //tmpListEventControls += '</td>'; 
 
                             return tmpListEventControls;
                         },
@@ -158,6 +161,9 @@ MainRtuDataTable: function () {
                 fn.Routers('edit');
             } else if ($(this).attr('data-original-title') == 'Delete') {
                 console.log('Delete');
+            } else if ($(this).attr('data-original-title') == 'Map') {
+                //console.log('Edit');
+                fn.Routers('map');
             }
 
         });

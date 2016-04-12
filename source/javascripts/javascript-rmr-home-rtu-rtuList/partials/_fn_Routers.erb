@@ -16,6 +16,8 @@
                         fn.BreadcrumbShow('ดูข้อมูล RTU');
                     } else if (canvasID == 'edit') {
                         fn.BreadcrumbShow('แก้ไขข้อมูล RTU');
+                    } else if (canvasID == 'map') {
+                        fn.BreadcrumbShow('แผนที่แสดงตำแหน่ง RTU');
                     }
 
                     fn.SideMenuCollapse();
@@ -25,7 +27,7 @@
             } else {
 
                 fn.SideMenuExpand();
-                
+
                 $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
                     $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
 

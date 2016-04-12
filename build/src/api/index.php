@@ -232,6 +232,7 @@ session_start(); //start session.
     $app->get('/rtuManager/rtuDashboard/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuDashboard($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/addNewRTU/',function() use ($app, $pdo, $db, $conn_db2, $key) { addNewRTU($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
+    $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -1973,6 +1974,110 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
+    };
+        /**
+     *
+     * @apiName GetMsg
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /rtuManager/updateLatLngFromFile/ Update Lat,Lng from CSV file
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่อัพเดทข้อมูลพิกัด RTU
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /rtuManager/updateLatLngFromFile/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function updateLatLngFromFile($app, $pdo, $db) {
+
+        /* ************************* */
+        /* เริ่มกระบวนการรับค่าพารามิเตอร์จากส่วนของ Payload ซึ่งอยู่ในรูปแบบ JSON */
+        /* ************************* */
+        $headers = $app->request->headers;
+        $ContetnType = $app->request->headers->get('Content-Type');
+
+        /**
+        * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
+        * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
+        */
+        if ($ContetnType == "application/json") {
+
+            $request = $app->request();
+            $result = json_decode($request->getBody());
+
+            /* receive request */
+            $postFileName = $result->filename;
+            $postStartRow = $result->start_row;
+
+
+        } else if ($ContetnType == "application/x-www-form-urlencoded"){
+
+            //$userID = $app->request()->params('userID_param');
+            //$userID = $app->request()->post('userID_param');
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL ของ RMR */
+        /* ************************* */
+        $csv = array();
+        $i = 0;
+
+        $file = fopen($postFileName,"r", ",");  // http://www.w3schools.com/php/func_filesystem_fgetcsv.asp
+        while(! feof($file)) {
+          // $csv[] = fgetcsv($file);
+          $tmpRow = fgetcsv($file);
+
+          if ($i >= $postStartRow) {
+
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $tmpRow[0])->fetch();
+
+            if ($result_rtu_pin_code !== false) {
+
+               $rtu_pin_code_update = array(
+                    "lat" => $tmpRow[1],
+                    "lng" => $tmpRow[2]
+                );
+
+               $result_update_rtu_pin_code = $result_rtu_pin_code->update($rtu_pin_code_update);
+            }
+
+            $csv[] = array(
+                    "DM" => $tmpRow[0],
+                    "Lat" => $tmpRow[1],
+                    "Lng" => $tmpRow[2],
+                    "result" => $result_rtu_pin_code
+                );
+          }
+          $i++;
+        }
+        fclose($file);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+        $reportResult = array("result" =>  $resultText, "count" => count($csv), "rows" => $csv);
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
     };
     
     

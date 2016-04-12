@@ -17,6 +17,8 @@
     // Others
     var firstGeolocation = true;
 
+    var token = null;
+
 
     /////////////////////////////////////////////////// Adress
 
@@ -24,7 +26,7 @@
 
         // Launch Functions
         Launch: function () {
-            //fn.OpenLayers();
+            fn.GetToken();
             fn.FormWizard();
             fn.MainRtuDataTable();
             fn.ChosenBootstrap();
@@ -52,6 +54,10 @@
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_SideMenuExpand" %>
         // SideMenu Collapse
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_SideMenuCollapse" %>
+        // Sync Data
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_SyncData" %>
+        // Get Token
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_GetToken" %>
         // Logout
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Logout" %>
         // Apps

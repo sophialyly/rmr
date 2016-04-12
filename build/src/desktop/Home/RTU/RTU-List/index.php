@@ -269,8 +269,10 @@ session_start(); //start session.
                     <a class="btn btn-circle show-tooltip" title="Delete selected" href="#"><i class="fa fa-trash-o"></i></a>
                 </div> -->
                 <div class="btn-group">
-                    <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add">
-                    <i class="fa fa-plus"></i>
+                    <!-- <a class="btn btn-circle show-tooltip goto-addEvent" title="Add new record" href="#" id="rtuList-goto-add"> -->
+                    <!-- <i class="fa fa-exchange"></i> -->
+                    <a class="btn btn-circle" title="Sync Data" href="#" id="sync-data">
+                    <span class="glyphicon glyphicon-transfer"></span>
                     </a>
                 </div>
                 <div class="btn-group">
@@ -333,27 +335,27 @@ session_start(); //start session.
             <div class="box-content" >
                 <form action="#" class="form-horizontal">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <!-- BEGIN Left Side -->
                         <div class="col-md-12" id="map"></div>
                         <!-- END Left Side -->
                     </div>
-                    <div class="col-md-4 " id="map-form-content">
+                    <div class="col-md-3 " id="map-form-content">
                         <!-- BEGIN Right Side -->
                         <div class="form-group">
-                             <label class="col-sm-3 col-lg-3 control-label">ค้นหา : </label>
-                             <div class="col-sm-9 col-lg-9 controls">
+                             <label class="col-sm-3 col-lg-4 control-label">ค้นหา : </label>
+                             <div class="col-sm-9 col-lg-8 controls">
                               <label class="radio-inline">
                                   <input type="radio" name="optionsRadios2" value="option1" /> ฐานข้อมูล RTU
                               </label>
                               <label class="radio-inline">
-                                  <input type="radio" name="optionsRadios2" value="option2" checked /> Google Map
+                                  <input type="radio" name="optionsRadios2" value="option2" checked /> Google
                               </label> 
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-sm-3 col-lg-3 control-label"></label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                          <label class="col-sm-3 col-lg-4 control-label"></label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <select class="form-control chosen" data-placeholder="Choose a Category" tabindex="1">
                                     <option value=""> </option>
                                     <option value="Category 1">Category 1</option>
@@ -365,51 +367,51 @@ session_start(); //start session.
                         </div>
                         <hr/>
                         <div class="form-group">
-                          <label class="col-sm-3 col-lg-3 control-label">DM : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                          <label class="col-sm-3 col-lg-4 control-label">DM : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
                            </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-sm-3 col-lg-3 control-label">DMA : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                          <label class="col-sm-3 col-lg-4 control-label">DMA : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
                            </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-sm-3 col-lg-3 control-label">IP : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                          <label class="col-sm-3 col-lg-4 control-label">IP : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
                            </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-sm-3 col-lg-3 control-label">Logger Code : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                          <label class="col-sm-3 col-lg-4 control-label">Logger Code : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
                            </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-lg-3 control-label">(Lat, Lng) : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                            <label class="col-sm-3 col-lg-4 control-label">Location : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
+                                <textarea class="form-control" rows="3" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-4 control-label">(Lat, Lng) : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <input class="form-control col-md-5" type="text" data-mask="(0.0000000, 0.0000000)" placeholder="">
-                                <span class="help-inline">(Latitude, Longitude)</span>
+                                <span class="help-inline">(Latitude, Longitude)</span> 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-lg-3 control-label">Location : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
-                                <textarea class="form-control" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 col-lg-3 control-label">Remark : </label>
-                            <div class="col-sm-9 col-lg-9 controls">
+                            <label class="col-sm-3 col-lg-4 control-label">Remark : </label>
+                            <div class="col-sm-9 col-lg-8 controls">
                                 <textarea class="form-control" rows="3"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group" id="map-form-submit-content">
-                            <div class="col-sm-9 col-sm-offset-3 col-lg-9 col-lg-offset-3">
+                            <div class="col-sm-9 col-sm-offset-3 col-lg-7 col-lg-offset-5">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
                                 <button type="button" class="btn">Cancel</button>
                             </div>

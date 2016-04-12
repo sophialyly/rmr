@@ -7,7 +7,7 @@ OpenLayers: function () {
     // $("#map").css({'width':($("#progressID").width()+'px')});
     // console.log($("#progressID").width());
 
-    $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height());
+    $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
 
 	//Map Projection Config
     var projection   = new OpenLayers.Projection("EPSG:3857"); // to Spherical Mercator Projection

@@ -19071,6 +19071,8 @@ $(function() {
     // Others
     var firstGeolocation = true;
 
+    var token = null;
+
 
     /////////////////////////////////////////////////// Adress
 
@@ -19078,7 +19080,7 @@ $(function() {
 
         // Launch Functions
         Launch: function () {
-            //fn.OpenLayers();
+            fn.GetToken();
             fn.FormWizard();
             fn.MainRtuDataTable();
             fn.ChosenBootstrap();
@@ -19112,7 +19114,7 @@ $(function() {
     // $("#map").css({'width':($("#progressID").width()+'px')});
     // console.log($("#progressID").width());
 
-    $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height());
+    $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
 
 	//Map Projection Config
     var projection   = new OpenLayers.Projection("EPSG:3857"); // to Spherical Mercator Projection
@@ -19343,6 +19345,8 @@ $(function() {
                         fn.BreadcrumbShow('ดูข้อมูล RTU');
                     } else if (canvasID == 'edit') {
                         fn.BreadcrumbShow('แก้ไขข้อมูล RTU');
+                    } else if (canvasID == 'map') {
+                        fn.BreadcrumbShow('แผนที่แสดงตำแหน่ง RTU');
                     }
 
                     fn.SideMenuCollapse();
@@ -19352,7 +19356,7 @@ $(function() {
             } else {
 
                 fn.SideMenuExpand();
-                
+
                 $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
                     $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
 
@@ -19526,9 +19530,11 @@ $(function() {
                 // "success": function(data) {
                 //     console.log(data);
                 // },
-                // "error": function(jqXHR, textStatus, errorThrown){
-                //     alert('init error: ' + textStatus);
-                // }
+                "error": function(jqXHR, textStatus, errorThrown){
+                    // alert('init error: ' + textStatus);
+                    // var url = '../../../Login/';
+                    // $(location).attr('href',url);
+                }
             },
             "aLengthMenu": [
                     [5, 10, 15, 25, 50, 100, -1],
@@ -19620,11 +19626,12 @@ $(function() {
                             var tmpListEventControls = "";
                             //tmpListEventControls = '<td class="text-center " style="vertical-align:middle">';
                             tmpListEventControls += '<div class="btn-group">';
-                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="#" data-original-title="View"><i class="fa fa-search-plus"></i></a>';
-                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                            // tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="#" data-original-title="View"><i class="fa fa-search-plus"></i></a>';
+                            // tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                            tmpListEventControls += '<a class="btn btn-sm show-tooltip" title="" href="javascript:;" data-original-title="Map"><i class="fa fa-globe"></i></a>';
                             tmpListEventControls += '<a class="btn btn-sm btn-danger show-tooltip" title="" href="#" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>';
                             tmpListEventControls += '</div>';
-                            //tmpListEventControls += '</td>';
+                            //tmpListEventControls += '</td>'; 
 
                             return tmpListEventControls;
                         },
@@ -19671,6 +19678,9 @@ $(function() {
                 fn.Routers('edit');
             } else if ($(this).attr('data-original-title') == 'Delete') {
                 console.log('Delete');
+            } else if ($(this).attr('data-original-title') == 'Map') {
+                //console.log('Edit');
+                fn.Routers('map');
             }
 
         });
@@ -19715,6 +19725,68 @@ $(function() {
 	$("#sidebar").attr('class', 'navbar-collapse collapse sidebar-fixed sidebar-collapsed');
 
 
+},
+        // Sync Data
+        SyncData: function () {
+	// console.log('SyncData');
+
+    $.ajax({
+      	url: '../../../../api/rtuManager/syncRTUFromWLMA/',
+      	type: 'POST',
+      	contentType: 'application/json',
+      	dataType: 'json',
+      	cache: false,
+        //async: false,
+        data: {
+            // token  : $rootScope.user.token
+        },//OR
+        headers: {
+            'Authorization': 'Bearer ' + fn.token
+        },
+        success: function(data) {
+
+        	alert(data.success);
+
+            //console.log(data);
+
+            //window.location.href = '../Admin/';
+            // var url = '../../../Login/';
+            // $(location).attr('href',url);
+
+            //console.log(window.location.pathname);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+        	alert('init error: ' + textStatus);
+        }
+    });
+    
+},
+        // Get Token
+        GetToken: function () {
+	// console.log('GetToken');
+
+    $.ajax({
+      	url: '../../../../api/loginManager/getJWT/',
+      	type: 'GET',
+      	contentType: 'application/json',
+      	dataType: 'json',
+      	cache: false,
+        //async: false,
+        success: function(data) {
+            //console.log(data);
+
+            fn.token = data.jwt;
+            //console.log(fn.token);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+        	// alert('init error: ' + textStatus);
+          var url = '../../../Login/';
+          $(location).attr('href',url);
+        }
+    });
+    
 },
         // Logout
         Logout: function () {
@@ -19766,6 +19838,10 @@ $(function() {
 
             $('#sidebar-collapse').click(function () {
                 fn.OpenLayers();
+            });
+
+            $('#sync-data').click(function () {
+                fn.SyncData();
             });
 
         }

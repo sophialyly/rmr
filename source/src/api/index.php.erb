@@ -106,6 +106,7 @@ layout: "layout-api"
     $app->get('/rtuManager/rtuDashboard/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuDashboard($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/addNewRTU/',function() use ($app, $pdo, $db, $conn_db2, $key) { addNewRTU($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
+    $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -138,6 +139,7 @@ layout: "layout-api"
     <%= partial "/RtuManager/_rtuDashboard" %>
     <%= partial "/RtuManager/_addNewRTU" %>
     <%= partial "/RtuManager/_syncRTUFromWLMA" %>
+    <%= partial "/RtuManager/_updateLatLngFromFile" %>
     
     
 ?>
