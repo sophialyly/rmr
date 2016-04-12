@@ -19106,7 +19106,7 @@ $(function() {
 },
         // OpenLayers
         OpenLayers: function () {
-	// console.log('OpenLayers');
+    // console.log('OpenLayers');
 
     //$('#map').width($('#tab2-2').width());
 
@@ -19116,7 +19116,7 @@ $(function() {
 
     $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
 
-	//Map Projection Config
+    //Map Projection Config
     var projection   = new OpenLayers.Projection("EPSG:3857"); // to Spherical Mercator Projection
     var displayProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
     
@@ -19201,12 +19201,6 @@ $(function() {
     // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
 
     // fn.addWmsLayer();
-     
-
-
-
-
-
 
 },
         addBaseMap: function () {

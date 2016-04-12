@@ -1,0 +1,30 @@
+(function ($) {
+    "use strict";
+
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+
+    // Map Object
+    var map = null;
+
+
+
+    /////////////////////////////////////////////////// Adress
+
+    var fn = {
+
+        // Launch Functions
+        Launch: function () {
+            fn.Apps();
+        },
+
+        // Apps
+        <%= partial js_dir + "/javascript-unit-test-openlayers3/partials/_fn_Apps" %>
+
+    };
+
+    $(document).ready(function () {
+        fn.Launch();
+    });
+
+})(jQuery);

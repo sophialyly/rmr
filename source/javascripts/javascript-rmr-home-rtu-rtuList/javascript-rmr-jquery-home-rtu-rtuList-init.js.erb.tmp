@@ -1,0 +1,72 @@
+(function ($) {
+    "use strict";
+
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+    var mainRtuDataTable;
+    var rowDataTableSelected;
+
+    // Map Object
+    var map = null;
+    //Layers
+    var geolocateLayer = null;
+    var waterBranchLayer = null;
+    var flowWaterLayer = null;
+    //Controls
+    var geolocateControl = null;
+    // Others
+    var firstGeolocation = true;
+
+    var token = null;
+
+
+    /////////////////////////////////////////////////// Adress
+
+    var fn = {
+
+        // Launch Functions
+        Launch: function () {
+            fn.GetToken();
+            fn.FormWizard();
+            fn.MainRtuDataTable();
+            fn.ChosenBootstrap();
+            fn.Apps();
+        },
+
+        // Chosen-bootstrap
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_chosenBootstrap" %>
+        // OpenLayers
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_OpenLayers" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addBaseMap" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addWmtsLayer" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addWmsLayer" %>
+        // Routers
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Routers" %>
+        // Form Wizard
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_FormWizard" %>
+        // Main RTU DataTable
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_MainRtuDataTable" %>
+        // Breadcrumb Show
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_BreadcrumbShow" %>
+        // Breadcrumb Hide
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_BreadcrumbHide" %>
+        // SideMenu Expand
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_SideMenuExpand" %>
+        // SideMenu Collapse
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_SideMenuCollapse" %>
+        // Sync Data
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_SyncData" %>
+        // Get Token
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_GetToken" %>
+        // Logout
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Logout" %>
+        // Apps
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Apps" %>
+
+    };
+
+    $(document).ready(function () {
+        fn.Launch();
+    });
+
+})(jQuery);

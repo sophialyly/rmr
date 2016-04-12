@@ -17814,204 +17814,34 @@ $(function() {
 
 
 });
-$(function () {
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
 
-	var _classWLMA1125_Report001 = new function() {
-
-	/* report001-partials properties */
-	this.postEventID;
-
-    /* report001-partials-function */
-    this.report001_mainDataTable;
     
-
-//------------------------ EventsManager Data Table -----------------------//
-if (jQuery().dataTable) {
-
-
-    this.report001_mainDataTable = $('#mainReport001DataTable').DataTable( {
-         "processing": true,
-        // "serverSide": true,
-        //scrollY: '40vh',
-        //scrollCollapse: true,
-        "ajax": {
-            "url": "../../../../../api/WlmaManager/reportWLMA1125.json",
-            "type": "POST",
-            "dataSrc": "rows",
-            // "success": function(data) {
-            //     console.log(data);
-            // },
-            // "error": function(jqXHR, textStatus, errorThrown){
-            //     alert('init error: ' + textStatus);
-            // }
+    /////////////////////////////////////////////////// Adress
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            fn.Apps();
         },
-        "aLengthMenu": [
-                [5, 10, 15, 25, 50, 100, -1],
-                [5, 10, 15, 25, 50, 100, "All"]
-            ],
-        "iDisplayLength": 5,
-        // กำหนดการแสดงผลบน label
-        "oLanguage": {
-                "sLengthMenu": "_MENU_ Records per page",
-                "sInfo": "_START_ - _END_ of _TOTAL_",
-                "sInfoEmpty": "0 - 0 of 0",
-                "oPaginate": {
-                    "sPrevious": "Prev",
-                    "sNext": "Next"
-                }
-        },
-        "aoColumnDefs": [
-                {
-                    'bSortable': true,
-                    "bAutoWidth": true,
-                    'aTargets': [0]
-                },{
-                    "render": function ( data, type, row ) {
-                        return row.CSS_CODE;
-                    },
-                    "targets": 0
-                },{
-                    "render": function ( data, type, row ) {
+        // Logout
+        javascripts/javascript-rmr-home-report-wlma_gis-report001/partials/_fn_Logout
+ 		// Apps
+        javascripts/javascript-rmr-home-report-wlma_gis-report001/partials/_fn_Apps
 
-      //               	var dateString = row.JOB_OPEN_DT;
-						// var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
-						// var dateArray = reggie.exec(dateString); 
-						// var dateObject = new Date(
-						//     (+dateArray[1]),
-						//     (+dateArray[2])-1, // Careful, month starts at 0!
-						//     (+dateArray[3]),
-						//     (+dateArray[4]),
-						//     (+dateArray[5]),
-						//     (+dateArray[6])
-						// );
-
-						//console.log("before : " + row.JOB_OPEN_DT);
-						//console.log("after : " + dateObject);
-
-						var tmpJOB_OPEN_DT = moment(row.JOB_OPEN_DT).format('YYYY-MM-DD HH:mm:ss'); 
-						//console.log('Current Time is ',currentTime);
-
-                    	var tmpREQUEST_CODE = "";
-                        tmpREQUEST_CODE = '<div class="mail-msg-header">';
-                        tmpREQUEST_CODE += '<div class="msg-sender-recver">';
-                        tmpREQUEST_CODE += '<strong style="color: #428bca">' + row.REQUEST_CODE + '</strong><br/>';
-                        tmpREQUEST_CODE += '<i class="fa fa-clock-o blue"> &nbsp;</i><i>' + tmpJOB_OPEN_DT + '</i> &nbsp;';
-                        tmpREQUEST_CODE += '</div>';
-                        tmpREQUEST_CODE += '</div>';
-
-                        return tmpREQUEST_CODE;
-                    },
-                    "targets": 1
-                },{
-                    "render": function ( data, type, row ) {
-
-                    	var tmpJOB_OPEN_DT = moment(row.JOB_OPEN_DT).format('YYYY-MM-DD HH:mm:ss'); 
-
-                    	var tmpJOB_CODE = "";
-                        tmpJOB_CODE = '<div class="mail-msg-header">';
-                        tmpJOB_CODE += '<div class="msg-sender-recver">';
-                        tmpJOB_CODE += '<strong style="color: #428bca">' + row.JOB_CODE + '</strong><br/>';
-                        tmpJOB_CODE += '<i class="fa fa-clock-o blue"> &nbsp;</i><i>' + tmpJOB_OPEN_DT + '</i> &nbsp;';
-                        // tmpJOB_CODE += '<i class="fa fa-clock-o blue"> &nbsp;</i><i>' + row.PIPE_SIZE_CODE + '</i> &nbsp;';
-                        // tmpJOB_CODE += '<i class="fa fa-user blue"> &nbsp;</i><i>' + row.PIPE_MATERIAL_CODE  + '</i>';
-                        tmpJOB_CODE += '</div>';
-                        tmpJOB_CODE += '</div>';
-
-                        return tmpJOB_CODE;
-                    },
-                    "targets": 2
-                },{
-                    "render": function ( data, type, row ) {
-
-                    	var tmpJOB_END_DT = moment(row.JOB_END_DT).format('YYYY-MM-DD HH:mm:ss'); 
-
-                    	var tmpJOB_STATUS = "";
-                        tmpJOB_STATUS = '<div class="mail-msg-header">';
-                        tmpJOB_STATUS += '<div class="msg-sender-recver">';
-                        tmpJOB_STATUS += '<strong style="color: #428bca">' + row.JOB_STATUS + '</strong><br/>';
-                        tmpJOB_STATUS += '<i class="fa fa-clock-o blue"> &nbsp;</i><i>' + tmpJOB_END_DT + '</i> &nbsp;';
-                        tmpJOB_STATUS += '</div>';
-                        tmpJOB_STATUS += '</div>';
-
-                        return tmpJOB_STATUS;
-                    },
-                    "targets": 3
-                },{
-                    "render": function ( data, type, row ) {
-
-						// var dateB = moment('2014-11-11');
-						// var dateC = moment('2014-10-11');
-
-						// console.log('Difference is ', dateB.diff(dateC), 'milliseconds');
-						// console.log('Difference is ', dateB.diff(dateC, 'days'), 'days');
-						// console.log('Difference is ', dateB.diff(dateC, 'months'), 'months');
-
-                    	var tmpJOB_OPEN_DT = moment(row.JOB_OPEN_DT); 
-                    	var tmpJOB_END_DT = moment(row.JOB_END_DT); 
-
-                    	var ms = tmpJOB_END_DT.diff(tmpJOB_OPEN_DT);
-						var d = moment.duration(ms).format("d [วัน ] h [ชม.] m [นาที]");
-						//var s = d.format("hh:mm:ss");
-
-						// var d = moment.duration(ms, "minutes").format("h [hrs], m [min]");
-						// moment.duration(123, "minutes").format("h [hrs], m [min]"); // "2 hrs, 3 min"
-
-                        return d;
-                    },
-                    "targets": 4
-                },{
-                    "render": function ( data, type, row ) {
-                        return "-";
-                    },
-                    "targets": 5
-                }
-        ],
-        "order" : [] //disable default sorting, eg sorting on 1st column
-        
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
     });
+ 
+})(jQuery);
 
-
-
-
-
-
-
-}
-
-
-	
-	
-
-}
-                    $('#button-logout').bind('click', function(){
-
-                      //alert('logout');
-
-
-                      $.ajax({
-                        url: '../../../../../api/loginManager/logout/',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        cache: false,
-                        //async: false,
-                        success: function(data) {
-                            //console.log(data);
-
-                            //window.location.href = '../Admin/';
-                            var url = '../../../../Login/';
-                            $(location).attr('href',url);
-
-                            //console.log(window.location.pathname);
-
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                                alert('init error: ' + textStatus);
-                            }
-                        });
-                });
-
-});
 
 
 

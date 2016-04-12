@@ -1,0 +1,98 @@
+OpenLayers: function () {
+	// console.log('OpenLayers');
+
+    //$('#map').width($('#tab2-2').width());
+
+
+    // $("#map").css({'width':($("#progressID").width()+'px')});
+    // console.log($("#progressID").width());
+
+    $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
+
+	//Map Projection Config
+    var projection   = new OpenLayers.Projection("EPSG:3857"); // to Spherical Mercator Projection
+    var displayProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    
+    //Map Options
+    var options = {
+        projection: projection,
+        displayProjection: displayProjection,
+        numZoomLevels: 25,
+        allOverlays: false,
+        controls: [ new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.ScaleLine(),
+                    new OpenLayers.Control.LayerSwitcher()
+                  ]
+    };
+    
+
+     if (fn.map) {
+        fn.map.destroy()
+     } 
+     
+     fn.map = new OpenLayers.Map( "map",options);
+
+    var vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
+
+    
+
+    fn.map.addLayer(vectorLayer);
+    fn.map.addControl(new OpenLayers.Control.EditingToolbar(vectorLayer));
+
+     //fn.addBaseMap();
+
+    var gmap = new OpenLayers.Layer.Google('Google Streets', // the default
+                                            {
+                                                numZoomLevels: 20,
+                                                sphericalMercator:true,
+                                                visibility: true
+                                            });
+
+    var gphy = new OpenLayers.Layer.Google( "Google Physical",
+                                            {
+                                                type: google.maps.MapTypeId.TERRAIN,
+                                                numZoomLevels: 20,
+                                                sphericalMercator:true,
+                                                visibility: true
+                                            });
+    var ghyb = new OpenLayers.Layer.Google( "Google Hybrid",
+                                            {
+                                                type: google.maps.MapTypeId.HYBRID, 
+                                                numZoomLevels: 20,
+                                                sphericalMercator:true,
+                                                visibility: true
+                                            });
+
+     var gsat = new OpenLayers.Layer.Google( "Google Satellite", 
+                                            {
+                                                type: google.maps.MapTypeId.SATELLITE, 
+                                                numZoomLevels: 22,
+                                                sphericalMercator:true,
+                                                visibility: true
+                                            });
+
+    
+
+    fn.map.addLayers([gsat, gmap, gphy, ghyb]);
+
+    var osm = new OpenLayers.Layer.OSM('OSM Map');
+    var osm2 = osm.clone();
+    var overlayOptions = {
+      maximized: true,
+      layers: [osm2]
+    };
+    fn.map.addControl(new OpenLayers.Control.OverviewMap(overlayOptions));
+
+
+    fn.map.setCenter(new OpenLayers.LonLat(100.470644 , 13.754470).transform(displayProjection , projection), 20);
+
+    // console.log(rowDataTableSelected);
+    // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
+    // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
+    // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
+    // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
+
+    // fn.addWmsLayer();
+
+},

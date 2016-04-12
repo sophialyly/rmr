@@ -1,13 +1,15 @@
 {
-  "name": "openlayers",
-  "homepage": "https://github.com/openlayers/openlayers",
-  "_release": "1e1bd1b224",
+  "name": "OpenLayers",
+  "homepage": "https://github.com/openlayers/ol3",
+  "version": "3.15.1",
+  "_release": "3.15.1",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "1e1bd1b2249623ef0b8a511b8269a926eb9a8c47"
+    "type": "version",
+    "tag": "v3.15.1",
+    "commit": "db9da06aefadf4cc96c13b67a15465dd7e295d49"
   },
-  "_source": "git://github.com/openlayers/openlayers.git",
-  "_target": "*",
-  "_originalSource": "openlayers"
+  "_source": "https://github.com/openlayers/ol3.git",
+  "_target": "^3.15.1",
+  "_originalSource": "OpenLayers",
+  "_direct": true
 }

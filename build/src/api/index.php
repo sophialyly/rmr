@@ -2050,6 +2050,12 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
             if ($result_rtu_pin_code !== false) {
 
+                // $latString = $tmpRow[1];
+                // $lngString = $tmpRow[2];
+                // $findStr   = '.';
+                // $posLatString = strpos($latString, $findStr);
+                // $posLngString = strpos($lngString, $findStr);
+
                $rtu_pin_code_update = array(
                     "lat" => $tmpRow[1],
                     "lng" => $tmpRow[2]

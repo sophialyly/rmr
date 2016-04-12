@@ -1,78 +1,31 @@
-# OpenLayers 2
+# OpenLayers 3
 
-Copyright (c) 2005-2015 OpenLayers Contributors. See authors.txt for
-more details.
+[![Travis CI Status](https://secure.travis-ci.org/openlayers/ol3.svg)](http://travis-ci.org/#!/openlayers/ol3)
+[![Coverage Status](https://coveralls.io/repos/openlayers/ol3/badge.svg?branch=master)](https://coveralls.io/r/openlayers/ol3?branch=master)
+[![OSGeo Project](https://img.shields.io/badge/OSGeo-Project-brightgreen.svg)](http://osgeo.org/)
 
-OpenLayers is a JavaScript library for building map applications
-on the web. OpenLayers is made available under a BSD-license.
-Please see license.txt in this distribution for more details.
+[OpenLayers 3](http://openlayers.org/) is a high-performance, feature-packed library for creating interactive maps on the web.
 
-## Getting OpenLayers
+## Getting Started
 
-OpenLayers lives at http://www.openlayers.org/two/.  Find details on downloading stable releases or the development version the [development site](http://trac.osgeo.org/openlayers/wiki/HowToDownload).
+- Download the [latest release](http://openlayers.org/download/)
+- Install with npm: `npm install openlayers`
+- Clone the repo: `git clone git@github.com:openlayers/ol3.git`
 
-## Installing OpenLayers
+## Documentation
 
-You can use OpenLayers as-is by copying build/OpenLayers.js and the
-entire theme/ and img/ directories up to your webserver and putting them
-in the same directory. The files can be in subdirectories on your website,
-or right in the root of the site, as in these examples.
-To include the OpenLayers library in your web page from the root of the site, use:
+Check out the [hosted examples](http://openlayers.org/en/master/examples/), the [workshop](http://openlayers.org/workshop/) or [API docs](http://openlayers.org/en/master/apidoc/).
 
-    <script type="text/javascript" src="/OpenLayers.js" />
+## Bugs
 
-As an example, using bash (with the release files in ~/openlayers):
+Please use the [GitHub issue tracker](https://github.com/openlayers/ol3/issues) for all bugs and feature requests. Before creating a new issue, do a quick search to see if the problem has been reported already.
 
-    $ cd /var/www/html
-    $ cp ~/openlayers/OpenLayers.js ./
-    $ cp -R ~/openlayers/theme ./
-    $ cp -R ~/openlayers/img ./
+## Contributing
 
-If you want to use the multiple-file version of OpenLayers (for, say,
-debugging or development purposes), copy the lib/ directory up to your
-webserver in the same directory you put the img/ folder. Then add
-the following to your web page instead:
+Please see our guide on [contributing](CONTRIBUTING.md) if you're interested in getting involved.
 
-    <script type="text/javascript" src="/lib/OpenLayers.js" />
+## Community
 
-As an example, using bash (with the release files in ~/openlayers):
-
-    $ cd /var/www/html
-    $ cp -R ~/openlayers/lib ./
-    $ cp -R ~/openlayers/theme ./
-    $ cp -R ~/openlayers/img ./
-
-## Alternate OpenLayers Versions in this Release
-
-The following versions of OpenLayers single file builds are included in this release
-and can be used in place of OpenLayers.js in any of the above instructions:
-
-1. OpenLayers.js - full build --> Includes everything except the alternate language
-    translations and deprecated classes.
-2. OpenLayers.mobile.js - a mobile focused build --> Includes a subset of the OpenLayers
-    library to serve common mobile web app use cases. This build provides access to
-    OpenStreetMap, Bing, WMS, WFS and vector layers; touch optimized controls; geolocation;
-    vector editing and interaction tools. The examples tagged ``mobile`` can use this build.
-3. OpenLayers.light.js - a simple use case focused build --> Includes a subset of the
-    OpenLayers library to serve the basic use case of displaying points and polygons
-    on a map. This build provides access to OpenStreetMap, Bing, Google, WMS, and
-    vector layers; basic map controls; and vector interaction tools. The examples
-    tagged ``light`` can use this build.
-
-## Using OpenLayers in Your Own Website
-
-The [examples directory](http://dev.openlayers.org/examples/) is full of useful examples.
-
-Documentation is available at http://trac.osgeo.org/openlayers/wiki/Documentation.
-You can generate the API documentation with http://www.naturaldocs.org/
-As an example, using bash (with the release files in ~/openlayers):
-
-    $ cd ~/openlayers/
-    $ /path/to/NaturalDocs -i lib/ -o HTML doc/ -p doc_config/ -s Default OL
-
-Information on changes in the API is available in release notes found in the notes folder.
-
-## Contributing to OpenLayers
-
-Please join the email lists at http://trac.osgeo.org/openlayers/wiki/MailingLists
-Patches are welcome!
+- Need help? Find it on [stackoverflow using the tag 'openlayers-3'](http://stackoverflow.com/questions/tagged/openlayers-3)
+- Follow [@openlayers](https://twitter.com/openlayers) on Twitter
+- Discuss with openlayers users on IRC in `#openlayers` at `chat.freenode`

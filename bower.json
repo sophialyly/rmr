@@ -54,6 +54,7 @@
     "jquery.gritter": "^1.7.4",
     "pubnub": "^3.14.1",
     "pubnub-angular": "^3.1.1",
-    "offline.js": "^1.0.1"
+    "offline.js": "^1.0.1",
+    "OpenLayers": "^3.15.1"
   }
 }

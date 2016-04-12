@@ -15255,449 +15255,280 @@ The plugin also adds four public methods:
 !function(a){var b={tooltip:{show:!1,cssClass:"flotTip",content:"%s | X: %x | Y: %y",xDateFormat:null,yDateFormat:null,monthNames:null,dayNames:null,shifts:{x:10,y:20},defaultTheme:!0,lines:!1,onHover:function(a,b){},$compat:!1}};b.tooltipOpts=b.tooltip;var c=function(a){this.tipPosition={x:0,y:0},this.init(a)};c.prototype.init=function(b){function c(a){var c={};c.x=a.pageX,c.y=a.pageY,b.setTooltipPosition(c)}function d(c,d,f){var g=function(a,b,c,d){return Math.sqrt((c-a)*(c-a)+(d-b)*(d-b))},h=function(a,b,c,d,e,f,h){if(!h||(h=function(a,b,c,d,e,f){if("undefined"!=typeof c)return{x:c,y:b};if("undefined"!=typeof d)return{x:a,y:d};var g,h=-1/((f-d)/(e-c));return{x:g=(e*(a*h-b+d)+c*(a*-h+b-f))/(h*(e-c)+d-f),y:h*g-h*a+b}}(a,b,c,d,e,f),h.x>=Math.min(c,e)&&h.x<=Math.max(c,e)&&h.y>=Math.min(d,f)&&h.y<=Math.max(d,f))){var i=d-f,j=e-c,k=c*f-d*e;return Math.abs(i*a+j*b+k)/Math.sqrt(i*i+j*j)}var l=g(a,b,c,d),m=g(a,b,e,f);return l>m?m:l};if(f)b.showTooltip(f,d);else if(e.plotOptions.series.lines.show&&e.tooltipOptions.lines===!0){var i=e.plotOptions.grid.mouseActiveRadius,j={distance:i+1};a.each(b.getData(),function(a,c){for(var e=0,f=-1,i=1;i<c.data.length;i++)c.data[i-1][0]<=d.x&&c.data[i][0]>=d.x&&(e=i-1,f=i);if(-1===f)return void b.hideTooltip();var k={x:c.data[e][0],y:c.data[e][1]},l={x:c.data[f][0],y:c.data[f][1]},m=h(c.xaxis.p2c(d.x),c.yaxis.p2c(d.y),c.xaxis.p2c(k.x),c.yaxis.p2c(k.y),c.xaxis.p2c(l.x),c.yaxis.p2c(l.y),!1);if(m<j.distance){var n=g(k.x,k.y,d.x,d.y)<g(d.x,d.y,l.x,l.y)?e:f,o=(c.datapoints.pointsize,[d.x,k.y+(l.y-k.y)*((d.x-k.x)/(l.x-k.x))]),p={datapoint:o,dataIndex:n,series:c,seriesIndex:a};j={distance:m,item:p}}}),j.distance<i+1?b.showTooltip(j.item,d):b.hideTooltip()}else b.hideTooltip()}var e=this,f=a.plot.plugins.length;if(this.plotPlugins=[],f)for(var g=0;f>g;g++)this.plotPlugins.push(a.plot.plugins[g].name);b.hooks.bindEvents.push(function(b,f){if(e.plotOptions=b.getOptions(),"boolean"==typeof e.plotOptions.tooltip&&(e.plotOptions.tooltipOpts.show=e.plotOptions.tooltip,e.plotOptions.tooltip=e.plotOptions.tooltipOpts,delete e.plotOptions.tooltipOpts),e.plotOptions.tooltip.show!==!1&&"undefined"!=typeof e.plotOptions.tooltip.show){e.tooltipOptions=e.plotOptions.tooltip,e.tooltipOptions.$compat?(e.wfunc="width",e.hfunc="height"):(e.wfunc="innerWidth",e.hfunc="innerHeight");e.getDomElement();a(b.getPlaceholder()).bind("plothover",d),a(f).bind("mousemove",c)}}),b.hooks.shutdown.push(function(b,e){a(b.getPlaceholder()).unbind("plothover",d),a(e).unbind("mousemove",c)}),b.setTooltipPosition=function(b){var c=e.getDomElement(),d=c.outerWidth()+e.tooltipOptions.shifts.x,f=c.outerHeight()+e.tooltipOptions.shifts.y;b.x-a(window).scrollLeft()>a(window)[e.wfunc]()-d&&(b.x-=d),b.y-a(window).scrollTop()>a(window)[e.hfunc]()-f&&(b.y-=f),e.tipPosition.x=b.x,e.tipPosition.y=b.y},b.showTooltip=function(a,c){var d=e.getDomElement(),f=e.stringFormat(e.tooltipOptions.content,a);""!==f&&(d.html(f),b.setTooltipPosition({x:c.pageX,y:c.pageY}),d.css({left:e.tipPosition.x+e.tooltipOptions.shifts.x,top:e.tipPosition.y+e.tooltipOptions.shifts.y}).show(),"function"==typeof e.tooltipOptions.onHover&&e.tooltipOptions.onHover(a,d))},b.hideTooltip=function(){e.getDomElement().hide().html("")}},c.prototype.getDomElement=function(){var b=a("."+this.tooltipOptions.cssClass);return 0===b.length&&(b=a("<div />").addClass(this.tooltipOptions.cssClass),b.appendTo("body").hide().css({position:"absolute"}),this.tooltipOptions.defaultTheme&&b.css({background:"#fff","z-index":"1040",padding:"0.4em 0.6em","border-radius":"0.5em","font-size":"0.8em",border:"1px solid #111",display:"none","white-space":"nowrap"})),b},c.prototype.stringFormat=function(a,b){var c,d,e,f,g=/%p\.{0,1}(\d{0,})/,h=/%s/,i=/%c/,j=/%lx/,k=/%ly/,l=/%x\.{0,1}(\d{0,})/,m=/%y\.{0,1}(\d{0,})/,n="%x",o="%y",p="%ct";if("undefined"!=typeof b.series.threshold?(c=b.datapoint[0],d=b.datapoint[1],e=b.datapoint[2]):"undefined"!=typeof b.series.lines&&b.series.lines.steps?(c=b.series.datapoints.points[2*b.dataIndex],d=b.series.datapoints.points[2*b.dataIndex+1],e=""):(c=b.series.data[b.dataIndex][0],d=b.series.data[b.dataIndex][1],e=b.series.data[b.dataIndex][2]),null===b.series.label&&b.series.originSeries&&(b.series.label=b.series.originSeries.label),"function"==typeof a&&(a=a(b.series.label,c,d,b)),"boolean"==typeof a&&!a)return"";if("undefined"!=typeof b.series.percent?f=b.series.percent:"undefined"!=typeof b.series.percents&&(f=b.series.percents[b.dataIndex]),"number"==typeof f&&(a=this.adjustValPrecision(g,a,f)),a="undefined"!=typeof b.series.label?a.replace(h,b.series.label):a.replace(h,""),a="undefined"!=typeof b.series.color?a.replace(i,b.series.color):a.replace(i,""),a=this.hasAxisLabel("xaxis",b)?a.replace(j,b.series.xaxis.options.axisLabel):a.replace(j,""),a=this.hasAxisLabel("yaxis",b)?a.replace(k,b.series.yaxis.options.axisLabel):a.replace(k,""),this.isTimeMode("xaxis",b)&&this.isXDateFormat(b)&&(a=a.replace(l,this.timestampToDate(c,this.tooltipOptions.xDateFormat,b.series.xaxis.options))),this.isTimeMode("yaxis",b)&&this.isYDateFormat(b)&&(a=a.replace(m,this.timestampToDate(d,this.tooltipOptions.yDateFormat,b.series.yaxis.options))),"number"==typeof c&&(a=this.adjustValPrecision(l,a,c)),"number"==typeof d&&(a=this.adjustValPrecision(m,a,d)),"undefined"!=typeof b.series.xaxis.ticks){var q;q=this.hasRotatedXAxisTicks(b)?"rotatedTicks":"ticks";var r=b.dataIndex+b.seriesIndex;for(var s in b.series.xaxis[q])if(b.series.xaxis[q].hasOwnProperty(r)&&!this.isTimeMode("xaxis",b)){var t=this.isCategoriesMode("xaxis",b)?b.series.xaxis[q][r].label:b.series.xaxis[q][r].v;t===c&&(a=a.replace(l,b.series.xaxis[q][r].label))}}if("undefined"!=typeof b.series.yaxis.ticks)for(var s in b.series.yaxis.ticks)if(b.series.yaxis.ticks.hasOwnProperty(s)){var u=this.isCategoriesMode("yaxis",b)?b.series.yaxis.ticks[s].label:b.series.yaxis.ticks[s].v;u===d&&(a=a.replace(m,b.series.yaxis.ticks[s].label))}return"undefined"!=typeof b.series.xaxis.tickFormatter&&(a=a.replace(n,b.series.xaxis.tickFormatter(c,b.series.xaxis).replace(/\$/g,"$$"))),"undefined"!=typeof b.series.yaxis.tickFormatter&&(a=a.replace(o,b.series.yaxis.tickFormatter(d,b.series.yaxis).replace(/\$/g,"$$"))),e&&(a=a.replace(p,e)),a},c.prototype.isTimeMode=function(a,b){return"undefined"!=typeof b.series[a].options.mode&&"time"===b.series[a].options.mode},c.prototype.isXDateFormat=function(a){return"undefined"!=typeof this.tooltipOptions.xDateFormat&&null!==this.tooltipOptions.xDateFormat},c.prototype.isYDateFormat=function(a){return"undefined"!=typeof this.tooltipOptions.yDateFormat&&null!==this.tooltipOptions.yDateFormat},c.prototype.isCategoriesMode=function(a,b){return"undefined"!=typeof b.series[a].options.mode&&"categories"===b.series[a].options.mode},c.prototype.timestampToDate=function(b,c,d){var e=a.plot.dateGenerator(b,d);return a.plot.formatDate(e,c,this.tooltipOptions.monthNames,this.tooltipOptions.dayNames)},c.prototype.adjustValPrecision=function(a,b,c){var d,e=b.match(a);return null!==e&&""!==RegExp.$1&&(d=RegExp.$1,c=c.toFixed(d),b=b.replace(a,c)),b},c.prototype.hasAxisLabel=function(b,c){return-1!==a.inArray(this.plotPlugins,"axisLabels")&&"undefined"!=typeof c.series[b].options.axisLabel&&c.series[b].options.axisLabel.length>0},c.prototype.hasRotatedXAxisTicks=function(b){return-1!==a.inArray(this.plotPlugins,"tickRotor")&&"undefined"!=typeof b.series.xaxis.rotatedTicks};var d=function(a){new c(a)};a.plot.plugins.push({init:d,options:b,name:"tooltip",version:"0.8.5"})}(jQuery);
 !function(a,b,c){!function(a){"function"==typeof define&&define.amd?define(["jquery"],a):jQuery&&!jQuery.fn.sparkline&&a(jQuery)}(function(d){"use strict";var e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K={},L=0;e=function(){return{common:{type:"line",lineColor:"#00f",fillColor:"#cdf",defaultPixelsPerValue:3,width:"auto",height:"auto",composite:!1,tagValuesAttribute:"values",tagOptionsPrefix:"spark",enableTagOptions:!1,enableHighlight:!0,highlightLighten:1.4,tooltipSkipNull:!0,tooltipPrefix:"",tooltipSuffix:"",disableHiddenCheck:!1,numberFormatter:!1,numberDigitGroupCount:3,numberDigitGroupSep:",",numberDecimalMark:".",disableTooltips:!1,disableInteraction:!1},line:{spotColor:"#f80",highlightSpotColor:"#5f5",highlightLineColor:"#f22",spotRadius:1.5,minSpotColor:"#f80",maxSpotColor:"#f80",lineWidth:1,normalRangeMin:c,normalRangeMax:c,normalRangeColor:"#ccc",drawNormalOnTop:!1,chartRangeMin:c,chartRangeMax:c,chartRangeMinX:c,chartRangeMaxX:c,tooltipFormat:new g('<span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}')},bar:{barColor:"#3366cc",negBarColor:"#f44",stackedBarColor:["#3366cc","#dc3912","#ff9900","#109618","#66aa00","#dd4477","#0099c6","#990099"],zeroColor:c,nullColor:c,zeroAxis:!0,barWidth:4,barSpacing:1,chartRangeMax:c,chartRangeMin:c,chartRangeClip:!1,colorMap:c,tooltipFormat:new g('<span style="color: {{color}}">&#9679;</span> {{prefix}}{{value}}{{suffix}}')},tristate:{barWidth:4,barSpacing:1,posBarColor:"#6f6",negBarColor:"#f44",zeroBarColor:"#999",colorMap:{},tooltipFormat:new g('<span style="color: {{color}}">&#9679;</span> {{value:map}}'),tooltipValueLookups:{map:{"-1":"Loss",0:"Draw",1:"Win"}}},discrete:{lineHeight:"auto",thresholdColor:c,thresholdValue:0,chartRangeMax:c,chartRangeMin:c,chartRangeClip:!1,tooltipFormat:new g("{{prefix}}{{value}}{{suffix}}")},bullet:{targetColor:"#f33",targetWidth:3,performanceColor:"#33f",rangeColors:["#d3dafe","#a8b6ff","#7f94ff"],base:c,tooltipFormat:new g("{{fieldkey:fields}} - {{value}}"),tooltipValueLookups:{fields:{r:"Range",p:"Performance",t:"Target"}}},pie:{offset:0,sliceColors:["#3366cc","#dc3912","#ff9900","#109618","#66aa00","#dd4477","#0099c6","#990099"],borderWidth:0,borderColor:"#000",tooltipFormat:new g('<span style="color: {{color}}">&#9679;</span> {{value}} ({{percent.1}}%)')},box:{raw:!1,boxLineColor:"#000",boxFillColor:"#cdf",whiskerColor:"#000",outlierLineColor:"#333",outlierFillColor:"#fff",medianColor:"#f00",showOutliers:!0,outlierIQR:1.5,spotRadius:1.5,target:c,targetColor:"#4a2",chartRangeMax:c,chartRangeMin:c,tooltipFormat:new g("{{field:fields}}: {{value}}"),tooltipFormatFieldlistKey:"field",tooltipValueLookups:{fields:{lq:"Lower Quartile",med:"Median",uq:"Upper Quartile",lo:"Left Outlier",ro:"Right Outlier",lw:"Left Whisker",rw:"Right Whisker"}}}}},D='.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}',f=function(){var a,b;return a=function(){this.init.apply(this,arguments)},arguments.length>1?(arguments[0]?(a.prototype=d.extend(new arguments[0],arguments[arguments.length-1]),a._super=arguments[0].prototype):a.prototype=arguments[arguments.length-1],arguments.length>2&&(b=Array.prototype.slice.call(arguments,1,-1),b.unshift(a.prototype),d.extend.apply(d,b))):a.prototype=arguments[0],a.prototype.cls=a,a},d.SPFormatClass=g=f({fre:/\{\{([\w.]+?)(:(.+?))?\}\}/g,precre:/(\w+)\.(\d+)/,init:function(a,b){this.format=a,this.fclass=b},render:function(a,b,d){var e,f,g,h,i,j=this,k=a;return this.format.replace(this.fre,function(){var a;return f=arguments[1],g=arguments[3],e=j.precre.exec(f),e?(i=e[2],f=e[1]):i=!1,h=k[f],h===c?"":g&&b&&b[g]?(a=b[g],a.get?b[g].get(h)||h:b[g][h]||h):(m(h)&&(h=d.get("numberFormatter")?d.get("numberFormatter")(h):r(h,i,d.get("numberDigitGroupCount"),d.get("numberDigitGroupSep"),d.get("numberDecimalMark"))),h)})}}),d.spformat=function(a,b){return new g(a,b)},h=function(a,b,c){return b>a?b:a>c?c:a},i=function(a,c){var d;return 2===c?(d=b.floor(a.length/2),a.length%2?a[d]:(a[d-1]+a[d])/2):a.length%2?(d=(a.length*c+c)/4,d%1?(a[b.floor(d)]+a[b.floor(d)-1])/2:a[d-1]):(d=(a.length*c+2)/4,d%1?(a[b.floor(d)]+a[b.floor(d)-1])/2:a[d-1])},j=function(a){var b;switch(a){case"undefined":a=c;break;case"null":a=null;break;case"true":a=!0;break;case"false":a=!1;break;default:b=parseFloat(a),a==b&&(a=b)}return a},k=function(a){var b,c=[];for(b=a.length;b--;)c[b]=j(a[b]);return c},l=function(a,b){var c,d,e=[];for(c=0,d=a.length;d>c;c++)a[c]!==b&&e.push(a[c]);return e},m=function(a){return!isNaN(parseFloat(a))&&isFinite(a)},r=function(a,b,c,e,f){var g,h;for(a=(b===!1?parseFloat(a).toString():a.toFixed(b)).split(""),g=(g=d.inArray(".",a))<0?a.length:g,g<a.length&&(a[g]=f),h=g-c;h>0;h-=c)a.splice(h,0,e);return a.join("")},n=function(a,b,c){var d;for(d=b.length;d--;)if((!c||null!==b[d])&&b[d]!==a)return!1;return!0},o=function(a){var b,c=0;for(b=a.length;b--;)c+="number"==typeof a[b]?a[b]:0;return c},q=function(a){return d.isArray(a)?a:[a]},p=function(b){var c;a.createStyleSheet?a.createStyleSheet().cssText=b:(c=a.createElement("style"),c.type="text/css",a.getElementsByTagName("head")[0].appendChild(c),c["string"==typeof a.body.style.WebkitAppearance?"innerText":"innerHTML"]=b)},d.fn.simpledraw=function(b,e,f,g){var h,i;if(f&&(h=this.data("_jqs_vcanvas")))return h;if(d.fn.sparkline.canvas===!1)return!1;if(d.fn.sparkline.canvas===c){var j=a.createElement("canvas");if(j.getContext&&j.getContext("2d"))d.fn.sparkline.canvas=function(a,b,c,d){return new H(a,b,c,d)};else{if(!a.namespaces||a.namespaces.v)return d.fn.sparkline.canvas=!1,!1;a.namespaces.add("v","urn:schemas-microsoft-com:vml","#default#VML"),d.fn.sparkline.canvas=function(a,b,c){return new I(a,b,c)}}}return b===c&&(b=d(this).innerWidth()),e===c&&(e=d(this).innerHeight()),h=d.fn.sparkline.canvas(b,e,this,g),i=d(this).data("_jqs_mhandler"),i&&i.registerCanvas(h),h},d.fn.cleardraw=function(){var a=this.data("_jqs_vcanvas");a&&a.reset()},d.RangeMapClass=s=f({init:function(a){var b,c,d=[];for(b in a)a.hasOwnProperty(b)&&"string"==typeof b&&b.indexOf(":")>-1&&(c=b.split(":"),c[0]=0===c[0].length?-1/0:parseFloat(c[0]),c[1]=0===c[1].length?1/0:parseFloat(c[1]),c[2]=a[b],d.push(c));this.map=a,this.rangelist=d||!1},get:function(a){var b,d,e,f=this.rangelist;if((e=this.map[a])!==c)return e;if(f)for(b=f.length;b--;)if(d=f[b],d[0]<=a&&d[1]>=a)return d[2];return c}}),d.range_map=function(a){return new s(a)},t=f({init:function(a,b){var c=d(a);this.$el=c,this.options=b,this.currentPageX=0,this.currentPageY=0,this.el=a,this.splist=[],this.tooltip=null,this.over=!1,this.displayTooltips=!b.get("disableTooltips"),this.highlightEnabled=!b.get("disableHighlight")},registerSparkline:function(a){this.splist.push(a),this.over&&this.updateDisplay()},registerCanvas:function(a){var b=d(a.canvas);this.canvas=a,this.$canvas=b,b.mouseenter(d.proxy(this.mouseenter,this)),b.mouseleave(d.proxy(this.mouseleave,this)),b.click(d.proxy(this.mouseclick,this))},reset:function(a){this.splist=[],this.tooltip&&a&&(this.tooltip.remove(),this.tooltip=c)},mouseclick:function(a){var b=d.Event("sparklineClick");b.originalEvent=a,b.sparklines=this.splist,this.$el.trigger(b)},mouseenter:function(b){d(a.body).unbind("mousemove.jqs"),d(a.body).bind("mousemove.jqs",d.proxy(this.mousemove,this)),this.over=!0,this.currentPageX=b.pageX,this.currentPageY=b.pageY,this.currentEl=b.target,!this.tooltip&&this.displayTooltips&&(this.tooltip=new u(this.options),this.tooltip.updatePosition(b.pageX,b.pageY)),this.updateDisplay()},mouseleave:function(){d(a.body).unbind("mousemove.jqs");var b,c,e=this.splist,f=e.length,g=!1;for(this.over=!1,this.currentEl=null,this.tooltip&&(this.tooltip.remove(),this.tooltip=null),c=0;f>c;c++)b=e[c],b.clearRegionHighlight()&&(g=!0);g&&this.canvas.render()},mousemove:function(a){this.currentPageX=a.pageX,this.currentPageY=a.pageY,this.currentEl=a.target,this.tooltip&&this.tooltip.updatePosition(a.pageX,a.pageY),this.updateDisplay()},updateDisplay:function(){var a,b,c,e,f,g=this.splist,h=g.length,i=!1,j=this.$canvas.offset(),k=this.currentPageX-j.left,l=this.currentPageY-j.top;if(this.over){for(c=0;h>c;c++)b=g[c],e=b.setRegionHighlight(this.currentEl,k,l),e&&(i=!0);if(i){if(f=d.Event("sparklineRegionChange"),f.sparklines=this.splist,this.$el.trigger(f),this.tooltip){for(a="",c=0;h>c;c++)b=g[c],a+=b.getCurrentRegionTooltip();this.tooltip.setContent(a)}this.disableHighlight||this.canvas.render()}null===e&&this.mouseleave()}}}),u=f({sizeStyle:"position: static !important;display: block !important;visibility: hidden !important;float: left !important;",init:function(b){var c,e=b.get("tooltipClassname","jqstooltip"),f=this.sizeStyle;this.container=b.get("tooltipContainer")||a.body,this.tooltipOffsetX=b.get("tooltipOffsetX",10),this.tooltipOffsetY=b.get("tooltipOffsetY",12),d("#jqssizetip").remove(),d("#jqstooltip").remove(),this.sizetip=d("<div/>",{id:"jqssizetip",style:f,"class":e}),this.tooltip=d("<div/>",{id:"jqstooltip","class":e}).appendTo(this.container),c=this.tooltip.offset(),this.offsetLeft=c.left,this.offsetTop=c.top,this.hidden=!0,d(window).unbind("resize.jqs scroll.jqs"),d(window).bind("resize.jqs scroll.jqs",d.proxy(this.updateWindowDims,this)),this.updateWindowDims()},updateWindowDims:function(){this.scrollTop=d(window).scrollTop(),this.scrollLeft=d(window).scrollLeft(),this.scrollRight=this.scrollLeft+d(window).width(),this.updatePosition()},getSize:function(a){this.sizetip.html(a).appendTo(this.container),this.width=this.sizetip.width()+1,this.height=this.sizetip.height(),this.sizetip.remove()},setContent:function(a){return a?(this.getSize(a),this.tooltip.html(a).css({width:this.width,height:this.height,visibility:"visible"}),void(this.hidden&&(this.hidden=!1,this.updatePosition()))):(this.tooltip.css("visibility","hidden"),void(this.hidden=!0))},updatePosition:function(a,b){if(a===c){if(this.mousex===c)return;a=this.mousex-this.offsetLeft,b=this.mousey-this.offsetTop}else this.mousex=a-=this.offsetLeft,this.mousey=b-=this.offsetTop;this.height&&this.width&&!this.hidden&&(b-=this.height+this.tooltipOffsetY,a+=this.tooltipOffsetX,b<this.scrollTop&&(b=this.scrollTop),a<this.scrollLeft?a=this.scrollLeft:a+this.width>this.scrollRight&&(a=this.scrollRight-this.width),this.tooltip.css({left:a,top:b}))},remove:function(){this.tooltip.remove(),this.sizetip.remove(),this.sizetip=this.tooltip=c,d(window).unbind("resize.jqs scroll.jqs")}}),E=function(){p(D)},d(E),J=[],d.fn.sparkline=function(b,e){return this.each(function(){var f,g,h=new d.fn.sparkline.options(this,e),i=d(this);if(f=function(){var e,f,g,j,k,l,m;return"html"===b||b===c?(m=this.getAttribute(h.get("tagValuesAttribute")),(m===c||null===m)&&(m=i.html()),e=m.replace(/(^\s*<!--)|(-->\s*$)|\s+/g,"").split(",")):e=b,f="auto"===h.get("width")?e.length*h.get("defaultPixelsPerValue"):h.get("width"),"auto"===h.get("height")?h.get("composite")&&d.data(this,"_jqs_vcanvas")||(j=a.createElement("span"),j.innerHTML="a",i.html(j),g=d(j).innerHeight()||d(j).height(),d(j).remove(),j=null):g=h.get("height"),h.get("disableInteraction")?k=!1:(k=d.data(this,"_jqs_mhandler"),k?h.get("composite")||k.reset():(k=new t(this,h),d.data(this,"_jqs_mhandler",k))),h.get("composite")&&!d.data(this,"_jqs_vcanvas")?void(d.data(this,"_jqs_errnotify")||(alert("Attempted to attach a composite sparkline to an element with no existing sparkline"),d.data(this,"_jqs_errnotify",!0))):(l=new(d.fn.sparkline[h.get("type")])(this,e,h,f,g),l.render(),void(k&&k.registerSparkline(l)))},d(this).html()&&!h.get("disableHiddenCheck")&&d(this).is(":hidden")||!d(this).parents("body").length){if(!h.get("composite")&&d.data(this,"_jqs_pending"))for(g=J.length;g;g--)J[g-1][0]==this&&J.splice(g-1,1);J.push([this,f]),d.data(this,"_jqs_pending",!0)}else f.call(this)})},d.fn.sparkline.defaults=e(),d.sparkline_display_visible=function(){var a,b,c,e=[];for(b=0,c=J.length;c>b;b++)a=J[b][0],d(a).is(":visible")&&!d(a).parents().is(":hidden")?(J[b][1].call(a),d.data(J[b][0],"_jqs_pending",!1),e.push(b)):d(a).closest("html").length||d.data(a,"_jqs_pending")||(d.data(J[b][0],"_jqs_pending",!1),e.push(b));for(b=e.length;b;b--)J.splice(e[b-1],1)},d.fn.sparkline.options=f({init:function(a,b){var c,e,f,g;this.userOptions=b=b||{},this.tag=a,this.tagValCache={},e=d.fn.sparkline.defaults,f=e.common,this.tagOptionsPrefix=b.enableTagOptions&&(b.tagOptionsPrefix||f.tagOptionsPrefix),g=this.getTagSetting("type"),c=g===K?e[b.type||f.type]:e[g],this.mergedOptions=d.extend({},f,c,b)},getTagSetting:function(a){var b,d,e,f,g=this.tagOptionsPrefix;if(g===!1||g===c)return K;if(this.tagValCache.hasOwnProperty(a))b=this.tagValCache.key;else{if(b=this.tag.getAttribute(g+a),b===c||null===b)b=K;else if("["===b.substr(0,1))for(b=b.substr(1,b.length-2).split(","),d=b.length;d--;)b[d]=j(b[d].replace(/(^\s*)|(\s*$)/g,""));else if("{"===b.substr(0,1))for(e=b.substr(1,b.length-2).split(","),b={},d=e.length;d--;)f=e[d].split(":",2),b[f[0].replace(/(^\s*)|(\s*$)/g,"")]=j(f[1].replace(/(^\s*)|(\s*$)/g,""));else b=j(b);this.tagValCache.key=b}return b},get:function(a,b){var d,e=this.getTagSetting(a);return e!==K?e:(d=this.mergedOptions[a])===c?b:d}}),d.fn.sparkline._base=f({disabled:!1,init:function(a,b,e,f,g){this.el=a,this.$el=d(a),this.values=b,this.options=e,this.width=f,this.height=g,this.currentRegion=c},initTarget:function(){var a=!this.options.get("disableInteraction");(this.target=this.$el.simpledraw(this.width,this.height,this.options.get("composite"),a))?(this.canvasWidth=this.target.pixelWidth,this.canvasHeight=this.target.pixelHeight):this.disabled=!0},render:function(){return this.disabled?(this.el.innerHTML="",!1):!0},getRegion:function(){},setRegionHighlight:function(a,b,d){var e,f=this.currentRegion,g=!this.options.get("disableHighlight");return b>this.canvasWidth||d>this.canvasHeight||0>b||0>d?null:(e=this.getRegion(a,b,d),f!==e?(f!==c&&g&&this.removeHighlight(),this.currentRegion=e,e!==c&&g&&this.renderHighlight(),!0):!1)},clearRegionHighlight:function(){return this.currentRegion!==c?(this.removeHighlight(),this.currentRegion=c,!0):!1},renderHighlight:function(){this.changeHighlight(!0)},removeHighlight:function(){this.changeHighlight(!1)},changeHighlight:function(){},getCurrentRegionTooltip:function(){var a,b,e,f,h,i,j,k,l,m,n,o,p,q,r=this.options,s="",t=[];if(this.currentRegion===c)return"";if(a=this.getCurrentRegionFields(),n=r.get("tooltipFormatter"))return n(this,r,a);if(r.get("tooltipChartTitle")&&(s+='<div class="jqs jqstitle">'+r.get("tooltipChartTitle")+"</div>\n"),b=this.options.get("tooltipFormat"),!b)return"";if(d.isArray(b)||(b=[b]),d.isArray(a)||(a=[a]),j=this.options.get("tooltipFormatFieldlist"),k=this.options.get("tooltipFormatFieldlistKey"),j&&k){for(l=[],i=a.length;i--;)m=a[i][k],-1!=(q=d.inArray(m,j))&&(l[q]=a[i]);a=l}for(e=b.length,p=a.length,i=0;e>i;i++)for(o=b[i],"string"==typeof o&&(o=new g(o)),f=o.fclass||"jqsfield",q=0;p>q;q++)a[q].isNull&&r.get("tooltipSkipNull")||(d.extend(a[q],{prefix:r.get("tooltipPrefix"),suffix:r.get("tooltipSuffix")}),h=o.render(a[q],r.get("tooltipValueLookups"),r),t.push('<div class="'+f+'">'+h+"</div>"));return t.length?s+t.join("\n"):""},getCurrentRegionFields:function(){},calcHighlightColor:function(a,c){var d,e,f,g,i=c.get("highlightColor"),j=c.get("highlightLighten");if(i)return i;if(j&&(d=/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(a)||/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(a))){for(f=[],e=4===a.length?16:1,g=0;3>g;g++)f[g]=h(b.round(parseInt(d[g+1],16)*e*j),0,255);return"rgb("+f.join(",")+")"}return a}}),v={changeHighlight:function(a){var b,c=this.currentRegion,e=this.target,f=this.regionShapes[c];f&&(b=this.renderRegion(c,a),d.isArray(b)||d.isArray(f)?(e.replaceWithShapes(f,b),this.regionShapes[c]=d.map(b,function(a){return a.id})):(e.replaceWithShape(f,b),this.regionShapes[c]=b.id))},render:function(){var a,b,c,e,f=this.values,g=this.target,h=this.regionShapes;if(this.cls._super.render.call(this)){for(c=f.length;c--;)if(a=this.renderRegion(c))if(d.isArray(a)){for(b=[],e=a.length;e--;)a[e].append(),b.push(a[e].id);h[c]=b}else a.append(),h[c]=a.id;else h[c]=null;g.render()}}},d.fn.sparkline.line=w=f(d.fn.sparkline._base,{type:"line",init:function(a,b,c,d,e){w._super.init.call(this,a,b,c,d,e),this.vertices=[],this.regionMap=[],this.xvalues=[],this.yvalues=[],this.yminmax=[],this.hightlightSpotId=null,this.lastShapeId=null,this.initTarget()},getRegion:function(a,b){var d,e=this.regionMap;for(d=e.length;d--;)if(null!==e[d]&&b>=e[d][0]&&b<=e[d][1])return e[d][2];return c},getCurrentRegionFields:function(){var a=this.currentRegion;return{isNull:null===this.yvalues[a],x:this.xvalues[a],y:this.yvalues[a],color:this.options.get("lineColor"),fillColor:this.options.get("fillColor"),offset:a}},renderHighlight:function(){var a,b,d=this.currentRegion,e=this.target,f=this.vertices[d],g=this.options,h=g.get("spotRadius"),i=g.get("highlightSpotColor"),j=g.get("highlightLineColor");f&&(h&&i&&(a=e.drawCircle(f[0],f[1],h,c,i),this.highlightSpotId=a.id,e.insertAfterShape(this.lastShapeId,a)),j&&(b=e.drawLine(f[0],this.canvasTop,f[0],this.canvasTop+this.canvasHeight,j),this.highlightLineId=b.id,e.insertAfterShape(this.lastShapeId,b)))},removeHighlight:function(){var a=this.target;this.highlightSpotId&&(a.removeShapeId(this.highlightSpotId),this.highlightSpotId=null),this.highlightLineId&&(a.removeShapeId(this.highlightLineId),this.highlightLineId=null)},scanValues:function(){var a,c,d,e,f,g=this.values,h=g.length,i=this.xvalues,j=this.yvalues,k=this.yminmax;for(a=0;h>a;a++)c=g[a],d="string"==typeof g[a],e="object"==typeof g[a]&&g[a]instanceof Array,f=d&&g[a].split(":"),d&&2===f.length?(i.push(Number(f[0])),j.push(Number(f[1])),k.push(Number(f[1]))):e?(i.push(c[0]),j.push(c[1]),k.push(c[1])):(i.push(a),null===g[a]||"null"===g[a]?j.push(null):(j.push(Number(c)),k.push(Number(c))));this.options.get("xvalues")&&(i=this.options.get("xvalues")),this.maxy=this.maxyorg=b.max.apply(b,k),this.miny=this.minyorg=b.min.apply(b,k),this.maxx=b.max.apply(b,i),this.minx=b.min.apply(b,i),this.xvalues=i,this.yvalues=j,this.yminmax=k},processRangeOptions:function(){var a=this.options,b=a.get("normalRangeMin"),d=a.get("normalRangeMax");b!==c&&(b<this.miny&&(this.miny=b),d>this.maxy&&(this.maxy=d)),a.get("chartRangeMin")!==c&&(a.get("chartRangeClip")||a.get("chartRangeMin")<this.miny)&&(this.miny=a.get("chartRangeMin")),a.get("chartRangeMax")!==c&&(a.get("chartRangeClip")||a.get("chartRangeMax")>this.maxy)&&(this.maxy=a.get("chartRangeMax")),a.get("chartRangeMinX")!==c&&(a.get("chartRangeClipX")||a.get("chartRangeMinX")<this.minx)&&(this.minx=a.get("chartRangeMinX")),a.get("chartRangeMaxX")!==c&&(a.get("chartRangeClipX")||a.get("chartRangeMaxX")>this.maxx)&&(this.maxx=a.get("chartRangeMaxX"))},drawNormalRange:function(a,d,e,f,g){var h=this.options.get("normalRangeMin"),i=this.options.get("normalRangeMax"),j=d+b.round(e-e*((i-this.miny)/g)),k=b.round(e*(i-h)/g);this.target.drawRect(a,j,f,k,c,this.options.get("normalRangeColor")).append()},render:function(){var a,e,f,g,h,i,j,k,l,m,n,o,p,q,r,t,u,v,x,y,z,A,B,C,D,E=this.options,F=this.target,G=this.canvasWidth,H=this.canvasHeight,I=this.vertices,J=E.get("spotRadius"),K=this.regionMap;if(w._super.render.call(this)&&(this.scanValues(),this.processRangeOptions(),B=this.xvalues,C=this.yvalues,this.yminmax.length&&!(this.yvalues.length<2))){for(g=h=0,a=this.maxx-this.minx===0?1:this.maxx-this.minx,e=this.maxy-this.miny===0?1:this.maxy-this.miny,f=this.yvalues.length-1,J&&(4*J>G||4*J>H)&&(J=0),J&&(z=E.get("highlightSpotColor")&&!E.get("disableInteraction"),(z||E.get("minSpotColor")||E.get("spotColor")&&C[f]===this.miny)&&(H-=b.ceil(J)),(z||E.get("maxSpotColor")||E.get("spotColor")&&C[f]===this.maxy)&&(H-=b.ceil(J),g+=b.ceil(J)),(z||(E.get("minSpotColor")||E.get("maxSpotColor"))&&(C[0]===this.miny||C[0]===this.maxy))&&(h+=b.ceil(J),G-=b.ceil(J)),(z||E.get("spotColor")||E.get("minSpotColor")||E.get("maxSpotColor")&&(C[f]===this.miny||C[f]===this.maxy))&&(G-=b.ceil(J))),H--,E.get("normalRangeMin")===c||E.get("drawNormalOnTop")||this.drawNormalRange(h,g,H,G,e),j=[],k=[j],q=r=null,t=C.length,D=0;t>D;D++)l=B[D],n=B[D+1],m=C[D],o=h+b.round((l-this.minx)*(G/a)),p=t-1>D?h+b.round((n-this.minx)*(G/a)):G,r=o+(p-o)/2,K[D]=[q||0,r,D],q=r,null===m?D&&(null!==C[D-1]&&(j=[],k.push(j)),I.push(null)):(m<this.miny&&(m=this.miny),m>this.maxy&&(m=this.maxy),j.length||j.push([o,g+H]),i=[o,g+b.round(H-H*((m-this.miny)/e))],j.push(i),I.push(i));for(u=[],v=[],x=k.length,D=0;x>D;D++)j=k[D],j.length&&(E.get("fillColor")&&(j.push([j[j.length-1][0],g+H]),v.push(j.slice(0)),j.pop()),j.length>2&&(j[0]=[j[0][0],j[1][1]]),u.push(j));for(x=v.length,D=0;x>D;D++)F.drawShape(v[D],E.get("fillColor"),E.get("fillColor")).append();for(E.get("normalRangeMin")!==c&&E.get("drawNormalOnTop")&&this.drawNormalRange(h,g,H,G,e),x=u.length,D=0;x>D;D++)F.drawShape(u[D],E.get("lineColor"),c,E.get("lineWidth")).append();if(J&&E.get("valueSpots"))for(y=E.get("valueSpots"),y.get===c&&(y=new s(y)),D=0;t>D;D++)A=y.get(C[D]),A&&F.drawCircle(h+b.round((B[D]-this.minx)*(G/a)),g+b.round(H-H*((C[D]-this.miny)/e)),J,c,A).append();J&&E.get("spotColor")&&null!==C[f]&&F.drawCircle(h+b.round((B[B.length-1]-this.minx)*(G/a)),g+b.round(H-H*((C[f]-this.miny)/e)),J,c,E.get("spotColor")).append(),this.maxy!==this.minyorg&&(J&&E.get("minSpotColor")&&(l=B[d.inArray(this.minyorg,C)],F.drawCircle(h+b.round((l-this.minx)*(G/a)),g+b.round(H-H*((this.minyorg-this.miny)/e)),J,c,E.get("minSpotColor")).append()),J&&E.get("maxSpotColor")&&(l=B[d.inArray(this.maxyorg,C)],F.drawCircle(h+b.round((l-this.minx)*(G/a)),g+b.round(H-H*((this.maxyorg-this.miny)/e)),J,c,E.get("maxSpotColor")).append())),this.lastShapeId=F.getLastShapeId(),this.canvasTop=g,F.render()}}}),d.fn.sparkline.bar=x=f(d.fn.sparkline._base,v,{type:"bar",init:function(a,e,f,g,i){var m,n,o,p,q,r,t,u,v,w,y,z,A,B,C,D,E,F,G,H,I,J,K=parseInt(f.get("barWidth"),10),L=parseInt(f.get("barSpacing"),10),M=f.get("chartRangeMin"),N=f.get("chartRangeMax"),O=f.get("chartRangeClip"),P=1/0,Q=-1/0;for(x._super.init.call(this,a,e,f,g,i),r=0,t=e.length;t>r;r++)H=e[r],m="string"==typeof H&&H.indexOf(":")>-1,(m||d.isArray(H))&&(C=!0,m&&(H=e[r]=k(H.split(":"))),H=l(H,null),n=b.min.apply(b,H),o=b.max.apply(b,H),P>n&&(P=n),o>Q&&(Q=o));this.stacked=C,this.regionShapes={},this.barWidth=K,this.barSpacing=L,this.totalBarWidth=K+L,this.width=g=e.length*K+(e.length-1)*L,this.initTarget(),O&&(A=M===c?-1/0:M,B=N===c?1/0:N),q=[],p=C?[]:q;var R=[],S=[];for(r=0,t=e.length;t>r;r++)if(C)for(D=e[r],e[r]=G=[],R[r]=0,p[r]=S[r]=0,E=0,F=D.length;F>E;E++)H=G[E]=O?h(D[E],A,B):D[E],null!==H&&(H>0&&(R[r]+=H),0>P&&Q>0?0>H?S[r]+=b.abs(H):p[r]+=H:p[r]+=b.abs(H-(0>H?Q:P)),q.push(H));else H=O?h(e[r],A,B):e[r],H=e[r]=j(H),null!==H&&q.push(H);this.max=z=b.max.apply(b,q),this.min=y=b.min.apply(b,q),this.stackMax=Q=C?b.max.apply(b,R):z,this.stackMin=P=C?b.min.apply(b,q):y,f.get("chartRangeMin")!==c&&(f.get("chartRangeClip")||f.get("chartRangeMin")<y)&&(y=f.get("chartRangeMin")),f.get("chartRangeMax")!==c&&(f.get("chartRangeClip")||f.get("chartRangeMax")>z)&&(z=f.get("chartRangeMax")),this.zeroAxis=v=f.get("zeroAxis",!0),w=0>=y&&z>=0&&v?0:0==v?y:y>0?y:z,this.xaxisOffset=w,u=C?b.max.apply(b,p)+b.max.apply(b,S):z-y,this.canvasHeightEf=v&&0>y?this.canvasHeight-2:this.canvasHeight-1,w>y?(J=C&&z>=0?Q:z,I=(J-w)/u*this.canvasHeight,I!==b.ceil(I)&&(this.canvasHeightEf-=2,I=b.ceil(I))):I=this.canvasHeight,this.yoffset=I,d.isArray(f.get("colorMap"))?(this.colorMapByIndex=f.get("colorMap"),this.colorMapByValue=null):(this.colorMapByIndex=null,this.colorMapByValue=f.get("colorMap"),this.colorMapByValue&&this.colorMapByValue.get===c&&(this.colorMapByValue=new s(this.colorMapByValue))),this.range=u},getRegion:function(a,d){var e=b.floor(d/this.totalBarWidth);return 0>e||e>=this.values.length?c:e},getCurrentRegionFields:function(){var a,b,c=this.currentRegion,d=q(this.values[c]),e=[];for(b=d.length;b--;)a=d[b],e.push({isNull:null===a,value:a,color:this.calcColor(b,a,c),offset:c});return e},calcColor:function(a,b,e){var f,g,h=this.colorMapByIndex,i=this.colorMapByValue,j=this.options;return f=j.get(this.stacked?"stackedBarColor":0>b?"negBarColor":"barColor"),0===b&&j.get("zeroColor")!==c&&(f=j.get("zeroColor")),i&&(g=i.get(b))?f=g:h&&h.length>e&&(f=h[e]),d.isArray(f)?f[a%f.length]:f},renderRegion:function(a,e){var f,g,h,i,j,k,l,m,o,p,q=this.values[a],r=this.options,s=this.xaxisOffset,t=[],u=this.range,v=this.stacked,w=this.target,x=a*this.totalBarWidth,y=this.canvasHeightEf,z=this.yoffset;if(q=d.isArray(q)?q:[q],l=q.length,m=q[0],i=n(null,q),p=n(s,q,!0),i)return r.get("nullColor")?(h=e?r.get("nullColor"):this.calcHighlightColor(r.get("nullColor"),r),f=z>0?z-1:z,w.drawRect(x,f,this.barWidth-1,0,h,h)):c;for(j=z,k=0;l>k;k++){if(m=q[k],v&&m===s){if(!p||o)continue;o=!0}g=u>0?b.floor(y*(b.abs(m-s)/u))+1:1,s>m||m===s&&0===z?(f=j,j+=g):(f=z-g,z-=g),h=this.calcColor(k,m,a),e&&(h=this.calcHighlightColor(h,r)),t.push(w.drawRect(x,f,this.barWidth-1,g-1,h,h))}return 1===t.length?t[0]:t}}),d.fn.sparkline.tristate=y=f(d.fn.sparkline._base,v,{type:"tristate",init:function(a,b,e,f,g){var h=parseInt(e.get("barWidth"),10),i=parseInt(e.get("barSpacing"),10);y._super.init.call(this,a,b,e,f,g),this.regionShapes={},this.barWidth=h,this.barSpacing=i,this.totalBarWidth=h+i,this.values=d.map(b,Number),this.width=f=b.length*h+(b.length-1)*i,d.isArray(e.get("colorMap"))?(this.colorMapByIndex=e.get("colorMap"),this.colorMapByValue=null):(this.colorMapByIndex=null,this.colorMapByValue=e.get("colorMap"),this.colorMapByValue&&this.colorMapByValue.get===c&&(this.colorMapByValue=new s(this.colorMapByValue))),this.initTarget()},getRegion:function(a,c){return b.floor(c/this.totalBarWidth)},getCurrentRegionFields:function(){var a=this.currentRegion;return{isNull:this.values[a]===c,value:this.values[a],color:this.calcColor(this.values[a],a),offset:a}},calcColor:function(a,b){var c,d,e=this.values,f=this.options,g=this.colorMapByIndex,h=this.colorMapByValue;return c=h&&(d=h.get(a))?d:g&&g.length>b?g[b]:f.get(e[b]<0?"negBarColor":e[b]>0?"posBarColor":"zeroBarColor")},renderRegion:function(a,c){var d,e,f,g,h,i,j=this.values,k=this.options,l=this.target;return d=l.pixelHeight,f=b.round(d/2),g=a*this.totalBarWidth,j[a]<0?(h=f,e=f-1):j[a]>0?(h=0,e=f-1):(h=f-1,e=2),i=this.calcColor(j[a],a),null!==i?(c&&(i=this.calcHighlightColor(i,k)),l.drawRect(g,h,this.barWidth-1,e-1,i,i)):void 0}}),d.fn.sparkline.discrete=z=f(d.fn.sparkline._base,v,{type:"discrete",init:function(a,e,f,g,h){z._super.init.call(this,a,e,f,g,h),this.regionShapes={},this.values=e=d.map(e,Number),this.min=b.min.apply(b,e),this.max=b.max.apply(b,e),this.range=this.max-this.min,this.width=g="auto"===f.get("width")?2*e.length:this.width,this.interval=b.floor(g/e.length),this.itemWidth=g/e.length,f.get("chartRangeMin")!==c&&(f.get("chartRangeClip")||f.get("chartRangeMin")<this.min)&&(this.min=f.get("chartRangeMin")),f.get("chartRangeMax")!==c&&(f.get("chartRangeClip")||f.get("chartRangeMax")>this.max)&&(this.max=f.get("chartRangeMax")),this.initTarget(),this.target&&(this.lineHeight="auto"===f.get("lineHeight")?b.round(.3*this.canvasHeight):f.get("lineHeight"))},getRegion:function(a,c){return b.floor(c/this.itemWidth)},getCurrentRegionFields:function(){var a=this.currentRegion;return{isNull:this.values[a]===c,value:this.values[a],offset:a}},renderRegion:function(a,c){var d,e,f,g,i=this.values,j=this.options,k=this.min,l=this.max,m=this.range,n=this.interval,o=this.target,p=this.canvasHeight,q=this.lineHeight,r=p-q;return e=h(i[a],k,l),g=a*n,d=b.round(r-r*((e-k)/m)),f=j.get(j.get("thresholdColor")&&e<j.get("thresholdValue")?"thresholdColor":"lineColor"),c&&(f=this.calcHighlightColor(f,j)),o.drawLine(g,d,g,d+q,f)}}),d.fn.sparkline.bullet=A=f(d.fn.sparkline._base,{type:"bullet",init:function(a,d,e,f,g){var h,i,j;A._super.init.call(this,a,d,e,f,g),this.values=d=k(d),j=d.slice(),j[0]=null===j[0]?j[2]:j[0],j[1]=null===d[1]?j[2]:j[1],h=b.min.apply(b,d),i=b.max.apply(b,d),h=e.get("base")===c?0>h?h:0:e.get("base"),this.min=h,this.max=i,this.range=i-h,this.shapes={},this.valueShapes={},this.regiondata={},this.width=f="auto"===e.get("width")?"4.0em":f,this.target=this.$el.simpledraw(f,g,e.get("composite")),d.length||(this.disabled=!0),this.initTarget()},getRegion:function(a,b,d){var e=this.target.getShapeAt(a,b,d);return e!==c&&this.shapes[e]!==c?this.shapes[e]:c},getCurrentRegionFields:function(){var a=this.currentRegion;return{fieldkey:a.substr(0,1),value:this.values[a.substr(1)],region:a}},changeHighlight:function(a){var b,c=this.currentRegion,d=this.valueShapes[c];switch(delete this.shapes[d],c.substr(0,1)){case"r":b=this.renderRange(c.substr(1),a);break;case"p":b=this.renderPerformance(a);break;case"t":b=this.renderTarget(a)}this.valueShapes[c]=b.id,this.shapes[b.id]=c,this.target.replaceWithShape(d,b)},renderRange:function(a,c){var d=this.values[a],e=b.round(this.canvasWidth*((d-this.min)/this.range)),f=this.options.get("rangeColors")[a-2];return c&&(f=this.calcHighlightColor(f,this.options)),this.target.drawRect(0,0,e-1,this.canvasHeight-1,f,f)},renderPerformance:function(a){var c=this.values[1],d=b.round(this.canvasWidth*((c-this.min)/this.range)),e=this.options.get("performanceColor");return a&&(e=this.calcHighlightColor(e,this.options)),this.target.drawRect(0,b.round(.3*this.canvasHeight),d-1,b.round(.4*this.canvasHeight)-1,e,e)},renderTarget:function(a){var c=this.values[0],d=b.round(this.canvasWidth*((c-this.min)/this.range)-this.options.get("targetWidth")/2),e=b.round(.1*this.canvasHeight),f=this.canvasHeight-2*e,g=this.options.get("targetColor");return a&&(g=this.calcHighlightColor(g,this.options)),this.target.drawRect(d,e,this.options.get("targetWidth")-1,f-1,g,g)},render:function(){var a,b,c=this.values.length,d=this.target;if(A._super.render.call(this)){for(a=2;c>a;a++)b=this.renderRange(a).append(),this.shapes[b.id]="r"+a,this.valueShapes["r"+a]=b.id;null!==this.values[1]&&(b=this.renderPerformance().append(),this.shapes[b.id]="p1",this.valueShapes.p1=b.id),null!==this.values[0]&&(b=this.renderTarget().append(),this.shapes[b.id]="t0",this.valueShapes.t0=b.id),d.render()}}}),d.fn.sparkline.pie=B=f(d.fn.sparkline._base,{type:"pie",init:function(a,c,e,f,g){var h,i=0;if(B._super.init.call(this,a,c,e,f,g),this.shapes={},this.valueShapes={},this.values=c=d.map(c,Number),"auto"===e.get("width")&&(this.width=this.height),c.length>0)for(h=c.length;h--;)i+=c[h];this.total=i,this.initTarget(),this.radius=b.floor(b.min(this.canvasWidth,this.canvasHeight)/2)},getRegion:function(a,b,d){var e=this.target.getShapeAt(a,b,d);return e!==c&&this.shapes[e]!==c?this.shapes[e]:c},getCurrentRegionFields:function(){var a=this.currentRegion;return{isNull:this.values[a]===c,value:this.values[a],percent:this.values[a]/this.total*100,color:this.options.get("sliceColors")[a%this.options.get("sliceColors").length],offset:a}},changeHighlight:function(a){var b=this.currentRegion,c=this.renderSlice(b,a),d=this.valueShapes[b];delete this.shapes[d],this.target.replaceWithShape(d,c),this.valueShapes[b]=c.id,this.shapes[c.id]=b},renderSlice:function(a,d){var e,f,g,h,i,j=this.target,k=this.options,l=this.radius,m=k.get("borderWidth"),n=k.get("offset"),o=2*b.PI,p=this.values,q=this.total,r=n?2*b.PI*(n/360):0;for(h=p.length,g=0;h>g;g++){if(e=r,f=r,q>0&&(f=r+o*(p[g]/q)),a===g)return i=k.get("sliceColors")[g%k.get("sliceColors").length],d&&(i=this.calcHighlightColor(i,k)),j.drawPieSlice(l,l,l-m,e,f,c,i);r=f}},render:function(){var a,d,e=this.target,f=this.values,g=this.options,h=this.radius,i=g.get("borderWidth");if(B._super.render.call(this)){for(i&&e.drawCircle(h,h,b.floor(h-i/2),g.get("borderColor"),c,i).append(),d=f.length;d--;)f[d]&&(a=this.renderSlice(d).append(),this.valueShapes[d]=a.id,this.shapes[a.id]=d);
 e.render()}}}),d.fn.sparkline.box=C=f(d.fn.sparkline._base,{type:"box",init:function(a,b,c,e,f){C._super.init.call(this,a,b,c,e,f),this.values=d.map(b,Number),this.width="auto"===c.get("width")?"4.0em":e,this.initTarget(),this.values.length||(this.disabled=1)},getRegion:function(){return 1},getCurrentRegionFields:function(){var a=[{field:"lq",value:this.quartiles[0]},{field:"med",value:this.quartiles[1]},{field:"uq",value:this.quartiles[2]}];return this.loutlier!==c&&a.push({field:"lo",value:this.loutlier}),this.routlier!==c&&a.push({field:"ro",value:this.routlier}),this.lwhisker!==c&&a.push({field:"lw",value:this.lwhisker}),this.rwhisker!==c&&a.push({field:"rw",value:this.rwhisker}),a},render:function(){var a,d,e,f,g,h,j,k,l,m,n,o=this.target,p=this.values,q=p.length,r=this.options,s=this.canvasWidth,t=this.canvasHeight,u=r.get("chartRangeMin")===c?b.min.apply(b,p):r.get("chartRangeMin"),v=r.get("chartRangeMax")===c?b.max.apply(b,p):r.get("chartRangeMax"),w=0;if(C._super.render.call(this)){if(r.get("raw"))r.get("showOutliers")&&p.length>5?(d=p[0],a=p[1],f=p[2],g=p[3],h=p[4],j=p[5],k=p[6]):(a=p[0],f=p[1],g=p[2],h=p[3],j=p[4]);else if(p.sort(function(a,b){return a-b}),f=i(p,1),g=i(p,2),h=i(p,3),e=h-f,r.get("showOutliers")){for(a=j=c,l=0;q>l;l++)a===c&&p[l]>f-e*r.get("outlierIQR")&&(a=p[l]),p[l]<h+e*r.get("outlierIQR")&&(j=p[l]);d=p[0],k=p[q-1]}else a=p[0],j=p[q-1];this.quartiles=[f,g,h],this.lwhisker=a,this.rwhisker=j,this.loutlier=d,this.routlier=k,n=s/(v-u+1),r.get("showOutliers")&&(w=b.ceil(r.get("spotRadius")),s-=2*b.ceil(r.get("spotRadius")),n=s/(v-u+1),a>d&&o.drawCircle((d-u)*n+w,t/2,r.get("spotRadius"),r.get("outlierLineColor"),r.get("outlierFillColor")).append(),k>j&&o.drawCircle((k-u)*n+w,t/2,r.get("spotRadius"),r.get("outlierLineColor"),r.get("outlierFillColor")).append()),o.drawRect(b.round((f-u)*n+w),b.round(.1*t),b.round((h-f)*n),b.round(.8*t),r.get("boxLineColor"),r.get("boxFillColor")).append(),o.drawLine(b.round((a-u)*n+w),b.round(t/2),b.round((f-u)*n+w),b.round(t/2),r.get("lineColor")).append(),o.drawLine(b.round((a-u)*n+w),b.round(t/4),b.round((a-u)*n+w),b.round(t-t/4),r.get("whiskerColor")).append(),o.drawLine(b.round((j-u)*n+w),b.round(t/2),b.round((h-u)*n+w),b.round(t/2),r.get("lineColor")).append(),o.drawLine(b.round((j-u)*n+w),b.round(t/4),b.round((j-u)*n+w),b.round(t-t/4),r.get("whiskerColor")).append(),o.drawLine(b.round((g-u)*n+w),b.round(.1*t),b.round((g-u)*n+w),b.round(.9*t),r.get("medianColor")).append(),r.get("target")&&(m=b.ceil(r.get("spotRadius")),o.drawLine(b.round((r.get("target")-u)*n+w),b.round(t/2-m),b.round((r.get("target")-u)*n+w),b.round(t/2+m),r.get("targetColor")).append(),o.drawLine(b.round((r.get("target")-u)*n+w-m),b.round(t/2),b.round((r.get("target")-u)*n+w+m),b.round(t/2),r.get("targetColor")).append()),o.render()}}}),F=f({init:function(a,b,c,d){this.target=a,this.id=b,this.type=c,this.args=d},append:function(){return this.target.appendShape(this),this}}),G=f({_pxregex:/(\d+)(px)?\s*$/i,init:function(a,b,c){a&&(this.width=a,this.height=b,this.target=c,this.lastShapeId=null,c[0]&&(c=c[0]),d.data(c,"_jqs_vcanvas",this))},drawLine:function(a,b,c,d,e,f){return this.drawShape([[a,b],[c,d]],e,f)},drawShape:function(a,b,c,d){return this._genShape("Shape",[a,b,c,d])},drawCircle:function(a,b,c,d,e,f){return this._genShape("Circle",[a,b,c,d,e,f])},drawPieSlice:function(a,b,c,d,e,f,g){return this._genShape("PieSlice",[a,b,c,d,e,f,g])},drawRect:function(a,b,c,d,e,f){return this._genShape("Rect",[a,b,c,d,e,f])},getElement:function(){return this.canvas},getLastShapeId:function(){return this.lastShapeId},reset:function(){alert("reset not implemented")},_insert:function(a,b){d(b).html(a)},_calculatePixelDims:function(a,b,c){var e;e=this._pxregex.exec(b),this.pixelHeight=e?e[1]:d(c).height(),e=this._pxregex.exec(a),this.pixelWidth=e?e[1]:d(c).width()},_genShape:function(a,b){var c=L++;return b.unshift(c),new F(this,c,a,b)},appendShape:function(){alert("appendShape not implemented")},replaceWithShape:function(){alert("replaceWithShape not implemented")},insertAfterShape:function(){alert("insertAfterShape not implemented")},removeShapeId:function(){alert("removeShapeId not implemented")},getShapeAt:function(){alert("getShapeAt not implemented")},render:function(){alert("render not implemented")}}),H=f(G,{init:function(b,e,f,g){H._super.init.call(this,b,e,f),this.canvas=a.createElement("canvas"),f[0]&&(f=f[0]),this.context=this.canvas.getContext("2d");var h=window.devicePixelRatio||1,i=this.context.webkitBackingStorePixelRatio||this.context.mozBackingStorePixelRatio||this.context.msBackingStorePixelRatio||this.context.oBackingStorePixelRatio||this.context.backingStorePixelRatio||1,j=h/i;d.data(f,"_jqs_vcanvas",this),d(this.canvas).css({display:"inline-block",width:b,height:e,verticalAlign:"top"}),this._insert(this.canvas,f),this._calculatePixelDims(b,e,this.canvas),this.canvas.width=this.pixelWidth*j,this.canvas.height=this.pixelHeight*j,this.context.scale(j,j),this.interact=g,this.shapes={},this.shapeseq=[],this.currentTargetShapeId=c,d(this.canvas).css({width:this.pixelWidth,height:this.pixelHeight})},_getContext:function(a,b,d){var e=this.canvas.getContext("2d");return a!==c&&(e.strokeStyle=a),e.lineWidth=d===c?1:d,b!==c&&(e.fillStyle=b),e},reset:function(){var a=this._getContext();a.clearRect(0,0,this.pixelWidth,this.pixelHeight),this.shapes={},this.shapeseq=[],this.currentTargetShapeId=c},_drawShape:function(a,b,d,e,f){var g,h,i=this._getContext(d,e,f);for(i.beginPath(),i.moveTo(b[0][0]+.5,b[0][1]+.5),g=1,h=b.length;h>g;g++)i.lineTo(b[g][0]+.5,b[g][1]+.5);d!==c&&i.stroke(),e!==c&&i.fill(),this.targetX!==c&&this.targetY!==c&&i.isPointInPath(this.targetX,this.targetY)&&(this.currentTargetShapeId=a)},_drawCircle:function(a,d,e,f,g,h,i){var j=this._getContext(g,h,i);j.beginPath(),j.arc(d,e,f,0,2*b.PI,!1),this.targetX!==c&&this.targetY!==c&&j.isPointInPath(this.targetX,this.targetY)&&(this.currentTargetShapeId=a),g!==c&&j.stroke(),h!==c&&j.fill()},_drawPieSlice:function(a,b,d,e,f,g,h,i){var j=this._getContext(h,i);j.beginPath(),j.moveTo(b,d),j.arc(b,d,e,f,g,!1),j.lineTo(b,d),j.closePath(),h!==c&&j.stroke(),i&&j.fill(),this.targetX!==c&&this.targetY!==c&&j.isPointInPath(this.targetX,this.targetY)&&(this.currentTargetShapeId=a)},_drawRect:function(a,b,c,d,e,f,g){return this._drawShape(a,[[b,c],[b+d,c],[b+d,c+e],[b,c+e],[b,c]],f,g)},appendShape:function(a){return this.shapes[a.id]=a,this.shapeseq.push(a.id),this.lastShapeId=a.id,a.id},replaceWithShape:function(a,b){var c,d=this.shapeseq;for(this.shapes[b.id]=b,c=d.length;c--;)d[c]==a&&(d[c]=b.id);delete this.shapes[a]},replaceWithShapes:function(a,b){var c,d,e,f=this.shapeseq,g={};for(d=a.length;d--;)g[a[d]]=!0;for(d=f.length;d--;)c=f[d],g[c]&&(f.splice(d,1),delete this.shapes[c],e=d);for(d=b.length;d--;)f.splice(e,0,b[d].id),this.shapes[b[d].id]=b[d]},insertAfterShape:function(a,b){var c,d=this.shapeseq;for(c=d.length;c--;)if(d[c]===a)return d.splice(c+1,0,b.id),void(this.shapes[b.id]=b)},removeShapeId:function(a){var b,c=this.shapeseq;for(b=c.length;b--;)if(c[b]===a){c.splice(b,1);break}delete this.shapes[a]},getShapeAt:function(a,b,c){return this.targetX=b,this.targetY=c,this.render(),this.currentTargetShapeId},render:function(){var a,b,c,d=this.shapeseq,e=this.shapes,f=d.length,g=this._getContext();for(g.clearRect(0,0,this.pixelWidth,this.pixelHeight),c=0;f>c;c++)a=d[c],b=e[a],this["_draw"+b.type].apply(this,b.args);this.interact||(this.shapes={},this.shapeseq=[])}}),I=f(G,{init:function(b,c,e){var f;I._super.init.call(this,b,c,e),e[0]&&(e=e[0]),d.data(e,"_jqs_vcanvas",this),this.canvas=a.createElement("span"),d(this.canvas).css({display:"inline-block",position:"relative",overflow:"hidden",width:b,height:c,margin:"0px",padding:"0px",verticalAlign:"top"}),this._insert(this.canvas,e),this._calculatePixelDims(b,c,this.canvas),this.canvas.width=this.pixelWidth,this.canvas.height=this.pixelHeight,f='<v:group coordorigin="0 0" coordsize="'+this.pixelWidth+" "+this.pixelHeight+'" style="position:absolute;top:0;left:0;width:'+this.pixelWidth+"px;height="+this.pixelHeight+'px;"></v:group>',this.canvas.insertAdjacentHTML("beforeEnd",f),this.group=d(this.canvas).children()[0],this.rendered=!1,this.prerender=""},_drawShape:function(a,b,d,e,f){var g,h,i,j,k,l,m,n=[];for(m=0,l=b.length;l>m;m++)n[m]=""+b[m][0]+","+b[m][1];return g=n.splice(0,1),f=f===c?1:f,h=d===c?' stroked="false" ':' strokeWeight="'+f+'px" strokeColor="'+d+'" ',i=e===c?' filled="false"':' fillColor="'+e+'" filled="true" ',j=n[0]===n[n.length-1]?"x ":"",k='<v:shape coordorigin="0 0" coordsize="'+this.pixelWidth+" "+this.pixelHeight+'"  id="jqsshape'+a+'" '+h+i+' style="position:absolute;left:0px;top:0px;height:'+this.pixelHeight+"px;width:"+this.pixelWidth+'px;padding:0px;margin:0px;"  path="m '+g+" l "+n.join(", ")+" "+j+'e"> </v:shape>'},_drawCircle:function(a,b,d,e,f,g,h){var i,j,k;return b-=e,d-=e,i=f===c?' stroked="false" ':' strokeWeight="'+h+'px" strokeColor="'+f+'" ',j=g===c?' filled="false"':' fillColor="'+g+'" filled="true" ',k='<v:oval  id="jqsshape'+a+'" '+i+j+' style="position:absolute;top:'+d+"px; left:"+b+"px; width:"+2*e+"px; height:"+2*e+'px"></v:oval>'},_drawPieSlice:function(a,d,e,f,g,h,i,j){var k,l,m,n,o,p,q,r;if(g===h)return"";if(h-g===2*b.PI&&(g=0,h=2*b.PI),l=d+b.round(b.cos(g)*f),m=e+b.round(b.sin(g)*f),n=d+b.round(b.cos(h)*f),o=e+b.round(b.sin(h)*f),l===n&&m===o){if(h-g<b.PI)return"";l=n=d+f,m=o=e}return l===n&&m===o&&h-g<b.PI?"":(k=[d-f,e-f,d+f,e+f,l,m,n,o],p=i===c?' stroked="false" ':' strokeWeight="1px" strokeColor="'+i+'" ',q=j===c?' filled="false"':' fillColor="'+j+'" filled="true" ',r='<v:shape coordorigin="0 0" coordsize="'+this.pixelWidth+" "+this.pixelHeight+'"  id="jqsshape'+a+'" '+p+q+' style="position:absolute;left:0px;top:0px;height:'+this.pixelHeight+"px;width:"+this.pixelWidth+'px;padding:0px;margin:0px;"  path="m '+d+","+e+" wa "+k.join(", ")+' x e"> </v:shape>')},_drawRect:function(a,b,c,d,e,f,g){return this._drawShape(a,[[b,c],[b,c+e],[b+d,c+e],[b+d,c],[b,c]],f,g)},reset:function(){this.group.innerHTML=""},appendShape:function(a){var b=this["_draw"+a.type].apply(this,a.args);return this.rendered?this.group.insertAdjacentHTML("beforeEnd",b):this.prerender+=b,this.lastShapeId=a.id,a.id},replaceWithShape:function(a,b){var c=d("#jqsshape"+a),e=this["_draw"+b.type].apply(this,b.args);c[0].outerHTML=e},replaceWithShapes:function(a,b){var c,e=d("#jqsshape"+a[0]),f="",g=b.length;for(c=0;g>c;c++)f+=this["_draw"+b[c].type].apply(this,b[c].args);for(e[0].outerHTML=f,c=1;c<a.length;c++)d("#jqsshape"+a[c]).remove()},insertAfterShape:function(a,b){var c=d("#jqsshape"+a),e=this["_draw"+b.type].apply(this,b.args);c[0].insertAdjacentHTML("afterEnd",e)},removeShapeId:function(a){var b=d("#jqsshape"+a);this.group.removeChild(b[0])},getShapeAt:function(a){var b=a.id.substr(8);return b},render:function(){this.rendered||(this.group.innerHTML=this.prerender,this.rendered=!0)}})})}(document,Math);
-/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
+goog.provide('ol');
 
-/* 
- * @requires OpenLayers/BaseTypes.js
- * @requires OpenLayers/Lang/en.js
- * @requires OpenLayers/Console.js
- */
- 
-/*
- * TODO: In 3.0, we will stop supporting build profiles that include
- * OpenLayers.js. This means we will not need the singleFile and scriptFile
- * variables, because we don't have to handle the singleFile case any more.
- */
-
-
-(function() {
-    /**
-     * Before creating the OpenLayers namespace, check to see if
-     * OpenLayers.singleFile is true.  This occurs if the
-     * OpenLayers/SingleFile.js script is included before this one - as is the
-     * case with old single file build profiles that included both
-     * OpenLayers.js and OpenLayers/SingleFile.js.
-     */
-    var singleFile = (typeof OpenLayers == "object" && OpenLayers.singleFile);
-    
-    /**
-     * Relative path of this script.
-     */
-    var scriptName = (!singleFile) ? "lib/OpenLayers.js" : "OpenLayers.js";
-
-    /*
-     * If window.OpenLayers isn't set when this script (OpenLayers.js) is
-     * evaluated (and if singleFile is false) then this script will load
-     * *all* OpenLayers scripts. If window.OpenLayers is set to an array
-     * then this script will attempt to load scripts for each string of
-     * the array, using the string as the src of the script.
-     *
-     * Example:
-     * (code)
-     *     <script type="text/javascript">
-     *         window.OpenLayers = [
-     *             "OpenLayers/Util.js",
-     *             "OpenLayers/BaseTypes.js"
-     *         ];
-     *     </script>
-     *     <script type="text/javascript" src="../lib/OpenLayers.js"></script>
-     * (end)
-     * In this example OpenLayers.js will load Util.js and BaseTypes.js only.
-     */
-    var jsFiles = window.OpenLayers;
-
-    /**
-     * Namespace: OpenLayers
-     * The OpenLayers object provides a namespace for all things OpenLayers
-     */
-    window.OpenLayers = {
-        /**
-         * Method: _getScriptLocation
-         * Return the path to this script. This is also implemented in
-         * OpenLayers/SingleFile.js
-         *
-         * Returns:
-         * {String} Path to this script
-         */
-        _getScriptLocation: (function() {
-            var r = new RegExp("(^|(.*?\\/))(" + scriptName + ")(\\?|$)"),
-                s = document.getElementsByTagName('script'),
-                src, m, l = "";
-            for(var i=0, len=s.length; i<len; i++) {
-                src = s[i].getAttribute('src');
-                if(src) {
-                    m = src.match(r);
-                    if(m) {
-                        l = m[1];
-                        break;
-                    }
-                }
-            }
-            return (function() { return l; });
-        })(),
-        
-        /**
-         * APIProperty: ImgPath
-         * {String} Set this to the path where control images are stored, a path  
-         * given here must end with a slash. If set to '' (which is the default) 
-         * OpenLayers will use its script location + "img/".
-         * 
-         * You will need to set this property when you have a singlefile build of 
-         * OpenLayers that either is not named "OpenLayers.js" or if you move
-         * the file in a way such that the image directory cannot be derived from 
-         * the script location.
-         * 
-         * If your custom OpenLayers build is named "my-custom-ol.js" and the images
-         * of OpenLayers are in a folder "/resources/external/images/ol" a correct
-         * way of including OpenLayers in your HTML would be:
-         * 
-         * (code)
-         *   <script src="/path/to/my-custom-ol.js" type="text/javascript"></script>
-         *   <script type="text/javascript">
-         *      // tell OpenLayers where the control images are
-         *      // remember the trailing slash
-         *      OpenLayers.ImgPath = "/resources/external/images/ol/";
-         *   </script>
-         * (end code)
-         * 
-         * Please remember that when your OpenLayers script is not named 
-         * "OpenLayers.js" you will have to make sure that the default theme is 
-         * loaded into the page by including an appropriate <link>-tag, 
-         * e.g.:
-         * 
-         * (code)
-         *   <link rel="stylesheet" href="/path/to/default/style.css"  type="text/css">
-         * (end code)
-         */
-        ImgPath : ''
-    };
-
-    /**
-     * OpenLayers.singleFile is a flag indicating this file is being included
-     * in a Single File Library build of the OpenLayers Library.
-     * 
-     * When we are *not* part of a SFL build we dynamically include the
-     * OpenLayers library code.
-     * 
-     * When we *are* part of a SFL build we do not dynamically include the 
-     * OpenLayers library code as it will be appended at the end of this file.
-     */
-    if(!singleFile) {
-        if (!jsFiles) {
-            jsFiles = [
-                "OpenLayers/BaseTypes/Class.js",
-                "OpenLayers/Util.js",
-                "OpenLayers/Util/vendorPrefix.js",
-                "OpenLayers/Animation.js",
-                "OpenLayers/BaseTypes.js",
-                "OpenLayers/BaseTypes/Bounds.js",
-                "OpenLayers/BaseTypes/Date.js",
-                "OpenLayers/BaseTypes/Element.js",
-                "OpenLayers/BaseTypes/LonLat.js",
-                "OpenLayers/BaseTypes/Pixel.js",
-                "OpenLayers/BaseTypes/Size.js",
-                "OpenLayers/Console.js",
-                "OpenLayers/Tween.js",
-                "OpenLayers/Kinetic.js",
-                "OpenLayers/Events.js",
-                "OpenLayers/Events/buttonclick.js",
-                "OpenLayers/Events/featureclick.js",
-                "OpenLayers/Request.js",
-                "OpenLayers/Request/XMLHttpRequest.js",
-                "OpenLayers/Projection.js",
-                "OpenLayers/Map.js",
-                "OpenLayers/Layer.js",
-                "OpenLayers/Icon.js",
-                "OpenLayers/Marker.js",
-                "OpenLayers/Marker/Box.js",
-                "OpenLayers/Popup.js",
-                "OpenLayers/Tile.js",
-                "OpenLayers/Tile/Image.js",
-                "OpenLayers/Tile/Image/IFrame.js",
-                "OpenLayers/Tile/UTFGrid.js",
-                "OpenLayers/Layer/Image.js",
-                "OpenLayers/Layer/SphericalMercator.js",
-                "OpenLayers/Layer/EventPane.js",
-                "OpenLayers/Layer/FixedZoomLevels.js",
-                "OpenLayers/Layer/Google.js",
-                "OpenLayers/Layer/Google/v3.js",
-                "OpenLayers/Layer/HTTPRequest.js",
-                "OpenLayers/Layer/Grid.js",
-                "OpenLayers/Layer/MapGuide.js",
-                "OpenLayers/Layer/MapServer.js",
-                "OpenLayers/Layer/KaMap.js",
-                "OpenLayers/Layer/KaMapCache.js",
-                "OpenLayers/Layer/Markers.js",
-                "OpenLayers/Layer/Text.js",
-                "OpenLayers/Layer/WorldWind.js",
-                "OpenLayers/Layer/ArcGIS93Rest.js",
-                "OpenLayers/Layer/WMS.js",
-                "OpenLayers/Layer/WMTS.js",
-                "OpenLayers/Layer/ArcIMS.js",
-                "OpenLayers/Layer/GeoRSS.js",
-                "OpenLayers/Layer/Boxes.js",
-                "OpenLayers/Layer/XYZ.js",
-                "OpenLayers/Layer/UTFGrid.js",
-                "OpenLayers/Layer/OSM.js",
-                "OpenLayers/Layer/Bing.js",
-                "OpenLayers/Layer/TMS.js",
-                "OpenLayers/Layer/TileCache.js",
-                "OpenLayers/Layer/Zoomify.js",
-                "OpenLayers/Layer/ArcGISCache.js",
-                "OpenLayers/Popup/Anchored.js",
-                "OpenLayers/Popup/Framed.js",
-                "OpenLayers/Popup/FramedCloud.js",
-                "OpenLayers/Feature.js",
-                "OpenLayers/Feature/Vector.js",
-                "OpenLayers/Handler.js",
-                "OpenLayers/Handler/Click.js",
-                "OpenLayers/Handler/Hover.js",
-                "OpenLayers/Handler/Point.js",
-                "OpenLayers/Handler/Path.js",
-                "OpenLayers/Handler/Polygon.js",
-                "OpenLayers/Handler/Feature.js",
-                "OpenLayers/Handler/Drag.js",
-                "OpenLayers/Handler/Pinch.js",
-                "OpenLayers/Handler/RegularPolygon.js",
-                "OpenLayers/Handler/Box.js",
-                "OpenLayers/Handler/MouseWheel.js",
-                "OpenLayers/Handler/Keyboard.js",
-                "OpenLayers/Control.js",
-                "OpenLayers/Control/Attribution.js",
-                "OpenLayers/Control/Button.js",
-                "OpenLayers/Control/CacheRead.js",
-                "OpenLayers/Control/CacheWrite.js",
-                "OpenLayers/Control/ZoomBox.js",
-                "OpenLayers/Control/ZoomToMaxExtent.js",
-                "OpenLayers/Control/DragPan.js",
-                "OpenLayers/Control/Navigation.js",
-                "OpenLayers/Control/PinchZoom.js",
-                "OpenLayers/Control/TouchNavigation.js",
-                "OpenLayers/Control/MousePosition.js",
-                "OpenLayers/Control/OverviewMap.js",
-                "OpenLayers/Control/KeyboardDefaults.js",
-                "OpenLayers/Control/PanZoom.js",
-                "OpenLayers/Control/PanZoomBar.js",
-                "OpenLayers/Control/ArgParser.js",
-                "OpenLayers/Control/Permalink.js",
-                "OpenLayers/Control/Scale.js",
-                "OpenLayers/Control/ScaleLine.js",
-                "OpenLayers/Control/Snapping.js",
-                "OpenLayers/Control/Split.js",
-                "OpenLayers/Control/LayerSwitcher.js",
-                "OpenLayers/Control/DrawFeature.js",
-                "OpenLayers/Control/DragFeature.js",
-                "OpenLayers/Control/ModifyFeature.js",
-                "OpenLayers/Control/ModifyFeature/BySegment.js",
-                "OpenLayers/Control/Panel.js",
-                "OpenLayers/Control/SelectFeature.js",
-                "OpenLayers/Control/NavigationHistory.js",
-                "OpenLayers/Control/Measure.js",
-                "OpenLayers/Control/WMSGetFeatureInfo.js",
-                "OpenLayers/Control/WMTSGetFeatureInfo.js",
-                "OpenLayers/Control/Graticule.js",
-                "OpenLayers/Control/TransformFeature.js",
-                "OpenLayers/Control/UTFGrid.js",
-                "OpenLayers/Control/SLDSelect.js",
-                "OpenLayers/Control/Zoom.js",
-                "OpenLayers/Control/TextButtonPanel.js",
-                "OpenLayers/Geometry.js",
-                "OpenLayers/Geometry/Collection.js",
-                "OpenLayers/Geometry/Point.js",
-                "OpenLayers/Geometry/MultiPoint.js",
-                "OpenLayers/Geometry/Curve.js",
-                "OpenLayers/Geometry/LineString.js",
-                "OpenLayers/Geometry/LinearRing.js",
-                "OpenLayers/Geometry/Polygon.js",
-                "OpenLayers/Geometry/MultiLineString.js",
-                "OpenLayers/Geometry/MultiPolygon.js",
-                "OpenLayers/Renderer.js",
-                "OpenLayers/Renderer/Elements.js",
-                "OpenLayers/Renderer/SVG.js",
-                "OpenLayers/Renderer/Canvas.js",
-                "OpenLayers/Renderer/VML.js",
-                "OpenLayers/Layer/Vector.js",
-                "OpenLayers/Layer/PointGrid.js",
-                "OpenLayers/Layer/Vector/RootContainer.js",
-                "OpenLayers/Strategy.js",
-                "OpenLayers/Strategy/Filter.js",
-                "OpenLayers/Strategy/Fixed.js",
-                "OpenLayers/Strategy/Cluster.js",
-                "OpenLayers/Strategy/Paging.js",
-                "OpenLayers/Strategy/BBOX.js",
-                "OpenLayers/Strategy/Save.js",
-                "OpenLayers/Strategy/Refresh.js",
-                "OpenLayers/Filter.js",
-                "OpenLayers/Filter/FeatureId.js",
-                "OpenLayers/Filter/Logical.js",
-                "OpenLayers/Filter/Comparison.js",
-                "OpenLayers/Filter/Spatial.js",
-                "OpenLayers/Filter/Function.js",                
-                "OpenLayers/Protocol.js",
-                "OpenLayers/Protocol/HTTP.js",
-                "OpenLayers/Protocol/WFS.js",
-                "OpenLayers/Protocol/WFS/v1.js",
-                "OpenLayers/Protocol/WFS/v1_0_0.js",
-                "OpenLayers/Protocol/WFS/v1_1_0.js",
-                "OpenLayers/Protocol/WFS/v2_0_0.js",
-                "OpenLayers/Protocol/CSW.js", 
-                "OpenLayers/Protocol/CSW/v2_0_2.js",
-                "OpenLayers/Protocol/Script.js",
-                "OpenLayers/Protocol/SOS.js",
-                "OpenLayers/Protocol/SOS/v1_0_0.js",
-                "OpenLayers/Layer/PointTrack.js",
-                "OpenLayers/Style.js",
-                "OpenLayers/Style2.js",
-                "OpenLayers/StyleMap.js",
-                "OpenLayers/Rule.js",
-                "OpenLayers/Format.js",
-                "OpenLayers/Format/QueryStringFilter.js",
-                "OpenLayers/Format/XML.js",
-                "OpenLayers/Format/XML/VersionedOGC.js",
-                "OpenLayers/Format/Context.js",
-                "OpenLayers/Format/ArcXML.js",
-                "OpenLayers/Format/ArcXML/Features.js",
-                "OpenLayers/Format/GML.js",
-                "OpenLayers/Format/GML/Base.js",
-                "OpenLayers/Format/GML/v2.js",
-                "OpenLayers/Format/GML/v3.js",
-                "OpenLayers/Format/Atom.js",
-                "OpenLayers/Format/EncodedPolyline.js",
-                "OpenLayers/Format/KML.js",
-                "OpenLayers/Format/GeoRSS.js",
-                "OpenLayers/Format/WFS.js",
-                "OpenLayers/Format/OWSCommon.js",
-                "OpenLayers/Format/OWSCommon/v1.js",
-                "OpenLayers/Format/OWSCommon/v1_0_0.js",
-                "OpenLayers/Format/OWSCommon/v1_1_0.js",
-                "OpenLayers/Format/WCSCapabilities.js",
-                "OpenLayers/Format/WCSCapabilities/v1.js",
-                "OpenLayers/Format/WCSCapabilities/v1_0_0.js",
-                "OpenLayers/Format/WCSCapabilities/v1_1_0.js",
-                "OpenLayers/Format/WCSDescribeCoverage.js",
-                "OpenLayers/Format/WCSDescribeCoverage/v1.js",
-                "OpenLayers/Format/WCSDescribeCoverage/v1_0_0.js",
-                "OpenLayers/Format/WCSDescribeCoverage/v1_1_0.js",
-                "OpenLayers/Format/WFSCapabilities.js",
-                "OpenLayers/Format/WFSCapabilities/v1.js",
-                "OpenLayers/Format/WFSCapabilities/v1_0_0.js",
-                "OpenLayers/Format/WFSCapabilities/v1_1_0.js",
-                "OpenLayers/Format/WFSCapabilities/v2_0_0.js",
-                "OpenLayers/Format/WFSDescribeFeatureType.js",
-                "OpenLayers/Format/WMSDescribeLayer.js",
-                "OpenLayers/Format/WMSDescribeLayer/v1_1.js",
-                "OpenLayers/Format/WKT.js",
-                "OpenLayers/Format/CQL.js",
-                "OpenLayers/Format/OSM.js",
-                "OpenLayers/Format/GPX.js",
-                "OpenLayers/Format/Filter.js",
-                "OpenLayers/Format/Filter/v1.js",
-                "OpenLayers/Format/Filter/v2.js",
-                "OpenLayers/Format/Filter/v1_0_0.js",
-                "OpenLayers/Format/Filter/v1_1_0.js",
-                "OpenLayers/Format/Filter/v2_0_0.js",
-                "OpenLayers/Format/SLD.js",
-                "OpenLayers/Format/SLD/v1.js",
-                "OpenLayers/Format/SLD/v1_0_0.js",
-                "OpenLayers/Format/SLD/v1_0_0_GeoServer.js",
-                "OpenLayers/Format/OWSCommon.js",
-                "OpenLayers/Format/OWSCommon/v1.js",
-                "OpenLayers/Format/OWSCommon/v1_0_0.js",
-                "OpenLayers/Format/OWSCommon/v1_1_0.js",
-                "OpenLayers/Format/CSWGetDomain.js",
-                "OpenLayers/Format/CSWGetDomain/v2_0_2.js",
-                "OpenLayers/Format/CSWGetRecords.js",
-                "OpenLayers/Format/CSWGetRecords/v2_0_2.js",
-                "OpenLayers/Format/WFST.js",
-                "OpenLayers/Format/WFST/v1.js",
-                "OpenLayers/Format/WFST/v1_0_0.js",
-                "OpenLayers/Format/WFST/v1_1_0.js",
-                "OpenLayers/Format/WFST/v2_0_0.js",
-                "OpenLayers/Format/Text.js",
-                "OpenLayers/Format/JSON.js",
-                "OpenLayers/Format/GeoJSON.js",
-                "OpenLayers/Format/WMC.js",
-                "OpenLayers/Format/WMC/v1.js",
-                "OpenLayers/Format/WMC/v1_0_0.js",
-                "OpenLayers/Format/WMC/v1_1_0.js",
-                "OpenLayers/Format/WCSGetCoverage.js",
-                "OpenLayers/Format/WMSCapabilities.js",
-                "OpenLayers/Format/WMSCapabilities/v1.js",
-                "OpenLayers/Format/WMSCapabilities/v1_1.js",
-                "OpenLayers/Format/WMSCapabilities/v1_1_0.js",
-                "OpenLayers/Format/WMSCapabilities/v1_1_1.js",
-                "OpenLayers/Format/WMSCapabilities/v1_3.js",
-                "OpenLayers/Format/WMSCapabilities/v1_3_0.js",
-                "OpenLayers/Format/WMSCapabilities/v1_1_1_WMSC.js",
-                "OpenLayers/Format/WMSGetFeatureInfo.js",
-                "OpenLayers/Format/SOSCapabilities.js",
-                "OpenLayers/Format/SOSCapabilities/v1_0_0.js",
-                "OpenLayers/Format/SOSGetFeatureOfInterest.js",
-                "OpenLayers/Format/SOSGetObservation.js",
-                "OpenLayers/Format/OWSContext.js",
-                "OpenLayers/Format/OWSContext/v0_3_1.js",
-                "OpenLayers/Format/WMTSCapabilities.js",
-                "OpenLayers/Format/WMTSCapabilities/v1_0_0.js",
-                "OpenLayers/Format/WPSCapabilities.js",
-                "OpenLayers/Format/WPSCapabilities/v1_0_0.js",
-                "OpenLayers/Format/WPSDescribeProcess.js",
-                "OpenLayers/Format/WPSDescribeProcess/v1_0_0.js",
-                "OpenLayers/Format/WPSExecute.js",
-                "OpenLayers/Format/XLS.js",
-                "OpenLayers/Format/XLS/v1.js",
-                "OpenLayers/Format/XLS/v1_1_0.js",
-                "OpenLayers/Format/OGCExceptionReport.js",
-                "OpenLayers/Format/TMSCapabilities.js",
-                "OpenLayers/Control/GetFeature.js",
-                "OpenLayers/Control/NavToolbar.js",
-                "OpenLayers/Control/PanPanel.js",
-                "OpenLayers/Control/Pan.js",
-                "OpenLayers/Control/ZoomIn.js",
-                "OpenLayers/Control/ZoomOut.js",
-                "OpenLayers/Control/ZoomPanel.js",
-                "OpenLayers/Control/EditingToolbar.js",
-                "OpenLayers/Control/Geolocate.js",
-                "OpenLayers/Symbolizer.js",
-                "OpenLayers/Symbolizer/Point.js",
-                "OpenLayers/Symbolizer/Line.js",
-                "OpenLayers/Symbolizer/Polygon.js",
-                "OpenLayers/Symbolizer/Text.js",
-                "OpenLayers/Symbolizer/Raster.js",
-                "OpenLayers/Lang.js",
-                "OpenLayers/Lang/en.js",
-                "OpenLayers/Spherical.js",
-                "OpenLayers/TileManager.js",
-                "OpenLayers/WPSClient.js",
-                "OpenLayers/WPSProcess.js"
-            ]; // etc.
-        }
-
-        // use "parser-inserted scripts" for guaranteed execution order
-        // http://hsivonen.iki.fi/script-execution/
-        var scriptTags = new Array(jsFiles.length);
-        var host = OpenLayers._getScriptLocation() + "lib/";
-        for (var i=0, len=jsFiles.length; i<len; i++) {
-            scriptTags[i] = "<script src='" + host + jsFiles[i] +
-                                   "'></script>"; 
-        }
-        if (scriptTags.length > 0) {
-            document.write(scriptTags.join(""));
-        }
-    }
-})();
 
 /**
- * Constant: VERSION_NUMBER
- *
- * This constant identifies the version of OpenLayers.
- *
- * When asking questions or reporting issues, make sure to include the output of
- *     OpenLayers.VERSION_NUMBER in the question or issue-description.
+ * Constants defined with the define tag cannot be changed in application
+ * code, but can be set at compile time.
+ * Some reduce the size of the build in advanced compile mode.
  */
-OpenLayers.VERSION_NUMBER="Release 2.14 dev";
+
+
+/**
+ * @define {boolean} Assume touch.  Default is `false`.
+ */
+ol.ASSUME_TOUCH = false;
+
+
+/**
+ * TODO: rename this to something having to do with tile grids
+ * see https://github.com/openlayers/ol3/issues/2076
+ * @define {number} Default maximum zoom for default tile grids.
+ */
+ol.DEFAULT_MAX_ZOOM = 42;
+
+
+/**
+ * @define {number} Default min zoom level for the map view.  Default is `0`.
+ */
+ol.DEFAULT_MIN_ZOOM = 0;
+
+
+/**
+ * @define {number} Default maximum allowed threshold  (in pixels) for
+ *     reprojection triangulation. Default is `0.5`.
+ */
+ol.DEFAULT_RASTER_REPROJECTION_ERROR_THRESHOLD = 0.5;
+
+
+/**
+ * @define {number} Default tile size.
+ */
+ol.DEFAULT_TILE_SIZE = 256;
+
+
+/**
+ * @define {string} Default WMS version.
+ */
+ol.DEFAULT_WMS_VERSION = '1.3.0';
+
+
+/**
+ * @define {number} Hysteresis pixels.
+ */
+ol.DRAG_BOX_HYSTERESIS_PIXELS = 8;
+
+
+/**
+ * @define {boolean} Enable the Canvas renderer.  Default is `true`. Setting
+ *     this to false at compile time in advanced mode removes all code
+ *     supporting the Canvas renderer from the build.
+ */
+ol.ENABLE_CANVAS = true;
+
+
+/**
+ * @define {boolean} Enable the DOM renderer (used as a fallback where Canvas is
+ *     not available).  Default is `true`. Setting this to false at compile time
+ *     in advanced mode removes all code supporting the DOM renderer from the
+ *     build.
+ */
+ol.ENABLE_DOM = true;
+
+
+/**
+ * @define {boolean} Enable rendering of ol.layer.Image based layers.  Default
+ *     is `true`. Setting this to false at compile time in advanced mode removes
+ *     all code supporting Image layers from the build.
+ */
+ol.ENABLE_IMAGE = true;
+
+
+/**
+ * @define {boolean} Enable Closure named colors (`goog.color.names`).
+ *     Enabling these colors adds about 3KB uncompressed / 1.5KB compressed to
+ *     the final build size.  Default is `false`. This setting has no effect
+ *     with Canvas renderer, which uses its own names, whether this is true or
+ *     false.
+ */
+ol.ENABLE_NAMED_COLORS = false;
+
+
+/**
+ * @define {boolean} Enable integration with the Proj4js library.  Default is
+ *     `true`.
+ */
+ol.ENABLE_PROJ4JS = true;
+
+
+/**
+ * @define {boolean} Enable automatic reprojection of raster sources. Default is
+ *     `true`.
+ */
+ol.ENABLE_RASTER_REPROJECTION = true;
+
+
+/**
+ * @define {boolean} Enable rendering of ol.layer.Tile based layers.  Default is
+ *     `true`. Setting this to false at compile time in advanced mode removes
+ *     all code supporting Tile layers from the build.
+ */
+ol.ENABLE_TILE = true;
+
+
+/**
+ * @define {boolean} Enable rendering of ol.layer.Vector based layers.  Default
+ *     is `true`. Setting this to false at compile time in advanced mode removes
+ *     all code supporting Vector layers from the build.
+ */
+ol.ENABLE_VECTOR = true;
+
+
+/**
+ * @define {boolean} Enable rendering of ol.layer.VectorTile based layers.
+ *     Default is `true`. Setting this to false at compile time in advanced mode
+ *     removes all code supporting VectorTile layers from the build.
+ */
+ol.ENABLE_VECTOR_TILE = true;
+
+
+/**
+ * @define {boolean} Enable the WebGL renderer.  Default is `true`. Setting
+ *     this to false at compile time in advanced mode removes all code
+ *     supporting the WebGL renderer from the build.
+ */
+ol.ENABLE_WEBGL = true;
+
+
+/**
+ * @define {number} The size in pixels of the first atlas image. Default is
+ * `256`.
+ */
+ol.INITIAL_ATLAS_SIZE = 256;
+
+
+/**
+ * @define {number} The maximum size in pixels of atlas images. Default is
+ * `-1`, meaning it is not used (and `ol.WEBGL_MAX_TEXTURE_SIZE` is
+ * used instead).
+ */
+ol.MAX_ATLAS_SIZE = -1;
+
+
+/**
+ * @define {number} Maximum mouse wheel delta.
+ */
+ol.MOUSEWHEELZOOM_MAXDELTA = 1;
+
+
+/**
+ * @define {number} Mouse wheel timeout duration.
+ */
+ol.MOUSEWHEELZOOM_TIMEOUT_DURATION = 80;
+
+
+/**
+ * @define {number} Maximum width and/or height extent ratio that determines
+ * when the overview map should be zoomed out.
+ */
+ol.OVERVIEWMAP_MAX_RATIO = 0.75;
+
+
+/**
+ * @define {number} Minimum width and/or height extent ratio that determines
+ * when the overview map should be zoomed in.
+ */
+ol.OVERVIEWMAP_MIN_RATIO = 0.1;
+
+
+/**
+ * @define {number} Maximum number of source tiles for raster reprojection of
+ *     a single tile.
+ *     If too many source tiles are determined to be loaded to create a single
+ *     reprojected tile the browser can become unresponsive or even crash.
+ *     This can happen if the developer defines projections improperly and/or
+ *     with unlimited extents.
+ *     If too many tiles are required, no tiles are loaded and
+ *     `ol.TileState.ERROR` state is set. Default is `100`.
+ */
+ol.RASTER_REPROJECTION_MAX_SOURCE_TILES = 100;
+
+
+/**
+ * @define {number} Maximum number of subdivision steps during raster
+ *     reprojection triangulation. Prevents high memory usage and large
+ *     number of proj4 calls (for certain transformations and areas).
+ *     At most `2*(2^this)` triangles are created for each triangulated
+ *     extent (tile/image). Default is `10`.
+ */
+ol.RASTER_REPROJECTION_MAX_SUBDIVISION = 10;
+
+
+/**
+ * @define {number} Maximum allowed size of triangle relative to world width.
+ *     When transforming corners of world extent between certain projections,
+ *     the resulting triangulation seems to have zero error and no subdivision
+ *     is performed.
+ *     If the triangle width is more than this (relative to world width; 0-1),
+ *     subdivison is forced (up to `ol.RASTER_REPROJECTION_MAX_SUBDIVISION`).
+ *     Default is `0.25`.
+ */
+ol.RASTER_REPROJECTION_MAX_TRIANGLE_WIDTH = 0.25;
+
+
+/**
+ * @define {number} Tolerance for geometry simplification in device pixels.
+ */
+ol.SIMPLIFY_TOLERANCE = 0.5;
+
+
+/**
+ * @define {number} Texture cache high water mark.
+ */
+ol.WEBGL_TEXTURE_CACHE_HIGH_WATER_MARK = 1024;
+
+
+/**
+ * The maximum supported WebGL texture size in pixels. If WebGL is not
+ * supported, the value is set to `undefined`.
+ * @const
+ * @type {number|undefined}
+ */
+ol.WEBGL_MAX_TEXTURE_SIZE; // value is set in `ol.has`
+
+
+/**
+ * List of supported WebGL extensions.
+ * @const
+ * @type {Array.<string>}
+ */
+ol.WEBGL_EXTENSIONS; // value is set in `ol.has`
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * Usage:
+ *
+ *     function ParentClass(a, b) { }
+ *     ParentClass.prototype.foo = function(a) { }
+ *
+ *     function ChildClass(a, b, c) {
+ *       // Call parent constructor
+ *       ParentClass.call(this, a, b);
+ *     }
+ *     ol.inherits(ChildClass, ParentClass);
+ *
+ *     var child = new ChildClass('a', 'b', 'see');
+ *     child.foo(); // This works.
+ *
+ * @param {!Function} childCtor Child constructor.
+ * @param {!Function} parentCtor Parent constructor.
+ * @function
+ * @api
+ */
+ol.inherits =
+    goog.inherits;
+// note that the newline above is necessary to satisfy the linter
+
+
+/**
+ * A reusable function, used e.g. as a default for callbacks.
+ *
+ * @return {undefined} Nothing.
+ */
+ol.nullFunction = function() {};
 $(function() {
 
     //Handel user layout settings using cookie
