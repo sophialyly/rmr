@@ -1,0 +1,12 @@
+#map {
+      height: 700px;
+      width: 900px;
+      background-color: red
+    }
+
+.leaflet-map-pane {
+	z-index: 2 !important;
+}
+.leaflet-google-layer{
+	z-index: 1 !important;
+}

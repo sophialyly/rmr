@@ -1,0 +1,64 @@
+{
+  "exports": ["*"],
+  "umd": true,
+  "src": ["src/**/*.js"],
+  "ignoreRequires": "^ol\\.",
+  "compile": {
+    "externs": [
+      "node_modules/openlayers/build/ol-externs.js",
+      "node_modules/openlayers/externs/esrijson.js",
+      "node_modules/openlayers/externs/proj4js.js",
+      "node_modules/openlayers/externs/tilejson.js",
+      "externs/olgmx.js",
+      "externs/google_maps_api_v3_21.js"
+    ],
+    "define": [
+      "goog.DEBUG=true"
+    ],
+    "js": [
+    ],
+    "jscomp_error": [
+      "accessControls",
+      "ambiguousFunctionDecl",
+      "checkDebuggerStatement",
+      "checkEventfulObjectDisposal",
+      "checkProvides",
+      "checkRegExp",
+      "checkStructDictInheritance",
+      "checkVars",
+      "checkTypes",
+      "const",
+      "constantProperty",
+      "deprecated",
+      "duplicate",
+      "duplicateMessage",
+      "es3",
+      "externsValidation",
+      "fileoverviewTags",
+      "globalThis",
+      "internetExplorerChecks",
+      "invalidCasts",
+      "misplacedTypeAnnotation",
+      "missingProperties",
+      "nonStandardJsDocs",
+      "strictModuleDepCheck",
+      "suspiciousCode",
+      "typeInvalidation",
+      "tweakValidation",
+      "undefinedNames",
+      "undefinedVars",
+      "unknownDefines",
+      "uselessCode",
+      "violatedModuleDep",
+      "visibility"
+    ],
+    "extra_annotation_name": [
+      "api", "observable"
+    ],
+    "compilation_level": "ADVANCED_OPTIMIZATIONS",
+    "warning_level": "VERBOSE",
+    "use_types_for_optimization": true,
+    "create_source_map": "dist/ol3gm.js.map",
+    "source_map_format": "V3"
+  }
+}

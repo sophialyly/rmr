@@ -17,8 +17,10 @@
     <body>
 
         <div id="map" class="map"></div>
-
+        
+        
         <script src="../../../javascripts/javascript-unit-test-openlayers3.js" type="text/javascript"></script>
+        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
 
     </body>
 </html>

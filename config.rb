@@ -187,6 +187,8 @@ configure :build do
   ignore '/helper/jquery-validation/*'
   ignore '/helper/bootstrap-datepicker-thai/*'
   ignore '/helper/Abban-jQuery-Picture/*'
+  ignore '/helper/openlayers/*'
+  ignore '/helper/ol3-google-maps/*'
 
 
   ignore '/src/app/*'
