@@ -1,0 +1,23 @@
+	var rtu = L.marker([13.708189, 100.599608], {draggable: true}) 
+			  // .addTo(map)
+              .bindPopup("<b>MWA</b><br>I’m here!")
+              .openPopup();
+
+        rtu.on('dragend',function(ev){
+        	var chagedPos = ev.target.getLatLng();
+        	console.log("dragend" + chagedPos);
+
+        	
+        	var coord=ev.target.getLatLng().toString().split(',');
+        	var lat=coord[0].split('(');
+        	var long=coord[1].split(')');
+        	console.log("you clicked the map at LAT: "+ lat[1]+" and LONG:"+long[0])
+        });
+
+        rtu.on('click', function(ev) {
+        	var chagedPos = ev.target.getLatLng();
+        	console.log("click" + chagedPos);
+        });
+
+
+    var rtus = L.layerGroup([rtu]);

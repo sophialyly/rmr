@@ -1,0 +1,35 @@
+LeafLet_onMapClick: function (e) {
+    // console.log('LeafLet_onMapClick');
+
+    var marker = L.marker(e.latlng, {
+                    draggable: true,
+                    title: "Resource location",
+                    alt: "Resource Location",
+                    riseOnHover: true
+                    })
+                .addTo(map)
+                .bindPopup(e.latlng.toString()).openPopup();
+
+    // Update marker on changing it's position
+    marker.on("dragend", function (ev) {
+        var chagedPos = ev.target.getLatLng();
+        this.bindPopup(chagedPos.toString()).openPopup();
+    });
+
+
+    if(myMarkers_group === false) {
+        myMarkers_group = L.layerGroup()
+                           .addLayer(marker);
+        map.addLayer(myMarkers_group);          // checked in controls
+    } else {
+        myMarkers_group.addLayer(marker);
+    }
+
+
+    if(layerControl === false) {  // var layerControl set to false in init phase; 
+        layerControl = L.control.layers().addTo(map);
+    }
+
+    layerControl.addOverlay(myMarkers_group , "มาร์คเกอร์");
+
+},

@@ -1,0 +1,19 @@
+	var planesArr = [];
+	var planes = [ ["7C6B07", 13.708310, 100.599614],
+	                ["7C6B38", 13.708349, 100.599464],
+	                ["7C6CA1", 13.708698, 100.598831],
+	                ["7C6CA2", 13.709435, 100.598874],
+	                ["C81D9D", 13.710139, 100.599475]
+	             ];
+
+	var tmpMarker;
+	for (var i = 0; i < planes.length; i++) {
+			tmpMarker = new L.marker([planes[i][1],planes[i][2]])
+	                      .bindPopup(planes[i][0])
+	                      // .addTo(map);
+	        planesArr.push(tmpMarker)
+	}
+
+	var planes_group = L.layerGroup(planesArr);
+
+    map.addLayer(planes_group);

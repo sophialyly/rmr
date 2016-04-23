@@ -1,0 +1,19 @@
+    // Using multiple tile layers on your map
+    var osmLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>', 
+    	thunLink = '<a href="http://thunderforest.com/">Thunderforest</a>';
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		osmAttrib = '&copy; ' + osmLink + ' Contributors',
+		landUrl = 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', 
+		thunAttrib = '&copy; '+osmLink+' Contributors & '+thunLink;
+
+	var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib, minZoom: 0, maxZoom: 18}),
+		landMap = L.tileLayer(landUrl, {attribution: thunAttrib, minZoom: 0, maxZoom: 16});
+
+    var googleRoadmapLayer = new L.Google('ROADMAP', {attribution: 'การประปานครหลวง', minZoom: 0, maxZoom: 20});
+    // map.addLayer(googleRoadmapLayer);
+
+    var googleSatelliteLayer = new L.Google('SATELLITE', {attribution: 'การประปานครหลวง', minZoom: 0, maxZoom: 20});
+    // map.addLayer(googleSatelliteLayer);
+
+    var googleHybridLayer = new L.Google('HYBRID', {attribution: 'การประปานครหลวง', minZoom: 0, maxZoom: 20});
+    // map.addLayer(googleHybridLayer);

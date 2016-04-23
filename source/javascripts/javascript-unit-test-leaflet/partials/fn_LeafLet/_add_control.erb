@@ -1,0 +1,18 @@
+    var baseMaps = {
+        "ROADMAP": googleRoadmapLayer,
+        "SATELLITE" : googleSatelliteLayer,
+        "HYBRID" : googleHybridLayer,
+        "OSM Mapnik": osmMap,
+        "Landscape": landMap
+    };
+
+    var overlayMaps = {
+    	"RTU": rtus,
+    	"Plane": planes_group
+    };
+
+    // L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    if(layerControl === false) {  // var layerControl set to false in init phase; 
+        layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+    }

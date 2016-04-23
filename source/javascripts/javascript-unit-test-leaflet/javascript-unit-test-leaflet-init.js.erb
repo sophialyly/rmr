@@ -6,6 +6,8 @@
 
     // Map Object
     var map = null;
+    var layerControl = false;
+    var myMarkers_group = false;
 
 
 
@@ -21,6 +23,8 @@
 
         // LeafLet
         <%= partial js_dir + "/javascript-unit-test-leaflet/partials/_fn_LeafLet" %>
+        // LeafLet, adding marker on map click
+        <%= partial js_dir + "/javascript-unit-test-leaflet/partials/_fn_LeafLet_onMapClick" %>
         // Apps
         <%= partial js_dir + "/javascript-unit-test-leaflet/partials/_fn_Apps" %>
 
