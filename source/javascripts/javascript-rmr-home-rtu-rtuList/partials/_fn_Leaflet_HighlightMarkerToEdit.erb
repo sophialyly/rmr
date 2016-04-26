@@ -1,0 +1,30 @@
+HighlightMarkerToEdit: function () {
+    // console.log('HighlightMarkerToEdit');
+
+
+    if (tmpAddMarker) {
+    	map.removeLayer(tmpAddMarker);
+    	tmpAddMarker = null;
+
+    	map.addControl(drawControl);
+    }
+
+    if (editing == false) {
+
+        tmpMarker = currentMarker;
+        currentMarker.setIcon(rtuEditingMarker);
+        editing = true;
+
+    } else {
+
+        if (tmpMarker) {
+            tmpMarker.setIcon(rtuNormalMarker);
+        }
+
+        tmpMarker = currentMarker;
+        currentMarker.setIcon(rtuEditingMarker);
+
+    } 
+
+
+},

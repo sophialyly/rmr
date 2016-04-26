@@ -1,0 +1,19 @@
+Leaflet_FullScreen: function () {
+    // console.log('Leaflet_FullScreen');
+
+    L.Control.Fullscreen // A fullscreen button. Or use the `{fullscreenControl: true}` option when creating L.Map.
+
+    // `fullscreenchange` Event that's fired when entering or exiting fullscreen.
+	map.on('fullscreenchange', function () {
+	    if (map.isFullscreen()) {
+	        // console.log('entered fullscreen');
+	    } else {
+	        // console.log('exited fullscreen');
+	    }
+	});
+
+	// map.isFullscreen() // Is the map fullscreen?
+	// map.toggleFullscreen() // Either go fullscreen, or cancel the existing fullscreen.
+
+    
+},

@@ -9,7 +9,8 @@
         "aferrandini/phpqrcode": "1.0.1",
         "tuupola/slim-jwt-auth": "*",
         "tuupola/slim-basic-auth": "*",
-        "proj4php/proj4php": "*"
+        "proj4php/proj4php": "*",
+        "jmikola/geojson": "^1.0"
     },
     "config" : {
         "vendor-dir" : "./source/packages"

@@ -8,6 +8,29 @@
 
     // Map Object
     var map = null;
+    // Leaflet Layers control
+    var layerControl = false;
+    // Leaflet Layers
+    var rtuGroup = false;
+    var rtuGeojsonLayer = false;
+    // Leaflet Info Box
+    var infobox = false;
+    var draggable = false;
+
+    var searchBox = false;
+
+    var rtuEditingMarker = null;
+    var rtuNormalMarker = null;
+
+    // Temporty 
+    var editing = false;
+    var currentMarker = null;
+    var tmpMarker = null;
+    var tmpAddMarker = null;
+    var drawControl = false;
+    // var markerMap = {}; //a global variable unless you extend L.GeoJSON
+
+
     //Layers
     var geolocateLayer = null;
     var waterBranchLayer = null;
@@ -27,19 +50,27 @@
         // Launch Functions
         Launch: function () {
             fn.GetToken();
-            fn.FormWizard();
+            // fn.FormWizard();
             fn.MainRtuDataTable();
             fn.ChosenBootstrap();
+            fn.Leaflet_ExtraMarkers();
+            fn.Leaflet();
             fn.Apps();
         },
 
         // Chosen-bootstrap
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_chosenBootstrap" %>
-        // OpenLayers
-        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_OpenLayers" %>
-        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addBaseMap" %>
-        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addWmtsLayer" %>
-        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_addWmsLayer" %>
+        // Leaflet
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_AddRtuLayer" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_AddInfoBox" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_SearchInfoBox" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_DrawControl" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_ZoomBox" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_FullScreen" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_ExtraMarkers" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_HighlightMarkerToEdit" %>
+        <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Leaflet_ResetMarkerToDefault" %>
         // Routers
         <%= partial "javascript-rmr-home-rtu-rtuList/partials/_fn_Routers" %>
         // Form Wizard

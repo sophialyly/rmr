@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>The Middleman</title>
+
+    <link href="../../../../stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="../../../../stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
+  </head>
+
+  <body class="packages packages_jmikola packages_jmikola_geojson packages_jmikola_geojson_docs packages_jmikola_geojson_docs_index">
+    <h1 id="geojson-php-library">GeoJson PHP Library</h1>
+
+<p>This library implements the
+<a href="http://www.geojson.org/geojson-spec.html">GeoJSON format specification</a>.</p>
+
+<p>The <code>GeoJson</code> namespace includes classes for each data structure defined in the
+GeoJSON specification. Core GeoJSON objects include geometries, features, and
+collections. Geometries range from primitive points to more complex polygons.
+Classes also exist for bounding boxes and coordinate reference systems.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>The library is published as a
+<a href="https://packagist.org/packages/jmikola/geojson">package</a> and is installable via
+<a href="http://getcomposer.org/">Composer</a>:</p>
+
+<p><code>
+$ composer require "jmikola/geojson=^1.0"
+</code></p>
+
+<h2 id="api-documentation">API Documentation</h2>
+
+<p>API documentation may be found <a href="./api">here</a>.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>Classes in this library are immutable.</p>
+
+<h3 id="geojson-constructors">GeoJson Constructors</h3>
+
+<p>Geometry objects are constructed using a single coordinates array. This may be
+a tuple in the case of a <code>Point</code>, an array of tuples for a <code>LineString</code>, etc.
+Constructors for each class will validate the coordinates array and throw an
+<code>InvalidArgumentException</code> on error.</p>
+
+<p>More primitive geometry objects may also be used for constructing complex
+objects. For instance, a <code>LineString</code> may be constructed from an array of
+<code>Point</code> objects.</p>
+
+<p>Feature objects are constructed from a geometry object, associative properties
+array, and an identifier, all of which are optional.</p>
+
+<p>Feature and geometry collection objects are constructed from an array of their
+respective types.</p>
+
+<h4 id="specifying-a-bounding-box-or-crs">Specifying a Bounding Box or CRS</h4>
+
+<p>All GeoJson constructors support <code>BoundingBox</code> and <code>CoordinateReferenceSystem</code>
+objects as optional arguments beyond those explicitly listed in their prototype.
+These objects may appear in any order <em>after</em> the explicit arguments.</p>
+
+<p><code>php
+$crs = new \GeoJson\CoordinateReferenceSystem\Named('urn:ogc:def:crs:OGC:1.3:CRS84');
+$box = new \GeoJson\BoundingBox([-180, -90, 180, 90]);
+$point = new \GeoJson\Geometry\Point([0, 0], $crs, $box);
+</code></p>
+
+<p>Note that the <code>Feature</code> class is unique in that it has three arguments, all with
+default values. In order to construct a <code>Feature</code> with a bounding box or CRS,
+all three arguments must be explicitly listed (e.g. with <code>null</code> placeholders).</p>
+
+<p><code>php
+$box = new \GeoJson\BoundingBox([-180, -90, 180, 90]);
+$feature = new \GeoJson\Feature\Feature(null, null, null, $box);
+</code></p>
+
+<h3 id="json-serialization">JSON Serialization</h3>
+
+<p>Each class in the library implements PHP 5.4's
+<a href="http://php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>
+interface, which allows objects to be passed directly to <code>json_encode()</code>.</p>
+
+<p><code>php
+$point = new \GeoJson\Geometry\Point([1, 1]);
+$json = json_encode($point);
+</code></p>
+
+<p>Printing the <code>$json</code> variable would yield (sans whitespace):</p>
+
+<p><code>json
+{
+    "type": "Point",
+    "coordinates": [1, 1]
+}
+</code></p>
+
+<p>A stub interface is included for compatibility with PHP 5.3, although lack of
+core support for the interface means that <code>jsonSerialize()</code> will need to be
+manually called and its return value passed to <code>json_encode()</code>.</p>
+
+<h3 id="json-unserialization">JSON Unserialization</h3>
+
+<p>The core <code>GeoJson</code> class implements an internal <code>JsonUnserializable</code> interface,
+which defines a static factory method, <code>jsonUnserialize()</code>, that can be used to
+create objects from the return value of <code>json_decode()</code>.</p>
+
+<p><code>php
+$json = '{ "type": "Point", "coordinates": [1, 1] }';
+$json = json_decode($json);
+$point = \GeoJson\GeoJson::jsonUnserialize($json);
+</code></p>
+
+<p>If errors are encountered during unserialization, an <code>UnserializationException</code>
+will be thrown by <code>jsonUnserialize()</code>. Possible errors include:</p>
+
+<ul>
+  <li>Missing properties (e.g. <code>type</code> is not present)</li>
+  <li>Unexpected values (e.g. <code>coordinates</code> property is not an array)</li>
+  <li>Unsupported <code>type</code> string when parsing a GeoJson object or CRS</li>
+</ul>
+
+  </body>
+</html>

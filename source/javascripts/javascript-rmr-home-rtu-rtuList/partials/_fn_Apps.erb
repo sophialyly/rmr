@@ -19,11 +19,19 @@
             });
 
             $('#sidebar-collapse').click(function () {
-                fn.OpenLayers();
+                // console.log('sidebar-collapse clicked!!!');
+                if(map){
+                    map.invalidateSize()
+                }
             });
 
             $('#sync-data').click(function () {
                 fn.SyncData();
+            });
+
+            $('#refresh-data').click(function () {
+                console.log('Refresh Data');
+                mainRtuDataTable.ajax.reload();
             });
 
         }

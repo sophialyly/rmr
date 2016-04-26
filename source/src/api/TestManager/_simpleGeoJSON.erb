@@ -1,0 +1,69 @@
+    /**
+     *
+     * @apiName SimpleGeoJSON
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /testManager/simpleGeoJSON/ Simple GeoJSON
+     * @apiDescription คำอธิบาย : ทดสอบสร้าง GeoJSON
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function simpleGeoJSON($app) {
+
+        // $point = new \GeoJson\Geometry\Point([1, 1]);
+        // $multiPoint = new \GeoJson\Geometry\MultiPoint([ [100.0, 0.0], [101.0, 1.0] ]);
+        // $json = json_encode($multiPoint);
+        // echo $json;
+
+        $features = array();
+
+        $id1 = 1;
+        $point1 = new \GeoJson\Geometry\Point([1, 1]);
+        $properties1 = array("name" => "Belgium", "density"=>  "356.0", "population" => "10753080");
+        $feature1 = new \GeoJson\Feature\Feature($point1, $properties1, $id1, null);
+
+        $id2 = 2;
+        $point2 = new \GeoJson\Geometry\Point([1, 1]);
+        $properties2 = array("name" => "Belgium", "density"=>  "68.3", "population" => "7606551");
+        $feature2 = new \GeoJson\Feature\Feature($point2, $properties2, $id2, null);
+
+        $id3 = 3;
+        <%= partial "/TestManager/partials/simpleGeoJSON/_var_myMultiPolygon" %>
+        $multiPolygon = new \GeoJson\Geometry\MultiPolygon($myMultiPolygon);
+        $properties3 = array("name" => "Belgium", "density"=>  "68.3", "population" => "7606551");
+        $feature3 = new \GeoJson\Feature\Feature($multiPolygon, $properties3, $id3, null);
+
+        $features[] = $feature1;
+        $features[] = $feature2;
+        $features[] = $feature3;
+
+        $featureCollection = new \GeoJson\Feature\FeatureCollection($features);
+        $json = json_encode($featureCollection);
+        echo $json;
+
+
+        // $return_m = array("msg" => "สวัสดี");
+
+        // $app->response()->header("Content-Type", "application/json");
+        // echo json_encode($return_m);
+    };

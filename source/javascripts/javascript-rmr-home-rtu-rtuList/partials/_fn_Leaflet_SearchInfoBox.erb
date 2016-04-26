@@ -1,0 +1,47 @@
+Leaflet_SearchInfoBox: function () {
+    // console.log('Leaflet_SearchInfoBox');
+
+        searchBox = L.control({
+            position: 'bottomright'
+        });
+
+        searchBox.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'searchBox'); // create a div with a class "searchBox"
+            this._div = L.DomUtil.create('div', 'row searchBox'); // create a div with a class "row"
+            this.refresh();
+            return this._div;
+        };
+
+        searchBox.refresh = function (properties) {
+            this._div.innerHTML = '<h4>ระบบบริหารจัดการตำแหน่ง RTU</h4>';
+            this._div.innerHTML += '<hr/>';
+
+            $("#searchForm").appendTo( $(this._div) );
+
+        };
+        searchBox.addTo(map);
+
+
+        // Disable dragging when user's cursor enters the element
+        searchBox.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        searchBox.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+        });
+
+        $(".searchBox").draggable();
+    
+},

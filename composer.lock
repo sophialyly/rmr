@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0ccac9dd4795372ecb6b98d332911779",
-    "content-hash": "28112fcbbd4e7763b9ba7486d832b086",
+    "hash": "c9ae5450fab29b33612d574af83d8e9f",
+    "content-hash": "0362609566d03ad3042904683e0b9ca7",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -189,6 +189,59 @@
             "time": "2014-11-20 16:49:30"
         },
         {
+            "name": "jmikola/geojson",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jmikola/geojson.git",
+                "reference": "6ec3016cc0215667b7775f6ead7bd0337ad66eee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jmikola/geojson/zipball/6ec3016cc0215667b7775f6ead7bd0337ad66eee",
+                "reference": "6ec3016cc0215667b7775f6ead7bd0337ad66eee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "GeoJson\\": "src/"
+                },
+                "classmap": [
+                    "stubs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                }
+            ],
+            "description": "GeoJSON implementation for PHP",
+            "homepage": "https://github.com/jmikola/geojson",
+            "keywords": [
+                "geo",
+                "geojson",
+                "geospatial"
+            ],
+            "time": "2015-09-27 15:35:21"
+        },
+        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "dev-master",
             "source": {
@@ -198,7 +251,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/27941c623d90ddef14411a710a66bcb86e156989",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/401707007eccd30b43730007e994f3ac1e0fe50c",
                 "reference": "27941c623d90ddef14411a710a66bcb86e156989",
                 "shasum": ""
             },

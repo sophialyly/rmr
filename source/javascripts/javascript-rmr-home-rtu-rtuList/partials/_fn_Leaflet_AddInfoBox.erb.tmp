@@ -1,0 +1,297 @@
+Leaflet_AddInfoBox: function () {
+    // console.log('Leaflet_AddInfoBox');
+
+        infobox = L.control({
+            position: 'bottomright'
+        });
+
+        //infobox.draggable.enable
+
+        infobox.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this._div = L.DomUtil.create('div', 'row info'); // create a div with a class "row"
+            this.refresh();
+            return this._div;
+        };
+
+        infobox.refresh = function (properties) {
+            this._div.innerHTML = '<h4>ระบบบริหารจัดการตำแหน่ง RTU</h4>';
+            this._div.innerHTML += '<hr/>';
+
+            // this._div.innerHTML += '<div class="col-md-3 " id="map-form-content">';
+            // this._div.innerHTML += '<div class="form-group">';
+            // this._div.innerHTML += '<label class="col-sm-3 col-lg-4 control-label">Logger Code : </label>';
+            // this._div.innerHTML += '<div class="col-sm-9 col-lg-8 controls">';
+            // this._div.innerHTML += '<input class="form-control" type="text" placeholder="Readonly input here..." disabled />';
+            // this._div.innerHTML += '</div>';
+            // this._div.innerHTML += '</div>';
+            // this._div.innerHTML += '</div>';
+
+            if (typeof (properties) != 'undefined') {
+                // this._div.innerHTML += '<b>' + properties.dm + '</b><br/>';
+
+                // this._div.innerHTML += '<form action="#" class="form-horizontal" id="validation-form" method="post">';
+
+                // this._div.innerHTML += '<div class="form-group" >';
+                // this._div.innerHTML += '<label for="exampleInputPassword1" class="pull-left">DM</label>';
+                // this._div.innerHTML += '<input type="email" width="250px" class="form-control pull-right" id="exampleInputEmail1" placeholder="DM" style="width: 250px!important" value="'+properties.dm+'">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group" >';
+                // this._div.innerHTML += '<label for="exampleInputPassword1" class="pull-left">DMA</label>';
+                // this._div.innerHTML += '<input type="email" class="form-control pull-right" id="exampleInputEmail1" placeholder="DMA" style="width: 250px!important">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group" >';
+                // this._div.innerHTML += '<label for="exampleInputPassword1" class="pull-left">DMA</label>';
+                // this._div.innerHTML += '<input type="email" class="form-control pull-right" id="exampleInputEmail1" placeholder="DMA" style="width: 250px!important">';
+                // this._div.innerHTML += '</div>';
+
+
+                // this._div.innerHTML += '<div class="form-group" >';
+                // this._div.innerHTML += '<div class="input-group">';
+                // this._div.innerHTML += '<div class="input-group-addon pull-left" style="width: 20%!important">DM</div>';
+                // this._div.innerHTML += '<input type="text" class="form-control pull-right" id="exampleInputAmount" placeholder="Amount" style="width: 80%!important">';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group" >';
+                // this._div.innerHTML += '<button type="button" class="btn pull-left" style="width: 20%!important">DM : </button>';
+                // this._div.innerHTML += '<input type="email" class="form-control pull-right" id="exampleInputEmail1" placeholder="DMA" style="width: 80%!important">';
+                // this._div.innerHTML += '</div>';
+
+
+                // this._div.innerHTML += '<div class="form-group" >';
+                // this._div.innerHTML += '<input type="submit" class="btn btn-primary pull-left" value="Submit" style="width: 150px!important"><button type="button" class="btn pull-right" style="width: 150px!important">Cancel</button>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '</form>';
+
+
+                // $("#map-form-content").appendTo( $(this._div) );
+
+                $("#jForm1").appendTo( $(this._div) );
+
+
+
+
+
+                // this._div.innerHTML += '<form action="demo_form.asp">';
+                // this._div.innerHTML += 'First name: <input type="text" name="FirstName" value="Mickey"><br>';
+                // this._div.innerHTML += 'Last name: <input type="text" name="LastName" value="Mouse"><br>';
+                // this._div.innerHTML += '<input type="submit" value="Submit">';
+                // this._div.innerHTML += '</form>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="select" class="col-sm-3 col-lg-2 control-label">Select</label>';
+                // this._div.innerHTML += '<div class="col-sm-6 col-lg-4 controls">';
+                // this._div.innerHTML += '<select class="form-control" name="select" id="select" >';
+                // this._div.innerHTML += '<option value="">-- Please select --</option>';
+                // this._div.innerHTML += '<option value="1">Option-1</option>';
+                // this._div.innerHTML += '<option value="2">Option-2</option>';
+                // this._div.innerHTML += '<option value="3">Option-3</option>';
+                // this._div.innerHTML += '<option value="4">Option-4</option>';
+                // this._div.innerHTML += '<option value="5">Option-5</option>';
+                // this._div.innerHTML += '<option value="6">Option-6</option>';
+                // this._div.innerHTML += '<option value="7">Option-7</option>';
+                // this._div.innerHTML += '<option value="8">Option-8</option>';
+                // this._div.innerHTML += '<option value="9">Option-9</option>';
+                // this._div.innerHTML += '<option value="10">Option-10</option>';
+                // this._div.innerHTML += '</select>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+
+
+                // this._div.innerHTML += '<form class="form-labels-on-top" method="post" action="#">';
+
+                // this._div.innerHTML += '<div class="form-title-row">';
+                // this._div.innerHTML += '<h1>Form Example</h1>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-row">';
+                // this._div.innerHTML += '<label>';
+                // this._div.innerHTML += '<span>Full name</span>';
+                // this._div.innerHTML += '<input type="text" name="name">';
+                // this._div.innerHTML += '</label>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-row">';
+                // this._div.innerHTML += '<label>';
+                // this._div.innerHTML += '<span>Email</span>';
+                // this._div.innerHTML += '<input type="email" name="email">';
+                // this._div.innerHTML += '</label>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-row">';
+                // this._div.innerHTML += '<button type="submit">Submit Form</button>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '</form>';
+
+
+                
+                // this._div.innerHTML += '<div class="col-md-12">';
+                // this._div.innerHTML += '<div class="row">';
+                // this._div.innerHTML += '<div class="col-md-4">';
+                // this._div.innerHTML += '<div class="panel panel-default">';
+                // this._div.innerHTML += '<h4 class="panel-title">Panel title</h4>';
+                // this._div.innerHTML += '<div class="panel-heading">';
+                // this._div.innerHTML += '<div class="panel-body">';
+                // this._div.innerHTML += 'This is default bootstrap 3 panel';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                
+                
+                // this._div.innerHTML += '<form><input id="command" type="checkbox"/>command</form>';
+                
+                
+
+                // this._div.innerHTML += '<div class="form-group shiny-input-container">';
+                // this._div.innerHTML += '<label class="control-label" for="size">Size</label>';
+                // this._div.innerHTML += '<div>';
+                // this._div.innerHTML += '<select id="size" tabindex="-1" class="selectized shiny-bound-input" style="display: none;"><option value="adultpop" selected="selected"></option></select><div class="selectize-control single"><div class="selectize-input items full has-options has-items"><div data-value="adultpop" class="item">Population</div><input type="text" autocomplete="off" tabindex="" style="width: 4px;"></div><div class="selectize-dropdown single" style="display: none;"><div class="selectize-dropdown-content"></div></div></div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="shiny-input-container col-md-12">';
+                // this._div.innerHTML += '<form action="#" class="form-vertical">';
+                // this._div.innerHTML += '<div class="row">';
+                // // this._div.innerHTML += '';
+                // this._div.innerHTML += '<div class="col-md-12">';
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label class="col-sm-3 col-lg-4 control-label">DM : </label>';
+                // this._div.innerHTML += '<div class="col-sm-9 col-lg-8 controls">';
+                // this._div.innerHTML += '<input class="form-control" type="text" placeholder="Readonly input here..." disabled value="' + properties.dm + '" />';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</form>';
+                // this._div.innerHTML += '</div>';
+            } else {
+                // this._div.innerHTML += '<b>การประปานครหลวง</b>';
+
+
+                // this._div.innerHTML += '<form role="form">';
+                // this._div.innerHTML += '<fieldset>';
+                // this._div.innerHTML += '<legend>Legend</legend>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">DM : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="DM">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">DMA : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="DMA">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">IP Address : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="IP Address">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">Logger Code : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Logger Code">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">Location : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Location">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">(Lat, Lng) : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="(Lat, Lng)">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="exampleInputEmail1">Remark : </label>';
+                // this._div.innerHTML += '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Remark">';
+                // this._div.innerHTML += '</div>';
+
+                // this._div.innerHTML += '</fieldset>';
+                // this._div.innerHTML += '</form>';
+
+
+
+
+                // this._div.innerHTML += '<form class="form-horizontal">';
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="inputEmail3" class="col-sm-2 control-label">Email</label>';
+                // this._div.innerHTML += '<div class="col-sm-10">';
+                // this._div.innerHTML += '<input type="email" class="form-control" id="inputEmail3" placeholder="Email">';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<label for="inputPassword3" class="col-sm-2 control-label">Password</label>';
+                // this._div.innerHTML += '<div class="col-sm-10">';
+                // this._div.innerHTML += '<input type="password" class="form-control" id="inputPassword3" placeholder="Password">';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<div class="col-sm-offset-2 col-sm-10">';
+                // this._div.innerHTML += '<div class="checkbox">';
+                // this._div.innerHTML += '<label>';
+                // this._div.innerHTML += '<input type="checkbox"> Remember me';
+                // this._div.innerHTML += '</label>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '<div class="form-group">';
+                // this._div.innerHTML += '<div class="col-sm-offset-2 col-sm-10">';
+                // this._div.innerHTML += '<button type="submit" class="btn btn-default">Sign in</button>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</div>';
+                // this._div.innerHTML += '</form>';
+
+                // $(this._div).($("#jForm").html());
+
+                $("#jForm2").appendTo( $(this._div) );
+
+
+                // this._div.innerHTML += '<input type="email" class="form-control" id="exampleInputEmail1" placeholder="DM">';
+                // this._div.innerHTML += '<input type="email" class="form-control" id="exampleInputEmail1" placeholder="DMA">';
+            }
+
+            // $('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
+        };
+        infobox.addTo(map);
+        
+        // draggable = new L.Draggable(infobox.getContainer());
+        // draggable.enable();
+
+
+
+        // Disable dragging when user's cursor enters the element
+        infobox.getContainer().addEventListener('mouseover', function () {
+            // map.dragging.disable();
+
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        infobox.getContainer().addEventListener('mouseout', function () {
+            // map.dragging.enable();
+
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+        });
+
+        $(".info").draggable();
+
+},

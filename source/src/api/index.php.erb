@@ -87,6 +87,7 @@ layout: "layout-api"
     <%= partial "/TestManager/_login" %>
     <%= partial "/TestManager/_token" %>
     $app->post('/testManager/transformToLatLng/',function() use ($app, $proj4) { transformToLatLng($app, $proj4); });
+    $app->get('/testManager/simpleGeoJSON/',function() use ($app) { simpleGeoJSON($app); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
@@ -107,6 +108,7 @@ layout: "layout-api"
     $app->post('/rtuManager/addNewRTU/',function() use ($app, $pdo, $db, $conn_db2, $key) { addNewRTU($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
+    $app->get('/rtuManager/rtuLocationGeoJSON/',function() use ($app, $pdo, $db, $key) { rtuLocationGeoJSON($app, $pdo, $db, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -120,6 +122,7 @@ layout: "layout-api"
     /* Test Manager Partial */
     <%= partial "/TestManager/_getMsg" %>
     <%= partial "/TestManager/_transformToLatLng" %>
+    <%= partial "/TestManager/_simpleGeoJSON" %>
 
     /* Login Manager Partial */
     <%= partial "/LoginManager/_checkUserPassword" %>
@@ -140,6 +143,7 @@ layout: "layout-api"
     <%= partial "/RtuManager/_addNewRTU" %>
     <%= partial "/RtuManager/_syncRTUFromWLMA" %>
     <%= partial "/RtuManager/_updateLatLngFromFile" %>
+    <%= partial "/RtuManager/_rtuLocationGeoJSON" %>
     
     
 ?>

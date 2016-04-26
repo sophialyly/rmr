@@ -281,7 +281,7 @@ session_start(); //start session.
                     <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
                 </div>
                 <div class="btn-group">
-                    <a class="btn btn-circle show-tooltip" title="Refresh" id="AttendeeParticipateEventDataTable_btnRefresh" href="#"><i class="fa fa-repeat"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Refresh" id="refresh-data" href="#"><i class="fa fa-repeat"></i></a>
                 </div>
             </div>
 
@@ -333,97 +333,111 @@ session_start(); //start session.
                 </div>
             </div>
             <div class="box-content" >
-                <form action="#" class="form-horizontal">
+                <form action="#" class="form-horizontal" >
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <!-- BEGIN Left Side -->
                         <div class="col-md-12" id="map"></div>
                         <!-- END Left Side -->
-                    </div>
-                    <div class="col-md-3 " id="map-form-content">
-                        <!-- BEGIN Right Side -->
-                        <div class="form-group">
-                             <label class="col-sm-3 col-lg-4 control-label">ค้นหา : </label>
-                             <div class="col-sm-9 col-lg-8 controls">
-                              <label class="radio-inline">
-                                  <input type="radio" name="optionsRadios2" value="option1" /> ฐานข้อมูล RTU
-                              </label>
-                              <label class="radio-inline">
-                                  <input type="radio" name="optionsRadios2" value="option2" checked /> Google
-                              </label> 
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 col-lg-4 control-label"></label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <select class="form-control chosen" data-placeholder="Choose a Category" tabindex="1">
-                                    <option value=""> </option>
-                                    <option value="Category 1">Category 1</option>
-                                    <option value="Category 2">Category 2</option>
-                                    <option value="Category 3">Category 5</option>
-                                    <option value="Category 4">Category 4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group">
-                          <label class="col-sm-3 col-lg-4 control-label">DM : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
-                           </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 col-lg-4 control-label">DMA : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
-                           </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 col-lg-4 control-label">IP : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
-                           </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 col-lg-4 control-label">Logger Code : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <input class="form-control" type="text" placeholder="Readonly input here..." disabled />
-                           </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 col-lg-4 control-label">Location : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <textarea class="form-control" rows="3" disabled></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 col-lg-4 control-label">(Lat, Lng) : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <input class="form-control col-md-5" type="text" data-mask="(0.0000000, 0.0000000)" placeholder="">
-                                <span class="help-inline">(Latitude, Longitude)</span> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 col-lg-4 control-label">Remark : </label>
-                            <div class="col-sm-9 col-lg-8 controls">
-                                <textarea class="form-control" rows="3"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group" id="map-form-submit-content">
-                            <div class="col-sm-9 col-sm-offset-3 col-lg-7 col-lg-offset-5">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-                                <button type="button" class="btn">Cancel</button>
-                            </div>
-                        </div>
-                        <!-- END Right Side -->
                     </div>
                 </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="row" id="rtuSearchForm" style="display:none">
+      <div class="col-sm-12">
+              <form action="#" class="form-horizontal" id="" method="post">
+
+                  <div class="form-group form-group-sm">
+                     <label class="col-sm-3 control-label">ค้นหา:</label>
+                     <div class="col-sm-9 controls">
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadios2" value="option1" /> ฐานข้อมูล
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadios2" value="option2" checked /> Google
+                        </label> 
+                     </div>
+                  </div>
+
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 controls">
+                          <select class="form-control chosen" data-placeholder="เลือกรายการ" tabindex="1">
+                              <option value=""> </option>
+                              <option value="Category 1">Category 1</option>
+                              <option value="Category 2">Category 2</option>
+                              <option value="Category 3">Category 5</option>
+                              <option value="Category 4">Category 4</option>
+                          </select>
+                      </div>
+                  </div>
+
+              </form>
+      </div>
+    </div>
+
+    <div class="row" id="rtuAddForm" style="display:none">
+      <div class="col-sm-12">
+              <form action="#" class="form-horizontal" id="" method="post">
+                  <div class="form-group form-group-sm">
+                      <label class="col-sm-3 control-label" for="username">DM:</label>
+                      <div class="col-sm-9 controls">
+                          <input type="text" name="dm" id="dm" class="form-control" />
+                      </div>
+                  </div>
+
+                  <div class="form-group form-group-sm">
+                      <label class="col-sm-3 control-label" for="username">DMA:</label>
+                      <div class="col-sm-9 controls">
+                          <input type="text" name="dma" id="dma" class="form-control" />
+                      </div>
+                  </div>
+
+                  <div class="form-group form-group-sm">
+                      <label class="col-sm-3 control-label" for="username">IP:</label>
+                      <div class="col-sm-9 controls">
+                          <input type="text" name="dma" id="dma" class="form-control" />
+                      </div>
+                  </div> 
+                  <div class="form-group form-group-sm">
+                      <label class="col-sm-3 control-label" for="username">Location:</label>
+                      <div class="col-sm-9 controls">
+                          <textarea class="form-control" rows="3" disabled></textarea>
+                      </div>
+                  </div>
+
+                  <div class="form-group form-group-sm">
+                      <label class="col-sm-3 control-label" for="username">ค่าพิกัด:</label>
+                      <div class="col-sm-9 controls">
+                          <input type="text" name="dma" id="dma" class="form-control" data-mask="(0.0000000, 0.0000000)"/>
+                          <span class="help-inline">(Latitude, Longitude)</span>
+                      </div>
+                  </div>
+
+                  <div class="form-group form-group-sm">
+                      <label class="col-sm-3 control-label" for="username">หมายเหตุ:</label>
+                      <div class="col-sm-9 controls">
+                          <textarea class="form-control" rows="3"></textarea>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <div class="col-sm-9 col-sm-offset-3">
+                          <input type="submit" class="btn btn-primary" value="บันทึกข้อมูล">
+                          <!-- <button type="button btn-primary" class="btn">บันทึกข้อมูล</button> -->
+                          <button type="button" class="btn">ยกเลิก</button>
+                      </div>
+                  </div>
+
+              </form>
+      </div>
+  </div>
 </div>
+
+
 
 
 			    	
@@ -438,8 +452,9 @@ session_start(); //start session.
         <!-- END Container -->
         
 
-        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
         <script src="../../../../../javascripts/javascript-rmr-home-rtu-rtuList.js" type="text/javascript"></script>
+        <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+        <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
 
     </body>
 </html>

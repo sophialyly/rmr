@@ -1,0 +1,22 @@
+Leaflet_ExtraMarkers: function () {
+    // console.log('Leaflet_ExtraMarkers');
+
+	// Creates a red marker with the coffee icon
+  rtuNormalMarker = L.ExtraMarkers.icon({
+    icon: 'fa-floppy-o',
+    markerColor: 'green-light',
+    shape: 'circle',
+    prefix: 'fa',
+    // innerHTML: 'RTU'
+  });
+
+ // L.marker([51.941196,4.512291], {icon: rtuEditingMarker,}).addTo(map);
+
+rtuEditingMarker = L.ExtraMarkers.icon({
+        icon: 'fa-pencil-square-o',
+        markerColor: 'red',
+        shape: 'circle',
+        prefix: 'fa'
+      });
+    
+},

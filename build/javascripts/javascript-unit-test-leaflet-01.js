@@ -17684,140 +17684,140 @@ $(function() {
         LeafLet: function () {
     console.log('LeafLet');
 
- map = L.map('map', {
-                center: [56.8, 10.4],
-                zoom: 3
-            });
-            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-            
+    map = L.map('map', {
+        center: [56.8, 10.4],
+        zoom: 3
+    });
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    
 
 
-            var infobox = L.control({
-                position: 'bottomright'
-            });
-            infobox.onAdd = function (e) {
-                this._div = L.DomUtil.create('div', 'info');
-                this.refresh();
-                return this._div;
+    var infobox = L.control({
+        position: 'bottomright'
+    });
+    infobox.onAdd = function (e) {
+        this._div = L.DomUtil.create('div', 'info');
+        this.refresh();
+        return this._div;
+    };
+    infobox.refresh = function (properties) {
+        this._div.innerHTML = '<h4>Europe Population Density 2009</h4>';
+        if (typeof (properties) != 'undefined') {
+            this._div.innerHTML += '<b>' + properties.name + '</b><br/>' + 'Population: ' + properties.population + '<br/>' + 'Density: ' + properties.density + '<br/>' + '<b>Click to zoom.</b>';
+        } else {
+            this._div.innerHTML += '<b>Hover a country.</b>';
+        }
+    };
+    infobox.addTo(map);
+
+    var densitythresholds = [
+        [0, 'rgb(237, 248, 233)'],
+        [40, 'rgb(186, 228, 179)'],
+        [100, 'rgb(116, 196, 118)'],
+        [200, 'rgb( 49, 163,  84)'],
+        [300, 'rgb(  0, 109,  44)']
+    ];
+    var populationthresholds = [
+        [0, 'rgb(239, 243, 255)'],
+        [40000, 'rgb(189, 215, 231)'],
+        [1000000, 'rgb(107, 174, 214)'],
+        [10000000, 'rgb( 49, 130, 189)'],
+        [50000000, 'rgb(  8,  81, 156)']
+    ];
+
+    var colorByThresholds = function (thresholds, value) {
+        for (var i = 0; i < thresholds.length - 1; i++) {
+            if (value < thresholds[i + 1][0])
+                return thresholds[i][1];
+        }
+        return thresholds[thresholds.length - 1][1];
+    };
+
+    var legendbox = L.control({
+        position: 'bottomleft'
+    });
+    legendbox.onAdd = function (e) {
+        this._div = L.DomUtil.create('div', 'info legend');
+        var innerHTML = '<table><tr>';
+        innerHTML += '<td>Population:</td>';
+        for (var i = 0; i < populationthresholds.length; i++) {
+            innerHTML += '<td style="background: ' + colorByThresholds(populationthresholds, populationthresholds[i][0]) + '">' + populationthresholds[i][0] + (typeof (populationthresholds[i + 1]) != 'undefined' ? '-' + populationthresholds[i + 1][0] : '+') + '</td>';
+        }
+        innerHTML += '</tr><tr><td>Density:</td>';
+        for (var i = 0; i < densitythresholds.length; i++) {
+            innerHTML += '<td style="background: ' + colorByThresholds(densitythresholds, densitythresholds[i][0]) + '">' + densitythresholds[i][0] + (typeof (densitythresholds[i + 1]) != 'undefined' ? '-' + densitythresholds[i + 1][0] : '+') + '</td>';
+        }
+        innerHTML += '</tr></table>';
+        this._div.innerHTML = innerHTML;
+        return this._div;
+    };
+    legendbox.addTo(map);
+
+    var densitylayer = L.geoJson(europe, {
+        style: function (feature) {
+            var density = feature.properties.density;
+            return {
+                fillColor: colorByThresholds(densitythresholds, density),
+                fillOpacity: 0.75,
+                weight: 1,
+                color: 'black'
             };
-            infobox.refresh = function (properties) {
-                this._div.innerHTML = '<h4>Europe Population Density 2009</h4>';
-                if (typeof (properties) != 'undefined') {
-                    this._div.innerHTML += '<b>' + properties.name + '</b><br/>' + 'Population: ' + properties.population + '<br/>' + 'Density: ' + properties.density + '<br/>' + '<b>Click to zoom.</b>';
-                } else {
-                    this._div.innerHTML += '<b>Hover a country.</b>';
-                }
-            };
-            infobox.addTo(map);
-
-            var densitythresholds = [
-                [0, 'rgb(237, 248, 233)'],
-                [40, 'rgb(186, 228, 179)'],
-                [100, 'rgb(116, 196, 118)'],
-                [200, 'rgb( 49, 163,  84)'],
-                [300, 'rgb(  0, 109,  44)']
-            ];
-            var populationthresholds = [
-                [0, 'rgb(239, 243, 255)'],
-                [40000, 'rgb(189, 215, 231)'],
-                [1000000, 'rgb(107, 174, 214)'],
-                [10000000, 'rgb( 49, 130, 189)'],
-                [50000000, 'rgb(  8,  81, 156)']
-            ];
-
-            var colorByThresholds = function (thresholds, value) {
-                for (var i = 0; i < thresholds.length - 1; i++) {
-                    if (value < thresholds[i + 1][0])
-                        return thresholds[i][1];
-                }
-                return thresholds[thresholds.length - 1][1];
-            };
-
-            var legendbox = L.control({
-                position: 'bottomleft'
-            });
-            legendbox.onAdd = function (e) {
-                this._div = L.DomUtil.create('div', 'info legend');
-                var innerHTML = '<table><tr>';
-                innerHTML += '<td>Population:</td>';
-                for (var i = 0; i < populationthresholds.length; i++) {
-                    innerHTML += '<td style="background: ' + colorByThresholds(populationthresholds, populationthresholds[i][0]) + '">' + populationthresholds[i][0] + (typeof (populationthresholds[i + 1]) != 'undefined' ? '-' + populationthresholds[i + 1][0] : '+') + '</td>';
-                }
-                innerHTML += '</tr><tr><td>Density:</td>';
-                for (var i = 0; i < densitythresholds.length; i++) {
-                    innerHTML += '<td style="background: ' + colorByThresholds(densitythresholds, densitythresholds[i][0]) + '">' + densitythresholds[i][0] + (typeof (densitythresholds[i + 1]) != 'undefined' ? '-' + densitythresholds[i + 1][0] : '+') + '</td>';
-                }
-                innerHTML += '</tr></table>';
-                this._div.innerHTML = innerHTML;
-                return this._div;
-            };
-            legendbox.addTo(map);
-
-            var densitylayer = L.geoJson(europe, {
-                style: function (feature) {
-                    var density = feature.properties.density;
-                    return {
-                        fillColor: colorByThresholds(densitythresholds, density),
-                        fillOpacity: 0.75,
-                        weight: 1,
-                        color: 'black'
-                    };
-                },
-                onEachFeature: function (feature, layer) {
-                    layer.on({
-                        'mousemove': function (e) {
-                            e.target.setStyle({
-                                weight: 4
-                            });
-                            infobox.refresh(feature.properties);
-                        },
-                        'mouseout': function (e) {
-                            densitylayer.resetStyle(e.target);
-                            infobox.refresh();
-                        },
-                        'click': function (e) {
-                            map.fitBounds(e.target.getBounds());
-                        }
+        },
+        onEachFeature: function (feature, layer) {
+            layer.on({
+                'mousemove': function (e) {
+                    e.target.setStyle({
+                        weight: 4
                     });
+                    infobox.refresh(feature.properties);
+                },
+                'mouseout': function (e) {
+                    densitylayer.resetStyle(e.target);
+                    infobox.refresh();
+                },
+                'click': function (e) {
+                    map.fitBounds(e.target.getBounds());
                 }
             });
+        }
+    });
 
-            var populationlayer = L.geoJson(europe, {
-                style: function (feature) {
-                    var population = feature.properties.population;
-                    return {
-                        fillColor: colorByThresholds(populationthresholds, population),
-                        fillOpacity: 0.75,
-                        weight: 1,
-                        color: 'black'
-                    };
-                },
-                onEachFeature: function (feature, layer) {
-                    layer.on({
-                        'mousemove': function (e) {
-                            e.target.setStyle({
-                                weight: 4
-                            });
-                            infobox.refresh(feature.properties);
-                        },
-                        'mouseout': function (e) {
-                            populationlayer.resetStyle(e.target);
-                            infobox.refresh();
-                        },
-                        'click': function (e) {
-                            map.fitBounds(e.target.getBounds());
-                        }
+    var populationlayer = L.geoJson(europe, {
+        style: function (feature) {
+            var population = feature.properties.population;
+            return {
+                fillColor: colorByThresholds(populationthresholds, population),
+                fillOpacity: 0.75,
+                weight: 1,
+                color: 'black'
+            };
+        },
+        onEachFeature: function (feature, layer) {
+            layer.on({
+                'mousemove': function (e) {
+                    e.target.setStyle({
+                        weight: 4
                     });
+                    infobox.refresh(feature.properties);
+                },
+                'mouseout': function (e) {
+                    populationlayer.resetStyle(e.target);
+                    infobox.refresh();
+                },
+                'click': function (e) {
+                    map.fitBounds(e.target.getBounds());
                 }
-            }).addTo(map);
-            L.control.layers({
-                'Density': densitylayer,
-                'Population': populationlayer
-            }).addTo(map);
+            });
+        }
+    }).addTo(map);
+    L.control.layers({
+        'Density': densitylayer,
+        'Population': populationlayer
+    }).addTo(map);
 
-            map.attributionControl.addAttribution('&copy; <a href="http://epp.eurostat.ec.europa.eu/portal/page/portal/eurostat/home/">Eurostat</a>');
+    map.attributionControl.addAttribution('&copy; <a href="http://epp.eurostat.ec.europa.eu/portal/page/portal/eurostat/home/">Eurostat</a>');
 
 },
 

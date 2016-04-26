@@ -213,6 +213,7 @@ session_start(); //start session.
 
     });
     $app->post('/testManager/transformToLatLng/',function() use ($app, $proj4) { transformToLatLng($app, $proj4); });
+    $app->get('/testManager/simpleGeoJSON/',function() use ($app) { simpleGeoJSON($app); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
@@ -233,6 +234,7 @@ session_start(); //start session.
     $app->post('/rtuManager/addNewRTU/',function() use ($app, $pdo, $db, $conn_db2, $key) { addNewRTU($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
+    $app->get('/rtuManager/rtuLocationGeoJSON/',function() use ($app, $pdo, $db, $key) { rtuLocationGeoJSON($app, $pdo, $db, $key); });
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -366,6 +368,485 @@ session_start(); //start session.
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($return_m);
+    };
+        /**
+     *
+     * @apiName SimpleGeoJSON
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /testManager/simpleGeoJSON/ Simple GeoJSON
+     * @apiDescription คำอธิบาย : ทดสอบสร้าง GeoJSON
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function simpleGeoJSON($app) {
+
+        // $point = new \GeoJson\Geometry\Point([1, 1]);
+        // $multiPoint = new \GeoJson\Geometry\MultiPoint([ [100.0, 0.0], [101.0, 1.0] ]);
+        // $json = json_encode($multiPoint);
+        // echo $json;
+
+        $features = array();
+
+        $id1 = 1;
+        $point1 = new \GeoJson\Geometry\Point([1, 1]);
+        $properties1 = array("name" => "Belgium", "density"=>  "356.0", "population" => "10753080");
+        $feature1 = new \GeoJson\Feature\Feature($point1, $properties1, $id1, null);
+
+        $id2 = 2;
+        $point2 = new \GeoJson\Geometry\Point([1, 1]);
+        $properties2 = array("name" => "Belgium", "density"=>  "68.3", "population" => "7606551");
+        $feature2 = new \GeoJson\Feature\Feature($point2, $properties2, $id2, null);
+
+        $id3 = 3;
+        $myMultiPolygon = [
+                    [
+                      [
+                        [
+                          3.370646,
+                          51.375549
+                        ],
+                        [
+                          3.363889,
+                          51.313599
+                        ],
+                        [
+                          3.439166,
+                          51.244431
+                        ],
+                        [
+                          3.524166,
+                          51.250542
+                        ],
+                        [
+                          3.524722,
+                          51.288319
+                        ],
+                        [
+                          3.793055,
+                          51.261929
+                        ],
+                        [
+                          3.806388,
+                          51.216930
+                        ],
+                        [
+                          3.957222,
+                          51.216091
+                        ],
+                        [
+                          4.214999,
+                          51.330269
+                        ],
+                        [
+                          4.230012,
+                          51.357220
+                        ],
+                        [
+                          4.293888,
+                          51.306381
+                        ],
+                        [
+                          4.236443,
+                          51.368771
+                        ],
+                        [
+                          4.239443,
+                          51.374149
+                        ],
+                        [
+                          4.413054,
+                          51.358040
+                        ],
+                        [
+                          4.437777,
+                          51.375259
+                        ],
+                        [
+                          4.396667,
+                          51.416931
+                        ],
+                        [
+                          4.411666,
+                          51.456928
+                        ],
+                        [
+                          4.549443,
+                          51.482761
+                        ],
+                        [
+                          4.541944,
+                          51.426651
+                        ],
+                        [
+                          4.671665,
+                          51.427479
+                        ],
+                        [
+                          4.769166,
+                          51.502769
+                        ],
+                        [
+                          4.825832,
+                          51.492210
+                        ],
+                        [
+                          4.844722,
+                          51.461369
+                        ],
+                        [
+                          4.816387,
+                          51.425541
+                        ],
+                        [
+                          4.782777,
+                          51.414700
+                        ],
+                        [
+                          4.940276,
+                          51.401371
+                        ],
+                        [
+                          5.041388,
+                          51.486649
+                        ],
+                        [
+                          5.104444,
+                          51.434978
+                        ],
+                        [
+                          5.077222,
+                          51.395260
+                        ],
+                        [
+                          5.143888,
+                          51.318600
+                        ],
+                        [
+                          5.237499,
+                          51.308319
+                        ],
+                        [
+                          5.238888,
+                          51.262211
+                        ],
+                        [
+                          5.457777,
+                          51.280540
+                        ],
+                        [
+                          5.855465,
+                          51.147820
+                        ],
+                        [
+                          5.802776,
+                          51.093319
+                        ],
+                        [
+                          5.775832,
+                          51.021099
+                        ],
+                        [
+                          5.722776,
+                          50.965260
+                        ],
+                        [
+                          5.759166,
+                          50.949150
+                        ],
+                        [
+                          5.683742,
+                          50.882191
+                        ],
+                        [
+                          5.698609,
+                          50.757771
+                        ],
+                        [
+                          6.008407,
+                          50.756069
+                        ],
+                        [
+                          6.028610,
+                          50.715820
+                        ],
+                        [
+                          6.108333,
+                          50.723309
+                        ],
+                        [
+                          6.171388,
+                          50.623871
+                        ],
+                        [
+                          6.268610,
+                          50.623600
+                        ],
+                        [
+                          6.200832,
+                          50.516380
+                        ],
+                        [
+                          6.366387,
+                          50.452209
+                        ],
+                        [
+                          6.400277,
+                          50.329151
+                        ],
+                        [
+                          6.173332,
+                          50.232479
+                        ],
+                        [
+                          6.131833,
+                          50.125530
+                        ],
+                        [
+                          6.106943,
+                          50.167759
+                        ],
+                        [
+                          5.980000,
+                          50.172211
+                        ],
+                        [
+                          5.819721,
+                          50.009708
+                        ],
+                        [
+                          5.808332,
+                          49.961102
+                        ],
+                        [
+                          5.731111,
+                          49.894150
+                        ],
+                        [
+                          5.753333,
+                          49.849152
+                        ],
+                        [
+                          5.746666,
+                          49.795269
+                        ],
+                        [
+                          5.820555,
+                          49.749149
+                        ],
+                        [
+                          5.899166,
+                          49.662762
+                        ],
+                        [
+                          5.839999,
+                          49.552212
+                        ],
+                        [
+                          5.783038,
+                          49.527271
+                        ],
+                        [
+                          5.705208,
+                          49.535229
+                        ],
+                        [
+                          5.473055,
+                          49.506100
+                        ],
+                        [
+                          5.423332,
+                          49.609150
+                        ],
+                        [
+                          5.307221,
+                          49.630810
+                        ],
+                        [
+                          5.329721,
+                          49.659981
+                        ],
+                        [
+                          5.276111,
+                          49.698589
+                        ],
+                        [
+                          5.216944,
+                          49.690540
+                        ],
+                        [
+                          5.097777,
+                          49.768589
+                        ],
+                        [
+                          4.858054,
+                          49.796379
+                        ],
+                        [
+                          4.881110,
+                          49.914700
+                        ],
+                        [
+                          4.800832,
+                          49.977760
+                        ],
+                        [
+                          4.851943,
+                          50.079430
+                        ],
+                        [
+                          4.876388,
+                          50.154980
+                        ],
+                        [
+                          4.757500,
+                          50.129429
+                        ],
+                        [
+                          4.673610,
+                          49.996380
+                        ],
+                        [
+                          4.458333,
+                          49.938591
+                        ],
+                        [
+                          4.168332,
+                          49.981369
+                        ],
+                        [
+                          4.150000,
+                          49.986370
+                        ],
+                        [
+                          4.226388,
+                          50.081100
+                        ],
+                        [
+                          4.137777,
+                          50.137760
+                        ],
+                        [
+                          4.216110,
+                          50.265270
+                        ],
+                        [
+                          4.090833,
+                          50.314430
+                        ],
+                        [
+                          3.763611,
+                          50.351929
+                        ],
+                        [
+                          3.725277,
+                          50.313599
+                        ],
+                        [
+                          3.671944,
+                          50.346371
+                        ],
+                        [
+                          3.668889,
+                          50.444149
+                        ],
+                        [
+                          3.602222,
+                          50.497211
+                        ],
+                        [
+                          3.367222,
+                          50.495541
+                        ],
+                        [
+                          3.280000,
+                          50.538319
+                        ],
+                        [
+                          3.281388,
+                          50.594151
+                        ],
+                        [
+                          3.193333,
+                          50.741371
+                        ],
+                        [
+                          3.113055,
+                          50.793320
+                        ],
+                        [
+                          3.035277,
+                          50.773869
+                        ],
+                        [
+                          2.901285,
+                          50.697048
+                        ],
+                        [
+                          2.781944,
+                          50.755550
+                        ],
+                        [
+                          2.629444,
+                          50.824711
+                        ],
+                        [
+                          2.612500,
+                          50.887211
+                        ],
+                        [
+                          2.541667,
+                          51.091099
+                        ],
+                        [
+                          2.971666,
+                          51.257488
+                        ],
+                        [
+                          3.370646,
+                          51.375549
+                        ]
+                      ]
+                    ]
+                  ];
+
+        $multiPolygon = new \GeoJson\Geometry\MultiPolygon($myMultiPolygon);
+        $properties3 = array("name" => "Belgium", "density"=>  "68.3", "population" => "7606551");
+        $feature3 = new \GeoJson\Feature\Feature($multiPolygon, $properties3, $id3, null);
+
+        $features[] = $feature1;
+        $features[] = $feature2;
+        $features[] = $feature3;
+
+        $featureCollection = new \GeoJson\Feature\FeatureCollection($features);
+        $json = json_encode($featureCollection);
+        echo $json;
+
+
+        // $return_m = array("msg" => "สวัสดี");
+
+        // $app->response()->header("Content-Type", "application/json");
+        // echo json_encode($return_m);
     };
 
     /* Login Manager Partial */
@@ -2083,6 +2564,105 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
+
+    };
+        /**
+     *
+     * @apiName RtuLocationGeoJSON
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/rtuLocationGeoJSON/ RTU Location GeoJSON
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่แสดงรายการตำแหน่ง RTU ในรูปแบบ GeoJSON
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function rtuLocationGeoJSON($app, $pdo, $db, $key) {
+
+
+        $myBranchCode = "";
+
+        /* ************************* */
+        /* เริ่มกระบวนการ Extract the jwt from the Header or Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            // $jwt = "";
+
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
+            $authHeader = $request->headers('authorization');
+            list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+            $myBranchCode = $app->jwt->information->branchCode;
+
+        } else {
+            /*** Extract the jwt from Session ***/
+            $jwt = $_SESSION['jwt'];
+
+            $token = JWT::decode($jwt, $key, array('HS256'));
+            $myBranchCode = $token->information->branchCode;
+        }
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+        $features = array();
+
+        if ($myBranchCode != "ALL") {
+            $results = $db->rtu_main_tb->where("branch_code = ? and rtu_status = 1", $myBranchCode)->order("dm_code ASC");
+        } else {
+            $results = $db->rtu_main_tb->where("rtu_status = 1")->order("dm_code ASC");
+        }
+        
+        foreach ($results as $result) {
+
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
+
+
+            $tmpID = $result["id"];
+            $tmpPoint = new \GeoJson\Geometry\Point([ floatval($result_rtu_pin_code["lat"]), floatval($result_rtu_pin_code["lng"])]);
+            $tmpProperties = array("dm" => $result["dm_code"], 
+                                   "dma"=>  $result["dm_code"], 
+                                   "branch" => $result["branch_code"],
+                                   "zone" => $result["zone_code"],
+                                   "ip_address" => $result["ip_address"],
+                                   "logger_code" => $result["logger_code"],
+                                   "location" => $result_rtu_pin_code["location"],
+                                   "remark" => $result["remark"]);
+            $tmpFeature = new \GeoJson\Feature\Feature($tmpPoint, $tmpProperties, $tmpID, null);
+
+            $features[] = $tmpFeature;
+
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+
+        $featureCollection = new \GeoJson\Feature\FeatureCollection($features);
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($featureCollection);
+
 
     };
     

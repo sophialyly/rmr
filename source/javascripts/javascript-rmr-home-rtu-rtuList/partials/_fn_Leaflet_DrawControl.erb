@@ -1,0 +1,113 @@
+Leaflet_DrawControl: function () {
+    // console.log('Leaflet_DrawControl');
+
+    var LeafIcon = L.Icon.extend({
+           options: {
+            shadowUrl: 
+                'http://leafletjs.com/docs/images/leaf-shadow.png',
+            iconSize:     [38, 95],
+            shadowSize:   [50, 64],
+            iconAnchor:   [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor:  [-3, -76]
+           }
+        });
+
+    var greenIcon = new LeafIcon({
+            iconUrl: 'http://leafletjs.com/docs/images/leaf-green.png'
+        });
+
+
+
+
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    drawControl = new L.Control.Draw({
+        // position: ‘topright’,
+        draw: {
+            // polyline: {
+            //     metric: true
+            // },
+            // polygon: {
+            //     allowIntersection: false,
+            //     showArea: true,
+            //     drawError: {
+            //         color: ‘#b00b00′,
+            //         timeout: 1000
+            //     },
+            //     shapeOptions: {
+            //          color: ‘#bada55′
+
+            //    }
+
+            // },
+            polyline: false,
+            polygon: false,
+            rectangle: false,
+            circle: false,
+            // marker: true
+            marker: {
+               icon: rtuEditingMarker
+            }
+
+        },
+        edit: false,
+        // edit: {
+        //     featureGroup: drawnItems,
+        //     remove: false
+        // }
+    });
+    map.addControl(drawControl);
+
+    map.on('draw:created', function (e) {
+        var type = e.layerType;
+        // var layer = e.layer;
+
+        // if (type === 'marker') {
+        //     // Do marker specific actions
+        //     // console.log(layer);
+        //     layer.bindPopup('A popup!');
+        //     layer.options.draggable = true;
+
+        //     fn.ResetMarkerToDefault();
+            
+ 
+        // }
+        // drawnItems.addLayer(layer);
+
+        // console.log(e);
+
+        if (!tmpAddMarker) {
+            tmpAddMarker = e.layer;
+
+            if (type === 'marker') {
+                // Do marker specific actions
+                // console.log(layer);
+                tmpAddMarker.bindPopup('A popup!');
+                tmpAddMarker.options.draggable = true;
+
+                fn.ResetMarkerToDefault();
+            }
+            drawnItems.addLayer(tmpAddMarker);
+
+            // console.log(drawControl);
+            map.removeControl(drawControl);
+
+        } else {
+
+            // if (tmpAddMarker) {
+            //     map.removeLayer(tmpAddMarker);
+            //     tmpAddMarker = null;
+            // }
+
+
+        }
+
+
+    });
+  
+    
+},
+
+

@@ -8,7 +8,16 @@
                     // $('#canvas-rtuInformation-formWizard').fadeIn(300);
                     $('#canvas-rtuInformation-mapBox').fadeIn(300);
 
-                    fn.OpenLayers();
+                    // fn.OpenLayers();
+                    // fn.Leaflet();
+
+                    //$('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
+
+                    // $('#map').height($('#main-content').height() - $('#main-content > .page-title').height() - $('#main-content > div > div > .breadcrumb').height() );
+
+                    $('#map').height($(window).height() - $('#main-content > .page-title').height() - 200 );
+
+                    // console.log($('#main-content > .page-title').height());
 
                     if (canvasID == 'add') {
                         fn.BreadcrumbShow('เพิ่มข้อมูล RTU');

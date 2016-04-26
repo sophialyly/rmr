@@ -1,0 +1,43 @@
+ResetMarkerToDefault: function () {
+    // console.log('ResetMarkerToDefault');
+
+    // console.log(rtuGeojsonLayer);
+
+ //    rtuGeojsonLayer.eachLayer(function(layer){
+	//     // console.log(layer.feature.properties.dm);
+
+	//     layer.setIcon(rtuNormalMarker);
+
+	// });
+
+	// console.log('editing is ' + editing)
+
+	// if (editing) {
+		
+	// 	tmpMarker.setIcon(rtuEditingMarker);
+
+	// 	console.log('tmpMarker ' + tmpMarker);
+	// } 
+
+	// map.layers[668].setIcon(rtuEditingMarker);
+
+	// console.log(map.layers);
+
+    // if (editing) {
+    	// tmpMarker.setIcon(rtuEditingMarker);
+    // }
+	
+
+    if (editing == true) {
+    	if (tmpMarker) {
+    		tmpMarker.setIcon(rtuNormalMarker);
+    		tmpMarker.closePopup();
+    	}
+    	editing = false;
+    }
+
+
+
+
+
+},

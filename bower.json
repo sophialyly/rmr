@@ -55,6 +55,11 @@
     "pubnub": "^3.14.1",
     "pubnub-angular": "^3.1.1",
     "offline.js": "^1.0.1",
-    "OpenLayers": "^3.15.1"
+    "OpenLayers": "^3.15.1",
+    "leaflet-draw": "^0.3.0",
+    "Leaflet.ZoomBox": "^0.2.0",
+    "leaflet-fullscreen": "leaflet-fullscreen-bower#^1.0.1",
+    "Leaflet.extra-markers": "^1.0.6",
+    "semantic": "semantic-ui#^2.1.8"
   }
 }
