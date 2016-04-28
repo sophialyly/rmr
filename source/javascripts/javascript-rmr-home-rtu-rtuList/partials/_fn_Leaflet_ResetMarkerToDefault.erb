@@ -32,7 +32,11 @@ ResetMarkerToDefault: function () {
     	if (tmpMarker) {
     		tmpMarker.setIcon(rtuNormalMarker);
     		tmpMarker.closePopup();
+    		$(".info").hide();
     	}
+
+        fn.ToggleFormInfo();
+        
     	editing = false;
     }
 

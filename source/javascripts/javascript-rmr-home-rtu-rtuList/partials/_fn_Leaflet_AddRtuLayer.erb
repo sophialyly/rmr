@@ -23,7 +23,10 @@ Leaflet_AddRtuLayer: function () {
                     layer.on({
                         'click': function (e) {
                             // map.setView(e.target.getLatLng(),15);
-                            infobox.refresh(feature.properties);
+                            
+                            // infobox.showControl(feature.properties);
+
+
 
                             // console.log('rtuGeojsonLayer ');
                             // console.log(rtuGeojsonLayer);
@@ -56,8 +59,7 @@ Leaflet_AddRtuLayer: function () {
 
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
-
-
+                            
 
                             // else {
                             //     tmpMarker = e.target;

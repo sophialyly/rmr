@@ -69,6 +69,7 @@ Leaflet: function () {
     	}
     });
 
+    // map.dragging.disable();
 
     map.on('click', function(){
         fn.ResetMarkerToDefault();
@@ -78,7 +79,7 @@ Leaflet: function () {
     fn.Leaflet_AddRtuLayer();
     fn.Leaflet_AddInfoBox();
     fn.Leaflet_ZoomBox();
-    // fn.Leaflet_SearchInfoBox();
+    fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
     
     

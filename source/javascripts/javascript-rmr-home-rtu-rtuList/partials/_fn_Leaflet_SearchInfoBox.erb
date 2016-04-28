@@ -2,7 +2,7 @@ Leaflet_SearchInfoBox: function () {
     // console.log('Leaflet_SearchInfoBox');
 
         searchBox = L.control({
-            position: 'bottomright'
+            position: 'bottomleft'
         });
 
         searchBox.onAdd = function (e) {
@@ -16,7 +16,8 @@ Leaflet_SearchInfoBox: function () {
             this._div.innerHTML = '<h4>ระบบบริหารจัดการตำแหน่ง RTU</h4>';
             this._div.innerHTML += '<hr/>';
 
-            $("#searchForm").appendTo( $(this._div) );
+            $("#rtuSearchForm").show();
+            $("#rtuSearchForm").appendTo( $(this._div) );
 
         };
         searchBox.addTo(map);

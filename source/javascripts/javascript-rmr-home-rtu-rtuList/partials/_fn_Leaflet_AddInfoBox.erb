@@ -8,6 +8,8 @@ Leaflet_AddInfoBox: function () {
             // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
             this._div = L.DomUtil.create('div', 'row info'); // create a div with a class "row"
             this.refresh();
+            this.showControl();
+            this.hideControl();
             return this._div;
         };
 
@@ -15,22 +17,46 @@ Leaflet_AddInfoBox: function () {
             this._div.innerHTML = '<h4>ระบบบริหารจัดการตำแหน่ง RTU</h4>';
             this._div.innerHTML += '<hr/>';
 
-            console.log(properties);
+            // console.log(properties);
 
-            if (typeof (properties) != 'undefined') {
-                $("#rtuAddForm").show();
-                // $("#rtuSearchForm").hide();
-                $("#rtuAddForm").appendTo( $(this._div) );
+            // if (typeof (properties) != 'undefined') {
+            //     $("#rtuAddForm").show();
+            //     // $("#rtuSearchForm").hide();
+            //     $("#rtuAddForm").appendTo( $(this._div) );
 
-                // console.log('not undefined');
-            } else {
-                // $("#rtuAddForm").hide();
-                $("#rtuSearchForm").show();
-                $("#rtuSearchForm").appendTo( $(this._div) );
+            //     // console.log('not undefined');
+            // } else {
+            //     // $("#rtuAddForm").hide();
+            //     $("#rtuSearchForm").show();
+            //     $("#rtuSearchForm").appendTo( $(this._div) );
 
-                // console.log('undefined');
-            }
+            //     // console.log('undefined');
+            // }
+
+         
+            $("#rtuAddForm").show();
+            $("#rtuAddForm").appendTo( $(this._div) );
+      
+
         };
+
+        infobox.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(infobox);
+            $(".info").show();
+
+        };
+
+        infobox.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".info").hide();
+
+        };
+
         infobox.addTo(map);
 
         // Disable dragging when user's cursor enters the element
@@ -54,4 +80,5 @@ Leaflet_AddInfoBox: function () {
         });
 
         $(".info").draggable();
+        $(".info").hide();
 },
