@@ -1,0 +1,20 @@
+Leaflet_AddDMALayer: function () {
+    // console.log('Leaflet_AddDMALayer');
+    
+// var art = L.esri.dynamicMapLayer("http://coagisweb.cabq.gov/arcgis/re st/services/public/PublicArt/MapServer").addTo(map);
+
+// var graffiti =  L.esri.featureLayer('http://services.arcgis.com/rOo16HdIMeOBI4Mb/ArcGIS/rest/services/Graffiti_Locations3/FeatureServer/0', {
+//    pointToLayer: function (geojson, latlng, feature) {
+//       return L.marker(latlng);
+//     },
+//   }).addTo(map);
+
+
+var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Portland_Parks/FeatureServer/0", {
+       style: function () {
+          return { color: "#70ca49", weight: 2 };
+        }
+      }).addTo(map);
+
+
+},

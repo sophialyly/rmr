@@ -14,7 +14,7 @@ Leaflet_AddInfoBox: function () {
         };
 
         infobox.refresh = function (properties) {
-            this._div.innerHTML = '<h4>ระบบบริหารจัดการตำแหน่ง RTU</h4>';
+            this._div.innerHTML = '<h4>RTU Information</h4>';
             this._div.innerHTML += '<hr/>';
 
             // console.log(properties);
@@ -67,6 +67,10 @@ Leaflet_AddInfoBox: function () {
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
             map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
         });
 
         // Re-enable dragging when user's cursor leaves the element
@@ -77,6 +81,18 @@ Leaflet_AddInfoBox: function () {
             map.doubleClickZoom.enable();
             map.scrollWheelZoom.enable();
             map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        infobox.getContainer().addEventListener('click', function (event) {
+            // console.log('infobox click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
         });
 
         $(".info").draggable();

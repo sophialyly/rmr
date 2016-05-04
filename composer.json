@@ -10,7 +10,8 @@
         "tuupola/slim-jwt-auth": "*",
         "tuupola/slim-basic-auth": "*",
         "proj4php/proj4php": "*",
-        "jmikola/geojson": "^1.0"
+        "jmikola/geojson": "^1.0",
+        "fergusean/nusoap": "^0.9.5"
     },
     "config" : {
         "vendor-dir" : "./source/packages"

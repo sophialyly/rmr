@@ -57,8 +57,19 @@ Leaflet_AddRtuLayer: function () {
                             //     editing = false;
                             // }
 
+
+                            
+                            
+
+
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
+                            fn.ToggleFormInfo();
+
+                            e.target.openPopup();
+                            map.panTo(e.target.getLatLng());
+                            // e.stopPropagation();
+                            // e.preventDefault();
                             
 
                             // else {
@@ -93,6 +104,7 @@ Leaflet_AddRtuLayer: function () {
 
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
+                            fn.ToggleFormInfo();
 
                             // Enable drag and zoom handlers.
                             map.dragging.enable();
@@ -108,6 +120,8 @@ Leaflet_AddRtuLayer: function () {
                     layer.options.draggable = true;
                 }
             }).addTo(map);
+
+            // console.log(rtuGeojsonLayer);
 
             rtuGroup = L.layerGroup()
                         .addLayer(rtuGeojsonLayer);

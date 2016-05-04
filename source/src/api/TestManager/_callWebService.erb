@@ -1,0 +1,70 @@
+    /**
+     *
+     * @apiName CallWebService
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /testManager/callWebService/ Call WebService
+     * @apiDescription คำอธิบาย : ทดสอบ Call WebService
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function callWebService($app, $client) {
+
+        $error = $client->getError();
+        if ($error) {
+            echo "<h2>Constructor error</h2><pre>" . $error . "</pre>";
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อ Web Service */
+        /* ************************* */
+        $result = $client->call('getTruckManifestPOD', array("strJobNo" => "JHO160429090", "strEmpId" => ""));
+        $mydata = json_decode($result["getTruckManifestPODResult"],true);
+
+        $reports = array();
+
+        for ($i=0; $i < count($mydata["array"]); $i++) { 
+
+            $reports[] = array(
+                    "doc_id" => $mydata["array"][$i]['doc_id'],
+                    "recipient_addres" => $mydata["array"][$i]['recipient_addres']
+                );
+
+        }
+
+        $rowCount = count($mydata["array"]);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+        // $return_m = array("msg" => "สวัสดี");
+
+        // $app->response()->header("Content-Type", "application/json");
+        // echo json_encode($reports);
+    };

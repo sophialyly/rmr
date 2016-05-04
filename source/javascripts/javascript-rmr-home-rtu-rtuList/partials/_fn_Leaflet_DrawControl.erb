@@ -87,8 +87,11 @@ Leaflet_DrawControl: function () {
                 tmpAddMarker.bindPopup('A popup!');
                 tmpAddMarker.options.draggable = true;
 
-                fn.ToggleFormInfo();
+                
                 fn.ResetMarkerToDefault();
+                editing = true;
+                fn.ToggleFormInfo();
+                // fn.ToggleFormInfo();
 
             }
             drawnItems.addLayer(tmpAddMarker);

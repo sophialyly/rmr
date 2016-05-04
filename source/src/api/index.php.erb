@@ -78,6 +78,15 @@ layout: "layout-api"
 
 
 
+    /* NuSOAP */
+    $client = new nusoap_client("http://58.137.5.126/epodws/service.asmx?wsdl", true);
+    // $client->soap_defencoding = 'UTF-8';
+    $endpoint = "http://58.137.5.126/epodws/service.asmx?wsdl";
+    $client->forceEndpoint = $endpoint;
+
+    $client->soap_defencoding = 'UTF-8';
+    $client->decode_utf8 = false; // แก้ปัญหาตัวอักษรภาษาไทยแสดง ???????? (web service unicode characters dispaly as question marks)
+    $client->encode_utf8 = true;
 
 
 
@@ -88,6 +97,7 @@ layout: "layout-api"
     <%= partial "/TestManager/_token" %>
     $app->post('/testManager/transformToLatLng/',function() use ($app, $proj4) { transformToLatLng($app, $proj4); });
     $app->get('/testManager/simpleGeoJSON/',function() use ($app) { simpleGeoJSON($app); });
+    $app->get('/testManager/callWebService/',function() use ($app, $client) { callWebService($app, $client); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
@@ -100,6 +110,7 @@ layout: "layout-api"
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportPressureAverage/',function() use ($app, $pdo, $conn_db2) { reportPressureAverage($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportWLMA1125/',function() use ($app, $pdo, $conn_db2) { reportWLMA1125($app, $pdo, $conn_db2); });
+    $app->post('/wlmaManager/reportWaterLeakageByDMA/',function() use ($app, $pdo, $conn_db2) { reportWaterLeakageByDMA($app, $pdo, $conn_db2); });
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
@@ -123,6 +134,7 @@ layout: "layout-api"
     <%= partial "/TestManager/_getMsg" %>
     <%= partial "/TestManager/_transformToLatLng" %>
     <%= partial "/TestManager/_simpleGeoJSON" %>
+    <%= partial "/TestManager/_callWebService" %>
 
     /* Login Manager Partial */
     <%= partial "/LoginManager/_checkUserPassword" %>
@@ -135,6 +147,7 @@ layout: "layout-api"
     <%= partial "/WlmaManager/_checkUserPasswordFromWLMA" %>
     <%= partial "/WlmaManager/_reportPressureAverage" %>
     <%= partial "/WlmaManager/_reportWLMA1125" %>
+    <%= partial "/WlmaManager/_reportWaterLeakageByDMA" %>
 
     /* RTU Manager Partial */
     <%= partial "/RtuManager/_informationOnload" %>

@@ -15,8 +15,8 @@ MainRtuDataTable: function () {
                 // },
                 "error": function(jqXHR, textStatus, errorThrown){
                     // alert('init error: ' + textStatus);
-                    // var url = '../../../Login/';
-                    // $(location).attr('href',url);
+                    var url = '../../../Login/';
+                    $(location).attr('href',url);
                 }
             },
             "aLengthMenu": [
@@ -164,6 +164,30 @@ MainRtuDataTable: function () {
             } else if ($(this).attr('data-original-title') == 'Map') {
                 // console.log('map');
                 fn.Routers('map');
+
+                // map.panTo(new L.LatLng(rowDataTableSelected.lng, rowDataTableSelected.lat), {animate: true});
+
+                // console.log(rtuGeojsonLayer);
+                // console.log(typeof rtuGeojsonLayer);
+
+                // rtuGeojsonLayer.eachLayer(function(layer){
+                //     if (layer.feature.properties.dm == rowDataTableSelected.dm) {
+
+                //         // e.target.openPopup();
+                //         // map.panTo(e.target.getLatLng());
+                //         // e.stopPropagation();
+                //         // e.preventDefault();
+
+                            
+                //         map.panTo(layer.getLatLng());
+                //         layer.openPopup();
+                //         // map.panTo(new L.LatLng(rowDataTableSelected.lng, rowDataTableSelected.lat));
+                        
+
+                //     }
+                // });
+
+
                 
             }
 

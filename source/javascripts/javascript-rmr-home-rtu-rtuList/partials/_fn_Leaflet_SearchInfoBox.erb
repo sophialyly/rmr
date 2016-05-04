@@ -31,6 +31,10 @@ Leaflet_SearchInfoBox: function () {
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
             map.keyboard.disable();
+
+            map.boxZoom.disable();
+            // if (map.tap) map.tap.disable();
+            // document.getElementById('map').style.cursor='default';
         });
 
         // Re-enable dragging when user's cursor leaves the element
@@ -41,7 +45,42 @@ Leaflet_SearchInfoBox: function () {
             map.doubleClickZoom.enable();
             map.scrollWheelZoom.enable();
             map.keyboard.enable();
+
+            map.boxZoom.enable();
+            // if (map.tap) map.tap.enable();
+            // document.getElementById('map').style.cursor='grab';
         });
+
+        // searchBox.getContainer().addEventListener('click', function (event) {
+        //     console.log('searchBox click');
+            
+        //     event.stopPropagation()
+        //     event.preventDefault()
+        //     return false
+        // });
+
+        searchBox.getContainer().querySelector('#formSearch').onclick = function(e) {
+
+
+            console.log(e);
+            console.log(this);
+
+
+            L.DomEvent.stopPropagation(e);
+
+
+
+            // if (this.className === 'active') {
+            //     map.removeControl(info);
+            //     this.className = '';
+            // } else {
+            //     map.addControl(info);
+            //     this.className = 'active';
+            // }
+
+            // console.log('formSearch');
+            // return false;
+        };
 
         $(".searchBox").draggable();
     

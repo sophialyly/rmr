@@ -17764,7 +17764,8 @@ $(function() {
 
     // L.control.layers(baseMaps, overlayMaps).addTo(map);
     if(layerControl === false) {  // var layerControl set to false in init phase; 
-        layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+        // layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+        layerControl = L.control.layers(baseMaps).addTo(map);
     }
 
     var zoomLev;
@@ -17783,8 +17784,13 @@ $(function() {
     // map.dragging.disable();
 
     map.on('click', function(){
+        // console.log('on click');
+
         fn.ResetMarkerToDefault();
+        fn.ToggleFormInfo();
     });
+
+
     
 
     fn.Leaflet_AddRtuLayer();
@@ -17792,8 +17798,9 @@ $(function() {
     fn.Leaflet_ZoomBox();
     fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
+    // fn.Leaflet_AddDMALayer();
     
-    
+
 
 },
         Leaflet_AddRtuLayer: function () {
@@ -17855,8 +17862,19 @@ $(function() {
                             //     editing = false;
                             // }
 
+
+                            
+                            
+
+
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
+                            fn.ToggleFormInfo();
+
+                            e.target.openPopup();
+                            map.panTo(e.target.getLatLng());
+                            // e.stopPropagation();
+                            // e.preventDefault();
                             
 
                             // else {
@@ -17891,6 +17909,7 @@ $(function() {
 
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
+                            fn.ToggleFormInfo();
 
                             // Enable drag and zoom handlers.
                             map.dragging.enable();
@@ -17906,6 +17925,8 @@ $(function() {
                     layer.options.draggable = true;
                 }
             }).addTo(map);
+
+            // console.log(rtuGeojsonLayer);
 
             rtuGroup = L.layerGroup()
                         .addLayer(rtuGeojsonLayer);
@@ -17935,7 +17956,7 @@ $(function() {
         };
 
         infobox.refresh = function (properties) {
-            this._div.innerHTML = '<h4>ระบบบริหารจัดการตำแหน่ง RTU</h4>';
+            this._div.innerHTML = '<h4>RTU Information</h4>';
             this._div.innerHTML += '<hr/>';
 
             // console.log(properties);
@@ -17988,6 +18009,10 @@ $(function() {
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
             map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
         });
 
         // Re-enable dragging when user's cursor leaves the element
@@ -17998,6 +18023,18 @@ $(function() {
             map.doubleClickZoom.enable();
             map.scrollWheelZoom.enable();
             map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        infobox.getContainer().addEventListener('click', function (event) {
+            // console.log('infobox click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
         });
 
         $(".info").draggable();
@@ -18036,6 +18073,10 @@ $(function() {
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
             map.keyboard.disable();
+
+            map.boxZoom.disable();
+            // if (map.tap) map.tap.disable();
+            // document.getElementById('map').style.cursor='default';
         });
 
         // Re-enable dragging when user's cursor leaves the element
@@ -18046,7 +18087,42 @@ $(function() {
             map.doubleClickZoom.enable();
             map.scrollWheelZoom.enable();
             map.keyboard.enable();
+
+            map.boxZoom.enable();
+            // if (map.tap) map.tap.enable();
+            // document.getElementById('map').style.cursor='grab';
         });
+
+        // searchBox.getContainer().addEventListener('click', function (event) {
+        //     console.log('searchBox click');
+            
+        //     event.stopPropagation()
+        //     event.preventDefault()
+        //     return false
+        // });
+
+        searchBox.getContainer().querySelector('#formSearch').onclick = function(e) {
+
+
+            console.log(e);
+            console.log(this);
+
+
+            L.DomEvent.stopPropagation(e);
+
+
+
+            // if (this.className === 'active') {
+            //     map.removeControl(info);
+            //     this.className = '';
+            // } else {
+            //     map.addControl(info);
+            //     this.className = 'active';
+            // }
+
+            // console.log('formSearch');
+            // return false;
+        };
 
         $(".searchBox").draggable();
     
@@ -18141,8 +18217,11 @@ $(function() {
                 tmpAddMarker.bindPopup('A popup!');
                 tmpAddMarker.options.draggable = true;
 
-                fn.ToggleFormInfo();
+                
                 fn.ResetMarkerToDefault();
+                editing = true;
+                fn.ToggleFormInfo();
+                // fn.ToggleFormInfo();
 
             }
             drawnItems.addLayer(tmpAddMarker);
@@ -18266,6 +18345,8 @@ rtuEditingMarker = L.ExtraMarkers.icon({
 
     } 
 
+  
+
 
 },
         ResetMarkerToDefault: function () {
@@ -18302,10 +18383,10 @@ rtuEditingMarker = L.ExtraMarkers.icon({
     	if (tmpMarker) {
     		tmpMarker.setIcon(rtuNormalMarker);
     		tmpMarker.closePopup();
-    		$(".info").hide();
+    		// $(".info").hide();
     	}
 
-        fn.ToggleFormInfo();
+        
         
     	editing = false;
     }
@@ -18326,6 +18407,26 @@ rtuEditingMarker = L.ExtraMarkers.icon({
         infobox.hideControl();
     }
 
+
+
+},
+        Leaflet_AddDMALayer: function () {
+    // console.log('Leaflet_AddDMALayer');
+    
+// var art = L.esri.dynamicMapLayer("http://coagisweb.cabq.gov/arcgis/re st/services/public/PublicArt/MapServer").addTo(map);
+
+// var graffiti =  L.esri.featureLayer('http://services.arcgis.com/rOo16HdIMeOBI4Mb/ArcGIS/rest/services/Graffiti_Locations3/FeatureServer/0', {
+//    pointToLayer: function (geojson, latlng, feature) {
+//       return L.marker(latlng);
+//     },
+//   }).addTo(map);
+
+
+var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Portland_Parks/FeatureServer/0", {
+       style: function () {
+          return { color: "#70ca49", weight: 2 };
+        }
+      }).addTo(map);
 
 
 },
@@ -18544,8 +18645,8 @@ rtuEditingMarker = L.ExtraMarkers.icon({
                 // },
                 "error": function(jqXHR, textStatus, errorThrown){
                     // alert('init error: ' + textStatus);
-                    // var url = '../../../Login/';
-                    // $(location).attr('href',url);
+                    var url = '../../../Login/';
+                    $(location).attr('href',url);
                 }
             },
             "aLengthMenu": [
@@ -18693,6 +18794,30 @@ rtuEditingMarker = L.ExtraMarkers.icon({
             } else if ($(this).attr('data-original-title') == 'Map') {
                 // console.log('map');
                 fn.Routers('map');
+
+                // map.panTo(new L.LatLng(rowDataTableSelected.lng, rowDataTableSelected.lat), {animate: true});
+
+                // console.log(rtuGeojsonLayer);
+                // console.log(typeof rtuGeojsonLayer);
+
+                // rtuGeojsonLayer.eachLayer(function(layer){
+                //     if (layer.feature.properties.dm == rowDataTableSelected.dm) {
+
+                //         // e.target.openPopup();
+                //         // map.panTo(e.target.getLatLng());
+                //         // e.stopPropagation();
+                //         // e.preventDefault();
+
+                            
+                //         map.panTo(layer.getLatLng());
+                //         layer.openPopup();
+                //         // map.panTo(new L.LatLng(rowDataTableSelected.lng, rowDataTableSelected.lat));
+                        
+
+                //     }
+                // });
+
+
                 
             }
 
@@ -18873,6 +18998,18 @@ rtuEditingMarker = L.ExtraMarkers.icon({
                 mainRtuDataTable.ajax.reload();
             });
 
+            // $('#optionDatabase').click(function () {
+            //     console.log('optionDatabase');
+            //     $("#optionDatabase").prop("checked", true);
+            //     $("#optionGoogle").prop("checked", false);
+            // });
+
+            // $('#optionGoogle').click(function () {
+            //     console.log('optionGoogle');
+            //     $("#optionDatabase").prop("checked", false);
+            //     $("#optionGoogle").prop("checked", true);
+            // });
+
         }
 
     };
@@ -18882,6 +19019,8 @@ rtuEditingMarker = L.ExtraMarkers.icon({
     });
 
 })(jQuery);
+
+
 
 
 

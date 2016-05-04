@@ -68,6 +68,15 @@ session_start(); //start session.
 
 
 
+    /* NuSOAP */
+    $client = new nusoap_client("http://58.137.5.126/epodws/service.asmx?wsdl", true);
+    // $client->soap_defencoding = 'UTF-8';
+    $endpoint = "http://58.137.5.126/epodws/service.asmx?wsdl";
+    $client->forceEndpoint = $endpoint;
+
+    $client->soap_defencoding = 'UTF-8';
+    $client->decode_utf8 = false; // แก้ปัญหาตัวอักษรภาษาไทยแสดง ???????? (web service unicode characters dispaly as question marks)
+    $client->encode_utf8 = true;
 
 
 
@@ -214,6 +223,7 @@ session_start(); //start session.
     });
     $app->post('/testManager/transformToLatLng/',function() use ($app, $proj4) { transformToLatLng($app, $proj4); });
     $app->get('/testManager/simpleGeoJSON/',function() use ($app) { simpleGeoJSON($app); });
+    $app->get('/testManager/callWebService/',function() use ($app, $client) { callWebService($app, $client); });
 
     /* Login manager */
     $app->post('/loginManager/checkUserPassword/',function() use ($app, $pdo, $db, $conn_db2, $key) { checkUserPassword($app, $pdo, $db, $conn_db2, $key); });
@@ -226,6 +236,7 @@ session_start(); //start session.
     $app->post('/wlmaManager/checkUserPasswordFromWLMA/',function() use ($app, $pdo, $conn_db2) { checkUserPasswordFromWLMA($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportPressureAverage/',function() use ($app, $pdo, $conn_db2) { reportPressureAverage($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportWLMA1125/',function() use ($app, $pdo, $conn_db2) { reportWLMA1125($app, $pdo, $conn_db2); });
+    $app->post('/wlmaManager/reportWaterLeakageByDMA/',function() use ($app, $pdo, $conn_db2) { reportWaterLeakageByDMA($app, $pdo, $conn_db2); });
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
@@ -847,6 +858,76 @@ session_start(); //start session.
 
         // $app->response()->header("Content-Type", "application/json");
         // echo json_encode($return_m);
+    };
+        /**
+     *
+     * @apiName CallWebService
+     * @apiGroup TEST Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /testManager/callWebService/ Call WebService
+     * @apiDescription คำอธิบาย : ทดสอบ Call WebService
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function callWebService($app, $client) {
+
+        $error = $client->getError();
+        if ($error) {
+            echo "<h2>Constructor error</h2><pre>" . $error . "</pre>";
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อ Web Service */
+        /* ************************* */
+        $result = $client->call('getTruckManifestPOD', array("strJobNo" => "JHO160429090", "strEmpId" => ""));
+        $mydata = json_decode($result["getTruckManifestPODResult"],true);
+
+        $reports = array();
+
+        for ($i=0; $i < count($mydata["array"]); $i++) { 
+
+            $reports[] = array(
+                    "doc_id" => $mydata["array"][$i]['doc_id'],
+                    "recipient_addres" => $mydata["array"][$i]['recipient_addres']
+                );
+
+        }
+
+        $rowCount = count($mydata["array"]);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+        // $return_m = array("msg" => "สวัสดี");
+
+        // $app->response()->header("Content-Type", "application/json");
+        // echo json_encode($reports);
     };
 
     /* Login Manager Partial */
@@ -1711,6 +1792,78 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
 	 }
 	 
+        /**
+     *
+     * @apiName ReportWaterLeakageByDMA
+     * @apiGroup Wlma Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /wlmaManager/reportWaterLeakageByDMA/ Report Water Leakage by DMA
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงรายงานปริมาณน้ำสูญเสียแยกตามแต่ละ DMA ในเดือนที่กำหนด
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /wlmaManager/reportWaterLeakageByDMA/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function reportWaterLeakageByDMA($app, $pdo, $conn_db2) {
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+        $sql = "call P_WB_WL_REPORT2('201604', '01')";
+
+        if ($conn_db2) {
+            // # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            while ($row = db2_fetch_array($stmt)) {
+                
+                $tmpAREA_CODE = iconv("TIS-620", "UTF-8",$row[0]);
+                $tmpAREA_STATUS = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
+                $tmpAREA_WL = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
+
+                $reports[] = array(
+                    "area_code" => $tmpAREA_CODE,
+                    "area_status" => $tmpAREA_STATUS,
+                    "area_wl" => $tmpAREA_WL
+                );
+            }
+        }
+
+        $rowCount = count($reports);
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
+        //$reportResult = array("result" =>  $resultText, "msg" => "สวัสดี, $name");
+        //$reportResult = array("result" =>  $resultText);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+    };
 
     /* RTU Manager Partial */
         /**

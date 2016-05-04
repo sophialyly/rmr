@@ -348,16 +348,16 @@ session_start(); //start session.
 
     <div class="row" id="rtuSearchForm" style="display:none">
       <div class="col-sm-12">
-              <form action="#" class="form-horizontal" id="" method="post">
+              <form action="#" class="form-horizontal" id="formSearch" method="post">
 
                   <div class="form-group form-group-sm">
                      <label class="col-sm-3 control-label">ค้นหา:</label>
                      <div class="col-sm-9 controls">
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios2" value="option1" /> ฐานข้อมูล
+                            <input type="radio" name="optionsRadios2" value="option1" id="optionDatabase" /> ฐานข้อมูล
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios2" value="option2" checked /> Google
+                            <input type="radio" name="optionsRadios2" value="option2" id="optionGoogle" checked /> Google
                         </label> 
                      </div>
                   </div>
@@ -405,7 +405,7 @@ session_start(); //start session.
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="username">Location:</label>
                       <div class="col-sm-9 controls">
-                          <textarea class="form-control" rows="3" disabled></textarea>
+                          <textarea class="form-control" rows="2" disabled></textarea>
                       </div>
                   </div>
 
@@ -417,18 +417,29 @@ session_start(); //start session.
                       </div>
                   </div>
 
+                  <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label">ค่าพิกัด:</label>
+                    <div class="col-sm-9 controls">
+                      <div class="input-group">
+                        <input type="text" placeholder="Search here..." class="form-control" />
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                      </div>
+                      <span class="help-inline">(Latitude, Longitude)</span>
+                    </div>
+                  </div> -->
+
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="username">หมายเหตุ:</label>
                       <div class="col-sm-9 controls">
-                          <textarea class="form-control" rows="3"></textarea>
+                          <textarea class="form-control" rows="2"></textarea>
                       </div>
                   </div>
 
                   <div class="form-group">
                       <div class="col-sm-9 col-sm-offset-3">
-                          <input type="submit" class="btn btn-primary" value="บันทึกข้อมูล">
+                          <input type="submit" class="btn btn-primary col-sm-6" value="บันทึกข้อมูล">
                           <!-- <button type="button btn-primary" class="btn">บันทึกข้อมูล</button> -->
-                          <button type="button" class="btn">ยกเลิก</button>
+                          <button type="button" class="btn btn-danger col-sm-6">ยกเลิก</button>
                       </div>
                   </div>
 
@@ -455,6 +466,8 @@ session_start(); //start session.
         <script src="../../../../../javascripts/javascript-rmr-home-rtu-rtuList.js" type="text/javascript"></script>
         <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
         <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+        <script src="https://cdn.jsdelivr.net/leaflet.esri/1.0.2/esri-leaflet.js"></script>
+        
 
     </body>
 </html>
