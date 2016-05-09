@@ -68,6 +68,10 @@ Leaflet_AddRtuLayer: function () {
 
                             e.target.openPopup();
                             map.panTo(e.target.getLatLng());
+
+                            fn.Leaflet_ShowRTUInformation(currentMarker);
+
+                            
                             // e.stopPropagation();
                             // e.preventDefault();
                             

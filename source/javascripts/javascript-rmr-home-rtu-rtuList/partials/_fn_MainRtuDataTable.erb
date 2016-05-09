@@ -163,7 +163,12 @@ MainRtuDataTable: function () {
                 // console.log('Delete');
             } else if ($(this).attr('data-original-title') == 'Map') {
                 // console.log('map');
-                fn.Routers('map');
+
+                if (rtuGeojsonLayer) {
+                    fn.Routers('map');
+                    fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
+                }
+
 
                 // map.panTo(new L.LatLng(rowDataTableSelected.lng, rowDataTableSelected.lat), {animate: true});
 

@@ -34,6 +34,16 @@
                 mainRtuDataTable.ajax.reload();
             });
 
+            $('#formRTU_Information-btnSave').click(function () {
+                // console.log('You click save button');
+
+                var data = $('#formRTU_Information').serializeJSON();
+                console.log(data);
+            });
+
+
+
+
             // $('#optionDatabase').click(function () {
             //     console.log('optionDatabase');
             //     $("#optionDatabase").prop("checked", true);

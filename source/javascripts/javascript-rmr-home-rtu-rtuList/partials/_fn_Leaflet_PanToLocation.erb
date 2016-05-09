@@ -1,0 +1,32 @@
+Leaflet_PanToLocation: function (myDM, myLat, myLng) {
+    // console.log('Leaflet_PanToLocation');
+
+    // map.panTo(new L.LatLng(myLng, myLat), {animate: true});
+
+    rtuGeojsonLayer.eachLayer(function(layer) {
+        if (layer.feature.properties.dm == myDM) {
+
+            console.log(myDM);
+            console.log(layer);
+            console.log(layer.getLatLng());
+
+            currentMarker = layer;
+            fn.HighlightMarkerToEdit();
+            fn.ToggleFormInfo();
+
+            map.panTo(layer.getLatLng());
+
+            fn.Leaflet_ShowRTUInformation(currentMarker);
+
+            // currentMarker = e.target;
+            // fn.HighlightMarkerToEdit();
+                
+            // map.panTo(layer.getLatLng());
+            // layer.openPopup();
+        }
+    });
+
+
+
+    
+},

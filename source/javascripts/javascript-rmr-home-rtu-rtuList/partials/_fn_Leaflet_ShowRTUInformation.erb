@@ -1,0 +1,32 @@
+Leaflet_ShowRTUInformation: function (myCurrentMarker) {
+
+
+    // console.log('Leaflet_ShowRTUInformation');
+    // console.log(myCurrentMarker);
+    // console.log(myCurrentMarker.feature.properties.branch);
+    // console.log(myCurrentMarker.feature.properties.dm);
+    // console.log(myCurrentMarker.feature.properties.dma);
+    // console.log(myCurrentMarker.feature.properties.ip_address);
+    // console.log(myCurrentMarker.feature.properties.location);
+    // console.log(myCurrentMarker.feature.properties.logger_code);
+    // console.log(myCurrentMarker.feature.properties.remark);
+    // console.log(myCurrentMarker.feature.properties.zone);
+
+    // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
+
+    $('#txtDM').val(myCurrentMarker.feature.properties.dm);
+    $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
+    $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
+    $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+    $('#txtLatLng').val(myCurrentMarker.getLatLng());
+    $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+
+  
+
+	
+	
+
+
+
+    
+},

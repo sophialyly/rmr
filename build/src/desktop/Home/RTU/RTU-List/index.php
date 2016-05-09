@@ -379,9 +379,9 @@ session_start(); //start session.
       </div>
     </div>
 
-    <div class="row" id="rtuAddForm" style="display:none">
+    <div class="row" id="rtuAddForm" >
       <div class="col-sm-12">
-              <form action="#" class="form-horizontal" id="" method="post">
+              <form action="#" class="form-horizontal" id="formRTU_Information" method="post">
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="dm">DM:</label>
                       <div class="col-sm-9 controls">
@@ -438,7 +438,7 @@ session_start(); //start session.
 
                   <div class="form-group">
                       <div class="col-sm-9 col-sm-offset-3">
-                          <button type="button" class="btn btn-primary col-sm-6">บันทึกข้อมูล</button>
+                          <button type="button" id="formRTU_Information-btnSave" class="btn btn-primary col-sm-6">บันทึกข้อมูล</button>
                           <!-- <input type="submit" class="btn btn-primary col-sm-6" value="บันทึกข้อมูล"> -->
                           <!-- <button type="button btn-primary" class="btn">บันทึกข้อมูล</button> -->
                           <button type="button" class="btn btn-danger col-sm-6">ยกเลิก</button>
