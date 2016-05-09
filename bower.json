@@ -61,6 +61,7 @@
     "leaflet-fullscreen": "leaflet-fullscreen-bower#^1.0.1",
     "Leaflet.extra-markers": "^1.0.6",
     "semantic": "semantic-ui#^2.1.8",
-    "esri-leaflet": "^1.0.3"
+    "esri-leaflet": "^1.0.3",
+    "jquery.serializeJSON": "^2.7.2"
   }
 }

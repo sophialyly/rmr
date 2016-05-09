@@ -59,36 +59,37 @@
       <div class="col-sm-12">
               <form action="#" class="form-horizontal" id="" method="post">
                   <div class="form-group form-group-sm">
-                      <label class="col-sm-3 control-label" for="username">DM:</label>
+                      <label class="col-sm-3 control-label" for="dm">DM:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="dm" id="dm" class="form-control" />
+                          <input type="text" name="dm" id="txtDM" class="form-control" disabled/>
                       </div>
                   </div>
 
                   <div class="form-group form-group-sm">
-                      <label class="col-sm-3 control-label" for="username">DMA:</label>
+                      <label class="col-sm-3 control-label" for="dma">DMA:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="dma" id="dma" class="form-control" />
+                          <input type="text" name="dma" id="txtDMA" class="form-control" disabled/>
                       </div>
                   </div>
 
                   <div class="form-group form-group-sm">
-                      <label class="col-sm-3 control-label" for="username">IP:</label>
+                      <label class="col-sm-3 control-label" for="ip">IP:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="dma" id="dma" class="form-control" />
+                          <input type="text" name="ip" id="txtIP" class="form-control" disabled/>
                       </div>
                   </div> 
+
                   <div class="form-group form-group-sm">
-                      <label class="col-sm-3 control-label" for="username">Location:</label>
+                      <label class="col-sm-3 control-label" for="location">Location:</label>
                       <div class="col-sm-9 controls">
-                          <textarea class="form-control" rows="2" disabled></textarea>
+                          <textarea class="form-control" name="location" id="txtLocation" rows="2" disabled></textarea>
                       </div>
                   </div>
 
                   <div class="form-group form-group-sm">
-                      <label class="col-sm-3 control-label" for="username">ค่าพิกัด:</label>
+                      <label class="col-sm-3 control-label" for="lat_lng">ค่าพิกัด:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="dma" id="dma" class="form-control" data-mask="(0.0000000, 0.0000000)"/>
+                          <input type="text" name="lat_lng" id="txtLatLng" class="form-control" data-mask="(0.0000000, 0.0000000)"/>
                           <span class="help-inline">(Latitude, Longitude)</span>
                       </div>
                   </div>
@@ -105,15 +106,16 @@
                   </div> -->
 
                   <div class="form-group form-group-sm">
-                      <label class="col-sm-3 control-label" for="username">หมายเหตุ:</label>
+                      <label class="col-sm-3 control-label" for="remark">หมายเหตุ:</label>
                       <div class="col-sm-9 controls">
-                          <textarea class="form-control" rows="2"></textarea>
+                          <textarea class="form-control" name="remark" id="txtRemark" rows="2"></textarea>
                       </div>
                   </div>
 
                   <div class="form-group">
                       <div class="col-sm-9 col-sm-offset-3">
-                          <input type="submit" class="btn btn-primary col-sm-6" value="บันทึกข้อมูล">
+                          <button type="button" class="btn btn-primary col-sm-6">บันทึกข้อมูล</button>
+                          <!-- <input type="submit" class="btn btn-primary col-sm-6" value="บันทึกข้อมูล"> -->
                           <!-- <button type="button btn-primary" class="btn">บันทึกข้อมูล</button> -->
                           <button type="button" class="btn btn-danger col-sm-6">ยกเลิก</button>
                       </div>
