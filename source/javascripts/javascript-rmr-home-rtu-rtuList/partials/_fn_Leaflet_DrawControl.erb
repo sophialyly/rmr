@@ -90,13 +90,21 @@ Leaflet_DrawControl: function () {
                 // tmpAddMarker.options.draggable = true;
 
                 
-                fn.ResetMarkerToDefault();
-                editing = true;
-                fn.ToggleFormInfo();
+                // fn.ResetMarkerToDefault();
+                // editing = true;
+                // fn.ToggleFormInfo();
+
+
+                
                 // fn.ToggleFormInfo();
 
                 // currentMarker = tmpAddMarker;
                 // fn.Leaflet_ShowRTUInformation(tmpAddMarker);
+
+                // $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(7) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(7) + ")");
+                $('#txtLatLng').val("(" + (tmpAddMarker.getLatLng().lat).toFixed(7) + ", " + (tmpAddMarker.getLatLng().lng).toFixed(7) + ")");
+
+
 
             }
             drawnItems.addLayer(tmpAddMarker);

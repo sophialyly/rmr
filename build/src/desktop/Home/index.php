@@ -59,16 +59,16 @@ session_start(); //start session.
                                         <!-- BEGIN Button User -->
                 <li class="user-profile">
                     <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                        <img class="nav-user-photo" src="../../../images/images-flaty_theme/img/demo/avatar/avatar_kapook.jpg" alt="Kapook's Photo" />
+                        <img class="nav-user-photo" src="../../../images/images-flaty_theme/img/demo/avatar/avatar5.jpg" alt="User's Photo" />
                         <span class="hhh" id="user_info">
-                            Kapook
+                            User
                         </span>
                         <i class="fa fa-caret-down"></i>
                     </a>
 
                     <!-- BEGIN User Dropdown -->
                     <ul class="dropdown-menu dropdown-navbar" id="user_menu">
-                        <li class="nav-header">
+                        <!-- <li class="nav-header">
                             <i class="fa fa-clock-o"></i>
                             Logined From 20:45
                         </li>
@@ -115,6 +115,18 @@ session_start(); //start session.
                                 <i class="fa fa-envelope"></i>
                                 Messages
                                 <span class="badge badge-success">5</span>
+                            </a>
+                        </li> -->
+                        
+                        <li class="nav-header">
+                            <i class="fa fa-clock-o"></i>
+                            WLMA Extension
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-question"></i>
+                                Help
                             </a>
                         </li>
 

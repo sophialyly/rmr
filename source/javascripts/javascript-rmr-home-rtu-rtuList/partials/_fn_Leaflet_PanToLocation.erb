@@ -29,13 +29,24 @@
 
                 fn.Leaflet_ShowRTUInformation(currentMarker);
 
-                map.removeControl(drawControl);
+                if (hasDrawControl) {
+                    console.log('removing...');
+                    map.removeControl(drawControl);
+                    hasDrawControl = false;
+                }
+                
 
             }
         });
 
     } else {
             // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+            fn.ResetMarkerToDefault();
+            // editing = true;
+            // fn.ToggleFormInfo();
+
+            infobox.showControl();
 
             $('#txtDM').val(rtuInfoDataTableSelected.dm);
             $('#txtDMA').val(rtuInfoDataTableSelected.dma);
@@ -44,7 +55,15 @@
             $('#txtLatLng').val("(" + rtuInfoDataTableSelected.lat + ", " + rtuInfoDataTableSelected.lng + ")");
             $('#txtRemark').val(rtuInfoDataTableSelected.remark);
 
-            map.addControl(drawControl);
+            if (hasDrawControl) {
+                console.log('removing...');
+                map.removeControl(drawControl);
+                hasDrawControl = false;
+            }
+                
+            // console.log('adding...');
+            // map.addControl(drawControl);
+            // hasDrawControl = true;
             
     }
 

@@ -47,12 +47,39 @@
 
                 console.log(serialized);
 
+                // fn.Routers('default');
+
+                fn.Routers('default');
+                alert("บันทึกข้อมูลเรียบร้อย");
+
             });
 
 
             $('#formRTU_Information-btnCancel').click(function () {
-                // console.log('btnCancel');
-                fn.Routers('default');
+                console.log('btnCancel');
+
+                // fn.ResetMarkerToDefault();
+                // fn.ToggleFormInfo();
+
+                if (dragging) {
+                    var r = confirm("มีการเปลี่ยนแปลงพิกัด, บันทึกข้อมูล?");
+                    if (r == true) {
+                        // txt = "You pressed OK!";
+                        alert("บันทึกข้อมูลเรียบร้อย");
+                    } else {
+                        // txt = "You pressed Cancel!";
+
+                    }
+
+                    dragging = false;
+                    fn.Routers('default');
+
+                } else {
+                    fn.Routers('default');
+                }
+
+                
+
             });
 
 

@@ -16,13 +16,13 @@ Leaflet: function () {
 	var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib, minZoom: 0, maxZoom: 18}),
 		landMap = L.tileLayer(landUrl, {attribution: thunAttrib, minZoom: 0, maxZoom: 16});
 
-    var googleRoadmapLayer = new L.Google('ROADMAP', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 0, maxZoom: 20});
+    var googleRoadmapLayer = new L.Google('ROADMAP', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
     // map.addLayer(googleRoadmapLayer);
 
-    var googleSatelliteLayer = new L.Google('SATELLITE', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 0, maxZoom: 20});
+    var googleSatelliteLayer = new L.Google('SATELLITE', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
     // map.addLayer(googleSatelliteLayer);
 
-    var googleHybridLayer = new L.Google('HYBRID', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 0, maxZoom: 20});
+    var googleHybridLayer = new L.Google('HYBRID', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
     // map.addLayer(googleHybridLayer);
 
 	map = L.map('map', {
@@ -85,7 +85,7 @@ Leaflet: function () {
     fn.Leaflet_AddRtuLayer();
     fn.Leaflet_AddInfoBox();
     fn.Leaflet_ZoomBox();
-    fn.Leaflet_SearchInfoBox();
+    // fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
     // fn.Leaflet_AddDMALayer();
     

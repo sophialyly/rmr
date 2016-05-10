@@ -106,6 +106,8 @@ Leaflet_AddRtuLayer: function () {
                             // console.log("dragend");
                             // console.log(e.target.feature.properties.dm);
 
+                            dragging = true;
+
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
                             fn.ToggleFormInfo();

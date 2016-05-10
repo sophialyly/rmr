@@ -17668,10 +17668,12 @@ $(function() {
 
     // Temporty 
     var editing = false;
+    var dragging = false;
     var currentMarker = null;
     var tmpMarker = null;
     var tmpAddMarker = null;
     var drawControl = false;
+    var hasDrawControl = true;
     // var markerMap = {}; //a global variable unless you extend L.GeoJSON
 
 
@@ -17738,13 +17740,13 @@ $(function() {
 	var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib, minZoom: 0, maxZoom: 18}),
 		landMap = L.tileLayer(landUrl, {attribution: thunAttrib, minZoom: 0, maxZoom: 16});
 
-    var googleRoadmapLayer = new L.Google('ROADMAP', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 0, maxZoom: 20});
+    var googleRoadmapLayer = new L.Google('ROADMAP', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
     // map.addLayer(googleRoadmapLayer);
 
-    var googleSatelliteLayer = new L.Google('SATELLITE', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 0, maxZoom: 20});
+    var googleSatelliteLayer = new L.Google('SATELLITE', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
     // map.addLayer(googleSatelliteLayer);
 
-    var googleHybridLayer = new L.Google('HYBRID', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 0, maxZoom: 20});
+    var googleHybridLayer = new L.Google('HYBRID', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
     // map.addLayer(googleHybridLayer);
 
 	map = L.map('map', {
@@ -17807,7 +17809,7 @@ $(function() {
     fn.Leaflet_AddRtuLayer();
     fn.Leaflet_AddInfoBox();
     fn.Leaflet_ZoomBox();
-    fn.Leaflet_SearchInfoBox();
+    // fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
     // fn.Leaflet_AddDMALayer();
     
@@ -17921,6 +17923,8 @@ $(function() {
                         'dragend': function(e) {
                             // console.log("dragend");
                             // console.log(e.target.feature.properties.dm);
+
+                            dragging = true;
 
                             currentMarker = e.target;
                             fn.HighlightMarkerToEdit();
@@ -18237,13 +18241,21 @@ $(function() {
                 // tmpAddMarker.options.draggable = true;
 
                 
-                fn.ResetMarkerToDefault();
-                editing = true;
-                fn.ToggleFormInfo();
+                // fn.ResetMarkerToDefault();
+                // editing = true;
+                // fn.ToggleFormInfo();
+
+
+                
                 // fn.ToggleFormInfo();
 
                 // currentMarker = tmpAddMarker;
                 // fn.Leaflet_ShowRTUInformation(tmpAddMarker);
+
+                // $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(7) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(7) + ")");
+                $('#txtLatLng').val("(" + (tmpAddMarker.getLatLng().lat).toFixed(7) + ", " + (tmpAddMarker.getLatLng().lng).toFixed(7) + ")");
+
+
 
             }
             drawnItems.addLayer(tmpAddMarker);
@@ -18485,18 +18497,24 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
                 fn.Leaflet_ShowRTUInformation(currentMarker);
 
-                map.removeControl(drawControl);
+                if (hasDrawControl) {
+                    console.log('removing...');
+                    map.removeControl(drawControl);
+                    hasDrawControl = false;
+                }
+                
 
-                // currentMarker = e.target;
-                // fn.HighlightMarkerToEdit();
-                    
-                // map.panTo(layer.getLatLng());
-                // layer.openPopup();
             }
         });
 
     } else {
             // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+            fn.ResetMarkerToDefault();
+            // editing = true;
+            // fn.ToggleFormInfo();
+
+            infobox.showControl();
 
             $('#txtDM').val(rtuInfoDataTableSelected.dm);
             $('#txtDMA').val(rtuInfoDataTableSelected.dma);
@@ -18505,7 +18523,15 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
             $('#txtLatLng').val("(" + rtuInfoDataTableSelected.lat + ", " + rtuInfoDataTableSelected.lng + ")");
             $('#txtRemark').val(rtuInfoDataTableSelected.remark);
 
-            map.addControl(drawControl);
+            if (hasDrawControl) {
+                console.log('removing...');
+                map.removeControl(drawControl);
+                hasDrawControl = false;
+            }
+                
+            // console.log('adding...');
+            // map.addControl(drawControl);
+            // hasDrawControl = true;
             
     }
 
@@ -19138,12 +19164,39 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
                 console.log(serialized);
 
+                // fn.Routers('default');
+
+                fn.Routers('default');
+                alert("บันทึกข้อมูลเรียบร้อย");
+
             });
 
 
             $('#formRTU_Information-btnCancel').click(function () {
-                // console.log('btnCancel');
-                fn.Routers('default');
+                console.log('btnCancel');
+
+                // fn.ResetMarkerToDefault();
+                // fn.ToggleFormInfo();
+
+                if (dragging) {
+                    var r = confirm("มีการเปลี่ยนแปลงพิกัด, บันทึกข้อมูล?");
+                    if (r == true) {
+                        // txt = "You pressed OK!";
+                        alert("บันทึกข้อมูลเรียบร้อย");
+                    } else {
+                        // txt = "You pressed Cancel!";
+
+                    }
+
+                    dragging = false;
+                    fn.Routers('default');
+
+                } else {
+                    fn.Routers('default');
+                }
+
+                
+
             });
 
 

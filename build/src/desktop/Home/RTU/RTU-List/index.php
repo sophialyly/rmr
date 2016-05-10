@@ -59,16 +59,16 @@ session_start(); //start session.
                                         <!-- BEGIN Button User -->
                 <li class="user-profile">
                     <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                        <img class="nav-user-photo" src="../../../../../images/images-flaty_theme/img/demo/avatar/avatar_kapook.jpg" alt="Kapook's Photo" />
+                        <img class="nav-user-photo" src="../../../../../images/images-flaty_theme/img/demo/avatar/avatar5.jpg" alt="User's Photo" />
                         <span class="hhh" id="user_info">
-                            Kapook
+                            User
                         </span>
                         <i class="fa fa-caret-down"></i>
                     </a>
 
                     <!-- BEGIN User Dropdown -->
                     <ul class="dropdown-menu dropdown-navbar" id="user_menu">
-                        <li class="nav-header">
+                        <!-- <li class="nav-header">
                             <i class="fa fa-clock-o"></i>
                             Logined From 20:45
                         </li>
@@ -115,6 +115,18 @@ session_start(); //start session.
                                 <i class="fa fa-envelope"></i>
                                 Messages
                                 <span class="badge badge-success">5</span>
+                            </a>
+                        </li> -->
+                        
+                        <li class="nav-header">
+                            <i class="fa fa-clock-o"></i>
+                            WLMA Extension
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-question"></i>
+                                Help
                             </a>
                         </li>
 
@@ -277,8 +289,9 @@ session_start(); //start session.
                 </div>
                 <div class="btn-group">
                     <!-- <a class="btn btn-circle show-tooltip" title="Print" href="#"><i class="fa fa-print"></i></a> -->
-                    <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
-                    <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a>
+                    
+                    <!-- <a class="btn btn-circle show-tooltip" title="Export to PDF" href="#"><i class="fa fa-file-text-o"></i></a>
+                    <a class="btn btn-circle show-tooltip" title="Export to Exel" href="#"><i class="fa fa-table"></i></a> -->
                 </div>
                 <div class="btn-group">
                     <a class="btn btn-circle show-tooltip" title="Refresh" id="refresh-data" href="#"><i class="fa fa-repeat"></i></a>
