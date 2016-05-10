@@ -2793,7 +2793,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
 
             $tmpID = $result["id"];
-            $tmpPoint = new \GeoJson\Geometry\Point([ floatval($result_rtu_pin_code["lat"]), floatval($result_rtu_pin_code["lng"])]);
+            $tmpPoint = new \GeoJson\Geometry\Point([ floatval($result_rtu_pin_code["lng"]), floatval($result_rtu_pin_code["lat"])]);
             $tmpProperties = array("dm" => $result["dm_code"], 
                                    "dma"=>  $result["dma_code"], 
                                    "branch" => $result["branch_code"],

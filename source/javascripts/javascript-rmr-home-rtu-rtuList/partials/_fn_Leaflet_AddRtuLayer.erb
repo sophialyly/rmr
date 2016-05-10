@@ -125,7 +125,7 @@ Leaflet_AddRtuLayer: function () {
 
                     layer.setIcon(rtuNormalMarker);
                     layer.bindPopup(feature.properties.dm);
-                    layer.options.draggable = true;
+                    layer.options.draggable = false;
                 }
             }).addTo(map);
 

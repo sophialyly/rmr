@@ -17808,7 +17808,7 @@ $(function() {
 
     fn.Leaflet_AddRtuLayer();
     fn.Leaflet_AddInfoBox();
-    fn.Leaflet_ZoomBox();
+    // fn.Leaflet_ZoomBox();
     // fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
     // fn.Leaflet_AddDMALayer();
@@ -17943,7 +17943,7 @@ $(function() {
 
                     layer.setIcon(rtuNormalMarker);
                     layer.bindPopup(feature.properties.dm);
-                    layer.options.draggable = true;
+                    layer.options.draggable = false;
                 }
             }).addTo(map);
 
@@ -18561,7 +18561,7 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
         $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
         $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
         $('#txtLocation').val(myCurrentMarker.feature.properties.location);
-        $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(7) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(7) + ")");
+        $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(6) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(6) + ")");
         $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
     } else {
         console.log(myCurrentMarker);
@@ -18576,6 +18576,59 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
     
 },
+
+        Leaflet_SearchByLatLng: function () {
+    // console.log('Leaflet_SearchByLatLng');
+
+    // console.log($('#txtLatLng').val());
+
+    var tmpLatLngInput = $('#txtLatLng').val();
+    // var tmpLatLng = tmpLatLngInput.substr(1, tmpLatLngInput.length);
+
+    var tmpLatLng1 = tmpLatLngInput.replace("(", "");
+    var tmpLatLng2 = tmpLatLng1.replace(")", "");
+
+    // console.log(tmpLatLng);
+
+    var arrLatLng = new Array();
+    arrLatLng = tmpLatLng2.split(",");
+
+    var myLat = false;
+    var myLng = false;
+
+
+    if (arrLatLng[0]) {
+        myLat = arrLatLng[0].trim();
+    }
+
+    if (arrLatLng[1]) {
+        myLng = arrLatLng[1].trim();
+    }
+
+
+    if (myLat && myLng) {
+        // console.log(myLat);
+        // console.log(myLng);
+
+        var latlng = L.latLng(parseFloat(myLat), parseFloat(myLng));
+        map.panTo(latlng);
+
+        if (tmpMarker) {
+            map.removeLayer(tmpMarker);
+            tmpMarker = false;
+        }
+
+        tmpMarker = new L.marker(latlng).addTo(map);
+
+    } else {
+        console.log('(lat, lng) is undefined');
+    }
+
+
+    
+},
+
+
 
         // Routers
                 Routers: function (canvasID) {
@@ -19173,7 +19226,7 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
 
             $('#formRTU_Information-btnCancel').click(function () {
-                console.log('btnCancel');
+                // console.log('btnCancel');
 
                 // fn.ResetMarkerToDefault();
                 // fn.ToggleFormInfo();
@@ -19195,8 +19248,14 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
                     fn.Routers('default');
                 }
 
-                
+            });
 
+
+
+            $('#btnSearchByLatLng').click(function () {
+                // console.log('btnSearchByLatLng');
+
+                fn.Leaflet_SearchByLatLng();
             });
 
 

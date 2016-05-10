@@ -19,7 +19,7 @@ Leaflet_ShowRTUInformation: function (myCurrentMarker) {
         $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
         $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
         $('#txtLocation').val(myCurrentMarker.feature.properties.location);
-        $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(7) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(7) + ")");
+        $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(6) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(6) + ")");
         $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
     } else {
         console.log(myCurrentMarker);

@@ -424,12 +424,25 @@ session_start(); //start session.
                       </div>
                   </div>
 
-                  <div class="form-group form-group-sm">
+                  <!-- <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="lat_lng">ค่าพิกัด:</label>
                       <div class="col-sm-9 controls">
                           <input type="text" name="lat_lng" id="txtLatLng" class="form-control" data-mask="(0.0000000, 0.0000000)"/>
                           <span class="help-inline">(Latitude, Longitude)</span>
                       </div>
+                  </div> -->
+
+                  <div class="form-group">
+                  <label class="col-sm-3 control-label">ค่าพิกัด:</label>
+                    <div class="col-sm-9 controls">
+                      <div class="input-group">
+                        <input type="text" name="lat_lng" id="txtLatLng" placeholder="(Latitude, Longitude)" class="form-control">
+                        <span class="input-group-btn">
+                          <button class="btn btn-primary" type="button" id="btnSearchByLatLng"><i class="fa fa-search"></i></button>
+                        </span>
+                      </div>
+                      <span class="help-inline">(Latitude, Longitude)</span>
+                    </div>
                   </div>
 
                   <!-- <div class="form-group">

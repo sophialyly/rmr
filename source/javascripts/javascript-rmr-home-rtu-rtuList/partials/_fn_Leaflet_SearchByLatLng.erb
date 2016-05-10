@@ -1,0 +1,52 @@
+Leaflet_SearchByLatLng: function () {
+    // console.log('Leaflet_SearchByLatLng');
+
+    // console.log($('#txtLatLng').val());
+
+    var tmpLatLngInput = $('#txtLatLng').val();
+    // var tmpLatLng = tmpLatLngInput.substr(1, tmpLatLngInput.length);
+
+    var tmpLatLng1 = tmpLatLngInput.replace("(", "");
+    var tmpLatLng2 = tmpLatLng1.replace(")", "");
+
+    // console.log(tmpLatLng);
+
+    var arrLatLng = new Array();
+    arrLatLng = tmpLatLng2.split(",");
+
+    var myLat = false;
+    var myLng = false;
+
+
+    if (arrLatLng[0]) {
+        myLat = arrLatLng[0].trim();
+    }
+
+    if (arrLatLng[1]) {
+        myLng = arrLatLng[1].trim();
+    }
+
+
+    if (myLat && myLng) {
+        // console.log(myLat);
+        // console.log(myLng);
+
+        var latlng = L.latLng(parseFloat(myLat), parseFloat(myLng));
+        map.panTo(latlng);
+
+        if (tmpMarker) {
+            map.removeLayer(tmpMarker);
+            tmpMarker = false;
+        }
+
+        tmpMarker = new L.marker(latlng).addTo(map);
+
+    } else {
+        console.log('(lat, lng) is undefined');
+    }
+
+
+    
+},
+
+

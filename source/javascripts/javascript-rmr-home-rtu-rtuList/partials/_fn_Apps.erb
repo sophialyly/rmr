@@ -56,7 +56,7 @@
 
 
             $('#formRTU_Information-btnCancel').click(function () {
-                console.log('btnCancel');
+                // console.log('btnCancel');
 
                 // fn.ResetMarkerToDefault();
                 // fn.ToggleFormInfo();
@@ -78,8 +78,14 @@
                     fn.Routers('default');
                 }
 
-                
+            });
 
+
+
+            $('#btnSearchByLatLng').click(function () {
+                // console.log('btnSearchByLatLng');
+
+                fn.Leaflet_SearchByLatLng();
             });
 
 
