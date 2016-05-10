@@ -14,12 +14,16 @@ Leaflet_ShowRTUInformation: function (myCurrentMarker) {
 
     // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
 
-    $('#txtDM').val(myCurrentMarker.feature.properties.dm);
-    $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
-    $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
-    $('#txtLocation').val(myCurrentMarker.feature.properties.location);
-    $('#txtLatLng').val(myCurrentMarker.getLatLng());
-    $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+    if (myCurrentMarker.feature.properties) {
+        $('#txtDM').val(myCurrentMarker.feature.properties.dm);
+        $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
+        $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
+        $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+        $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(7) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(7) + ")");
+        $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+    } else {
+        console.log(myCurrentMarker);
+    }
 
   
 

@@ -17926,6 +17926,8 @@ $(function() {
                             fn.HighlightMarkerToEdit();
                             fn.ToggleFormInfo();
 
+                            fn.Leaflet_ShowRTUInformation(currentMarker);
+
                             // Enable drag and zoom handlers.
                             map.dragging.enable();
                             map.touchZoom.enable();
@@ -18229,14 +18231,19 @@ $(function() {
             if (type === 'marker') {
                 // Do marker specific actions
                 // console.log(layer);
-                tmpAddMarker.bindPopup('A popup!');
-                tmpAddMarker.options.draggable = true;
+
+
+                // tmpAddMarker.bindPopup('New RTU');
+                // tmpAddMarker.options.draggable = true;
 
                 
                 fn.ResetMarkerToDefault();
                 editing = true;
                 fn.ToggleFormInfo();
                 // fn.ToggleFormInfo();
+
+                // currentMarker = tmpAddMarker;
+                // fn.Leaflet_ShowRTUInformation(tmpAddMarker);
 
             }
             drawnItems.addLayer(tmpAddMarker);
@@ -18447,33 +18454,60 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
 
 },
-        Leaflet_PanToLocation: function (myDM, myLat, myLng) {
+           Leaflet_PanToLocation: function (rtuInfoDataTableSelected) {
+// Leaflet_PanToLocation: function (myDM, myLat, myLng) {
+
     // console.log('Leaflet_PanToLocation');
 
     // map.panTo(new L.LatLng(myLng, myLat), {animate: true});
 
-    rtuGeojsonLayer.eachLayer(function(layer) {
-        if (layer.feature.properties.dm == myDM) {
+    // console.log(myLat);
 
-            console.log(myDM);
-            console.log(layer);
-            console.log(layer.getLatLng());
+    // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
 
-            currentMarker = layer;
-            fn.HighlightMarkerToEdit();
-            fn.ToggleFormInfo();
+    if (rtuInfoDataTableSelected.lat != "0.0000000") {
+    
+        
 
-            map.panTo(layer.getLatLng());
+        rtuGeojsonLayer.eachLayer(function(layer) {
 
-            fn.Leaflet_ShowRTUInformation(currentMarker);
+            if (layer.feature.properties.dm == rtuInfoDataTableSelected.dm) {
 
-            // currentMarker = e.target;
-            // fn.HighlightMarkerToEdit();
-                
-            // map.panTo(layer.getLatLng());
-            // layer.openPopup();
-        }
-    });
+                // console.log(myDM);
+                // console.log(layer);
+                // console.log(layer.getLatLng());
+
+                currentMarker = layer;
+                fn.HighlightMarkerToEdit();
+                fn.ToggleFormInfo();
+
+                map.panTo(layer.getLatLng());
+
+                fn.Leaflet_ShowRTUInformation(currentMarker);
+
+                map.removeControl(drawControl);
+
+                // currentMarker = e.target;
+                // fn.HighlightMarkerToEdit();
+                    
+                // map.panTo(layer.getLatLng());
+                // layer.openPopup();
+            }
+        });
+
+    } else {
+            // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+            $('#txtDM').val(rtuInfoDataTableSelected.dm);
+            $('#txtDMA').val(rtuInfoDataTableSelected.dma);
+            $('#txtIP').val(rtuInfoDataTableSelected.ip_address);
+            $('#txtLocation').val(rtuInfoDataTableSelected.location);
+            $('#txtLatLng').val("(" + rtuInfoDataTableSelected.lat + ", " + rtuInfoDataTableSelected.lng + ")");
+            $('#txtRemark').val(rtuInfoDataTableSelected.remark);
+
+            map.addControl(drawControl);
+            
+    }
 
 
 
@@ -18496,12 +18530,16 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
     // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
 
-    $('#txtDM').val(myCurrentMarker.feature.properties.dm);
-    $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
-    $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
-    $('#txtLocation').val(myCurrentMarker.feature.properties.location);
-    $('#txtLatLng').val(myCurrentMarker.getLatLng());
-    $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+    if (myCurrentMarker.feature.properties) {
+        $('#txtDM').val(myCurrentMarker.feature.properties.dm);
+        $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
+        $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
+        $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+        $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(7) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(7) + ")");
+        $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+    } else {
+        console.log(myCurrentMarker);
+    }
 
   
 
@@ -18879,7 +18917,8 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
                 if (rtuGeojsonLayer) {
                     fn.Routers('map');
-                    fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
+                    // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
+                    fn.Leaflet_PanToLocation(rowDataTableSelected);
                 }
 
 
@@ -19089,8 +19128,22 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
             $('#formRTU_Information-btnSave').click(function () {
                 // console.log('You click save button');
 
-                var data = $('#formRTU_Information').serializeJSON();
-                console.log(data);
+                // var data = $('#formRTU_Information').serializeJSON({parseAll: true});
+                // console.log(data);
+
+                var myform = $('#formRTU_Information');
+                var disabled = myform.find(':input:disabled').removeAttr('disabled');
+                var serialized = myform.serializeJSON();
+                disabled.attr('disabled','disabled');
+
+                console.log(serialized);
+
+            });
+
+
+            $('#formRTU_Information-btnCancel').click(function () {
+                // console.log('btnCancel');
+                fn.Routers('default');
             });
 
 

@@ -84,14 +84,19 @@ Leaflet_DrawControl: function () {
             if (type === 'marker') {
                 // Do marker specific actions
                 // console.log(layer);
-                tmpAddMarker.bindPopup('A popup!');
-                tmpAddMarker.options.draggable = true;
+
+
+                // tmpAddMarker.bindPopup('New RTU');
+                // tmpAddMarker.options.draggable = true;
 
                 
                 fn.ResetMarkerToDefault();
                 editing = true;
                 fn.ToggleFormInfo();
                 // fn.ToggleFormInfo();
+
+                // currentMarker = tmpAddMarker;
+                // fn.Leaflet_ShowRTUInformation(tmpAddMarker);
 
             }
             drawnItems.addLayer(tmpAddMarker);

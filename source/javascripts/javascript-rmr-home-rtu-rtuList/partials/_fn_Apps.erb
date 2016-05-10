@@ -37,8 +37,22 @@
             $('#formRTU_Information-btnSave').click(function () {
                 // console.log('You click save button');
 
-                var data = $('#formRTU_Information').serializeJSON();
-                console.log(data);
+                // var data = $('#formRTU_Information').serializeJSON({parseAll: true});
+                // console.log(data);
+
+                var myform = $('#formRTU_Information');
+                var disabled = myform.find(':input:disabled').removeAttr('disabled');
+                var serialized = myform.serializeJSON();
+                disabled.attr('disabled','disabled');
+
+                console.log(serialized);
+
+            });
+
+
+            $('#formRTU_Information-btnCancel').click(function () {
+                // console.log('btnCancel');
+                fn.Routers('default');
             });
 
 

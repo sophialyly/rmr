@@ -1,30 +1,52 @@
-Leaflet_PanToLocation: function (myDM, myLat, myLng) {
+   Leaflet_PanToLocation: function (rtuInfoDataTableSelected) {
+// Leaflet_PanToLocation: function (myDM, myLat, myLng) {
+
     // console.log('Leaflet_PanToLocation');
 
     // map.panTo(new L.LatLng(myLng, myLat), {animate: true});
 
-    rtuGeojsonLayer.eachLayer(function(layer) {
-        if (layer.feature.properties.dm == myDM) {
+    // console.log(myLat);
 
-            console.log(myDM);
-            console.log(layer);
-            console.log(layer.getLatLng());
+    // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
 
-            currentMarker = layer;
-            fn.HighlightMarkerToEdit();
-            fn.ToggleFormInfo();
+    if (rtuInfoDataTableSelected.lat != "0.0000000") {
+    
+        
 
-            map.panTo(layer.getLatLng());
+        rtuGeojsonLayer.eachLayer(function(layer) {
 
-            fn.Leaflet_ShowRTUInformation(currentMarker);
+            if (layer.feature.properties.dm == rtuInfoDataTableSelected.dm) {
 
-            // currentMarker = e.target;
-            // fn.HighlightMarkerToEdit();
-                
-            // map.panTo(layer.getLatLng());
-            // layer.openPopup();
-        }
-    });
+                // console.log(myDM);
+                // console.log(layer);
+                // console.log(layer.getLatLng());
+
+                currentMarker = layer;
+                fn.HighlightMarkerToEdit();
+                fn.ToggleFormInfo();
+
+                map.panTo(layer.getLatLng());
+
+                fn.Leaflet_ShowRTUInformation(currentMarker);
+
+                map.removeControl(drawControl);
+
+            }
+        });
+
+    } else {
+            // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+            $('#txtDM').val(rtuInfoDataTableSelected.dm);
+            $('#txtDMA').val(rtuInfoDataTableSelected.dma);
+            $('#txtIP').val(rtuInfoDataTableSelected.ip_address);
+            $('#txtLocation').val(rtuInfoDataTableSelected.location);
+            $('#txtLatLng').val("(" + rtuInfoDataTableSelected.lat + ", " + rtuInfoDataTableSelected.lng + ")");
+            $('#txtRemark').val(rtuInfoDataTableSelected.remark);
+
+            map.addControl(drawControl);
+            
+    }
 
 
 

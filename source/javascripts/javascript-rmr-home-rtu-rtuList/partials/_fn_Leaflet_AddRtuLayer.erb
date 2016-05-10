@@ -110,6 +110,8 @@ Leaflet_AddRtuLayer: function () {
                             fn.HighlightMarkerToEdit();
                             fn.ToggleFormInfo();
 
+                            fn.Leaflet_ShowRTUInformation(currentMarker);
+
                             // Enable drag and zoom handlers.
                             map.dragging.enable();
                             map.touchZoom.enable();

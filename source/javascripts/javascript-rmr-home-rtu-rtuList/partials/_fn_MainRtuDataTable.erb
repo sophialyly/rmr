@@ -166,7 +166,8 @@ MainRtuDataTable: function () {
 
                 if (rtuGeojsonLayer) {
                     fn.Routers('map');
-                    fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
+                    // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
+                    fn.Leaflet_PanToLocation(rowDataTableSelected);
                 }
 
 

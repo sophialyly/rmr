@@ -256,7 +256,7 @@ session_start(); //start session.
         <div class="box-title">
             <h3><i class="fa fa-file"></i> รายการข้อมูล RTU</h3>
             <div class="box-tool">
-                <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                <!-- <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a> -->
                 <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
             </div>
         </div>
@@ -328,8 +328,9 @@ session_start(); //start session.
             <div class="box-title">
                 <h3><i class="fa fa-bars"></i> แผนที่แสดงตำแหน่ง RTU</h3>
                 <div class="box-tool">
-                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    <!-- <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a> -->
+                    <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
+                    <a class ="goto-default" href="#"><i class="fa fa-times"></i></a>
                 </div>
             </div>
             <div class="box-content" >
@@ -441,7 +442,7 @@ session_start(); //start session.
                           <button type="button" id="formRTU_Information-btnSave" class="btn btn-primary col-sm-6">บันทึกข้อมูล</button>
                           <!-- <input type="submit" class="btn btn-primary col-sm-6" value="บันทึกข้อมูล"> -->
                           <!-- <button type="button btn-primary" class="btn">บันทึกข้อมูล</button> -->
-                          <button type="button" class="btn btn-danger col-sm-6">ยกเลิก</button>
+                          <button type="button" id="formRTU_Information-btnCancel" class="btn btn-danger col-sm-6">ยกเลิก</button>
                       </div>
                   </div>
 
