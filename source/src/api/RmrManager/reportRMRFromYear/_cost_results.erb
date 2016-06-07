@@ -1,0 +1,23 @@
+                  $results_cost = $db->collect_data_cost_tb->where("mn_code ='".$result["mn_code"]."'");
+                  foreach ($results_cost as $result_cost) {
+
+                      
+                      
+                      $tmpCostSubGroupCode = $result_cost["cost_sub_group_code"];
+                      $tmpCostSubGroupCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpCostSubGroupCode);
+                      $results_cost_sub_group = $db->cost_sub_group_tb->where("cost_sub_group_code = '".$tmpCostSubGroupCode."'")->fetch();
+
+                      $tmpCostMainGroupCode = substr($tmpCostSubGroupCode,0,-3);
+                      $results_cost_main_group = $db->cost_main_group_tb->where("cost_main_group_code = '".$tmpCostMainGroupCode."'")->fetch();
+
+                      $reports_cost[] = array(
+                          "cost_main_group_code" => $tmpCostMainGroupCode,
+                          "cost_main_group_desc" => $results_cost_main_group["cost_main_group_desc"],
+                          "cost_sub_group_code" => $result_cost["cost_sub_group_code"],
+                          "cost_sub_group_desc" => $results_cost_sub_group["cost_sub_group_desc"],
+                          "cost_sub_price" => $results_cost_sub_group["cost_sub_price"],
+                          "unit_desc" => $results_cost_sub_group["unit_desc"]
+                      );
+
+                      $tmpTotalPrice = $tmpTotalPrice + (int)str_replace(' ', '', $results_cost_sub_group["cost_sub_price"]);
+                  }

@@ -1,0 +1,27 @@
+                  $results_cause = $db->collect_data_cause_tb->where("mn_code ='".$result["mn_code"]."'");
+                  foreach ($results_cause as $result_cause) {
+
+                    
+                    $tmpCauseSubGroupCode = $result_cause["cause_sub_group_code"];
+                    $tmpCauseSubGroupCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpCauseSubGroupCode);
+                    $results_cause_sub_group = $db->cause_sub_group_tb->where("cause_sub_group_code = '".$tmpCauseSubGroupCode."'")->fetch();
+
+                    // $results_cause_main_group = $db->cause_main_group_tb->where("cause_main_group_code = 'cause-01'")->fetch();
+                    $tmpCauseMainGroupCode = $results_cause_sub_group["cause_main_group_code"];
+                    $tmpCauseMainGroupCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpCauseMainGroupCode);
+                    $results_cause_main_group = $db->cause_main_group_tb->where("cause_main_group_code = '".$tmpCauseMainGroupCode."'")->fetch();
+
+                    $tmpFixCode = $result_cause["fix_code"];
+                    $tmpFixCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpFixCode);
+                    $results_fix_type = $db->fix_type_tb->where("fix_code = '".$tmpFixCode."'")->fetch();
+
+                    $reports_cause[] = array(
+                          "cause_main_group_code" => $results_cause_sub_group["cause_main_group_code"],
+                          "cause_main_group_desc" => $results_cause_main_group["cause_main_group_desc"],
+                          "cause_sub_group_code" => $result_cause["cause_sub_group_code"],
+                          "cause_sub_group_desc" => $results_cause_sub_group["cause_sub_group_desc"],
+                          "fix_code" => $result_cause["fix_code"],
+                          "fix_desc" => $results_fix_type["fix_desc"]
+                      );
+
+                  }

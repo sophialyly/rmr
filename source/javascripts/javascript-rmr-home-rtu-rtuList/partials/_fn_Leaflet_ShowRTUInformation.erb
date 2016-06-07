@@ -19,6 +19,7 @@ Leaflet_ShowRTUInformation: function (myCurrentMarker) {
         $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
         $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
         $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+        $('#txtRPC').val(myCurrentMarker.feature.properties.rtu_pin_code);
         $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(6) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(6) + ")");
         $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
     } else {

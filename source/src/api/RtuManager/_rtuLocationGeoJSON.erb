@@ -79,6 +79,7 @@
                                    "zone" => $result["zone_code"],
                                    "ip_address" => $result["ip_address"],
                                    "logger_code" => $result["logger_code"],
+                                   "rtu_pin_code" => $result_rtu_pin_code["rtu_pin_code"],
                                    "location" => $result_rtu_pin_code["location"],
                                    "remark" => $result["remark"]);
             $tmpFeature = new \GeoJson\Feature\Feature($tmpPoint, $tmpProperties, $tmpID, null);

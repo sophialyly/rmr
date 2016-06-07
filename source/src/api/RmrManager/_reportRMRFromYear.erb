@@ -1,0 +1,115 @@
+    /**
+     *
+     * @apiName ReportRMRFromYear
+     * @apiGroup RMR Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /rmrManager/reportRMRFromYear Report RMR From Year
+     * @apiDescription คำอธิบาย : ส่วนนี้เป็นส่วนค้นหารายการ RMR แยกแต่ละปี
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function reportRMRFromYear($app, $pdo, $db) {
+
+        /* ************************* */
+        /* เริ่มกระบวนการรับค่าพารามิเตอร์จากส่วนของ Payload ซึ่งอยู่ในรูปแบบ JSON */
+        /* ************************* */
+        $headers = $app->request->headers;
+        $ContetnType = $app->request->headers->get('Content-Type');
+
+        /**
+        * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
+        * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
+        */
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8")) {
+
+            $request = $app->request();
+            $result = json_decode($request->getBody());
+
+            /* receive request */
+            $postYear = $result->year;
+
+
+        } else if ($ContetnType == "application/x-www-form-urlencoded"){
+
+            //$userID = $app->request()->params('userID_param');
+            //$userID = $app->request()->post('userID_param');
+        }
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+        $reports = array();
+        $reports_cost = array();
+        $reports_cause = array();
+        $shortYear = substr($postYear, -2);
+        $tmpTotalPrice = 0;
+
+        // $results = $db->collect_data_all_tb;
+        // $results = $db->collect_data_all_tb->where("mn_code like 'MN-".$shortYear."%'");
+        // $results = $db->collect_data_all_tb->where("mn_code like 'MN-".$shortYear."%'")->order("mn_date ASC");
+        $results = $db->collect_data_all_tb->where("mn_code like 'MN-".$shortYear."%'")->order("mn_code, mn_date ASC");
+        
+        foreach ($results as $result) {
+
+
+
+<%= partial "/RmrManager/reportRMRFromYear/_cost_results" %>
+
+<%= partial "/RmrManager/reportRMRFromYear/_cause_results" %>
+
+            $reports[] = array(
+                "id" => $result["id"],
+                "mn_code" => $result["mn_code"],
+                "dm_code" => $result["dm_code"],
+                "mn_date" => $result["mn_date"],
+                "taketime" => $result["taketime"],
+                "total_price" => $tmpTotalPrice,
+                "cost" => $reports_cost,
+                "cause" => $reports_cause
+            );
+
+            $reports_cost = array();
+            $reports_cause = array();
+
+            $tmpTotalPrice = 0;
+
+        }
+
+        $rowCount = count($results);
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+        $return_m = array("params" => $postYear);
+        $reportResult = array("result" =>  $resultText, 
+                              "count" => $rowCount, 
+                              "postYear" => $postYear, 
+                              "rows" => $reports);
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+    };

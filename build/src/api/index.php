@@ -247,6 +247,10 @@ session_start(); //start session.
     $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
     $app->get('/rtuManager/rtuLocationGeoJSON/',function() use ($app, $pdo, $db, $key) { rtuLocationGeoJSON($app, $pdo, $db, $key); });
 
+    /* RMR manager */
+    $app->post('/rmrManager/reportRMRFromYear/',function() use ($app, $pdo, $db) { reportRMRFromYear($app, $pdo, $db); });
+
+
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
     //     logout($app, $pdo, $db); 
@@ -2117,6 +2121,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                 "comm_type" => $result["comm_type"],
                 "status" => $result["rtu_status"],
                 "remark" => $result["remark"],
+                "rtu_pin_code" => $result_rtu_pin_code["rtu_pin_code"],
                 "lat" => $result_rtu_pin_code["lat"],
                 "lng" => $result_rtu_pin_code["lng"],
                 "location" => $result_rtu_pin_code["location"]
@@ -2800,6 +2805,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                                    "zone" => $result["zone_code"],
                                    "ip_address" => $result["ip_address"],
                                    "logger_code" => $result["logger_code"],
+                                   "rtu_pin_code" => $result_rtu_pin_code["rtu_pin_code"],
                                    "location" => $result_rtu_pin_code["location"],
                                    "remark" => $result["remark"]);
             $tmpFeature = new \GeoJson\Feature\Feature($tmpPoint, $tmpProperties, $tmpID, null);
@@ -2817,6 +2823,171 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         echo json_encode($featureCollection);
 
 
+    };
+
+    /* RMR Manager Partial */
+        /**
+     *
+     * @apiName ReportRMRFromYear
+     * @apiGroup RMR Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /rmrManager/reportRMRFromYear Report RMR From Year
+     * @apiDescription คำอธิบาย : ส่วนนี้เป็นส่วนค้นหารายการ RMR แยกแต่ละปี
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /testManager/getMsg/:name
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function reportRMRFromYear($app, $pdo, $db) {
+
+        /* ************************* */
+        /* เริ่มกระบวนการรับค่าพารามิเตอร์จากส่วนของ Payload ซึ่งอยู่ในรูปแบบ JSON */
+        /* ************************* */
+        $headers = $app->request->headers;
+        $ContetnType = $app->request->headers->get('Content-Type');
+
+        /**
+        * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
+        * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
+        */
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8")) {
+
+            $request = $app->request();
+            $result = json_decode($request->getBody());
+
+            /* receive request */
+            $postYear = $result->year;
+
+
+        } else if ($ContetnType == "application/x-www-form-urlencoded"){
+
+            //$userID = $app->request()->params('userID_param');
+            //$userID = $app->request()->post('userID_param');
+        }
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+        $reports = array();
+        $reports_cost = array();
+        $reports_cause = array();
+        $shortYear = substr($postYear, -2);
+        $tmpTotalPrice = 0;
+
+        // $results = $db->collect_data_all_tb;
+        // $results = $db->collect_data_all_tb->where("mn_code like 'MN-".$shortYear."%'");
+        // $results = $db->collect_data_all_tb->where("mn_code like 'MN-".$shortYear."%'")->order("mn_date ASC");
+        $results = $db->collect_data_all_tb->where("mn_code like 'MN-".$shortYear."%'")->order("mn_code, mn_date ASC");
+        
+        foreach ($results as $result) {
+
+
+
+                  $results_cost = $db->collect_data_cost_tb->where("mn_code ='".$result["mn_code"]."'");
+                  foreach ($results_cost as $result_cost) {
+
+                      
+                      
+                      $tmpCostSubGroupCode = $result_cost["cost_sub_group_code"];
+                      $tmpCostSubGroupCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpCostSubGroupCode);
+                      $results_cost_sub_group = $db->cost_sub_group_tb->where("cost_sub_group_code = '".$tmpCostSubGroupCode."'")->fetch();
+
+                      $tmpCostMainGroupCode = substr($tmpCostSubGroupCode,0,-3);
+                      $results_cost_main_group = $db->cost_main_group_tb->where("cost_main_group_code = '".$tmpCostMainGroupCode."'")->fetch();
+
+                      $reports_cost[] = array(
+                          "cost_main_group_code" => $tmpCostMainGroupCode,
+                          "cost_main_group_desc" => $results_cost_main_group["cost_main_group_desc"],
+                          "cost_sub_group_code" => $result_cost["cost_sub_group_code"],
+                          "cost_sub_group_desc" => $results_cost_sub_group["cost_sub_group_desc"],
+                          "cost_sub_price" => $results_cost_sub_group["cost_sub_price"],
+                          "unit_desc" => $results_cost_sub_group["unit_desc"]
+                      );
+
+                      $tmpTotalPrice = $tmpTotalPrice + (int)str_replace(' ', '', $results_cost_sub_group["cost_sub_price"]);
+                  }
+
+                  $results_cause = $db->collect_data_cause_tb->where("mn_code ='".$result["mn_code"]."'");
+                  foreach ($results_cause as $result_cause) {
+
+                    
+                    $tmpCauseSubGroupCode = $result_cause["cause_sub_group_code"];
+                    $tmpCauseSubGroupCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpCauseSubGroupCode);
+                    $results_cause_sub_group = $db->cause_sub_group_tb->where("cause_sub_group_code = '".$tmpCauseSubGroupCode."'")->fetch();
+
+                    // $results_cause_main_group = $db->cause_main_group_tb->where("cause_main_group_code = 'cause-01'")->fetch();
+                    $tmpCauseMainGroupCode = $results_cause_sub_group["cause_main_group_code"];
+                    $tmpCauseMainGroupCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpCauseMainGroupCode);
+                    $results_cause_main_group = $db->cause_main_group_tb->where("cause_main_group_code = '".$tmpCauseMainGroupCode."'")->fetch();
+
+                    $tmpFixCode = $result_cause["fix_code"];
+                    $tmpFixCode = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $tmpFixCode);
+                    $results_fix_type = $db->fix_type_tb->where("fix_code = '".$tmpFixCode."'")->fetch();
+
+                    $reports_cause[] = array(
+                          "cause_main_group_code" => $results_cause_sub_group["cause_main_group_code"],
+                          "cause_main_group_desc" => $results_cause_main_group["cause_main_group_desc"],
+                          "cause_sub_group_code" => $result_cause["cause_sub_group_code"],
+                          "cause_sub_group_desc" => $results_cause_sub_group["cause_sub_group_desc"],
+                          "fix_code" => $result_cause["fix_code"],
+                          "fix_desc" => $results_fix_type["fix_desc"]
+                      );
+
+                  }
+
+            $reports[] = array(
+                "id" => $result["id"],
+                "mn_code" => $result["mn_code"],
+                "dm_code" => $result["dm_code"],
+                "mn_date" => $result["mn_date"],
+                "taketime" => $result["taketime"],
+                "total_price" => $tmpTotalPrice,
+                "cost" => $reports_cost,
+                "cause" => $reports_cause
+            );
+
+            $reports_cost = array();
+            $reports_cause = array();
+
+            $tmpTotalPrice = 0;
+
+        }
+
+        $rowCount = count($results);
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+        $return_m = array("params" => $postYear);
+        $reportResult = array("result" =>  $resultText, 
+                              "count" => $rowCount, 
+                              "postYear" => $postYear, 
+                              "rows" => $reports);
+
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
     };
     
     

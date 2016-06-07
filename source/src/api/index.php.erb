@@ -121,6 +121,10 @@ layout: "layout-api"
     $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
     $app->get('/rtuManager/rtuLocationGeoJSON/',function() use ($app, $pdo, $db, $key) { rtuLocationGeoJSON($app, $pdo, $db, $key); });
 
+    /* RMR manager */
+    $app->post('/rmrManager/reportRMRFromYear/',function() use ($app, $pdo, $db) { reportRMRFromYear($app, $pdo, $db); });
+
+
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
     //     logout($app, $pdo, $db); 
@@ -157,6 +161,9 @@ layout: "layout-api"
     <%= partial "/RtuManager/_syncRTUFromWLMA" %>
     <%= partial "/RtuManager/_updateLatLngFromFile" %>
     <%= partial "/RtuManager/_rtuLocationGeoJSON" %>
+
+    /* RMR Manager Partial */
+    <%= partial "/RmrManager/_reportRMRFromYear" %>
     
     
 ?>

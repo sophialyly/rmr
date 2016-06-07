@@ -17727,7 +17727,8 @@ $(function() {
 
     
     
-	L.Icon.Default.imagePath = '../../../../../../bower_components/leaflet/images/'
+	// L.Icon.Default.imagePath = '../../../../../../bower_components/leaflet/images/'
+    L.Icon.Default.imagePath = '../../../../../images/rmr/leaflet/images/'
  
     // Using multiple tile layers on your map
     var osmLink = 'OpenStreetMap', 
@@ -18561,6 +18562,7 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
         $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
         $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
         $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+        $('#txtRPC').val(myCurrentMarker.feature.properties.rtu_pin_code);
         $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(6) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(6) + ")");
         $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
     } else {
@@ -18923,6 +18925,7 @@ var parks = new L.esri.FeatureLayer("http://services.arcgis.com/rOo16HdIMeOBI4Mb
 
                             var tmpLatLng = "";
 
+                            tmpLatLng += '<b>' + row.rtu_pin_code + '</b><br/>';
                             tmpLatLng += '(' + row.lat + ',' + row.lng + ')';
 
                             return tmpLatLng;
