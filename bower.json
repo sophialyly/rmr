@@ -64,6 +64,7 @@
     "esri-leaflet": "^1.0.3",
     "jquery.serializeJSON": "^2.7.2",
     "numeral": "^1.5.3",
-    "moment-timezone": "^0.5.4"
+    "moment-timezone": "^0.5.4",
+    "leaflet.wms": "^0.1.0"
   }
 }

@@ -168,7 +168,7 @@ session_start(); //start session.
                                 <button type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
-                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" />
+                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" disabled />
                             </span>
                         </form>
                     </li>
