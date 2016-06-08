@@ -1,0 +1,13 @@
+Apps: function () {
+    //console.log('Apps');
+    $('#button-logout').bind('click', function(){
+        fn.LogoutManager();
+    });
+
+    $('#selectYear').on('change', function() {
+	  // fn.DashboardRmrDataTable();
+	  dashboardRmrDataTable.clear().draw();
+	  dashboardRmrDataTable.ajax.reload()
+	});
+
+}

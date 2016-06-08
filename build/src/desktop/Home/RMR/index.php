@@ -233,8 +233,8 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-dashboard"></i>   RMR Manager</h1>
-                        <h4>You can start your customization from this one!</h4>
+                        <h1><i class="fa fa-dashboard"></i>   RMR Manager - RTU Maintenance Records</h1>
+                        <h4>ระบบบันทึกข้อมูลการซ่อมและบำรุงรักษาอุปกรณ์ตรวจวัดภาคสนาม (RTU)</h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
@@ -247,7 +247,11 @@ session_start(); //start session.
                         	<a href="../">Home</a>
                             <span class="divider"><i class="fa fa-angle-right"></i></span>
                         </li>
-                        <li class="active">RMR Manager</li>
+                        <li class="active">
+                            RMR Manager
+                            <span class="divider"><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li class="active">Dashboard</li>
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->
@@ -255,36 +259,79 @@ session_start(); //start session.
 
 
 					
-					<!-- Home - Container - MainContent - menuTile  -->
-			    	                <!-- BEGIN Tiles -->
+					<!-- Home - Container - MainContent - dashboard  -->
+			    	                <!-- BEGIN Main Content -->
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-
-                                        <div class="tile tile-light-blue well well-sm">
-                                            <!-- <p class="title"><strong class="text-info">Events Manager</strong> - ระบบจัดการงานกิจกรรมภายใน MBK</p> -->
-                                            <h4><strong>RMR Manager</strong> - RTU Maintenance Records</h4>
-                                            <p>ระบบบันทึกข้อมูลการซ่อมและบำรุงรักษาอุปกรณ์ตรวจวัดภาคสนาม (RTU)</p>
-                                            <!-- <div  class="img img-bottom">
-                                                <i class="fa fa-dashboard"></i>
-                                            </div> -->
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-content">
+                                <div class="invoice">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h2>รายงานการซ่อมบำรุงรักษา RTU</h2>
                                         </div>
-
+                                        <div class="col-md-4 ">
+                                            <form action="#" class="form-horizontal " id="validation-form" method="post" >
+                                                <div class="form-group">
+                                                    <label for="select" class="col-md-5 control-label">ปีงบประมาณ :</label>
+                                                    <div class="col-md-7 controls">
+                                                        <select class="form-control" name="select" id="selectYear" >
+                                                            <!-- <option value="">-- ปีงบประมาณ --</option> -->
+                                                            <option value="2555">2555</option>
+                                                            <option value="2556">2556</option>
+                                                            <option value="2557">2557</option>
+                                                            <option value="2558">2558</option>
+                                                            <option value="2559">2559</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
+
+                                    <hr class="margin-0" />
+
+                                    <br/><br/>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered" id="dashboardRmrDataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center">#</th>
+                                                    <th>รหัสการบำรุงรักษา</th>
+                                                    <th>DM</th>
+                                                    <th>วันที่ปฏิบัติงาน</th>
+                                                    <th>เวลาที่ใช้ (นาที)</th>
+                                                    <th>ค่าใช้จ่ายทั้งหมด (บาท)</th>
+                                                    <th>รายละเอียด</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- <div class="row">
+                                        <div class="col-md-6">
+                                        </div>
+                                        <div class="col-md-6 invoice-amount">
+                                            <p>
+                                                <strong>Total:</strong> 
+                                                <span class="green font-size-14">
+                                                    <strong>555,396</strong>
+                                                </span>
+                                                &nbsp;&nbsp;บาท
+                                            </p>
+                                        </div>
+                                    </div> -->
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-7">
-                        
-                    </div>
                 </div>
-
-                <!-- END Tiles -->
+                <!-- END Main Content -->
 
 			    	
 			        

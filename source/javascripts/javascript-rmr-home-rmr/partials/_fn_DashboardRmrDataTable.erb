@@ -1,0 +1,124 @@
+DashboardRmrDataTable: function () {
+    // console.log('DashboardRmrDataTable');
+ 
+    // console.log(yearParam);
+    //------------------------ dashboardRmrDataTable -----------------------//
+    if (jQuery().dataTable) {
+
+      
+
+        dashboardRmrDataTable = $('#dashboardRmrDataTable').DataTable( {
+            "processing": true,
+            "ajax": {
+                "url": "../../../api/rmrManager/reportRMRFromYear/",
+                "type": "POST",
+                "cache": false,
+                "data"   : function( d ) {
+                  d.year= $("#selectYear").val();
+                },
+                "dataSrc": "rows",
+                "beforeSend" : function()    {           
+                    // console.log("beforeSend");
+                },
+                // "success": function(data) {
+                //     console.log(data);
+                //     // console.log($("#selectYear option:selected").text());
+                    
+                // },
+                "error": function(jqXHR, textStatus, errorThrown){
+                    // alert('init error: ' + textStatus);
+                    var url = '../../Login/';
+                    $(location).attr('href',url);
+                }
+            },
+            "aLengthMenu": [
+                    [5, 10, 15, 25, 50, 100, -1],
+                    [5, 10, 15, 25, 50, 100, "All"]
+                ],
+            "iDisplayLength": 5,
+            "oLanguage": {
+                    "sLengthMenu": "_MENU_ Records per page",
+                    "sInfo": "_START_ - _END_ of _TOTAL_",
+                    "sInfoEmpty": "0 - 0 of 0",
+                    "oPaginate": {
+                        "sPrevious": "Prev",
+                        "sNext": "Next"
+                    }
+            },
+            "aoColumnDefs": [
+                    {
+                        'bSortable': true,
+                        "bAutoWidth": true,
+                        'aTargets': [0]
+                    },{
+                        // The `data` parameter refers to the data for the cell (defined by the
+                        // `data` option, which defaults to the column being worked with, in
+                        // this case `data: 0`.
+                        "render": function ( data, type, row ) {
+                            //return '<input type="checkbox" />';
+                            return row.id;
+                        },
+                        "targets": 0
+                    },{
+                        "render": function ( data, type, row ) {
+
+                            var tmpCol1 = "";
+                            tmpCol1 = "<strong>" + row.mn_code + "</strong>";
+                            return tmpCol1;
+                        },
+                        "targets": 1
+                    },{
+                        "render": function ( data, type, row ) {
+
+                            return row.dm_code;
+                        },
+                        "targets": 2
+                    },{
+                        "render": function ( data, type, row ) {
+                            // return row.ip_address;
+
+                            var tmpCol3 = "";
+
+                            if (row.mn_date.substr(0,4) != "0000") {
+                                var tmpYear = parseInt(row.mn_date.substr(0,4)) + 543;
+                                var tmpMNDate = tmpYear + row.mn_date.substr(4,6);
+
+                                
+                                tmpCol3 = "<strong>" + tmpMNDate + "</strong>";
+                            } else {
+                                tmpCol3 = row.mn_date;
+                            }
+                            
+                            return tmpCol3;
+                        },
+                        "targets": 3
+                    },{
+                        "render": function ( data, type, row ) {
+                            return row.taketime;
+                        },
+                        "targets": 4
+                    },{
+                        "render": function ( data, type, row ) {
+                            return numeral(row.total_price).format('0,0');
+                        },
+                        "targets": 5
+                    },{
+                        "render": function ( data, type, row ) {
+ 
+                            var tmpCol6 = "";
+                            tmpCol6 += '<a class="btn btn-warning btn-sm" href="#"><i class="fa fa-usd"></i> Cost</a> &nbsp;';
+                            tmpCol6 += '<a class="btn btn-danger btn-sm" href="#"><i class="fa fa-gear"></i> Cause</a> &nbsp;';
+                            tmpCol6 += '<a class="btn btn-primary btn-sm" href="#"><i class="fa fa-globe"></i> Map</a>';
+ 
+                            return tmpCol6;
+                        },
+                        "targets": 6
+                    },{ 
+                        "sClass": "EventsManagerDataTable_Controls", "aTargets": [6] 
+                    }
+            ],
+            "order" : [] //disable default sorting, eg sorting on 1st column
+            
+        });
+    }
+},

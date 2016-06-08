@@ -1,5 +1,37 @@
-$(function () {
+(function ($) {
+    "use strict";
+ 
+    ///////////////////////////////////////////////////// Your
+    // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
+    
+    /////////////////////////////////////////////////// Adress
 
-    <%= partial "javascript-rmr-home-rmr/_javascript-rmr-jquery-home-rmr-logoutButtonClick" %>
+    var dashboardRmrDataTable;
+ 
+    var fn = {
+ 
+        // Launch Functions
+        Launch: function () {
+            fn.Onload();
+            fn.DashboardRmrDataTable();
+            fn.Apps();
+        },
 
-});
+        // Onload
+        <%= partial "javascript-rmr-home-rmr/partials/_fn_Onload" %>
+
+        // Dashboard RMR DataTable
+        <%= partial "javascript-rmr-home-rmr/partials/_fn_DashboardRmrDataTable" %>
+
+        // LogoutManager
+        <%= partial "javascript-rmr-home-rmr/partials/_fn_LogoutManager" %>
+
+        // Apps
+        <%= partial "javascript-rmr-home-rmr/partials/_fn_Apps" %>
+    };
+ 
+    $(document).ready(function () {
+        fn.Launch();
+    });
+ 
+})(jQuery);

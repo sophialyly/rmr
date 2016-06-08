@@ -2877,13 +2877,15 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
             $postYear = $result->year;
 
 
-        } else if ($ContetnType == "application/x-www-form-urlencoded"){
+        } else if (($ContetnType == "application/x-www-form-urlencoded") || ($ContetnType == "application/x-www-form-urlencoded; charset=UTF-8")){
 
             //$userID = $app->request()->params('userID_param');
             //$userID = $app->request()->post('userID_param');
+
+            $postYear = $app->request()->post('year');
         }
 
-
+        // $postYear = "2555";
 
         /* ************************* */
         /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */

@@ -7,11 +7,14 @@ loginURL: "../../Login/index.php"
 homeURL: "../"
 imageURL: "../../../../images"
 
-pageTitle: " RMR Manager"
-pageDescription: "You can start your customization from this one!"
+pageTitle: " RMR Manager - RTU Maintenance Records"
+pageDescription: "ระบบบันทึกข้อมูลการซ่อมและบำรุงรักษาอุปกรณ์ตรวจวัดภาคสนาม (RTU)"
 
 menuDashboard_IsActive: "active"
 menuDashboard_href: "./"
+
+#     *** Page DOM ID registered ***
+#     >>  dashboardRmrDataTable (ตาราง Datatable แสดงผลรายการ RMR ที่มีในระบบ)
 ---
 
 
@@ -33,8 +36,8 @@ menuDashboard_href: "./"
 			    	<!-- Home - Container - MainContent - breadCrumbs  -->
 			    	<%= partial partials_desktop_home + "/RMR/home-rmr-container-partials/_home-rmr-container-mainContent-breadCrumbs" %>
 					
-					<!-- Home - Container - MainContent - menuTile  -->
-			    	<%= partial partials_desktop_home + "/RMR/home-rmr-container-partials/_home-rmr-container-mainContent-dashboardTile" %>
+					<!-- Home - Container - MainContent - dashboard  -->
+			    	<%= partial partials_desktop_home + "/RMR/home-rmr-container-partials/_home-rmr-container-mainContent-dashboard" %>
 
 			    	
 			        
