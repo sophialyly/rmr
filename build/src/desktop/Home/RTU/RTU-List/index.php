@@ -227,7 +227,7 @@ session_start(); //start session.
                 <div class="page-title">
                     <div>
                         <h1><i class="fa fa-dashboard"></i>   รายการข้อมูล RTU</h1>
-                        <h4>You can start your customization from this one!</h4>
+                        <h4>แสดงรายละเอียด RTU ที่ใช้ใน กปน.</h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
