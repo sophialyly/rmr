@@ -1,0 +1,58 @@
+---
+title: "WLMA-SCADA : Flow & Pressure"
+layout: "layout-rmr-home-report-wlma_scada-ws_01_01"
+
+baseURL: "/rmr/build/src/desktop/Home/REPORT/WLMA-SCADA/WS-01-01/"
+homeURL: "../../../"
+loginURL: "../../../../Login/index.php"
+imageURL: "../../../../../../images"
+
+pageTitle: " Presure & Flow"
+pageDescription: "แสดงรายการข้อมูล Presure & Flow แยกตาม DM"
+
+
+sidebarDashboard_IsActive: ""
+sidebarDashboard_href: "../"
+
+sidebarWS_01_IsActive: "active"
+
+sidebarWS_01_01_IsActive: ""
+sidebarWS_01_01_href: "./"
+---
+
+
+		<!-- Admin - Navbar  -->
+		<%= partial partials_desktop_home + "/home-common-partials/_home-common-navbar" %>
+
+
+		<!-- BEGIN Container -->
+        <div class="container sidebar-blue" id="main-container">
+
+        		<!-- Home - Container - Sidebar  -->
+			    <%= partial partials_desktop_home + "/REPORT/WLMA-SCADA/common-partials/_sidebar" %>
+
+			    <!-- BEGIN Content -->
+			    <div id="main-content" >
+
+					<!-- Home - Container - MainContent - pageTitle  -->
+			    	<%= partial partials_desktop_home + "/REPORT/WLMA-SCADA/WS-01-01/content-partials/_pageTitle" %>
+			    	<!-- Home - Container - MainContent - breadCrumbs  -->
+			    	<%= partial partials_desktop_home + "/REPORT/WLMA-SCADA/WS-01-01/content-partials/_breadCrumbs" %>
+					
+					
+
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	<%= partial partials_desktop_home + "/REPORT/WLMA-SCADA/WS-01-01/content-partials/_sampleBox" %>
+			    
+					
+			    	
+			    	
+
+			        <footer>
+			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			        </footer>
+			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+			    </div>
+			    <!-- END Content -->
+        </div>
+        <!-- END Container -->

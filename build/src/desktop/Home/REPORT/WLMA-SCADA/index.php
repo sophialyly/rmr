@@ -5,18 +5,18 @@ session_start(); //start session.
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="/rmr/build/src/desktop/Home/REPORT/">
+        <base href="/rmr/build/src/desktop/Home/REPORT/WLMA-SCADA/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Home - Report System</title>
+        <title>Report Manager - WLMA-SCADA</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link href="../../../../stylesheets/stylesheet-rmr-home-report.css" rel="stylesheet" type="text/css" />
+        <link href="../../../../../stylesheets/stylesheet-rmr-home-report-wlma_scada.css" rel="stylesheet" type="text/css" />
 
-        <link rel="shortcut icon" href="../../../../images/rmr/favicon.ico">
+        <link rel="shortcut icon" href="../../../../../images/rmr/favicon.ico">
     </head>
     <body>
 
@@ -27,7 +27,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../Login/index.php'); //redirect URL
+                header('Location: ../../../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -59,7 +59,7 @@ session_start(); //start session.
                                         <!-- BEGIN Button User -->
                 <li class="user-profile">
                     <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                        <img class="nav-user-photo" src="../../../../images/images-flaty_theme/img/demo/avatar/avatar5.jpg" alt="User's Photo" />
+                        <img class="nav-user-photo" src="../../../../../images/images-flaty_theme/img/demo/avatar/avatar5.jpg" alt="User's Photo" />
                         <span class="hhh" id="user_info">
                             User
                         </span>
@@ -152,20 +152,79 @@ session_start(); //start session.
         </div>
         <!-- END Navbar -->
 
+
 		<!-- BEGIN Container -->
         <div class="container sidebar-blue" id="main-container">
 
+        		<!-- Home - Container - Sidebar  -->
+			                <!-- BEGIN Sidebar -->
+            <!-- <div id="sidebar" class="navbar-collapse collapse"> -->
+            <div id="sidebar" class="navbar-collapse collapse sidebar-fixed">
+                <!-- BEGIN Navlist -->
+                <ul class="nav nav-list">
+                    <!-- BEGIN Search Form -->
+                    <li>
+                        <form target="#" method="GET" class="search-form">
+                            <span class="search-pan">
+                                <button type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <input type="text" name="search" placeholder="Search ..." autocomplete="off" disabled />
+                            </span>
+                        </form>
+                    </li>
+                    <!-- END Search Form -->
+
+                        <!-- sidebar - Dashboard  -->
+                                            <li class="active">
+                        <a href="./">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                        <!-- sidebar - RMR  -->
+                                            <li class="">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-desktop"></i>
+                            <span>WLMA-SCADA</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+                            <li class="">
+                                <a href="./WS-01-01/">Pressure & Flow</a>
+                            </li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>
+
+                        
+
+                   
+
+                    
+                </ul>
+                <!-- END Navlist -->
+
+                <!-- BEGIN Sidebar Collapse Button -->
+                <div id="sidebar-collapse" class="visible-lg">
+                    <i class="fa fa-angle-double-left"></i>
+                </div>
+                <!-- END Sidebar Collapse Button -->
+            </div>
+            <!-- END Sidebar -->
 
 			    <!-- BEGIN Content -->
 			    <div id="main-content" >
 
-
-			    	<!-- Home - Container - MainContent - pageTitle  -->
+					<!-- Home - Container - MainContent - pageTitle  -->
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-file-o"></i>   REPORT Manager</h1>
-                        <h4>You can start your customization from this one!</h4>
+                        <h1><i class="fa fa-file-o"></i>   WLMA-SCADA</h1>
+                        <h4>รายงานแผนบูรณาการพิกัดตู้ RTU กับระบบ WLMA-SCADA</h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
@@ -173,12 +232,19 @@ session_start(); //start session.
 			    	                <!-- BEGIN Breadcrumb -->
                 <div>
                     <ul class="breadcrumb">
-                        <li>
+                        <li class="">
                         	<i class="fa fa-home"></i> 
-                        	<a href="../">Home</a>
+                        	<a href="../../">Home</a>
+                        	<span class="divider"><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li class="active">
+                            WLMA-SCADA
                             <span class="divider"><i class="fa fa-angle-right"></i></span>
                         </li>
-                        <li class="active">Report Manager</li>
+                        <li class="active">
+                            Dashboard
+                        </li>
+                        <!-- <li class="active"> &nbsp; </li> -->
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->
@@ -186,58 +252,24 @@ session_start(); //start session.
 
 
 					
-					<!-- Home - Container - MainContent - menuTile - First Row  -->
-
-			    	<!-- Home - Container - MainContent - menuTile - Second Row  -->
 					
-			    	<!-- Home - Container - MainContent - menuTile - Third Row  -->
-			    	                
 
-
-                <!-- BEGIN First Row -->
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div  class="col-md-12">
-                                <a href="./WLMA-SCADA/" class="tile tile-light-blue" id="ReportLogoID">
-                                    <div class="img">
-                                        <!-- <i class="fa fa-calendar"></i> -->
-                                        <img  src="../../../../images/rmr/home-menuTile-report-tileLogo.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big">WLMA-SCADA</p>
-                                        <p class="title">แผนที่แสดงค่า F,P</p>
-                                    </div>
-                                </a>
+			        <!-- Home - Container - MainContent - menuTile  -->
+			    	                        <div class="box" >
+                            <div class="box-title">
+                                <h3><i class="fa fa-file"></i> Sample Box</h3>
+                                <div class="box-tool">
+                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="box-content" style="height:400px;">
+                                <!-- <p>Blank page</p> -->
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div  class="col-md-12">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div  class="col-md-12">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-12 tile-active">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END First Row -->
-
-
-
+			    
+					
+			    	
 			    	
 
 			        <footer>
@@ -249,7 +281,7 @@ session_start(); //start session.
         </div>
         <!-- END Container -->
 
-        <script src="../../../../javascripts/javascript-rmr-home-report.js" type="text/javascript"></script>
+        <script src="../../../../../javascripts/javascript-rmr-home-report-wlma_scada.js" type="text/javascript"></script>
 
     </body>
 </html>
