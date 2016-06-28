@@ -3,19 +3,29 @@
  
     ///////////////////////////////////////////////////// Your
     // var venueAddress = "Grand Place, 1000, Brussels"; // Venue
-
     
     /////////////////////////////////////////////////// Adress
- 
+    var token = null;
+
+    var mainRtuDataTable;
+
+
     var fn = {
+
+        
  
         // Launch Functions
         Launch: function () {
+            fn.GetToken();
             fn.MainRtuDataTable();
+            fn.MainRtuDataTable_click_handler();
             fn.Apps();
         },
         // Main RTU DataTable
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_MainRtuDataTable" %>
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_MainRtuDataTable_click_handler" %>
+        // Get Token
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_GetToken" %>
         // Logout
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Logout" %>
  		// Apps

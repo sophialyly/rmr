@@ -1,0 +1,14 @@
+MainRtuDataTable_click_handler: function () {
+	console.log('MainRtuDataTable_click_handler');
+
+    $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
+
+      var data = mainRtuDataTable.row($(this).closest('tr')).data();
+      console.log(data);
+      console.log( 'You clicked on ' + data.id+'\'s row' );
+      console.log( 'You clicked on rtu_dm :  ' + data.dm );
+      
+    });
+
+    
+},
