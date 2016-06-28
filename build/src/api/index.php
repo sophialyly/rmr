@@ -250,6 +250,11 @@ session_start(); //start session.
     /* RMR manager */
     $app->post('/rmrManager/reportRMRFromYear/',function() use ($app, $pdo, $db) { reportRMRFromYear($app, $pdo, $db); });
 
+    /* REPORT manager */
+    $app->post('/reportManager/reportFlowPressureByDM/',function() use ($app, $pdo, $db, $conn_db2, $key) { reportFlowPressureByDM($app, $pdo, $db, $conn_db2, $key); });
+
+
+
 
     // $corsOptions = array("origin" => "*");
     // $app->post('/loginManager/logout/',\CorsSlim\CorsSlim::routeMiddleware($corsOptions) ,function() use ($app, $pdo, $db) { 
@@ -974,7 +979,7 @@ session_start(); //start session.
         * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
         * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
         */
-        if ($ContetnType == "application/json") {
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8")) {
 
 	        $request = $app->request();
 	        $result = json_decode($request->getBody());
@@ -2990,6 +2995,105 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
+    };
+
+    /* REPORT Manager Partial */
+        /**
+     *
+     * @apiName ReportFlowPressureByDM
+     * @apiGroup Report Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /reportManager/reportFlowPressureByDM/ reportFlowPressureByDM
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่แสดงรายการ RTU พร้อมค่า Flow, Pressure แยกแต่ละ DM
+     *
+     */
+
+    function reportFlowPressureByDM($app, $pdo, $db, $conn_db2, $key) {
+
+        $myBranchCode = "";
+
+        /* ************************* */
+        /* เริ่มกระบวนการ Extract the jwt from the Header or Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            // $jwt = "";
+
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
+            $authHeader = $request->headers('authorization');
+            list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+            $myBranchCode = $app->jwt->information->branchCode;
+
+        } else {
+            /*** Extract the jwt from Session ***/
+            $jwt = $_SESSION['jwt'];
+
+            $token = JWT::decode($jwt, $key, array('HS256'));
+            $myBranchCode = $token->information->branchCode;
+        }
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+        $reports = array();
+
+        if ($myBranchCode != "ALL") {
+            $results = $db->rtu_main_tb->where("branch_code = ? and rtu_status = 1", $myBranchCode)->order("dm_code ASC");
+        } else {
+            $results = $db->rtu_main_tb->where("rtu_status = 1")->order("dm_code ASC");
+        }
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+
+
+            foreach ($results as $result) {
+
+                $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
+
+                $reports[] = array(
+                    "id" => $result["id"],
+                    "dm" => $result["dm_code"],
+                    "dma" => $result["dma_code"],
+                    "branch" => $result["branch_code"],
+                    "zone" => $result["zone_code"],
+                    "ip_address" => $result["ip_address"],
+                    "logger_code" => $result["logger_code"],
+                    "comm_type" => $result["comm_type"],
+                    "status" => $result["rtu_status"],
+                    "remark" => $result["remark"],
+                    "rtu_pin_code" => $result_rtu_pin_code["rtu_pin_code"],
+                    "lat" => $result_rtu_pin_code["lat"],
+                    "lng" => $result_rtu_pin_code["lng"],
+                    "location" => $result_rtu_pin_code["location"],
+                    "flow_value" => rand(10,100),
+                    "flow_timestamp" => date("Y-m-d H:i:s"),
+                    "pressure_value" => rand(0,10),
+                    "pressure_timestamp" => date("Y-m-d H:i:s")
+                    );
+
+            }
+
+            $rowCount = count($results);
+
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+
     };
     
     

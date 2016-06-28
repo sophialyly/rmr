@@ -17337,8 +17337,55 @@ $(function() {
  
         // Launch Functions
         Launch: function () {
+            fn.MainRtuDataTable();
             fn.Apps();
         },
+        // Main RTU DataTable
+        MainRtuDataTable: function () {
+    // console.log('MainRtuDataTable');
+
+    //------------------------ mainRtuDataTable -----------------------//
+    if (jQuery().dataTable) {
+
+        mainRtuDataTable = $('#mainRtuDataTable').DataTable( {
+            // "processing": true,
+            // "ajax": {
+            //     "url": "../../../../api/rtuManager/listRTUFromBranch/",
+            //     "type": "GET",
+            //     "dataSrc": "rows",
+            //     // "success": function(data) {
+            //     //     console.log(data);
+            //     // },
+            //     "error": function(jqXHR, textStatus, errorThrown){
+            //         // alert('init error: ' + textStatus);
+            //         var url = '../../../Login/';
+            //         $(location).attr('href',url);
+            //     }
+            // },
+            "aLengthMenu": [
+                    [5, 10, 15, 25, 50, 100, -1],
+                    [5, 10, 15, 25, 50, 100, "All"]
+                ],
+            "iDisplayLength": 10,
+            "oLanguage": {
+                    "sLengthMenu": "_MENU_ Records per page",
+                    "sInfo": "_START_ - _END_ of _TOTAL_",
+                    "sInfoEmpty": "0 - 0 of 0",
+                    "oPaginate": {
+                        "sPrevious": "Prev",
+                        "sNext": "Next"
+                    }
+            },
+            "aoColumnDefs": [],
+            "order" : [] //disable default sorting, eg sorting on 1st column
+            
+        });
+
+    }
+
+},
+
+
         // Logout
         Logout: function () {
 	// console.log('Logout');

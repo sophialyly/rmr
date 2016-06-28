@@ -11,8 +11,11 @@
  
         // Launch Functions
         Launch: function () {
+            fn.MainRtuDataTable();
             fn.Apps();
         },
+        // Main RTU DataTable
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_MainRtuDataTable" %>
         // Logout
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Logout" %>
  		// Apps
