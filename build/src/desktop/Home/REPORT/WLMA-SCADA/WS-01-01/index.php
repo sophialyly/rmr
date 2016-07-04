@@ -267,11 +267,6 @@ session_start(); //start session.
 
                                 <div class="btn-toolbar pull-right clearfix">
                                     <div class="btn-group">
-                                        <a class="btn btn-circle" title="Sync Data" href="#" id="sync-data">
-                                        <span class="glyphicon glyphicon-transfer"></span>
-                                        </a>
-                                    </div>
-                                    <div class="btn-group">
                                     </div>
                                     <div class="btn-group">
                                         <a class="btn btn-circle show-tooltip" title="Refresh" id="refresh-data" href="#"><i class="fa fa-repeat"></i></a>

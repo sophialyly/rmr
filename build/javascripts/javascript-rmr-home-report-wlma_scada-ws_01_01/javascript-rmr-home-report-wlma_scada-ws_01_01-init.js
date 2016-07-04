@@ -169,7 +169,7 @@
                             return ms;
                         },
                         "targets": 8,
-                        orderData: [ 8 ]
+                        "orderData": [ 8 ]
                     },{
                         "render": function ( data, type, row ) {
 
@@ -275,6 +275,11 @@ Apps: function () {
 	$('#button-logout').bind('click', function(){
 		fn.Logout();
 	});
+
+	$('#refresh-data').click(function () {
+            // console.log('Refresh Data');
+            mainRtuDataTable.ajax.reload();
+    });
 
 }
 

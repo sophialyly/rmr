@@ -6,4 +6,9 @@ Apps: function () {
 		fn.Logout();
 	});
 
+	$('#refresh-data').click(function () {
+            // console.log('Refresh Data');
+            mainRtuDataTable.ajax.reload();
+    });
+
 }
