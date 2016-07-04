@@ -27,7 +27,11 @@ session_start(); //start session.
     $key = "supersecretkeyyoushouldnotcommittogithub";
 
     /* Slim framework 2.x */
-    $app = new \Slim\Slim();
+    // $app = new \Slim\Slim();
+    $logWriter = new \Slim\LogWriter(fopen('./api-debug.log', 'a'));
+    $app = new \Slim\Slim(array('log.enabled' => true,
+                                'log.writer' => $logWriter,
+                                'debug' => true));
 
     use \Firebase\JWT\JWT;
     $app->add(new \Slim\Middleware\JwtAuthentication([
@@ -297,6 +301,8 @@ session_start(); //start session.
      */
 
     function getMsg($app, $name) {
+
+        $app->log->debug("This is a test from the logger...");
 
         //$name = $request->getAttribute('name');
         //echo "สวัสดี, $name";
@@ -3071,9 +3077,9 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                     "lng" => $result_rtu_pin_code["lng"],
                     "location" => $result_rtu_pin_code["location"],
                     "flow_value" => rand(10,100),
-                    "flow_timestamp" => date("Y-m-d H:i:s"),
+                    "flow_timestamp" => mt_rand(1, 84600),
                     "pressure_value" => rand(0,10),
-                    "pressure_timestamp" => date("Y-m-d H:i:s")
+                    "pressure_timestamp" => mt_rand(1, 84600)
                     );
 
             }

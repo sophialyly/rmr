@@ -30,6 +30,8 @@
 
     function getMsg($app, $name) {
 
+        $app->log->debug("This is a test from the logger...");
+
         //$name = $request->getAttribute('name');
         //echo "สวัสดี, $name";
         $return_m = array("msg" => "สวัสดี, $name");

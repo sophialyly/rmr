@@ -17880,7 +17880,7 @@ $(function() {
                     {
                         'sWidth': '100px',
                         'bSortable': true,
-                        'aTargets': [0, 4]
+                        'aTargets': [0, 4, 8]
                     },{
                         'sWidth': '90px',
                         'bSortable': true,
@@ -17888,10 +17888,14 @@ $(function() {
                     },{
                         'sWidth': '60px',
                         'bSortable': true,
-                        'aTargets': [1, 2, 6, 7, 8]
+                        'aTargets': [1, 2, 6, 7]
                     },{
                         'bSortable': true,
                         "bAutoWidth": true,
+                        'aTargets': [8]
+                    },{
+                        'sWidth': '100px',
+                        'bSortable': true,
                         'aTargets': [5]
                     },{
                         'sWidth': '50px',
@@ -17941,7 +17945,8 @@ $(function() {
 
                             var tmpFlow = "";
 
-                            tmpFlow += '<b>' + row.flow_value + '</b><br/>';
+                            tmpFlow += '<b>' + parseFloat(row.flow_value).toFixed(2) + '</b><br/>';
+                            // tmpFlow += '<b>' + row.flow_value + '</b><br/>';
                             // tmpFlow += '(' + row.flow_timestamp + ')';
 
                             return tmpFlow;
@@ -17952,7 +17957,8 @@ $(function() {
 
                             var tmpPressure = "";
 
-                            tmpPressure += '<b>' + row.pressure_value + '</b><br/>';
+                            tmpPressure += '<b>' + parseFloat(row.pressure_value).toFixed(2) + '</b><br/>';
+                            // tmpPressure += '<b>' + row.pressure_value + '</b><br/>';
                             // tmpPressure += '(' + row.pressure_timestamp + ')';
 
                             return tmpPressure;
@@ -17969,7 +17975,17 @@ $(function() {
 
                             return d;
                         },
-                        "targets": 8
+                        "data": function ( data, type, row ) {
+
+                            var tmpFlowTimestamp = moment(data.flow_timestamp); 
+                            var tmpCurrentTimestamp = moment(); 
+
+                            var ms = tmpCurrentTimestamp.diff(tmpFlowTimestamp);
+
+                            return ms;
+                        },
+                        "targets": 8,
+                        orderData: [ 8 ]
                     },{
                         "render": function ( data, type, row ) {
 

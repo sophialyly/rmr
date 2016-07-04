@@ -72,9 +72,9 @@
                     "lng" => $result_rtu_pin_code["lng"],
                     "location" => $result_rtu_pin_code["location"],
                     "flow_value" => rand(10,100),
-                    "flow_timestamp" => date("Y-m-d H:i:s"),
+                    "flow_timestamp" => mt_rand(1, 84600),
                     "pressure_value" => rand(0,10),
-                    "pressure_timestamp" => date("Y-m-d H:i:s")
+                    "pressure_timestamp" => mt_rand(1, 84600)
                     );
 
             }

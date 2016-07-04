@@ -37,7 +37,11 @@ layout: "layout-api"
     $key = "supersecretkeyyoushouldnotcommittogithub";
 
     /* Slim framework 2.x */
-    $app = new \Slim\Slim();
+    // $app = new \Slim\Slim();
+    $logWriter = new \Slim\LogWriter(fopen('./api-debug.log', 'a'));
+    $app = new \Slim\Slim(array('log.enabled' => true,
+                                'log.writer' => $logWriter,
+                                'debug' => true));
 
     use \Firebase\JWT\JWT;
     $app->add(new \Slim\Middleware\JwtAuthentication([
