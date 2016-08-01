@@ -11,4 +11,9 @@ Apps: function () {
             mainRtuDataTable.ajax.reload();
     });
 
+
+    $('body').on('click', '.goto-default', function () {
+        fn.Routers('default');
+    });
+
 }

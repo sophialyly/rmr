@@ -1914,6 +1914,76 @@ $(function() {
             fn.MainRtuDataTable_click_handler();
             fn.Apps();
         },
+        // Routers
+                Routers: function (canvasID) {
+            // console.log('Routers');
+
+            if (canvasID != "default") {
+
+                $("#main-content > .canvas-rtuInformation:visible").hide("slide", { direction: "left" }, 800, function(){
+                    // $('#canvas-rtuInformation-' + canvasID).fadeIn(300);
+                    // $('#canvas-rtuInformation-formWizard').fadeIn(300);
+                    $('#canvas-rtuInformation-mapBox').fadeIn(300);
+
+                    // fn.OpenLayers();
+                    // fn.Leaflet();
+
+                    //$('#map').height($('#map-form-content').height() - $('#map-form-submit-content').height() - 20);
+
+                    // $('#map').height($('#main-content').height() - $('#main-content > .page-title').height() - $('#main-content > div > div > .breadcrumb').height() );
+
+                    $('#map').height($(window).height() - $('#main-content > .page-title').height() - 200 );
+
+                    // console.log($('#main-content > .page-title').height());
+
+                    // if (canvasID == 'add') {
+                    //     fn.BreadcrumbShow('เพิ่มข้อมูล RTU');
+                    // } else if (canvasID == 'view') {
+                    //     fn.BreadcrumbShow('ดูข้อมูล RTU');
+                    // } else if (canvasID == 'edit') {
+                    //     fn.BreadcrumbShow('แก้ไขข้อมูล RTU');
+                    // } else if (canvasID == 'map') {
+                    //     fn.BreadcrumbShow('แผนที่แสดงตำแหน่ง RTU');
+                    // }
+
+                    fn.SideMenuCollapse();
+                    
+
+                });
+                
+            } else {
+
+                fn.SideMenuExpand();
+
+                $("#main-content > .canvas-rtuInformation:visible").fadeOut(300, function(){
+                    $('#canvas-rtuInformation-' + canvasID).show("slide", { direction: "left" }, 800, function(){});
+
+                    // fn.BreadcrumbHide();
+                    
+                });
+
+            }
+        },
+        // SideMenu Expand
+        SideMenuExpand: function () {
+	//console.log('SideMenuExpand');
+	$("#sidebar").attr('class', 'navbar-collapse collapse sidebar-fixed');
+
+	// if(map){
+	// 	map.invalidateSize()
+	// }
+
+},
+        // SideMenu Collapse
+        SideMenuCollapse: function () {
+	//console.log('SideMenuCollapse');
+	$("#sidebar").attr('class', 'navbar-collapse collapse sidebar-fixed sidebar-collapsed');
+	
+	// if(map){
+	// 	map.invalidateSize()
+	// }
+
+},
         // Main RTU DataTable
         MainRtuDataTable: function () {
     // console.log('MainRtuDataTable');
@@ -2089,6 +2159,52 @@ $(function() {
 
     }
 
+
+    $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
+        //console.log($(this).attr('data-original-title'));
+        //console.log(this);
+        // console.log ( 'Row index: ' + EventsManagerDataTable.row(this).index() );
+
+        var data = mainRtuDataTable.row($(this).closest('tr')).data();
+        // console.log(data);
+        // console.log( 'You clicked on ' + data.id+'\'s row' );
+        // console.log( 'You clicked on rtu_dm :  ' + data.dm );
+
+
+        // if (rowDataTableSelected) {
+        //     rowDataTableSelected = null;
+        // }
+
+        // rowDataTableSelected = data;
+        // console.log(rowDataTableSelected);
+        // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
+        // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
+        // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
+        // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
+        
+        if ($(this).attr('data-original-title') == 'Map') {
+            fn.Routers('map');
+        }
+
+        // if ($(this).attr('data-original-title') == 'View') {
+        //     // console.log('View');
+        //     fn.Routers('view');
+        // } else if ($(this).attr('data-original-title') == 'Edit') {
+        //     // console.log('Edit');
+        //     fn.Routers('edit');
+        // } else if ($(this).attr('data-original-title') == 'Delete') {
+        //     // console.log('Delete');
+        // } else if ($(this).attr('data-original-title') == 'Map') {
+        //     // console.log('map');
+
+        //     if (rtuGeojsonLayer) {
+        //         fn.Routers('map');
+        //         // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
+        //         fn.Leaflet_PanToLocation(rowDataTableSelected);
+        //     }
+        // }
+
+    });
 },
 
 
@@ -2172,6 +2288,11 @@ Apps: function () {
 	$('#refresh-data').click(function () {
             // console.log('Refresh Data');
             mainRtuDataTable.ajax.reload();
+    });
+
+
+    $('body').on('click', '.goto-default', function () {
+        fn.Routers('default');
     });
 
 }

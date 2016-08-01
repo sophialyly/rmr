@@ -255,7 +255,7 @@ session_start(); //start session.
 					
 
 			        <!-- Home - Container - MainContent - menuTile  -->
-			    	                        <div class="box" >
+			    	                        <div class="box canvas-rtuInformation" id="canvas-rtuInformation-default">
                             <div class="box-title">
                                 <h3><i class="fa fa-file"></i> รายการข้อมูล RTU</h3>
                                 <div class="box-tool">
@@ -304,6 +304,29 @@ session_start(); //start session.
 
                             </div>
                         </div>
+			    	<div class="row canvas-rtuInformation" id="canvas-rtuInformation-mapBox" style="display:none">
+    <div class="col-md-12">
+
+        <div class="box">
+            <div class="box-title">
+                <h3><i class="fa fa-bars"></i> แผนที่แสดงตำแหน่ง RTU</h3>
+                <div class="box-tool">
+                    <!-- <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a> -->
+                    <!-- <a data-action="close" href="#"><i class="fa fa-times"></i></a> -->
+                    <a class ="goto-default" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="height:400px;">
+              <!-- <p>Blank page</p> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
 			    
 					
 			    	
