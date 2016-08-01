@@ -9,6 +9,9 @@
 
     var mainRtuDataTable;
 
+    // Map Object
+    var map = null;
+    var layerControl = false;
 
     var fn = {
 
@@ -19,8 +22,11 @@
             fn.GetToken();
             fn.MainRtuDataTable();
             fn.MainRtuDataTable_click_handler();
+            fn.Leaflet();
             fn.Apps();
         },
+        // Leaflet
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet" %>
         // Routers
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Routers" %>
         // SideMenu Expand

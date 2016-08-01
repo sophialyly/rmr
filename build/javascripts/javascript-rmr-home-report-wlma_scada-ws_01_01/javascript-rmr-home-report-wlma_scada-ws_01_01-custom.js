@@ -1902,6 +1902,9 @@ $(function() {
 
     var mainRtuDataTable;
 
+    // Map Object
+    var map = null;
+    var layerControl = false;
 
     var fn = {
 
@@ -1912,8 +1915,96 @@ $(function() {
             fn.GetToken();
             fn.MainRtuDataTable();
             fn.MainRtuDataTable_click_handler();
+            fn.Leaflet();
             fn.Apps();
         },
+        // Leaflet
+        Leaflet: function () {
+    // console.log('Leaflet');
+
+    
+    
+	// L.Icon.Default.imagePath = '../../../../../../bower_components/leaflet/images/'
+    L.Icon.Default.imagePath = '../../../../../images/rmr/leaflet/images/'
+ 
+    // Using multiple tile layers on your map
+    var osmLink = 'OpenStreetMap', 
+    	thunLink = 'Thunderforest';
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		osmAttrib = '&copy; ' + osmLink + ' Contributors',
+		landUrl = 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', 
+		thunAttrib = '&copy; ' + osmLink+' Contributors & '+thunLink;
+
+	var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib, minZoom: 0, maxZoom: 18}),
+		landMap = L.tileLayer(landUrl, {attribution: thunAttrib, minZoom: 0, maxZoom: 16});
+
+    var googleRoadmapLayer = new L.Google('ROADMAP', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
+    // map.addLayer(googleRoadmapLayer);
+
+    var googleSatelliteLayer = new L.Google('SATELLITE', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
+    // map.addLayer(googleSatelliteLayer);
+
+    var googleHybridLayer = new L.Google('HYBRID', {attribution: 'กองพัฒนาระบบงานผลิตและวิศวกรรมฯ', minZoom: 12, maxZoom: 20});
+    // map.addLayer(googleHybridLayer);
+
+	map = L.map('map', {
+                            fullscreenControl: true,
+							layers: [googleRoadmapLayer] // only add one! 
+						})
+			.setView([13.708189, 100.599608], 14);
+
+    var baseMaps = {
+    	"ROADMAP": googleRoadmapLayer,
+    	"SATELLITE" : googleSatelliteLayer,
+    	"HYBRID" : googleHybridLayer,
+    	// "OSM Mapnik": osmMap,
+     //    "Landscape": landMap
+    };
+
+
+    var rtu = L.marker([13.708189, 100.599608])
+		       // .addTo(map)
+		       .bindPopup("I’m here!")
+		       .openPopup();
+
+    var rtus = L.layerGroup([rtu]);
+
+    var overlayMaps = {
+    	"RTU": rtus
+    };
+
+    // L.control.layers(baseMaps, overlayMaps).addTo(map);
+    if(layerControl === false) {  // var layerControl set to false in init phase; 
+        // layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+        layerControl = L.control.layers(baseMaps).addTo(map);
+    }
+
+    var zoomLev;
+    map.on("zoomend", function(){
+    	zoomLev = map.getZoom();
+    	// console.log(zoomLev);
+    	if (zoomLev < 14){
+    		// map.removeLayer(lariac);
+    		// $('#zoom').val(zoomLev);
+    	} else {
+    		// $('#zoom').val(zoomLev);
+    		// map.addLayer(lariac);
+    	}
+    });
+
+    // map.dragging.disable();
+
+
+
+    // console.log(window.console);
+
+
+    
+
+
+},
+
+
         // Routers
                 Routers: function (canvasID) {
             // console.log('Routers');

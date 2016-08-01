@@ -316,8 +316,17 @@ session_start(); //start session.
                     <a class ="goto-default" href="#"><i class="fa fa-times"></i></a>
                 </div>
             </div>
-            <div class="box-content" style="height:400px;">
-              <!-- <p>Blank page</p> -->
+            <div class="box-content" >
+                    <!-- <p>Blank page</p> -->
+                  <form action="#" class="form-horizontal" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN Left Side -->
+                            <div class="col-md-12" id="map" ></div>
+                            <!-- END Left Side -->
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -342,6 +351,12 @@ session_start(); //start session.
         <!-- END Container -->
 
         <script src="../../../../../../javascripts/javascript-rmr-home-report-wlma_scada-ws_01_01.js" type="text/javascript"></script>
+        <script src="http://maps.google.com/maps/api/js?key=AIzaSyAttHidUVHWkhjblbzuUyERCeQN7trGA1w&v=3.2&sensor=false"></script>
+        <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+        <script src="https://cdn.jsdelivr.net/leaflet.esri/1.0.2/esri-leaflet.js"></script>
+        
 
+
+        
     </body>
 </html>

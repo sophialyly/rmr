@@ -8,3 +8,12 @@
     text-align: left;
     vertical-align: middle !important;
 }
+
+.leaflet-map-pane {
+	z-index: 2 !important;
+}
+.leaflet-google-layer{
+	z-index: 1 !important;
+}
+
+#map { height: 180px; }
