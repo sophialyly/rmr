@@ -1,0 +1,25 @@
+   Leaflet_PanToLocation: function (rtuInfoDataTableSelected) {
+
+
+    if (rtuInfoDataTableSelected.lat != "0.0000000") {
+
+        rtuGeojsonLayer.eachLayer(function(layer) {
+
+            if (layer.feature.properties.dm == rtuInfoDataTableSelected.dm) {
+
+                // console.log(myDM);
+                // console.log(layer);
+                // console.log(layer.getLatLng());
+
+                map.panTo(layer.getLatLng());
+
+
+            }
+        });
+
+    } else {
+            // fn.Leaflet_ShowRTUInformation(currentMarker);
+            
+    }
+    
+},

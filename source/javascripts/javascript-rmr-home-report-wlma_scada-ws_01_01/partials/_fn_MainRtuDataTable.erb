@@ -173,50 +173,6 @@ MainRtuDataTable: function () {
     }
 
 
-    $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
-        //console.log($(this).attr('data-original-title'));
-        //console.log(this);
-        // console.log ( 'Row index: ' + EventsManagerDataTable.row(this).index() );
 
-        var data = mainRtuDataTable.row($(this).closest('tr')).data();
-        // console.log(data);
-        // console.log( 'You clicked on ' + data.id+'\'s row' );
-        // console.log( 'You clicked on rtu_dm :  ' + data.dm );
-
-
-        // if (rowDataTableSelected) {
-        //     rowDataTableSelected = null;
-        // }
-
-        // rowDataTableSelected = data;
-        // console.log(rowDataTableSelected);
-        // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
-        // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
-        // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
-        // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
-        
-        if ($(this).attr('data-original-title') == 'Map') {
-            fn.Routers('map');
-        }
-
-        // if ($(this).attr('data-original-title') == 'View') {
-        //     // console.log('View');
-        //     fn.Routers('view');
-        // } else if ($(this).attr('data-original-title') == 'Edit') {
-        //     // console.log('Edit');
-        //     fn.Routers('edit');
-        // } else if ($(this).attr('data-original-title') == 'Delete') {
-        //     // console.log('Delete');
-        // } else if ($(this).attr('data-original-title') == 'Map') {
-        //     // console.log('map');
-
-        //     if (rtuGeojsonLayer) {
-        //         fn.Routers('map');
-        //         // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
-        //         fn.Leaflet_PanToLocation(rowDataTableSelected);
-        //     }
-        // }
-
-    });
 },
 

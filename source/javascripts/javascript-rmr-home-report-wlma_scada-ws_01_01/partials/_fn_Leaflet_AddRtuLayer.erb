@@ -1,0 +1,33 @@
+Leaflet_AddRtuLayer: function () {
+    // console.log('Leaflet_AddRtuLayer');
+
+    $.ajax({
+        url: '../../../../../api/rtuManager/rtuLocationGeoJSON/',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (response) {
+
+            rtuGeojsonLayer = L.geoJson(response, {
+                onEachFeature: function (feature, layer) {
+                    layer.on({
+                        'click': function (e) {
+
+                            // console.log(e.target);
+                            
+
+                        }
+                    });
+                }
+            }).addTo(map);
+
+
+            rtuGroup = L.layerGroup()
+                        .addLayer(rtuGeojsonLayer);
+            map.addLayer(rtuGroup);   
+            layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
+        }
+    });
+
+
+},

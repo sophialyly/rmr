@@ -8,10 +8,15 @@
     var token = null;
 
     var mainRtuDataTable;
+    var rowDataTableSelected;
 
     // Map Object
     var map = null;
+    // Leaflet Layers control
     var layerControl = false;
+    // Leaflet Layers
+    var rtuGroup = false;
+    var rtuGeojsonLayer = false;
 
     var fn = {
 
@@ -27,6 +32,8 @@
         },
         // Leaflet
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet" %>
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet_AddRtuLayer" %>
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet_PanToLocation" %>
         // Routers
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Routers" %>
         // SideMenu Expand

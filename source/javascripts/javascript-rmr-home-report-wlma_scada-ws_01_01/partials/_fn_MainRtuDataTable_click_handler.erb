@@ -1,14 +1,32 @@
 MainRtuDataTable_click_handler: function () {
-	console.log('MainRtuDataTable_click_handler');
+	// console.log('MainRtuDataTable_click_handler');
 
     $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
 
       var data = mainRtuDataTable.row($(this).closest('tr')).data();
-      console.log(data);
-      console.log( 'You clicked on ' + data.id+'\'s row' );
-      console.log( 'You clicked on rtu_dm :  ' + data.dm );
+      // console.log(data);
+      // console.log( 'You clicked on ' + data.id+'\'s row' );
+      // console.log( 'You clicked on rtu_dm :  ' + data.dm );
+      // console.log( 'You clicked on lat :  ' + data.lat );
+      // console.log( 'You clicked on lng :  ' + data.lng );
       
+
+      if (rowDataTableSelected) {
+        rowDataTableSelected = null;
+      }
+      
+      rowDataTableSelected = data;
+
+
+      if ($(this).attr('data-original-title') == 'Map') {
+      	fn.Routers('map');
+        fn.Leaflet_PanToLocation(rowDataTableSelected);
+      }
+
     });
+
+
+
 
     
 },

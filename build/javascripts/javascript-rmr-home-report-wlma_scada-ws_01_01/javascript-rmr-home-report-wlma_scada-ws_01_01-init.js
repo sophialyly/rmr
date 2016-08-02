@@ -8,10 +8,15 @@
     var token = null;
 
     var mainRtuDataTable;
+    var rowDataTableSelected;
 
     // Map Object
     var map = null;
+    // Leaflet Layers control
     var layerControl = false;
+    // Leaflet Layers
+    var rtuGroup = false;
+    var rtuGeojsonLayer = false;
 
     var fn = {
 
@@ -32,7 +37,7 @@
     
     
 	// L.Icon.Default.imagePath = '../../../../../../bower_components/leaflet/images/'
-    L.Icon.Default.imagePath = '../../../../../images/rmr/leaflet/images/'
+    L.Icon.Default.imagePath = '../../../../../../images/rmr/leaflet/images/'
  
     // Using multiple tile layers on your map
     var osmLink = 'OpenStreetMap', 
@@ -103,7 +108,7 @@
 
 
 
-    // console.log(window.console);
+    fn.Leaflet_AddRtuLayer();
 
 
     
@@ -111,6 +116,65 @@
 
 },
 
+
+        Leaflet_AddRtuLayer: function () {
+    // console.log('Leaflet_AddRtuLayer');
+
+    $.ajax({
+        url: '../../../../../api/rtuManager/rtuLocationGeoJSON/',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (response) {
+
+            rtuGeojsonLayer = L.geoJson(response, {
+                onEachFeature: function (feature, layer) {
+                    layer.on({
+                        'click': function (e) {
+
+                            // console.log(e.target);
+                            
+
+                        }
+                    });
+                }
+            }).addTo(map);
+
+
+            rtuGroup = L.layerGroup()
+                        .addLayer(rtuGeojsonLayer);
+            map.addLayer(rtuGroup);   
+            layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
+        }
+    });
+
+
+},
+           Leaflet_PanToLocation: function (rtuInfoDataTableSelected) {
+
+
+    if (rtuInfoDataTableSelected.lat != "0.0000000") {
+
+        rtuGeojsonLayer.eachLayer(function(layer) {
+
+            if (layer.feature.properties.dm == rtuInfoDataTableSelected.dm) {
+
+                // console.log(myDM);
+                // console.log(layer);
+                // console.log(layer.getLatLng());
+
+                map.panTo(layer.getLatLng());
+
+
+            }
+        });
+
+    } else {
+            // fn.Leaflet_ShowRTUInformation(currentMarker);
+            
+    }
+    
+},
 
         // Routers
                 Routers: function (canvasID) {
@@ -358,65 +422,39 @@
     }
 
 
-    $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
-        //console.log($(this).attr('data-original-title'));
-        //console.log(this);
-        // console.log ( 'Row index: ' + EventsManagerDataTable.row(this).index() );
 
-        var data = mainRtuDataTable.row($(this).closest('tr')).data();
-        // console.log(data);
-        // console.log( 'You clicked on ' + data.id+'\'s row' );
-        // console.log( 'You clicked on rtu_dm :  ' + data.dm );
-
-
-        // if (rowDataTableSelected) {
-        //     rowDataTableSelected = null;
-        // }
-
-        // rowDataTableSelected = data;
-        // console.log(rowDataTableSelected);
-        // console.log( 'You clicked on ' + rowDataTableSelected.id+'\'s row' );
-        // console.log( 'You clicked on rtu_dm :  ' + rowDataTableSelected.dm );
-        // console.log( 'You clicked on lat :  ' + rowDataTableSelected.lat );
-        // console.log( 'You clicked on lng :  ' + rowDataTableSelected.lng );
-        
-        if ($(this).attr('data-original-title') == 'Map') {
-            fn.Routers('map');
-        }
-
-        // if ($(this).attr('data-original-title') == 'View') {
-        //     // console.log('View');
-        //     fn.Routers('view');
-        // } else if ($(this).attr('data-original-title') == 'Edit') {
-        //     // console.log('Edit');
-        //     fn.Routers('edit');
-        // } else if ($(this).attr('data-original-title') == 'Delete') {
-        //     // console.log('Delete');
-        // } else if ($(this).attr('data-original-title') == 'Map') {
-        //     // console.log('map');
-
-        //     if (rtuGeojsonLayer) {
-        //         fn.Routers('map');
-        //         // fn.Leaflet_PanToLocation(rowDataTableSelected.dm, parseFloat(rowDataTableSelected.lat), parseFloat(rowDataTableSelected.lng));
-        //         fn.Leaflet_PanToLocation(rowDataTableSelected);
-        //     }
-        // }
-
-    });
 },
 
 
         MainRtuDataTable_click_handler: function () {
-	console.log('MainRtuDataTable_click_handler');
+	// console.log('MainRtuDataTable_click_handler');
 
     $('#mainRtuDataTable tbody').on('click', 'tr a', function () {
 
       var data = mainRtuDataTable.row($(this).closest('tr')).data();
-      console.log(data);
-      console.log( 'You clicked on ' + data.id+'\'s row' );
-      console.log( 'You clicked on rtu_dm :  ' + data.dm );
+      // console.log(data);
+      // console.log( 'You clicked on ' + data.id+'\'s row' );
+      // console.log( 'You clicked on rtu_dm :  ' + data.dm );
+      // console.log( 'You clicked on lat :  ' + data.lat );
+      // console.log( 'You clicked on lng :  ' + data.lng );
       
+
+      if (rowDataTableSelected) {
+        rowDataTableSelected = null;
+      }
+      
+      rowDataTableSelected = data;
+
+
+      if ($(this).attr('data-original-title') == 'Map') {
+      	fn.Routers('map');
+        fn.Leaflet_PanToLocation(rowDataTableSelected);
+      }
+
     });
+
+
+
 
     
 },

@@ -351,7 +351,7 @@ session_start(); //start session.
         <!-- END Container -->
 
         <script src="../../../../../../javascripts/javascript-rmr-home-report-wlma_scada-ws_01_01.js" type="text/javascript"></script>
-        <script src="http://maps.google.com/maps/api/js?key=AIzaSyAttHidUVHWkhjblbzuUyERCeQN7trGA1w&v=3.2&sensor=false"></script>
+        <script src="http://maps.google.com/maps/api/js?key=AIzaSyAttHidUVHWkhjblbzuUyERCeQN7trGA1w"></script>
         <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
         <script src="https://cdn.jsdelivr.net/leaflet.esri/1.0.2/esri-leaflet.js"></script>
         
