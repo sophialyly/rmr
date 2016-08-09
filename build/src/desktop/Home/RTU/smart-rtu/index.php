@@ -203,6 +203,7 @@ session_start(); //start session.
                             <li class="">
                                 <a href="./">SMART RTU</a>
                             </li>
+
                         </ul>
                         <!-- END Submenu -->
                     </li>
@@ -277,7 +278,7 @@ session_start(); //start session.
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN Left Side -->
-                        <div class="col-md-12" id="map"></div>
+                        <div class="col-md-12" id="map" style="height:540px;"></div>
                         <!-- END Left Side -->
                     </div>
                 </div>

@@ -1,0 +1,32 @@
+(function ($) {
+    "use strict";
+
+    
+
+    var token = null;
+
+
+    /////////////////////////////////////////////////// Adress
+
+    var fn = {
+
+        // Launch Functions
+        Launch: function () {
+            fn.GetToken();
+            fn.Apps();
+        },
+
+        // Get Token
+        <%= partial js_dir + "/javascript-rmr-home-rtu-blankPage/partials/_fn_GetToken" %>
+        // Logout
+        <%= partial js_dir + "/javascript-rmr-home-rtu-blankPage/partials/_fn_Logout" %>
+        // Apps
+        <%= partial js_dir + "/javascript-rmr-home-rtu-blankPage/partials/_fn_Apps" %>
+
+    };
+
+    $(document).ready(function () {
+        fn.Launch();
+    });
+
+})(jQuery);

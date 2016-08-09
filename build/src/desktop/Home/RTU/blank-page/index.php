@@ -5,18 +5,18 @@ session_start(); //start session.
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="/rmr/build/src/desktop/Home/RTU/">
+        <base href="/rmr/build/src/desktop/Home/RTU/smart-rtu/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Home - RTU System</title>
+        <title>RTU Manager - Blank Page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link href="../../../../stylesheets/stylesheet-rmr-home-rtu.css" rel="stylesheet" type="text/css" />
+        <link href="../../../../../stylesheets/stylesheet-rmr-home-rtu-blankPage.css" rel="stylesheet" type="text/css" />
 
-        <link rel="shortcut icon" href="../../../../images/rmr/favicon.ico">
+        <link rel="shortcut icon" href="../../../../../images/rmr/favicon.ico">
     </head>
     <body>
 
@@ -27,7 +27,7 @@ session_start(); //start session.
                     //Task to do
             } else {
 
-                header('Location: ../../Login/index.php'); //redirect URL
+                header('Location: ../../../Login/index.php'); //redirect URL
             }
         ?>
 
@@ -59,7 +59,7 @@ session_start(); //start session.
                                         <!-- BEGIN Button User -->
                 <li class="user-profile">
                     <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                        <img class="nav-user-photo" src="../../../../images/images-flaty_theme/img/demo/avatar/avatar5.jpg" alt="User's Photo" />
+                        <img class="nav-user-photo" src="../../../../../images/images-flaty_theme/img/demo/avatar/avatar5.jpg" alt="User's Photo" />
                         <span class="hhh" id="user_info">
                             User
                         </span>
@@ -175,8 +175,8 @@ session_start(); //start session.
                     <!-- END Search Form -->
 
                         <!-- sidebar - Dashboard  -->
-                                            <li class="active">
-                        <a href="./">
+                                            <li class="">
+                        <a href="../">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
@@ -188,7 +188,7 @@ session_start(); //start session.
                     
 
                         <!-- sidebar - RMR  -->
-                                            <li class="">
+                                            <li class="active">
                         <a href="#" class="dropdown-toggle">
                             <i class="fa fa-desktop"></i>
                             <span>RTU Manager</span>
@@ -198,10 +198,10 @@ session_start(); //start session.
                         <!-- BEGIN Submenu -->
                         <ul class="submenu">
                             <li class="">
-                                <a href="./RTU-List/">รายการข้อมูล RTU</a>
+                                <a href="../RTU-List/">รายการข้อมูล RTU</a>
                             </li>
                             <li class="">
-                                <a href="./smart-rtu/">SMART RTU</a>
+                                <a href="./">SMART RTU</a>
                             </li>
 
                         </ul>
@@ -230,8 +230,8 @@ session_start(); //start session.
 			    	                <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><i class="fa fa-dashboard"></i>   RTU Manager</h1>
-                        <h4 id="rtu-dashboard-subtitle">You can start your customization from this one!</h4>
+                        <h1><i class="fa fa-dashboard"></i>   Blank Page</h1>
+                        <h4></h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
@@ -241,73 +241,39 @@ session_start(); //start session.
                     <ul class="breadcrumb">
                         <li>
                         	<i class="fa fa-home"></i> 
-                        	<a href="../">Home</a>
+                        	<a href="../../">Home</a>
                             <span class="divider"><i class="fa fa-angle-right"></i></span>
                         </li>
-                        <li class="active">RTU Manager</li>
+                        <li class="active">
+                            RTU Manager
+                            <span class="divider"><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <!-- <li class="active">รายการข้อมูล RTU</li> -->
+                        <li class="active breadcrumb-rtuLink-smartRtu">
+                            <span class="rtuLink"> SMART RTU </span>
+                        </li>
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->
-					
-					<!-- Home - Container - MainContent - Dashboard Tile  -->
-			    	                <!-- BEGIN Tiles -->
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
 
-                                        <div class="tile tile-light-blue well well-sm">
-                                            <!-- <p class="title"><strong class="text-info">Events Manager</strong> - ระบบจัดการงานกิจกรรมภายใน MBK</p> -->
-                                            <h4><strong>RTU Manager</strong> - ระบบบริหารจัดการข้อมูล RTU</h4>
-                                            <p>ระบบบริหารจัดการข้อมูล RTU เพื่อสนับสนุนการบริหารจัดลดน้ำสูญเสีย กปน.</p>
-                                            <!-- <div  class="img img-bottom">
-                                                <i class="fa fa-dashboard"></i>
-                                            </div> -->
-                                        </div>
 
-                                    </div>
+
+
+
+
+			    	<!-- Home - Container - MainContent - sampleBox  -->
+			    	                        <div class="box" >
+                            <div class="box-title">
+                                <h3><i class="fa fa-file"></i> Sample Box</h3>
+                                <div class="box-tool">
+                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
                                 </div>
+                            </div>
+                            <div class="box-content" style="height:400px;">
+                                <!-- <p>Blank page</p> -->
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div  class="col-md-6">
-                                <div class="tile tile-light-blue" id="RtuLogoID">
-                                    <div class="img">
-                                        <!-- <i class="fa fa-calendar"></i> -->
-                                        <img  src="../../../../images/rmr/rtu-menuTile-rtuCountLogo.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big" id="rtu-dashboard-num_dm">1</p>
-                                        <p class="title">จำนวน RTU</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div  class="col-md-6">
-                                <div class="tile tile-light-blue" id="DmaLogoID">
-                                    <div class="img">
-                                        <!-- <i class="fa fa-calendar"></i> -->
-                                        <img  src="../../../../images/rmr/rtu-menuTile-dmaCountLogo.png"/>
-                                    </div>
-                                    <div class="content">
-                                        <p class="big" id="rtu-dashboard-num_dma">1</p>
-                                        <p class="title">จำนวน DMA</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- END Tiles -->
-
-			    	
 
 			    	
 
@@ -319,8 +285,11 @@ session_start(); //start session.
 			    <!-- END Content -->
         </div>
         <!-- END Container -->
+        
 
-        <script src="../../../../javascripts/javascript-rmr-home-rtu.js" type="text/javascript"></script>
+        <script src="../../../../../javascripts/javascript-rmr-home-rtu-blankPage.js" type="text/javascript"></script>
+
+        
 
     </body>
 </html>

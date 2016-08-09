@@ -1,0 +1,25 @@
+GetToken: function () {
+	// console.log('GetToken');
+
+    $.ajax({
+      	url: '../../../../api/loginManager/getJWT/',
+      	type: 'GET',
+      	contentType: 'application/json',
+      	dataType: 'json',
+      	cache: false,
+        //async: false,
+        success: function(data) {
+            //console.log(data);
+
+            fn.token = data.jwt;
+            //console.log(fn.token);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+        	// alert('init error: ' + textStatus);
+          var url = '../../../Login/';
+          $(location).attr('href',url);
+        }
+    });
+    
+},

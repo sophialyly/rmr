@@ -203,6 +203,7 @@ session_start(); //start session.
                             <li class="">
                                 <a href="../smart-rtu/">SMART RTU</a>
                             </li>
+
                         </ul>
                         <!-- END Submenu -->
                     </li>

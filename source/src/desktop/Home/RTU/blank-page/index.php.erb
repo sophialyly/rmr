@@ -1,0 +1,57 @@
+---
+title: "RTU Manager - Blank Page"
+layout: "layout-rmr-home-rtu-blankPage"
+
+baseURL: "/rmr/build/src/desktop/Home/RTU/smart-rtu/"
+loginURL: "../../../Login/index.php"
+homeURL: "../../"
+imageURL: "../../../../../images"
+
+pageTitle: " Blank Page"
+pageDescription: ""
+
+sidebarDashboard_IsActive: ""
+sidebarDashboard_href: "../"
+
+
+sidebarRmrManager_IsActive: "active"
+sidebarRmrList_IsActive: ""
+sidebarRmrList_href: "../RTU-List/"
+
+sidebarSmartRtu_IsActive: "active"
+sidebarSmartRtu_href: "./"
+
+---
+
+
+        <!-- Admin - Navbar  -->
+        <%= partial partials_desktop_home + "/home-common-partials/_home-common-navbar" %>
+
+        <!-- BEGIN Container -->
+        <div class="container sidebar-blue" id="main-container">
+
+        		<!-- Home - Container - Sidebar  -->
+			    <%= partial partials_desktop_home + "/RTU/home-rtu-common-partials/_home-rtu-common-sidebar" %>
+
+			    <!-- BEGIN Content -->
+			    <div id="main-content" >
+
+
+			    	<!-- Home - Container - MainContent - pageTitle  -->
+			    	<%= partial partials_desktop_home + "/RTU/blank-page/home-rtu-blankPage-container-partials/_home-rtu-blankPage-container-mainContent-pageTitle" %>
+			    	<!-- Home - Container - MainContent - breadCrumbs  -->
+			    	<%= partial partials_desktop_home + "/RTU/blank-page/home-rtu-blankPage-container-partials/_home-rtu-blankPage-container-mainContent-breadCrumbs" %>
+
+			    	<!-- Home - Container - MainContent - sampleBox  -->
+			    	<%= partial partials_desktop_home + "/RTU/blank-page/home-rtu-blankPage-container-partials/_home-rtu-blankPage-container-mainContent-sampleBox" %>
+
+			    	
+
+			        <footer>
+			            <p>Copyright © 2015 MWA. All rights reserved.</p>
+			        </footer>
+			        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+			    </div>
+			    <!-- END Content -->
+        </div>
+        <!-- END Container -->

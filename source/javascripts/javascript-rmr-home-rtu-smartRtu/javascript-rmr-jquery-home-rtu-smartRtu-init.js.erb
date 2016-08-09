@@ -1,9 +1,28 @@
 (function ($) {
     "use strict";
 
-    
-
     var token = null;
+
+    // Map Object
+    var map = null;
+    // Leaflet Layers control
+    var layerControl = false;
+    // Leaflet Layers
+    var rtuGroup = false;
+    var rtuGeojsonLayer = false;
+    // Leaflet Info Box
+    var infobox = false;
+    var draggable = false;
+
+    var searchBox = false;
+
+    var rtuEditingMarker = null;
+    var rtuNormalMarker = null;
+
+    var rtuRedMarker = null;
+    var rtuYellowMarker = null;
+    var rtuGreenMarker = null;
+
 
 
     /////////////////////////////////////////////////// Adress
@@ -12,10 +31,17 @@
 
         // Launch Functions
         Launch: function () {
+            fn.Leaflet();
+            fn.Leaflet_ExtraMarkers();
+
             fn.GetToken();
             fn.Apps();
         },
 
+        // Leaflet
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddRtuLayer" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_ExtraMarkers" %>
         // Get Token
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_GetToken" %>
         // Logout

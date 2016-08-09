@@ -1,0 +1,109 @@
+Leaflet_AddRtuLayer: function () {
+    // console.log('Leaflet_AddRtuLayer');
+
+    $.ajax({
+        url: '../../../../api/rtuManager/rtuLocationGeoJSON/',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (response) {
+            // console.log(response);
+
+            rtuGeojsonLayer = L.geoJson(response, {
+
+                onEachFeature: function (feature, layer) {
+                    layer.on({
+                        'click': function (e) {
+
+                            // currentMarker = e.target;
+                            // fn.HighlightMarkerToEdit();
+                            // fn.ToggleFormInfo();
+
+                            // e.target.openPopup();
+                            // map.panTo(e.target.getLatLng());
+
+                            // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+                        },
+                        'dragstart': function(e) {
+                            // console.log("dragstart");
+                            // Disable drag and zoom handlers.
+
+                            // map.dragging.disable();
+                            // map.touchZoom.disable();
+                            // map.doubleClickZoom.disable();
+                            // map.scrollWheelZoom.disable();
+                            // map.keyboard.disable();
+                        },
+                        'drag': function(e) {
+                            // console.log("drag");
+                            // Disable drag and zoom handlers.
+
+                            // map.dragging.disable();
+                            // map.touchZoom.disable();
+                            // map.doubleClickZoom.disable();
+                            // map.scrollWheelZoom.disable();
+                            // map.keyboard.disable();
+                        },
+                        'dragend': function(e) {
+                            // console.log("dragend");
+                            // console.log(e.target.feature.properties.dm);
+
+                            // dragging = true;
+
+                            // currentMarker = e.target;
+                            // fn.HighlightMarkerToEdit();
+                            // fn.ToggleFormInfo();
+
+                            // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+                            // // Enable drag and zoom handlers.
+                            // map.dragging.enable();
+                            // map.touchZoom.enable();
+                            // map.doubleClickZoom.enable();
+                            // map.scrollWheelZoom.enable();
+                            // map.keyboard.enable();
+                        }
+                    });
+
+                    if (feature.properties.zone == "01") {
+
+                        layer.setIcon(rtuRedMarker);
+                        layer.bindPopup(feature.properties.dm);
+                        layer.options.draggable = false;
+
+                    } else if (feature.properties.zone == "02") {
+
+                        layer.setIcon(rtuYellowMarker);
+                        layer.bindPopup(feature.properties.dm);
+                        layer.options.draggable = false;
+
+                    } else {
+
+                        layer.setIcon(rtuGreenMarker);
+                        layer.bindPopup(feature.properties.dm);
+                        layer.options.draggable = false;
+                    }
+
+                }
+            }).addTo(map);
+
+            // console.log(rtuGeojsonLayer);
+
+            rtuGroup = L.layerGroup()
+                        .addLayer(rtuGeojsonLayer);
+            map.addLayer(rtuGroup);   
+            layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            // alert('init error: ' + textStatus);
+          var url = '../../../Login/';
+          $(location).attr('href',url);
+        }
+    });
+    
+	
+
+
+
+},
