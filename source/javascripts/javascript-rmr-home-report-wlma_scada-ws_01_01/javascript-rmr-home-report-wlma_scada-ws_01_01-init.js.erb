@@ -18,6 +18,11 @@
     var rtuGroup = false;
     var rtuGeojsonLayer = false;
 
+    // Leaflet Info Box
+    var infobox = false;
+
+    var currentMarker = null;
+
     var fn = {
 
         
@@ -34,6 +39,7 @@
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet" %>
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet_AddRtuLayer" %>
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet_PanToLocation" %>
+        <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Leaflet_AddInfoBox" %>
         // Routers
         <%= partial js_dir + "/javascript-rmr-home-report-wlma_scada-ws_01_01/partials/_fn_Routers" %>
         // SideMenu Expand

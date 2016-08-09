@@ -18,6 +18,11 @@
     var rtuGroup = false;
     var rtuGeojsonLayer = false;
 
+    // Leaflet Info Box
+    var infobox = false;
+
+    var currentMarker = null;
+
     var fn = {
 
         
@@ -109,6 +114,7 @@
 
 
     fn.Leaflet_AddRtuLayer();
+    fn.Leaflet_AddInfoBox();
 
 
     
@@ -129,10 +135,23 @@
 
             rtuGeojsonLayer = L.geoJson(response, {
                 onEachFeature: function (feature, layer) {
+
+                    if (feature.properties && feature.properties.dm) {
+                        layer.bindPopup(feature.properties.dm);
+                    }
+
                     layer.on({
                         'click': function (e) {
 
                             // console.log(e.target);
+
+                            currentMarker = e.target;
+
+                            e.target.openPopup();
+                            map.panTo(e.target.getLatLng());
+
+                            e.stopPropagation();
+                            e.preventDefault();
                             
 
                         }
@@ -152,18 +171,38 @@
 },
            Leaflet_PanToLocation: function (rtuInfoDataTableSelected) {
 
+    console.log("rtuInfoDataTableSelected.lat" + rtuInfoDataTableSelected.lat);
 
     if (rtuInfoDataTableSelected.lat != "0.0000000") {
 
-        rtuGeojsonLayer.eachLayer(function(layer) {
+        rtuGeojsonLayer.eachLayer(function(marker) {
 
-            if (layer.feature.properties.dm == rtuInfoDataTableSelected.dm) {
+            if (marker.feature.properties.dm == rtuInfoDataTableSelected.dm) {
 
                 // console.log(myDM);
-                // console.log(layer);
-                // console.log(layer.getLatLng());
+                console.log(marker);
+                console.log(marker.getLatLng());
 
-                map.panTo(layer.getLatLng());
+                // marker.openPopup();
+                // map.panTo(marker.getLatLng(),{animate: true});
+                // marker.openPopup();
+
+
+
+
+                // var a = marker.getPopup();
+                // var b = a._content.replace("<span></span>","<span>asdasdasda</span>");
+                // marker.setPopupContent(b);
+                // marker.openPopup();
+
+                // map.panTo(marker.getLatLng(),{animate: true});
+                map.setView(marker.getLatLng(), 18, {animation: true});
+                marker.openPopup();
+
+                // map.setView(new L.LatLng(40.737, -73.923), 8);
+
+                return false;
+
 
 
             }
@@ -176,6 +215,40 @@
     
 },
 
+        Leaflet_AddInfoBox: function () {
+    // console.log('Leaflet_AddInfoBox');
+        infobox = L.control({
+            position: 'bottomright'
+        });
+
+        infobox.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this._div = L.DomUtil.create('div', 'row info'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            // this.hideControl();
+            return this._div;
+        };
+
+        infobox.refresh = function (properties) {
+            this._div.innerHTML = '<h4>RTU Information</h4>';
+            this._div.innerHTML += '<hr/>';
+        };
+
+        infobox.showControl = function () {
+            console.log('showControl');
+            $(".info").show();
+        };
+
+        infobox.hideControl = function () {
+            console.log('hideControl');
+            $(".info").hide();
+        };
+
+        infobox.addTo(map);
+
+ 
+},
         // Routers
                 Routers: function (canvasID) {
             // console.log('Routers');

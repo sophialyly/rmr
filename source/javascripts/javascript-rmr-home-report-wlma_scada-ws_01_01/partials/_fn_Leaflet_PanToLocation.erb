@@ -1,17 +1,37 @@
    Leaflet_PanToLocation: function (rtuInfoDataTableSelected) {
 
+    console.log("rtuInfoDataTableSelected.lat" + rtuInfoDataTableSelected.lat);
 
     if (rtuInfoDataTableSelected.lat != "0.0000000") {
 
-        rtuGeojsonLayer.eachLayer(function(layer) {
+        rtuGeojsonLayer.eachLayer(function(marker) {
 
-            if (layer.feature.properties.dm == rtuInfoDataTableSelected.dm) {
+            if (marker.feature.properties.dm == rtuInfoDataTableSelected.dm) {
 
                 // console.log(myDM);
-                // console.log(layer);
-                // console.log(layer.getLatLng());
+                console.log(marker);
+                console.log(marker.getLatLng());
 
-                map.panTo(layer.getLatLng());
+                // marker.openPopup();
+                // map.panTo(marker.getLatLng(),{animate: true});
+                // marker.openPopup();
+
+
+
+
+                // var a = marker.getPopup();
+                // var b = a._content.replace("<span></span>","<span>asdasdasda</span>");
+                // marker.setPopupContent(b);
+                // marker.openPopup();
+
+                // map.panTo(marker.getLatLng(),{animate: true});
+                map.setView(marker.getLatLng(), 18, {animation: true});
+                marker.openPopup();
+
+                // map.setView(new L.LatLng(40.737, -73.923), 8);
+
+                return false;
+
 
 
             }

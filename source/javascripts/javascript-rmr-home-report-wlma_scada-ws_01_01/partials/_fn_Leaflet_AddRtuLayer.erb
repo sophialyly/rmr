@@ -10,10 +10,23 @@ Leaflet_AddRtuLayer: function () {
 
             rtuGeojsonLayer = L.geoJson(response, {
                 onEachFeature: function (feature, layer) {
+
+                    if (feature.properties && feature.properties.dm) {
+                        layer.bindPopup(feature.properties.dm);
+                    }
+
                     layer.on({
                         'click': function (e) {
 
                             // console.log(e.target);
+
+                            currentMarker = e.target;
+
+                            e.target.openPopup();
+                            map.panTo(e.target.getLatLng());
+
+                            e.stopPropagation();
+                            e.preventDefault();
                             
 
                         }

@@ -37,7 +37,7 @@ Leaflet: function () {
     	"SATELLITE" : googleSatelliteLayer,
     	"HYBRID" : googleHybridLayer,
     	// "OSM Mapnik": osmMap,
-     //    "Landscape": landMap
+        // "Landscape": landMap
     };
 
 
@@ -73,14 +73,24 @@ Leaflet: function () {
 
     // map.dragging.disable();
 
+    map.on('click', function(){
+        // console.log('on click');
 
-
-    fn.Leaflet_AddRtuLayer();
-    fn.Leaflet_AddInfoBox();
+        // fn.ResetMarkerToDefault();
+        // fn.ToggleFormInfo();
+    });
 
 
     
 
+    // fn.Leaflet_AddRtuLayer();
+    // fn.Leaflet_AddInfoBox();
+    // // fn.Leaflet_ZoomBox();
+    // // fn.Leaflet_SearchInfoBox();
+    // fn.Leaflet_DrawControl();
+    // // fn.Leaflet_AddDMALayer();
+    // fn.Leaflet_AddWMSLayer();
+    
+
 
 },
-
