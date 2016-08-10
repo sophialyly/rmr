@@ -1907,6 +1907,8 @@ $(function() {
     var infobox = false;
     var draggable = false;
 
+    var description_box = false;
+
     var searchBox = false;
 
     var rtuEditingMarker = null;
@@ -1915,6 +1917,12 @@ $(function() {
     var rtuRedMarker = null;
     var rtuYellowMarker = null;
     var rtuGreenMarker = null;
+    var rtuGrayMarker = null;
+    var rtuBlackMarker = null;
+
+    var autoUpdateFlag = false;
+    var autoUpdateRequest = null;
+    var autoUpdateTimer = null;
 
 
 
@@ -1931,6 +1939,43 @@ $(function() {
             fn.Apps();
         },
 
+        // Timer
+        AutoUpdate: function () {
+	// console.log('AutoUpdate');
+
+        /* if there is a previous ajax request, then we abort it and then set xhr to null */
+        // if( autoUpdateRequest != null ) {
+        //         autoUpdateRequest.abort();
+        //         autoUpdateRequest = null;
+        // }
+
+
+
+
+          var tmpData = {
+              "paramDM" : "DM-01-01-01-01"
+          }
+
+        /* and now we can safely make another ajax request since the previous one is aborted */
+        autoUpdateRequest = $.ajax({
+                type: "POST",
+                url: "../../../../api/wlmaManager/getFlowPressureByDM/",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(tmpData),
+                beforeSend: function() {
+                    // if( autoUpdateRequest != null ) {
+                    //         autoUpdateRequest.abort();
+                    //         autoUpdateRequest = null;
+                    // }
+                },
+                success: function(msg) {
+                    /* handle the ajax response */
+                    console.log(msg);
+                }
+        });
+    
+},
         // Leaflet
         Leaflet: function () {
     // console.log('Leaflet');
@@ -2018,7 +2063,9 @@ $(function() {
     
 
     fn.Leaflet_AddRtuLayer();
-    // fn.Leaflet_AddInfoBox();
+    fn.Leaflet_AddInfoBox();
+    fn.Leaflet_AddDescriptionBox();
+    fn.Leaflet_FullScreen();
     // // fn.Leaflet_ZoomBox();
     // // fn.Leaflet_SearchInfoBox();
     // fn.Leaflet_DrawControl();
@@ -2032,114 +2079,6 @@ $(function() {
     // console.log('Leaflet_AddRtuLayer');
 
 
-    // $.ajax({
-    //     url: '../../../../api/rtuManager/rtuInformationGeoJSON/',
-    //     // dataType: 'json',
-    //     success: function (response) {
-    //         console.log(response);
-    //         console.log(typeof(response));
-
-    //         rtuGeojsonLayer = L.geoJson(response, {
-
-    //             onEachFeature: function (feature, layer) {
-    //                 layer.on({
-    //                     'click': function (e) {
-
-    //                         // currentMarker = e.target;
-    //                         // fn.HighlightMarkerToEdit();
-    //                         // fn.ToggleFormInfo();
-
-    //                         // e.target.openPopup();
-    //                         // map.panTo(e.target.getLatLng());
-
-    //                         // fn.Leaflet_ShowRTUInformation(currentMarker);
-
-    //                     },
-    //                     'dragstart': function(e) {
-    //                         // console.log("dragstart");
-    //                         // Disable drag and zoom handlers.
-
-    //                         // map.dragging.disable();
-    //                         // map.touchZoom.disable();
-    //                         // map.doubleClickZoom.disable();
-    //                         // map.scrollWheelZoom.disable();
-    //                         // map.keyboard.disable();
-    //                     },
-    //                     'drag': function(e) {
-    //                         // console.log("drag");
-    //                         // Disable drag and zoom handlers.
-
-    //                         // map.dragging.disable();
-    //                         // map.touchZoom.disable();
-    //                         // map.doubleClickZoom.disable();
-    //                         // map.scrollWheelZoom.disable();
-    //                         // map.keyboard.disable();
-    //                     },
-    //                     'dragend': function(e) {
-    //                         // console.log("dragend");
-    //                         // console.log(e.target.feature.properties.dm);
-
-    //                         // dragging = true;
-
-    //                         // currentMarker = e.target;
-    //                         // fn.HighlightMarkerToEdit();
-    //                         // fn.ToggleFormInfo();
-
-    //                         // fn.Leaflet_ShowRTUInformation(currentMarker);
-
-    //                         // // Enable drag and zoom handlers.
-    //                         // map.dragging.enable();
-    //                         // map.touchZoom.enable();
-    //                         // map.doubleClickZoom.enable();
-    //                         // map.scrollWheelZoom.enable();
-    //                         // map.keyboard.enable();
-    //                     }
-    //                 });
-
-    //                 console.log(feature.properties.pressure_avg);
-
-    //                 if (parseFloat(feature.properties.pressure_avg) < 2) {
-
-    //                     layer.setIcon(rtuYellowMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-
-    //                 } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 5)) {
-
-    //                     layer.setIcon(rtuGreenMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-
-    //                 }  else if (parseFloat(feature.properties.pressure_avg) >= 5) {
-
-    //                     layer.setIcon(rtuRedMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-
-    //                 } else {
-
-    //                     layer.setIcon(rtuRedMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-    //                 }
-
-    //             }
-    //         }).addTo(map);
-
-    //         // console.log(rtuGeojsonLayer);
-
-    //         rtuGroup = L.layerGroup()
-    //                     .addLayer(rtuGeojsonLayer);
-    //         map.addLayer(rtuGroup);   
-    //         layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown){
-    //         console.log(jqXHR);
-    //         console.log(textStatus);
-    //         console.log(errorThrown);
-    //     }
-    // })
-
 
 
     $.ajax({
@@ -2148,7 +2087,7 @@ $(function() {
         contentType: 'application/json',
         dataType: 'json',
         success: function (response) {
-            console.log(response);
+            // console.log(response);
 
             rtuGeojsonLayer = L.geoJson(response, {
 
@@ -2211,17 +2150,23 @@ $(function() {
 
                     if (parseFloat(feature.properties.pressure_avg) < 2) {
 
+                        layer.setIcon(rtuBlackMarker);
+                        layer.bindPopup(feature.properties.dm);
+                        layer.options.draggable = false;
+
+                    } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 6)) {
+
                         layer.setIcon(rtuRedMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
 
-                    } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 5)) {
+                    }  else if ((parseFloat(feature.properties.pressure_avg) >= 6) && (parseFloat(feature.properties.pressure_avg) < 10)) {
 
                         layer.setIcon(rtuYellowMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
 
-                    }  else if (parseFloat(feature.properties.pressure_avg) >= 5) {
+                    } else if (parseFloat(feature.properties.pressure_avg) >= 10) {
 
                         layer.setIcon(rtuGreenMarker);
                         layer.bindPopup(feature.properties.dm);
@@ -2245,10 +2190,10 @@ $(function() {
             layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
         },
         error: function(jqXHR, textStatus, errorThrown){
-            console.log(textStatus);
+            // console.log(textStatus);
             // alert('init error: ' + textStatus);
-          // var url = '../../../Login/';
-          // $(location).attr('href',url);
+          var url = '../../../Login/';
+          $(location).attr('href',url);
         }
     });
     
@@ -2287,6 +2232,205 @@ $(function() {
         });
 
 
+  rtuGrayMarker = L.ExtraMarkers.icon({
+          icon: 'fa-info-circle',
+          markerColor: 'gray',
+          shape: 'circle',
+          prefix: 'fa'
+        });
+
+  rtuBlackMarker = L.ExtraMarkers.icon({
+          icon: 'fa-info-circle',
+          markerColor: 'black',
+          shape: 'circle',
+          prefix: 'fa'
+        });
+
+},
+        Leaflet_FullScreen: function () {
+    // console.log('Leaflet_FullScreen');
+
+    L.Control.Fullscreen // A fullscreen button. Or use the `{fullscreenControl: true}` option when creating L.Map.
+
+    // `fullscreenchange` Event that's fired when entering or exiting fullscreen.
+	map.on('fullscreenchange', function () {
+	    if (map.isFullscreen()) {
+	        console.log('entered fullscreen');
+	    } else {
+	        console.log('exited fullscreen');
+	    }
+	});
+
+	// map.isFullscreen() // Is the map fullscreen?
+	// map.toggleFullscreen() // Either go fullscreen, or cancel the existing fullscreen.
+
+    
+},
+        Leaflet_AddInfoBox: function () {
+    // console.log('Leaflet_AddInfoBox');
+        infobox = L.control({
+            position: 'bottomright'
+        });
+
+        infobox.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this._div = L.DomUtil.create('div', 'row info'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            this.hideControl();
+            return this._div;
+        };
+
+        infobox.refresh = function (properties) {
+            this._div.innerHTML = '<h4>RTU Information</h4>';
+            this._div.innerHTML += '<hr/>';
+
+            $("#rtu-info-box").show();
+            $("#rtu-info-box").appendTo( $(this._div) );
+      
+
+        };
+
+        infobox.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(infobox);
+            $(".info").show();
+
+        };
+
+        infobox.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".info").hide();
+
+        };
+
+        infobox.addTo(map);
+
+        // Disable dragging when user's cursor enters the element
+        infobox.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        infobox.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        infobox.getContainer().addEventListener('click', function (event) {
+            // console.log('infobox click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
+        });
+
+        $(".info").draggable();
+        // $(".info").hide();
+},
+        Leaflet_AddDescriptionBox: function () {
+    // console.log('Leaflet_AddDescriptionBox');
+        description_box = L.control({
+            position: 'bottomleft'
+        });
+
+        description_box.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'desc'); // create a div with a class "desc"
+            this._div = L.DomUtil.create('div', 'row desc'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            this.hideControl();
+            return this._div;
+        };
+
+        description_box.refresh = function (properties) {
+            // this._div.innerHTML = '<h4>Description</h4>';
+            // this._div.innerHTML += '<hr/>';
+
+            $("#pressure-range-desc-box").show();
+            $("#pressure-range-desc-box").appendTo( $(this._div) );
+      
+
+        };
+
+        description_box.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(description_box);
+            $(".desc").show();
+
+        };
+
+        description_box.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".desc").hide();
+
+        };
+
+        description_box.addTo(map);
+
+        // Disable dragging when user's cursor enters the element
+        description_box.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        description_box.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        description_box.getContainer().addEventListener('click', function (event) {
+            // console.log('description_box click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
+        });
+
+        $(".desc").draggable();
+        // $(".desc").hide();
 },
         // Get Token
         GetToken: function () {
@@ -2347,6 +2491,30 @@ $(function() {
 
             $('#button-logout').bind('click', function(){
             	fn.Logout();
+            });
+
+            $('#btn-auto-update').bind('click', function(){
+            	// console.log("auto update");
+
+            	if (!autoUpdateFlag) {
+
+            		
+                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+
+                    
+                    autoUpdateTimer = setTimeout(fn.AutoUpdate(), 2000);
+
+            		autoUpdateFlag = true;
+
+            	} else {
+            		
+                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+
+                    clearTimeout(autoUpdateTimer);
+
+            		autoUpdateFlag = false;
+            	}
+
             });
 
         }

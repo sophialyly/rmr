@@ -1,0 +1,36 @@
+AutoUpdate: function () {
+	// console.log('AutoUpdate');
+
+        /* if there is a previous ajax request, then we abort it and then set xhr to null */
+        // if( autoUpdateRequest != null ) {
+        //         autoUpdateRequest.abort();
+        //         autoUpdateRequest = null;
+        // }
+
+
+
+
+          var tmpData = {
+              "paramDM" : "DM-01-01-01-01"
+          }
+
+        /* and now we can safely make another ajax request since the previous one is aborted */
+        autoUpdateRequest = $.ajax({
+                type: "POST",
+                url: "../../../../api/wlmaManager/getFlowPressureByDM/",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(tmpData),
+                beforeSend: function() {
+                    // if( autoUpdateRequest != null ) {
+                    //         autoUpdateRequest.abort();
+                    //         autoUpdateRequest = null;
+                    // }
+                },
+                success: function(msg) {
+                    /* handle the ajax response */
+                    console.log(msg);
+                }
+        });
+    
+},

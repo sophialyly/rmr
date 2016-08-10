@@ -15749,6 +15749,389 @@ L.Control.Fullscreen=L.Control.extend({options:{position:"topleft",title:{"false
 */
 
 !function(e){if("function"==typeof define&&define.amd)define(["jquery"],e);else if("object"==typeof exports){var n=require("jquery");module.exports=e(n)}else e(window.jQuery||window.Zepto||window.$)}(function(e){"use strict";e.fn.serializeJSON=function(n){var r,t,a,i,s,u,o,l,p,c,d;return r=e.serializeJSON,t=this,a=r.setupOpts(n),i=t.serializeArray(),r.readCheckboxUncheckedValues(i,a,t),s={},e.each(i,function(e,n){u=n.name,o=n.value,l=r.extractTypeAndNameWithNoType(u),p=l.nameWithNoType,c=l.type,c||(c=r.tryToFindTypeFromDataAttr(u,t)),r.validateType(u,c,a),"skip"!==c&&(d=r.splitInputNameIntoKeysArray(p),o=r.parseValue(o,u,c,a),r.deepSet(s,d,o,a))}),s},e.serializeJSON={defaultOptions:{checkboxUncheckedValue:void 0,parseNumbers:!1,parseBooleans:!1,parseNulls:!1,parseAll:!1,parseWithFunction:null,customTypes:{},defaultTypes:{string:function(e){return String(e)},number:function(e){return Number(e)},"boolean":function(e){var n=["false","null","undefined","","0"];return-1===n.indexOf(e)},"null":function(e){var n=["false","null","undefined","","0"];return-1===n.indexOf(e)?e:null},array:function(e){return JSON.parse(e)},object:function(e){return JSON.parse(e)},auto:function(n){return e.serializeJSON.parseValue(n,null,null,{parseNumbers:!0,parseBooleans:!0,parseNulls:!0})},skip:null},useIntKeysAsArrayIndex:!1},setupOpts:function(n){var r,t,a,i,s,u;u=e.serializeJSON,null==n&&(n={}),a=u.defaultOptions||{},t=["checkboxUncheckedValue","parseNumbers","parseBooleans","parseNulls","parseAll","parseWithFunction","customTypes","defaultTypes","useIntKeysAsArrayIndex"];for(r in n)if(-1===t.indexOf(r))throw new Error("serializeJSON ERROR: invalid option '"+r+"'. Please use one of "+t.join(", "));return i=function(e){return n[e]!==!1&&""!==n[e]&&(n[e]||a[e])},s=i("parseAll"),{checkboxUncheckedValue:i("checkboxUncheckedValue"),parseNumbers:s||i("parseNumbers"),parseBooleans:s||i("parseBooleans"),parseNulls:s||i("parseNulls"),parseWithFunction:i("parseWithFunction"),typeFunctions:e.extend({},i("defaultTypes"),i("customTypes")),useIntKeysAsArrayIndex:i("useIntKeysAsArrayIndex")}},parseValue:function(n,r,t,a){var i,s;return i=e.serializeJSON,s=n,a.typeFunctions&&t&&a.typeFunctions[t]?s=a.typeFunctions[t](n):a.parseNumbers&&i.isNumeric(n)?s=Number(n):!a.parseBooleans||"true"!==n&&"false"!==n?a.parseNulls&&"null"==n&&(s=null):s="true"===n,a.parseWithFunction&&!t&&(s=a.parseWithFunction(s,r)),s},isObject:function(e){return e===Object(e)},isUndefined:function(e){return void 0===e},isValidArrayIndex:function(e){return/^[0-9]+$/.test(String(e))},isNumeric:function(e){return e-parseFloat(e)>=0},optionKeys:function(e){if(Object.keys)return Object.keys(e);var n,r=[];for(n in e)r.push(n);return r},readCheckboxUncheckedValues:function(n,r,t){var a,i,s,u,o;null==r&&(r={}),o=e.serializeJSON,a="input[type=checkbox][name]:not(:checked):not([disabled])",i=t.find(a).add(t.filter(a)),i.each(function(t,a){s=e(a),u=s.attr("data-unchecked-value"),u?n.push({name:a.name,value:u}):o.isUndefined(r.checkboxUncheckedValue)||n.push({name:a.name,value:r.checkboxUncheckedValue})})},extractTypeAndNameWithNoType:function(e){var n;return(n=e.match(/(.*):([^:]+)$/))?{nameWithNoType:n[1],type:n[2]}:{nameWithNoType:e,type:null}},tryToFindTypeFromDataAttr:function(e,n){var r,t,a,i;return r=e.replace(/(:|\.|\[|\]|\s)/g,"\\$1"),t='[name="'+r+'"]',a=n.find(t).add(n.filter(t)),i=a.attr("data-value-type"),i||null},validateType:function(n,r,t){var a,i;if(i=e.serializeJSON,a=i.optionKeys(t?t.typeFunctions:i.defaultOptions.defaultTypes),r&&-1===a.indexOf(r))throw new Error("serializeJSON ERROR: Invalid type "+r+" found in input name '"+n+"', please use one of "+a.join(", "));return!0},splitInputNameIntoKeysArray:function(n){var r,t;return t=e.serializeJSON,r=n.split("["),r=e.map(r,function(e){return e.replace(/\]/g,"")}),""===r[0]&&r.shift(),r},deepSet:function(n,r,t,a){var i,s,u,o,l,p;if(null==a&&(a={}),p=e.serializeJSON,p.isUndefined(n))throw new Error("ArgumentError: param 'o' expected to be an object or array, found undefined");if(!r||0===r.length)throw new Error("ArgumentError: param 'keys' expected to be an array with least one element");i=r[0],1===r.length?""===i?n.push(t):n[i]=t:(s=r[1],""===i&&(o=n.length-1,l=n[o],i=p.isObject(l)&&(p.isUndefined(l[s])||r.length>2)?o:o+1),""===s?(p.isUndefined(n[i])||!e.isArray(n[i]))&&(n[i]=[]):a.useIntKeysAsArrayIndex&&p.isValidArrayIndex(s)?(p.isUndefined(n[i])||!e.isArray(n[i]))&&(n[i]=[]):(p.isUndefined(n[i])||!p.isObject(n[i]))&&(n[i]={}),u=r.slice(1),p.deepSet(n[i],u,t,a))}}});
+/*! ============================================================
+ * bootstrapSwitch v1.8 by Larentis Mattia @SpiritualGuru
+ * http://www.larentis.eu/
+ *
+ * Enhanced for radiobuttons by Stein, Peter @BdMdesigN
+ * http://www.bdmdesign.org/
+ *
+ * Project site:
+ * http://www.larentis.eu/switch/
+ * ============================================================
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * ============================================================ */
+
+
+!function ($) {
+  "use strict";
+
+  $.fn['bootstrapSwitch'] = function (method) {
+    var inputSelector = 'input[type!="hidden"]';
+    var methods = {
+      init: function () {
+        return this.each(function () {
+            var $element = $(this)
+              , $div
+              , $switchLeft
+              , $switchRight
+              , $label
+              , $form = $element.closest('form')
+              , myClasses = ""
+              , classes = $element.attr('class')
+              , color
+              , moving
+              , onLabel = "ON"
+              , offLabel = "OFF"
+              , icon = false
+              , textLabel = false;
+
+            $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
+              if (classes.indexOf(el) >= 0)
+                myClasses = el;
+            });
+
+            $element.addClass('has-switch');
+
+            if ($element.data('on') !== undefined)
+              color = "switch-" + $element.data('on');
+
+            if ($element.data('on-label') !== undefined)
+              onLabel = $element.data('on-label');
+
+            if ($element.data('off-label') !== undefined)
+              offLabel = $element.data('off-label');
+
+            if ($element.data('label-icon') !== undefined)
+              icon = $element.data('label-icon');
+
+            if ($element.data('text-label') !== undefined)
+              textLabel = $element.data('text-label');
+
+            $switchLeft = $('<span>')
+              .addClass("switch-left")
+              .addClass(myClasses)
+              .addClass(color)
+              .html('' + onLabel + '');
+
+            color = '';
+            if ($element.data('off') !== undefined)
+              color = "switch-" + $element.data('off');
+
+            $switchRight = $('<span>')
+              .addClass("switch-right")
+              .addClass(myClasses)
+              .addClass(color)
+              .html('' + offLabel + '');
+
+            $label = $('<label>')
+              .html("&nbsp;")
+              .addClass(myClasses)
+              .attr('for', $element.find(inputSelector).attr('id'));
+
+            if (icon) {
+              $label.html('<i class="icon ' + icon + '"></i>');
+            }
+
+            if (textLabel) {
+              $label.html('' + textLabel + '');
+            }
+
+            $div = $element.find(inputSelector).wrap($('<div>')).parent().data('animated', false);
+
+            if ($element.data('animated') !== false)
+              $div.addClass('switch-animate').data('animated', true);
+
+            $div
+              .append($switchLeft)
+              .append($label)
+              .append($switchRight);
+
+            $element.find('>div').addClass(
+              $element.find(inputSelector).is(':checked') ? 'switch-on' : 'switch-off'
+            );
+
+            if ($element.find(inputSelector).is(':disabled'))
+              $(this).addClass('deactivate');
+
+            var changeStatus = function ($this) {
+              if ($element.parent('label').is('.label-change-switch')) {
+
+              } else {
+                $this.siblings('label').trigger('mousedown').trigger('mouseup').trigger('click');
+              }
+            };
+
+            $element.on('keydown', function (e) {
+              if (e.keyCode === 32) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                changeStatus($(e.target).find('span:first'));
+              }
+            });
+
+            $switchLeft.on('click', function (e) {
+              changeStatus($(this));
+            });
+
+            $switchRight.on('click', function (e) {
+              changeStatus($(this));
+            });
+
+            $element.find(inputSelector).on('change', function (e, skipOnChange) {
+              var $this = $(this)
+                , $element = $this.parent()
+                , thisState = $this.is(':checked')
+                , state = $element.is('.switch-off');
+
+              e.preventDefault();
+
+              $element.css('left', '');
+
+              if (state === thisState) {
+
+                if (thisState)
+                  $element.removeClass('switch-off').addClass('switch-on');
+                else $element.removeClass('switch-on').addClass('switch-off');
+
+                if ($element.data('animated') !== false)
+                  $element.addClass("switch-animate");
+
+                if (typeof skipOnChange === 'boolean' && skipOnChange)
+                  return;
+
+                $element.parent().trigger('switch-change', {'el': $this, 'value': thisState})
+              }
+            });
+
+            $element.find('label').on('mousedown touchstart', function (e) {
+              var $this = $(this);
+              moving = false;
+
+              e.preventDefault();
+              e.stopImmediatePropagation();
+
+              $this.closest('div').removeClass('switch-animate');
+
+              if ($this.closest('.has-switch').is('.deactivate')) {
+                $this.unbind('click');
+              } else if ($this.closest('.switch-on').parent().is('.radio-no-uncheck')) {
+                $this.unbind('click');
+              } else {
+                $this.on('mousemove touchmove', function (e) {
+                  var $element = $(this).closest('.make-switch')
+                    , relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
+                    , percent = (relativeX / $element.width()) * 100
+                    , left = 25
+                    , right = 75;
+
+                  moving = true;
+
+                  if (percent < left)
+                    percent = left;
+                  else if (percent > right)
+                    percent = right;
+
+                  $element.find('>div').css('left', (percent - right) + "%")
+                });
+
+                $this.on('click touchend', function (e) {
+                  var $this = $(this)
+                    , $myInputBox = $this.siblings('input');
+
+                  e.stopImmediatePropagation();
+                  e.preventDefault();
+
+                  $this.unbind('mouseleave');
+
+                  if (moving)
+                    $myInputBox.prop('checked', !(parseInt($this.parent().css('left')) < -25));
+                  else
+                    $myInputBox.prop("checked", !$myInputBox.is(":checked"));
+
+                  moving = false;
+                  $myInputBox.trigger('change');
+                });
+
+                $this.on('mouseleave', function (e) {
+                  var $this = $(this)
+                    , $myInputBox = $this.siblings('input');
+
+                  e.preventDefault();
+                  e.stopImmediatePropagation();
+
+                  $this.unbind('mouseleave mousemove');
+                  $this.trigger('mouseup');
+
+                  $myInputBox.prop('checked', !(parseInt($this.parent().css('left')) < -25)).trigger('change');
+                });
+
+                $this.on('mouseup', function (e) {
+                  e.stopImmediatePropagation();
+                  e.preventDefault();
+
+                  $(this).trigger('mouseleave');
+                });
+              }
+            });
+
+            if ($form.data('bootstrapSwitch') !== 'injected') {
+              $form.bind('reset', function () {
+                setTimeout(function () {
+                  $form.find('.make-switch').each(function () {
+                    var $input = $(this).find(inputSelector);
+
+                    $input.prop('checked', $input.is(':checked')).trigger('change');
+                  });
+                }, 1);
+              });
+              $form.data('bootstrapSwitch', 'injected');
+            }
+          }
+        );
+      },
+      toggleActivation: function () {
+        var $this = $(this);
+
+        $this.toggleClass('deactivate');
+        $this.find(inputSelector).prop('disabled', $this.is('.deactivate'));
+      },
+      isActive: function () {
+        return !$(this).hasClass('deactivate');
+      },
+      setActive: function (active) {
+        var $this = $(this);
+
+        if (active) {
+          $this.removeClass('deactivate');
+          $this.find(inputSelector).removeAttr('disabled');
+        }
+        else {
+          $this.addClass('deactivate');
+          $this.find(inputSelector).attr('disabled', 'disabled');
+        }
+      },
+      toggleState: function (skipOnChange) {
+        var $input = $(this).find(':checkbox');
+        $input.prop('checked', !$input.is(':checked')).trigger('change', skipOnChange);
+      },
+      toggleRadioState: function (skipOnChange) {
+        var $radioinput = $(this).find(':radio');
+        $radioinput.not(':checked').prop('checked', !$radioinput.is(':checked')).trigger('change', skipOnChange);
+      },
+      toggleRadioStateAllowUncheck: function (uncheck, skipOnChange) {
+        var $radioinput = $(this).find(':radio');
+        if (uncheck) {
+          $radioinput.not(':checked').trigger('change', skipOnChange);
+        }
+        else {
+          $radioinput.not(':checked').prop('checked', !$radioinput.is(':checked')).trigger('change', skipOnChange);
+        }
+      },
+      setState: function (value, skipOnChange) {
+        $(this).find(inputSelector).prop('checked', value).trigger('change', skipOnChange);
+      },
+      setOnLabel: function (value) {
+        var $switchLeft = $(this).find(".switch-left");
+        $switchLeft.html(value);
+      },
+      setOffLabel: function (value) {
+        var $switchRight = $(this).find(".switch-right");
+        $switchRight.html(value);
+      },
+      setOnClass: function (value) {
+        var $switchLeft = $(this).find(".switch-left");
+        var color = '';
+        if (value !== undefined) {
+          if ($(this).attr('data-on') !== undefined) {
+            color = "switch-" + $(this).attr('data-on')
+          }
+          $switchLeft.removeClass(color);
+          color = "switch-" + value;
+          $switchLeft.addClass(color);
+        }
+      },
+      setOffClass: function (value) {
+        var $switchRight = $(this).find(".switch-right");
+        var color = '';
+        if (value !== undefined) {
+          if ($(this).attr('data-off') !== undefined) {
+            color = "switch-" + $(this).attr('data-off')
+          }
+          $switchRight.removeClass(color);
+          color = "switch-" + value;
+          $switchRight.addClass(color);
+        }
+      },
+      setAnimated: function (value) {
+        var $element = $(this).find(inputSelector).parent();
+        if (value === undefined) value = false;
+        $element.data('animated', value);
+        $element.attr('data-animated', value);
+
+        if ($element.data('animated') !== false) {
+          $element.addClass("switch-animate");
+        } else {
+          $element.removeClass("switch-animate");
+        }
+      },
+      setSizeClass: function (value) {
+        var $element = $(this);
+        var $switchLeft = $element.find(".switch-left");
+        var $switchRight = $element.find(".switch-right");
+        var $label = $element.find("label");
+        $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
+          if (el !== value) {
+            $switchLeft.removeClass(el);
+            $switchRight.removeClass(el);
+            $label.removeClass(el);
+          } else {
+            $switchLeft.addClass(el);
+            $switchRight.addClass(el);
+            $label.addClass(el);
+          }
+        });
+      },
+      status: function () {
+        return $(this).find(inputSelector).is(':checked');
+      },
+      destroy: function () {
+        var $element = $(this)
+          , $div = $element.find('div')
+          , $form = $element.closest('form')
+          , $inputbox;
+
+        $div.find(':not(input)').remove();
+
+        $inputbox = $div.children();
+        $inputbox.unwrap().unwrap();
+
+        $inputbox.unbind('change');
+
+        if ($form) {
+          $form.unbind('reset');
+          $form.removeData('bootstrapSwitch');
+        }
+
+        return $inputbox;
+      }
+    };
+
+    if (methods[method])
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    else if (typeof method === 'object' || !method)
+      return methods.init.apply(this, arguments);
+    else
+      $.error('Method ' + method + ' does not exist!');
+  };
+}(jQuery);
+
+(function ($) {
+  $(function () {
+    $('.make-switch')['bootstrapSwitch']();
+  });
+})(jQuery);
 $(function() {
 
     //Handel user layout settings using cookie
@@ -17658,6 +18041,8 @@ $(function() {
     var infobox = false;
     var draggable = false;
 
+    var description_box = false;
+
     var searchBox = false;
 
     var rtuEditingMarker = null;
@@ -17666,6 +18051,12 @@ $(function() {
     var rtuRedMarker = null;
     var rtuYellowMarker = null;
     var rtuGreenMarker = null;
+    var rtuGrayMarker = null;
+    var rtuBlackMarker = null;
+
+    var autoUpdateFlag = false;
+    var autoUpdateRequest = null;
+    var autoUpdateTimer = null;
 
 
 
@@ -17682,6 +18073,43 @@ $(function() {
             fn.Apps();
         },
 
+        // Timer
+        AutoUpdate: function () {
+	// console.log('AutoUpdate');
+
+        /* if there is a previous ajax request, then we abort it and then set xhr to null */
+        // if( autoUpdateRequest != null ) {
+        //         autoUpdateRequest.abort();
+        //         autoUpdateRequest = null;
+        // }
+
+
+
+
+          var tmpData = {
+              "paramDM" : "DM-01-01-01-01"
+          }
+
+        /* and now we can safely make another ajax request since the previous one is aborted */
+        autoUpdateRequest = $.ajax({
+                type: "POST",
+                url: "../../../../api/wlmaManager/getFlowPressureByDM/",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(tmpData),
+                beforeSend: function() {
+                    // if( autoUpdateRequest != null ) {
+                    //         autoUpdateRequest.abort();
+                    //         autoUpdateRequest = null;
+                    // }
+                },
+                success: function(msg) {
+                    /* handle the ajax response */
+                    console.log(msg);
+                }
+        });
+    
+},
         // Leaflet
         Leaflet: function () {
     // console.log('Leaflet');
@@ -17769,7 +18197,9 @@ $(function() {
     
 
     fn.Leaflet_AddRtuLayer();
-    // fn.Leaflet_AddInfoBox();
+    fn.Leaflet_AddInfoBox();
+    fn.Leaflet_AddDescriptionBox();
+    fn.Leaflet_FullScreen();
     // // fn.Leaflet_ZoomBox();
     // // fn.Leaflet_SearchInfoBox();
     // fn.Leaflet_DrawControl();
@@ -17783,114 +18213,6 @@ $(function() {
     // console.log('Leaflet_AddRtuLayer');
 
 
-    // $.ajax({
-    //     url: '../../../../api/rtuManager/rtuInformationGeoJSON/',
-    //     // dataType: 'json',
-    //     success: function (response) {
-    //         console.log(response);
-    //         console.log(typeof(response));
-
-    //         rtuGeojsonLayer = L.geoJson(response, {
-
-    //             onEachFeature: function (feature, layer) {
-    //                 layer.on({
-    //                     'click': function (e) {
-
-    //                         // currentMarker = e.target;
-    //                         // fn.HighlightMarkerToEdit();
-    //                         // fn.ToggleFormInfo();
-
-    //                         // e.target.openPopup();
-    //                         // map.panTo(e.target.getLatLng());
-
-    //                         // fn.Leaflet_ShowRTUInformation(currentMarker);
-
-    //                     },
-    //                     'dragstart': function(e) {
-    //                         // console.log("dragstart");
-    //                         // Disable drag and zoom handlers.
-
-    //                         // map.dragging.disable();
-    //                         // map.touchZoom.disable();
-    //                         // map.doubleClickZoom.disable();
-    //                         // map.scrollWheelZoom.disable();
-    //                         // map.keyboard.disable();
-    //                     },
-    //                     'drag': function(e) {
-    //                         // console.log("drag");
-    //                         // Disable drag and zoom handlers.
-
-    //                         // map.dragging.disable();
-    //                         // map.touchZoom.disable();
-    //                         // map.doubleClickZoom.disable();
-    //                         // map.scrollWheelZoom.disable();
-    //                         // map.keyboard.disable();
-    //                     },
-    //                     'dragend': function(e) {
-    //                         // console.log("dragend");
-    //                         // console.log(e.target.feature.properties.dm);
-
-    //                         // dragging = true;
-
-    //                         // currentMarker = e.target;
-    //                         // fn.HighlightMarkerToEdit();
-    //                         // fn.ToggleFormInfo();
-
-    //                         // fn.Leaflet_ShowRTUInformation(currentMarker);
-
-    //                         // // Enable drag and zoom handlers.
-    //                         // map.dragging.enable();
-    //                         // map.touchZoom.enable();
-    //                         // map.doubleClickZoom.enable();
-    //                         // map.scrollWheelZoom.enable();
-    //                         // map.keyboard.enable();
-    //                     }
-    //                 });
-
-    //                 console.log(feature.properties.pressure_avg);
-
-    //                 if (parseFloat(feature.properties.pressure_avg) < 2) {
-
-    //                     layer.setIcon(rtuYellowMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-
-    //                 } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 5)) {
-
-    //                     layer.setIcon(rtuGreenMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-
-    //                 }  else if (parseFloat(feature.properties.pressure_avg) >= 5) {
-
-    //                     layer.setIcon(rtuRedMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-
-    //                 } else {
-
-    //                     layer.setIcon(rtuRedMarker);
-    //                     layer.bindPopup(feature.properties.dm);
-    //                     layer.options.draggable = false;
-    //                 }
-
-    //             }
-    //         }).addTo(map);
-
-    //         // console.log(rtuGeojsonLayer);
-
-    //         rtuGroup = L.layerGroup()
-    //                     .addLayer(rtuGeojsonLayer);
-    //         map.addLayer(rtuGroup);   
-    //         layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown){
-    //         console.log(jqXHR);
-    //         console.log(textStatus);
-    //         console.log(errorThrown);
-    //     }
-    // })
-
 
 
     $.ajax({
@@ -17899,7 +18221,7 @@ $(function() {
         contentType: 'application/json',
         dataType: 'json',
         success: function (response) {
-            console.log(response);
+            // console.log(response);
 
             rtuGeojsonLayer = L.geoJson(response, {
 
@@ -17962,17 +18284,23 @@ $(function() {
 
                     if (parseFloat(feature.properties.pressure_avg) < 2) {
 
+                        layer.setIcon(rtuBlackMarker);
+                        layer.bindPopup(feature.properties.dm);
+                        layer.options.draggable = false;
+
+                    } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 6)) {
+
                         layer.setIcon(rtuRedMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
 
-                    } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 5)) {
+                    }  else if ((parseFloat(feature.properties.pressure_avg) >= 6) && (parseFloat(feature.properties.pressure_avg) < 10)) {
 
                         layer.setIcon(rtuYellowMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
 
-                    }  else if (parseFloat(feature.properties.pressure_avg) >= 5) {
+                    } else if (parseFloat(feature.properties.pressure_avg) >= 10) {
 
                         layer.setIcon(rtuGreenMarker);
                         layer.bindPopup(feature.properties.dm);
@@ -17996,10 +18324,10 @@ $(function() {
             layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
         },
         error: function(jqXHR, textStatus, errorThrown){
-            console.log(textStatus);
+            // console.log(textStatus);
             // alert('init error: ' + textStatus);
-          // var url = '../../../Login/';
-          // $(location).attr('href',url);
+          var url = '../../../Login/';
+          $(location).attr('href',url);
         }
     });
     
@@ -18038,6 +18366,205 @@ $(function() {
         });
 
 
+  rtuGrayMarker = L.ExtraMarkers.icon({
+          icon: 'fa-info-circle',
+          markerColor: 'gray',
+          shape: 'circle',
+          prefix: 'fa'
+        });
+
+  rtuBlackMarker = L.ExtraMarkers.icon({
+          icon: 'fa-info-circle',
+          markerColor: 'black',
+          shape: 'circle',
+          prefix: 'fa'
+        });
+
+},
+        Leaflet_FullScreen: function () {
+    // console.log('Leaflet_FullScreen');
+
+    L.Control.Fullscreen // A fullscreen button. Or use the `{fullscreenControl: true}` option when creating L.Map.
+
+    // `fullscreenchange` Event that's fired when entering or exiting fullscreen.
+	map.on('fullscreenchange', function () {
+	    if (map.isFullscreen()) {
+	        console.log('entered fullscreen');
+	    } else {
+	        console.log('exited fullscreen');
+	    }
+	});
+
+	// map.isFullscreen() // Is the map fullscreen?
+	// map.toggleFullscreen() // Either go fullscreen, or cancel the existing fullscreen.
+
+    
+},
+        Leaflet_AddInfoBox: function () {
+    // console.log('Leaflet_AddInfoBox');
+        infobox = L.control({
+            position: 'bottomright'
+        });
+
+        infobox.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this._div = L.DomUtil.create('div', 'row info'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            this.hideControl();
+            return this._div;
+        };
+
+        infobox.refresh = function (properties) {
+            this._div.innerHTML = '<h4>RTU Information</h4>';
+            this._div.innerHTML += '<hr/>';
+
+            $("#rtu-info-box").show();
+            $("#rtu-info-box").appendTo( $(this._div) );
+      
+
+        };
+
+        infobox.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(infobox);
+            $(".info").show();
+
+        };
+
+        infobox.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".info").hide();
+
+        };
+
+        infobox.addTo(map);
+
+        // Disable dragging when user's cursor enters the element
+        infobox.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        infobox.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        infobox.getContainer().addEventListener('click', function (event) {
+            // console.log('infobox click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
+        });
+
+        $(".info").draggable();
+        // $(".info").hide();
+},
+        Leaflet_AddDescriptionBox: function () {
+    // console.log('Leaflet_AddDescriptionBox');
+        description_box = L.control({
+            position: 'bottomleft'
+        });
+
+        description_box.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'desc'); // create a div with a class "desc"
+            this._div = L.DomUtil.create('div', 'row desc'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            this.hideControl();
+            return this._div;
+        };
+
+        description_box.refresh = function (properties) {
+            // this._div.innerHTML = '<h4>Description</h4>';
+            // this._div.innerHTML += '<hr/>';
+
+            $("#pressure-range-desc-box").show();
+            $("#pressure-range-desc-box").appendTo( $(this._div) );
+      
+
+        };
+
+        description_box.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(description_box);
+            $(".desc").show();
+
+        };
+
+        description_box.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".desc").hide();
+
+        };
+
+        description_box.addTo(map);
+
+        // Disable dragging when user's cursor enters the element
+        description_box.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        description_box.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        description_box.getContainer().addEventListener('click', function (event) {
+            // console.log('description_box click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
+        });
+
+        $(".desc").draggable();
+        // $(".desc").hide();
 },
         // Get Token
         GetToken: function () {
@@ -18098,6 +18625,30 @@ $(function() {
 
             $('#button-logout').bind('click', function(){
             	fn.Logout();
+            });
+
+            $('#btn-auto-update').bind('click', function(){
+            	// console.log("auto update");
+
+            	if (!autoUpdateFlag) {
+
+            		
+                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+
+                    
+                    autoUpdateTimer = setTimeout(fn.AutoUpdate(), 2000);
+
+            		autoUpdateFlag = true;
+
+            	} else {
+            		
+                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+
+                    clearTimeout(autoUpdateTimer);
+
+            		autoUpdateFlag = false;
+            	}
+
             });
 
         }

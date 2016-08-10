@@ -197,7 +197,7 @@ session_start(); //start session.
 
                         <!-- BEGIN Submenu -->
                         <ul class="submenu">
-                            <li class="">
+                            <li class="active">
                                 <a href="./">รายการข้อมูล RTU</a>
                             </li>
                             <li class="">

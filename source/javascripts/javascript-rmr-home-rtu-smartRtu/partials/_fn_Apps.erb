@@ -5,4 +5,28 @@
             	fn.Logout();
             });
 
+            $('#btn-auto-update').bind('click', function(){
+            	// console.log("auto update");
+
+            	if (!autoUpdateFlag) {
+
+            		
+                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+
+                    
+                    autoUpdateTimer = setTimeout(fn.AutoUpdate(), 2000);
+
+            		autoUpdateFlag = true;
+
+            	} else {
+            		
+                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+
+                    clearTimeout(autoUpdateTimer);
+
+            		autoUpdateFlag = false;
+            	}
+
+            });
+
         }

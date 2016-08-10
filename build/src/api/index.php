@@ -241,6 +241,7 @@ session_start(); //start session.
     $app->post('/wlmaManager/reportPressureAverage/',function() use ($app, $pdo, $conn_db2) { reportPressureAverage($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportWLMA1125/',function() use ($app, $pdo, $conn_db2) { reportWLMA1125($app, $pdo, $conn_db2); });
     $app->post('/wlmaManager/reportWaterLeakageByDMA/',function() use ($app, $pdo, $conn_db2) { reportWaterLeakageByDMA($app, $pdo, $conn_db2); });
+    $app->post('/wlmaManager/getFlowPressureByDM/',function() use ($app, $pdo, $conn_db2) { getFlowPressureByDM($app, $pdo, $conn_db2); });
 
     /* RTU manager */
     $app->get('/rtuManager/informationOnload/',function() use ($app, $pdo, $conn_db2, $key) { informationOnload($app, $pdo, $conn_db2, $key); });
@@ -1878,6 +1879,94 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
+
+    };
+        /**
+     *
+     * @apiName GetFlowPressureByDM
+     * @apiGroup Wlma Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {post} /wlmaManager/getFlowPressureByDM/ GET Flow Pressure By DM (v 0.1.0)
+     * @apiDescription คำอธิบาย : ในส่วนนี้จะมีหน้าที่แสดงค่า Flow, Pressure ตาม DM ที่กำหนด
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /wlmaManager/getFlowPressureByDM/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function getFlowPressureByDM($app, $pdo, $conn_db2) {
+
+        /* ************************* */
+        /* เริ่มกระบวนการรับค่าพารามิเตอร์จากส่วนของ Payload ซึ่งอยู่ในรูปแบบ JSON */
+        /* ************************* */
+        $headers = $app->request->headers;
+        $ContetnType = $app->request->headers->get('Content-Type');
+
+        /**
+        * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
+        * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
+        */
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8") ) {
+
+            $request = $app->request();
+            $result = json_decode($request->getBody());
+
+            /* receive request */
+            $postDM = $result->paramDM;
+
+
+        } else if ($ContetnType == "application/x-www-form-urlencoded"){
+
+            //$userID = $app->request()->params('userID_param');
+            //$userID = $app->request()->post('userID_param');
+        }
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
+        /* ************************* */
+        $reports = array();
+
+
+
+       $reports[] = array(
+            "date" => "2016-01-01",
+            "dm_name" => $postDM,
+            "flow_value" => (string)rand(0,200),
+            "pressure_value" => (string)rand(0,20)
+        );
+
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "rows" => $reports);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+
 
     };
 

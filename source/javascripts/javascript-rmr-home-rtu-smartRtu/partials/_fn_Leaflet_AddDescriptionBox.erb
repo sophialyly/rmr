@@ -1,0 +1,83 @@
+Leaflet_AddDescriptionBox: function () {
+    // console.log('Leaflet_AddDescriptionBox');
+        description_box = L.control({
+            position: 'bottomleft'
+        });
+
+        description_box.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'desc'); // create a div with a class "desc"
+            this._div = L.DomUtil.create('div', 'row desc'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            this.hideControl();
+            return this._div;
+        };
+
+        description_box.refresh = function (properties) {
+            // this._div.innerHTML = '<h4>Description</h4>';
+            // this._div.innerHTML += '<hr/>';
+
+            $("#pressure-range-desc-box").show();
+            $("#pressure-range-desc-box").appendTo( $(this._div) );
+      
+
+        };
+
+        description_box.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(description_box);
+            $(".desc").show();
+
+        };
+
+        description_box.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".desc").hide();
+
+        };
+
+        description_box.addTo(map);
+
+        // Disable dragging when user's cursor enters the element
+        description_box.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        description_box.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        description_box.getContainer().addEventListener('click', function (event) {
+            // console.log('description_box click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
+        });
+
+        $(".desc").draggable();
+        // $(".desc").hide();
+},

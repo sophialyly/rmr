@@ -200,7 +200,7 @@ session_start(); //start session.
                             <li class="">
                                 <a href="../RTU-List/">รายการข้อมูล RTU</a>
                             </li>
-                            <li class="">
+                            <li class="active">
                                 <a href="./">SMART RTU</a>
                             </li>
 
@@ -278,14 +278,93 @@ session_start(); //start session.
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN Left Side -->
-                        <div class="col-md-12" id="map" style="height:540px;"></div>
+                        <div class="col-md-12" id="map" style="height:540px;">
+                          
+                        </div>
                         <!-- END Left Side -->
                     </div>
+
+
+                    <div class="row" id="rtu-info-box" style="display: none">
+                        <div class="col-sm-12">
+                                <form action="#" class="form-horizontal" id="formRTU_Information" method="post">
+
+                                    <div class="form-group">
+                                    <label class="col-sm-3 control-label">Flow:</label>
+                                      <div class="col-sm-9 controls">
+                                        <div class="input-group">
+                                          <input type="text" name="" id="txtFlow" placeholder="Flow" class="form-control">
+                                          <span class="input-group-addon">
+                                              <i class="fa fa-circle fa-1x" style="color:green"></i>
+                                          </span>
+                                        </div>
+                                        <!-- <span class="help-inline">last update : </span> -->
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label class="col-sm-3 control-label">Pressure:</label>
+                                      <div class="col-sm-9 controls">
+                                        <div class="input-group">
+                                          <input type="text" name="" id="txtPressure" placeholder="Pressure" class="form-control">
+                                          <span class="input-group-addon">
+                                              <i class="fa fa-circle fa-1x" style="color:red"></i>
+                                          </span>
+                                        </div>
+                                        <!-- <span class="help-inline">last update : </span> -->
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                      <label class="col-sm-6 control-label" for="dm">Auto Update:</label>
+                                      <button class="btn btn-danger" id="btn-auto-update">
+                                          <i class="fa fa-clock-o"></i>
+                                          <!-- <i class="fa fa-spinner fa-pulse"></i> -->
+                                      </button>
+                                    </div>
+
+                                </form>
+                        </div>
+                    </div>
+
+
+                    <div class="row" id="pressure-range-desc-box" style="display: none">
+                        <div class="col-sm-12">
+                            <div class="mail-page ">
+                              <div class="mail-nav">
+                                <ul>
+                                    <li class="hidden-xs"></li>
+                                    <li><a href="#"><i class="mail-flag-gray"></i> Error</a></li>
+                                    <li><a href="#"><i class="mail-flag-black"></i> &lt; 2</a></li>
+                                    <li><a href="#"><i class="mail-flag-red"></i> 2 - 6</a></li>
+                                    <li><a href="#"><i class="mail-flag-orange"></i> 6 - 10</a></li>
+                                    <li><a href="#"><i class="mail-flag-green"></i> &gt; 10</a></li>
+                                </ul>
+                              </div>
+                            </div>
+
+
+                              <!-- <ul class="iconic">
+                                <li><i class="fa fa-map-marker gray   fa-2x"></i> Error</li>
+                                <li><i class="fa fa-map-marker black  fa-2x"></i> &lt; 2</li>
+                                <li><i class="fa fa-map-marker red    fa-2x"></i> 2 - 6</li>
+                                <li><i class="fa fa-map-marker orange fa-2x"></i> 6 - 10</li>
+                                <li><i class="fa fa-map-marker green  fa-2x"></i> &gt; 10</li>
+                              </ul> -->
+
+                        </div>
+                    </div>
+
+
                 </div>
                 </form>
             </div>
         </div>
     </div>
+
+
+
+
 </div>
 
 

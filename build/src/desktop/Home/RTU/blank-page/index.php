@@ -200,7 +200,7 @@ session_start(); //start session.
                             <li class="">
                                 <a href="../RTU-List/">รายการข้อมูล RTU</a>
                             </li>
-                            <li class="">
+                            <li class="active">
                                 <a href="./">SMART RTU</a>
                             </li>
 

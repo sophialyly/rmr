@@ -1,0 +1,83 @@
+Leaflet_AddInfoBox: function () {
+    // console.log('Leaflet_AddInfoBox');
+        infobox = L.control({
+            position: 'bottomright'
+        });
+
+        infobox.onAdd = function (e) {
+            // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this._div = L.DomUtil.create('div', 'row info'); // create a div with a class "row"
+            this.refresh();
+            this.showControl();
+            this.hideControl();
+            return this._div;
+        };
+
+        infobox.refresh = function (properties) {
+            this._div.innerHTML = '<h4>RTU Information</h4>';
+            this._div.innerHTML += '<hr/>';
+
+            $("#rtu-info-box").show();
+            $("#rtu-info-box").appendTo( $(this._div) );
+      
+
+        };
+
+        infobox.showControl = function () {
+            // console.log('showControl');
+            // $("#rtuAddForm").show();
+            // $("#rtuAddForm").appendTo( $(this._div) );
+            
+            // map.removeControl(infobox);
+            $(".info").show();
+
+        };
+
+        infobox.hideControl = function () {
+            // console.log('hideControl');
+
+            $(".info").hide();
+
+        };
+
+        infobox.addTo(map);
+
+        // Disable dragging when user's cursor enters the element
+        infobox.getContainer().addEventListener('mouseover', function () {
+            // Disable drag and zoom handlers.
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+
+            map.boxZoom.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+        });
+
+        // Re-enable dragging when user's cursor leaves the element
+        infobox.getContainer().addEventListener('mouseout', function () {
+            // Enable drag and zoom handlers.
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.keyboard.enable();
+
+            map.boxZoom.enable();
+            if (map.tap) map.tap.enable();
+            document.getElementById('map').style.cursor='grab';
+        });
+
+        infobox.getContainer().addEventListener('click', function (event) {
+            // console.log('infobox click');
+            
+            event.stopPropagation()
+            event.preventDefault()
+            return false
+        });
+
+        $(".info").draggable();
+        // $(".info").hide();
+},

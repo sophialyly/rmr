@@ -14,6 +14,8 @@
     var infobox = false;
     var draggable = false;
 
+    var description_box = false;
+
     var searchBox = false;
 
     var rtuEditingMarker = null;
@@ -22,6 +24,12 @@
     var rtuRedMarker = null;
     var rtuYellowMarker = null;
     var rtuGreenMarker = null;
+    var rtuGrayMarker = null;
+    var rtuBlackMarker = null;
+
+    var autoUpdateFlag = false;
+    var autoUpdateRequest = null;
+    var autoUpdateTimer = null;
 
 
 
@@ -38,10 +46,15 @@
             fn.Apps();
         },
 
+        // Timer
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_AutoUpdate" %>
         // Leaflet
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet" %>
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddRtuLayer" %>
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_ExtraMarkers" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_FullScreen" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddInfoBox" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddDescriptionBox" %>
         // Get Token
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_GetToken" %>
         // Logout
