@@ -250,6 +250,7 @@ session_start(); //start session.
     $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
     $app->get('/rtuManager/rtuLocationGeoJSON/',function() use ($app, $pdo, $db, $key) { rtuLocationGeoJSON($app, $pdo, $db, $key); });
+    $app->get('/rtuManager/rtuInformationGeoJSON/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuInformationGeoJSON($app, $pdo, $db, $conn_db2, $key); });
 
     /* RMR manager */
     $app->post('/rmrManager/reportRMRFromYear/',function() use ($app, $pdo, $db) { reportRMRFromYear($app, $pdo, $db); });
@@ -2832,6 +2833,118 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         $featureCollection = new \GeoJson\Feature\FeatureCollection($features);
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($featureCollection);
+
+
+    };
+        /**
+     *
+     * @apiName RtuInformationGeoJSON
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/rtuInformationGeoJSON/ RTU Information GeoJSON
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่แสดงข้อมูล RTU ในรูปแบบ GeoJSON
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /rtuManager/rtuInformationGeoJSON/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function rtuInformationGeoJSON($app, $pdo, $db, $conn_db2, $key) {
+
+
+        $myBranchCode = "";
+
+        /* ************************* */
+        /* เริ่มกระบวนการ Extract the jwt from the Header or Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            // $jwt = "";
+
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
+            $authHeader = $request->headers('authorization');
+            list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+            $myBranchCode = $app->jwt->information->branchCode;
+
+        } else {
+            /*** Extract the jwt from Session ***/
+            $jwt = $_SESSION['jwt'];
+
+            $token = JWT::decode($jwt, $key, array('HS256'));
+            $myBranchCode = $token->information->branchCode;
+        }
+
+
+        
+
+
+    /* rtuInformationGeoJSON Partial : Development */
+            /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+        $features = array();
+
+        if ($myBranchCode != "ALL") {
+            $results = $db->rtu_main_tb->where("branch_code = ? and rtu_status = 1", $myBranchCode)->order("dm_code ASC");
+        } else {
+            $results = $db->rtu_main_tb->where("rtu_status = 1")->order("dm_code ASC");
+        }
+        
+        foreach ($results as $result) {
+
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
+
+
+            $tmpID = $result["id"];
+            $tmpPoint = new \GeoJson\Geometry\Point([ floatval($result_rtu_pin_code["lng"]), floatval($result_rtu_pin_code["lat"])]);
+            $tmpProperties = array("dm" => $result["dm_code"], 
+                                   "dma"=>  $result["dma_code"], 
+                                   "branch" => $result["branch_code"],
+                                   "zone" => $result["zone_code"],
+                                   "ip_address" => $result["ip_address"],
+                                   "logger_code" => $result["logger_code"],
+                                   "rtu_pin_code" => $result_rtu_pin_code["rtu_pin_code"],
+                                   "location" => $result_rtu_pin_code["location"],
+                                   "remark" => $result["remark"],
+                                   "pressure_avg_date" => date("Y-m-d"),
+                                   "pressure_avg" => (string)rand(0,20));
+            $tmpFeature = new \GeoJson\Feature\Feature($tmpPoint, $tmpProperties, $tmpID, null);
+
+            $features[] = $tmpFeature;
+
+        }
+
+        $featureCollection = new \GeoJson\Feature\FeatureCollection($features);
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($featureCollection);
+
+
+
+
+
 
 
     };

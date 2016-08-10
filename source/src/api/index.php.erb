@@ -124,6 +124,7 @@ layout: "layout-api"
     $app->post('/rtuManager/syncRTUFromWLMA/',function() use ($app, $pdo, $db, $conn_db2, $key) { syncRTUFromWLMA($app, $pdo, $db, $conn_db2, $key); });
     $app->post('/rtuManager/updateLatLngFromFile/',function() use ($app, $pdo, $db) { updateLatLngFromFile($app, $pdo, $db); });
     $app->get('/rtuManager/rtuLocationGeoJSON/',function() use ($app, $pdo, $db, $key) { rtuLocationGeoJSON($app, $pdo, $db, $key); });
+    $app->get('/rtuManager/rtuInformationGeoJSON/',function() use ($app, $pdo, $db, $conn_db2, $key) { rtuInformationGeoJSON($app, $pdo, $db, $conn_db2, $key); });
 
     /* RMR manager */
     $app->post('/rmrManager/reportRMRFromYear/',function() use ($app, $pdo, $db) { reportRMRFromYear($app, $pdo, $db); });
@@ -170,6 +171,7 @@ layout: "layout-api"
     <%= partial "/RtuManager/_syncRTUFromWLMA" %>
     <%= partial "/RtuManager/_updateLatLngFromFile" %>
     <%= partial "/RtuManager/_rtuLocationGeoJSON" %>
+    <%= partial "/RtuManager/_rtuInformationGeoJSON" %>
 
     /* RMR Manager Partial */
     <%= partial "/RmrManager/_reportRMRFromYear" %>

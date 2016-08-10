@@ -17782,13 +17782,124 @@ $(function() {
         Leaflet_AddRtuLayer: function () {
     // console.log('Leaflet_AddRtuLayer');
 
+
+    // $.ajax({
+    //     url: '../../../../api/rtuManager/rtuInformationGeoJSON/',
+    //     // dataType: 'json',
+    //     success: function (response) {
+    //         console.log(response);
+    //         console.log(typeof(response));
+
+    //         rtuGeojsonLayer = L.geoJson(response, {
+
+    //             onEachFeature: function (feature, layer) {
+    //                 layer.on({
+    //                     'click': function (e) {
+
+    //                         // currentMarker = e.target;
+    //                         // fn.HighlightMarkerToEdit();
+    //                         // fn.ToggleFormInfo();
+
+    //                         // e.target.openPopup();
+    //                         // map.panTo(e.target.getLatLng());
+
+    //                         // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+    //                     },
+    //                     'dragstart': function(e) {
+    //                         // console.log("dragstart");
+    //                         // Disable drag and zoom handlers.
+
+    //                         // map.dragging.disable();
+    //                         // map.touchZoom.disable();
+    //                         // map.doubleClickZoom.disable();
+    //                         // map.scrollWheelZoom.disable();
+    //                         // map.keyboard.disable();
+    //                     },
+    //                     'drag': function(e) {
+    //                         // console.log("drag");
+    //                         // Disable drag and zoom handlers.
+
+    //                         // map.dragging.disable();
+    //                         // map.touchZoom.disable();
+    //                         // map.doubleClickZoom.disable();
+    //                         // map.scrollWheelZoom.disable();
+    //                         // map.keyboard.disable();
+    //                     },
+    //                     'dragend': function(e) {
+    //                         // console.log("dragend");
+    //                         // console.log(e.target.feature.properties.dm);
+
+    //                         // dragging = true;
+
+    //                         // currentMarker = e.target;
+    //                         // fn.HighlightMarkerToEdit();
+    //                         // fn.ToggleFormInfo();
+
+    //                         // fn.Leaflet_ShowRTUInformation(currentMarker);
+
+    //                         // // Enable drag and zoom handlers.
+    //                         // map.dragging.enable();
+    //                         // map.touchZoom.enable();
+    //                         // map.doubleClickZoom.enable();
+    //                         // map.scrollWheelZoom.enable();
+    //                         // map.keyboard.enable();
+    //                     }
+    //                 });
+
+    //                 console.log(feature.properties.pressure_avg);
+
+    //                 if (parseFloat(feature.properties.pressure_avg) < 2) {
+
+    //                     layer.setIcon(rtuYellowMarker);
+    //                     layer.bindPopup(feature.properties.dm);
+    //                     layer.options.draggable = false;
+
+    //                 } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 5)) {
+
+    //                     layer.setIcon(rtuGreenMarker);
+    //                     layer.bindPopup(feature.properties.dm);
+    //                     layer.options.draggable = false;
+
+    //                 }  else if (parseFloat(feature.properties.pressure_avg) >= 5) {
+
+    //                     layer.setIcon(rtuRedMarker);
+    //                     layer.bindPopup(feature.properties.dm);
+    //                     layer.options.draggable = false;
+
+    //                 } else {
+
+    //                     layer.setIcon(rtuRedMarker);
+    //                     layer.bindPopup(feature.properties.dm);
+    //                     layer.options.draggable = false;
+    //                 }
+
+    //             }
+    //         }).addTo(map);
+
+    //         // console.log(rtuGeojsonLayer);
+
+    //         rtuGroup = L.layerGroup()
+    //                     .addLayer(rtuGeojsonLayer);
+    //         map.addLayer(rtuGroup);   
+    //         layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown){
+    //         console.log(jqXHR);
+    //         console.log(textStatus);
+    //         console.log(errorThrown);
+    //     }
+    // })
+
+
+
     $.ajax({
-        url: '../../../../api/rtuManager/rtuLocationGeoJSON/',
+        url: '../../../../api/rtuManager/rtuInformationGeoJSON/',
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
         success: function (response) {
-            // console.log(response);
+            console.log(response);
 
             rtuGeojsonLayer = L.geoJson(response, {
 
@@ -17847,21 +17958,29 @@ $(function() {
                         }
                     });
 
-                    if (feature.properties.zone == "01") {
+                    // console.log(feature.properties.pressure_avg);
+
+                    if (parseFloat(feature.properties.pressure_avg) < 2) {
 
                         layer.setIcon(rtuRedMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
 
-                    } else if (feature.properties.zone == "02") {
+                    } else if ((parseFloat(feature.properties.pressure_avg) >= 2) && (parseFloat(feature.properties.pressure_avg) < 5)) {
 
                         layer.setIcon(rtuYellowMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
 
-                    } else {
+                    }  else if (parseFloat(feature.properties.pressure_avg) >= 5) {
 
                         layer.setIcon(rtuGreenMarker);
+                        layer.bindPopup(feature.properties.dm);
+                        layer.options.draggable = false;
+
+                    } else {
+
+                        layer.setIcon(rtuRedMarker);
                         layer.bindPopup(feature.properties.dm);
                         layer.options.draggable = false;
                     }
@@ -17877,9 +17996,10 @@ $(function() {
             layerControl.addOverlay(rtuGroup , "ตำแหน่ง RTU");
         },
         error: function(jqXHR, textStatus, errorThrown){
+            console.log(textStatus);
             // alert('init error: ' + textStatus);
-          var url = '../../../Login/';
-          $(location).attr('href',url);
+          // var url = '../../../Login/';
+          // $(location).attr('href',url);
         }
     });
     
@@ -17893,7 +18013,7 @@ $(function() {
 
 	// Creates a red marker with the coffee icon
   rtuGreenMarker = L.ExtraMarkers.icon({
-    icon: 'fa-floppy-o',
+    icon: 'fa-info-circle',
     markerColor: 'green-light',
     shape: 'circle',
     prefix: 'fa',
@@ -17903,7 +18023,7 @@ $(function() {
  // L.marker([51.941196,4.512291], {icon: rtuEditingMarker,}).addTo(map);
 
   rtuRedMarker = L.ExtraMarkers.icon({
-          icon: 'fa-pencil-square-o',
+          icon: 'fa-info-circle',
           markerColor: 'red',
           shape: 'circle',
           prefix: 'fa'
@@ -17911,7 +18031,7 @@ $(function() {
     
 
   rtuYellowMarker = L.ExtraMarkers.icon({
-          icon: 'fa-pencil-square-o',
+          icon: 'fa-info-circle',
           markerColor: 'yellow',
           shape: 'circle',
           prefix: 'fa'

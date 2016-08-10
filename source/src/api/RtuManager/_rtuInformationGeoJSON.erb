@@ -1,0 +1,79 @@
+    /**
+     *
+     * @apiName RtuInformationGeoJSON
+     * @apiGroup RTU Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /rtuManager/rtuInformationGeoJSON/ RTU Information GeoJSON
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่แสดงข้อมูล RTU ในรูปแบบ GeoJSON
+     *
+     *
+     * @apiParam {String} name     New name of the user
+     *
+     * @apiSampleRequest /rtuManager/rtuInformationGeoJSON/
+     *
+     * @apiSuccess {String} msg แสดงข้อความทักทายผู้ใช้งาน
+     *
+     * @apiSuccessExample Example data on success:
+     * {
+     *   "msg": "Hello, anusorn"
+     * }
+     *
+     * @apiError UserNotFound The <code>id</code> of the User was not found.
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     */
+
+    function rtuInformationGeoJSON($app, $pdo, $db, $conn_db2, $key) {
+
+
+        $myBranchCode = "";
+
+        /* ************************* */
+        /* เริ่มกระบวนการ Extract the jwt from the Header or Session */
+        /* ************************* */
+        if (!isset($_SESSION['jwt'])) {
+            // $jwt = "";
+
+            /*** Extract the jwt from the Bearer ***/
+            $request = $app->request();
+            $authHeader = $request->headers('authorization');
+            list($jwt) = sscanf( (string)$authHeader, 'Bearer %s');
+
+            $myBranchCode = $app->jwt->information->branchCode;
+
+        } else {
+            /*** Extract the jwt from Session ***/
+            $jwt = $_SESSION['jwt'];
+
+            $token = JWT::decode($jwt, $key, array('HS256'));
+            $myBranchCode = $token->information->branchCode;
+        }
+
+
+        
+
+<% if config[:phase_environment] == "Development" %>
+
+    /* rtuInformationGeoJSON Partial : Development */
+    <%= partial "/RtuManager/rtuInformationGeoJSON/_development" %>
+
+<% elsif config[:phase_environment] == "Test" %>
+
+    /* rtuInformationGeoJSON Partial : Test */
+    <%= partial "/RtuManager/rtuInformationGeoJSON/_development" %>
+
+<% elsif config[:phase_environment] == "Production" %>
+
+    /* rtuInformationGeoJSON Partial : Production */
+    <%= partial "/RtuManager/rtuInformationGeoJSON/_production" %>
+
+<% end %>
+
+
+
+    };

@@ -1,0 +1,77 @@
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
+        /* ************************* */
+        $features = array();
+
+        if ($myBranchCode != "ALL") {
+            $results = $db->rtu_main_tb->where("branch_code = ? and rtu_status = 1", $myBranchCode)->order("dm_code ASC");
+        } else {
+            $results = $db->rtu_main_tb->where("rtu_status = 1")->order("dm_code ASC");
+        }
+        
+        foreach ($results as $result) {
+
+            $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
+
+            /* *********************************** */
+            /* เริ่มกระบวนการเชื่อมต่อกับฐานข้อมูล DB2 */
+            /* *********************************** */
+            $sql_db2 = "select to_char(log_dt, 'YYYY-MM-DD') as Date, area_code, avg(p) as AveragePressure from core_area, meter_hist 
+where meter_code in (select meter_code from core_area_meter where core_area_meter.area_code = core_area.area_code and meter_inout='I')
+and log_dt between timestamp('".date("Y-m-d")."') and timestamp('".date("Y-m-d")." 23:59:00')
+and to_char(log_dt, 'HH24') between '05' and '09'
+and area_axis_code = 'D'
+and to_char(area_code) = '".substr($result["dma_code"],4)."'
+group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
+            
+            $tmpAveragePressure = "-";
+
+            if ($conn_db2) {
+                // # code...
+                $stmt = db2_exec($conn_db2, $sql_db2);
+
+                $row = db2_fetch_array($stmt); 
+                    
+                $tmpAveragePressure = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
+
+                if ($tmpAveragePressure) {
+                    $tmpAveragePressure = $tmpAveragePressure;
+                } else {
+                    $tmpAveragePressure = "-";
+                }
+
+            } else {
+                $tmpAveragePressure = "-";
+            }
+
+
+            $tmpID = $result["id"];
+            $tmpPoint = new \GeoJson\Geometry\Point([ floatval($result_rtu_pin_code["lng"]), floatval($result_rtu_pin_code["lat"])]);
+            $tmpProperties = array("dm" => $result["dm_code"], 
+                                   "dma"=>  $result["dma_code"], 
+                                   "branch" => $result["branch_code"],
+                                   "zone" => $result["zone_code"],
+                                   "ip_address" => $result["ip_address"],
+                                   "logger_code" => $result["logger_code"],
+                                   "rtu_pin_code" => $result_rtu_pin_code["rtu_pin_code"],
+                                   "location" => $result_rtu_pin_code["location"],
+                                   "remark" => $result["remark"],
+                                   "pressure_avg_date" => date("Y-m-d"),
+                                   "pressure_avg" => $tmpAveragePressure);
+            $tmpFeature = new \GeoJson\Feature\Feature($tmpPoint, $tmpProperties, $tmpID, null);
+
+            $features[] = $tmpFeature;
+
+        }
+
+        $featureCollection = new \GeoJson\Feature\FeatureCollection($features);
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($featureCollection);
+
+
+        
