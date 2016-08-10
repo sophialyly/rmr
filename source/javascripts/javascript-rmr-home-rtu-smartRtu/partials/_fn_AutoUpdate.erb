@@ -22,14 +22,21 @@ AutoUpdate: function () {
                 contentType: "application/json",
                 data: JSON.stringify(tmpData),
                 beforeSend: function() {
-                    // if( autoUpdateRequest != null ) {
-                    //         autoUpdateRequest.abort();
-                    //         autoUpdateRequest = null;
+                    if( autoUpdateRequest != null ) {
+                            autoUpdateRequest.abort();
+                            autoUpdateRequest = null;
+                    }
+                    // if (autoUpdateTimer) {
+                    //     clearInterval(autoUpdateTimer);
                     // }
                 },
-                success: function(msg) {
+                success: function(result) {
                     /* handle the ajax response */
-                    console.log(msg);
+                    // console.log(result);
+
+                    $('#txtFlow').val(result.rows[0].flow_value);
+                    $('#txtPressure').val(result.rows[0].pressure_value);
+                    
                 }
         });
     

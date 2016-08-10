@@ -18054,6 +18054,7 @@ $(function() {
     var rtuGrayMarker = null;
     var rtuBlackMarker = null;
 
+    var autoUpdateToggle = false;
     var autoUpdateFlag = false;
     var autoUpdateRequest = null;
     var autoUpdateTimer = null;
@@ -18098,14 +18099,21 @@ $(function() {
                 contentType: "application/json",
                 data: JSON.stringify(tmpData),
                 beforeSend: function() {
-                    // if( autoUpdateRequest != null ) {
-                    //         autoUpdateRequest.abort();
-                    //         autoUpdateRequest = null;
+                    if( autoUpdateRequest != null ) {
+                            autoUpdateRequest.abort();
+                            autoUpdateRequest = null;
+                    }
+                    // if (autoUpdateTimer) {
+                    //     clearInterval(autoUpdateTimer);
                     // }
                 },
-                success: function(msg) {
+                success: function(result) {
                     /* handle the ajax response */
-                    console.log(msg);
+                    // console.log(result);
+
+                    $('#txtFlow').val(result.rows[0].flow_value);
+                    $('#txtPressure').val(result.rows[0].pressure_value);
+                    
                 }
         });
     
@@ -18627,26 +18635,36 @@ $(function() {
             	fn.Logout();
             });
 
+
+
+
+
             $('#btn-auto-update').bind('click', function(){
             	// console.log("auto update");
 
-            	if (!autoUpdateFlag) {
+            	if (autoUpdateToggle) {
 
-            		
-                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
-
+                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
                     
-                    autoUpdateTimer = setTimeout(fn.AutoUpdate(), 2000);
+                    if (autoUpdateTimer) {
+                        clearInterval(autoUpdateTimer);
+                    }
 
-            		autoUpdateFlag = true;
+            		autoUpdateToggle = false;
 
             	} else {
             		
-                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+                    
+                    // autoUpdateTimer = setInterval(fn.AutoUpdate(), 1000);
+                    autoUpdateTimer = setInterval(function() {
+                        // var d = new Date();
+                    // document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+                    // console.log(d.toLocaleTimeString());
+                        fn.AutoUpdate()
+                    } ,1000);
 
-                    clearTimeout(autoUpdateTimer);
-
-            		autoUpdateFlag = false;
+            		autoUpdateToggle = true;
             	}
 
             });

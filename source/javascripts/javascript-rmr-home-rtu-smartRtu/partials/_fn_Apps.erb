@@ -5,26 +5,36 @@
             	fn.Logout();
             });
 
+
+
+
+
             $('#btn-auto-update').bind('click', function(){
             	// console.log("auto update");
 
-            	if (!autoUpdateFlag) {
+            	if (autoUpdateToggle) {
 
-            		
-                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
-
+                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
                     
-                    autoUpdateTimer = setTimeout(fn.AutoUpdate(), 2000);
+                    if (autoUpdateTimer) {
+                        clearInterval(autoUpdateTimer);
+                    }
 
-            		autoUpdateFlag = true;
+            		autoUpdateToggle = false;
 
             	} else {
             		
-                    $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+                    $('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+                    
+                    // autoUpdateTimer = setInterval(fn.AutoUpdate(), 1000);
+                    autoUpdateTimer = setInterval(function() {
+                        // var d = new Date();
+                    // document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+                    // console.log(d.toLocaleTimeString());
+                        fn.AutoUpdate()
+                    } ,1000);
 
-                    clearTimeout(autoUpdateTimer);
-
-            		autoUpdateFlag = false;
+            		autoUpdateToggle = true;
             	}
 
             });
