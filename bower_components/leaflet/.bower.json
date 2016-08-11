@@ -1,25 +1,27 @@
 {
   "name": "leaflet",
-  "version": "0.7.2",
+  "description": "JavaScript library for mobile-friendly interactive maps",
   "main": [
-    "leaflet.js",
-    "leaflet.css"
+    "dist/leaflet.css",
+    "dist/leaflet-src.js"
   ],
-  "description": "Leaflet Bower package",
   "ignore": [
-    ".DS_Store",
-    ".git",
-    ".gitignore"
+    ".*",
+    "CHANGELOG.json",
+    "FAQ.md",
+    "debug",
+    "spec",
+    "src",
+    "build"
   ],
-  "homepage": "https://github.com/vperron/leaflet-dist",
-  "_release": "0.7.2",
+  "homepage": "https://github.com/Leaflet/Leaflet",
+  "_release": "e1e121c746",
   "_resolution": {
-    "type": "version",
-    "tag": "v0.7.2",
-    "commit": "2ec7a0846eaecdce1321d92b3c45c74f4fd08dd3"
+    "type": "branch",
+    "branch": "master",
+    "commit": "e1e121c746bd3a35ab918a978c155600a22b8725"
   },
-  "_source": "git://github.com/vperron/leaflet-dist.git",
-  "_target": "~0.7.2",
-  "_originalSource": "leaflet-dist",
-  "_direct": true
+  "_source": "https://github.com/Leaflet/Leaflet.git",
+  "_target": "master",
+  "_originalSource": "leaflet"
 }

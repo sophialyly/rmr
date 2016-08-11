@@ -2015,6 +2015,7 @@ $(function() {
 
 	map = L.map('map', {
                             fullscreenControl: true,
+                            scrollWheelZoom: false,
 							layers: [googleRoadmapLayer] // only add one! 
 						})
 			.setView([13.708189, 100.599608], 14);
@@ -2078,7 +2079,8 @@ $(function() {
     // // fn.Leaflet_SearchInfoBox();
     // fn.Leaflet_DrawControl();
     // // fn.Leaflet_AddDMALayer();
-    // fn.Leaflet_AddWMSLayer();
+    fn.Leaflet_AddWMSLayer();
+    fn.Leaflet_AddEasyButton();
     
 
 
@@ -2439,6 +2441,161 @@ $(function() {
 
         $(".desc").draggable();
         // $(".desc").hide();
+},
+        
+
+Leaflet_AddWMSLayer: function () {
+
+
+// var temperature = L.tileLayer.wms('http://gisonline.mwa.co.th:2558/arcgis/rest/services/mobileCache/mobileCache/MapServer/WMTS', {
+//     format: 'img/png',
+//     transparent: true,
+//     layers: 0
+// }).addTo(map);
+
+
+    var mwaORG = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '207',
+        format: 'image/png',
+        transparent: true
+    });
+
+	var mwaORG_Group = L.layerGroup()
+                        .addLayer(mwaORG);
+    map.addLayer(mwaORG_Group);   
+    layerControl.addOverlay(mwaORG_Group , "หน่วยงาน กปน.");
+
+
+
+    var mwaPipe_Tunnel = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '46',
+        format: 'image/png',
+        transparent: true
+    });
+
+	var mwaPipe_TunnelGroup = L.layerGroup()
+                        .addLayer(mwaPipe_Tunnel);
+    map.addLayer(mwaPipe_TunnelGroup);   
+    layerControl.addOverlay(mwaPipe_TunnelGroup , "ท่ออุโมงค์");
+
+
+
+    var mwaWMS_47 = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '47',
+        format: 'image/png',
+        transparent: true
+    });
+
+	var mwaWMS_47Group = L.layerGroup()
+                        .addLayer(mwaWMS_47);
+    map.addLayer(mwaWMS_47Group);   
+    layerControl.addOverlay(mwaWMS_47Group , "ท่อประธาน");
+
+
+
+    var mwaWMS_48 = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '48',
+        format: 'image/png',
+        transparent: true
+    });
+
+    var mwaWMS_48Group = L.layerGroup()
+                        .addLayer(mwaWMS_48);
+    map.addLayer(mwaWMS_48Group);   
+    layerControl.addOverlay(mwaWMS_48Group , "ท่อจ่าย");
+
+
+
+    // var mwaPipe_Service = L.tileLayer.wms("http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", {
+    //     layers: '49',
+    //     format: 'image/png',
+    //     transparent: true
+    // });
+
+    // var mwaPipe_ServiceGroup = L.layerGroup()
+    //                     .addLayer(mwaPipe_Service);
+    // map.addLayer(mwaPipe_ServiceGroup);   
+    // layerControl.addOverlay(mwaPipe_ServiceGroup , "ท่อบริการ");
+
+
+
+
+    var mwaWMS_DMA_Boundary = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/dss/WLMA/MapServer/WMSServer", {
+        layers: '0',
+        format: 'image/png',
+        transparent: true
+    });
+
+    var mwaWMS_DMA_Boundary_Group = L.layerGroup()
+                        .addLayer(mwaWMS_DMA_Boundary);
+    // map.addLayer(mwaWMS_DMA_Boundary_Group);   
+    layerControl.addOverlay(mwaWMS_DMA_Boundary_Group , "ขอบเขต DMA");
+
+
+
+
+
+    // var mwaWMS_DMA = L.tileLayer.wms("http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", {
+    //     layers: '38,39',
+    //     format: 'image/png',
+    //     transparent: true
+    // });
+
+    // var mwaWMS_DMAGroup = L.layerGroup()
+    //                     .addLayer(mwaWMS_DMA);
+    // map.addLayer(mwaWMS_DMAGroup);   
+    // layerControl.addOverlay(mwaWMS_DMAGroup , "DMA");
+
+
+
+
+    
+},
+        Leaflet_AddEasyButton: function () {
+    // console.log('Leaflet_AddEasyButton');
+
+    // L.easyButton('glyphicon-question-sign', function(btn, map){
+    //     // helloPopup.setLatLng(map.getCenter()).openOn(map);
+    //     // alert('you just clicked a font awesome icon');
+    //     description_box.hideControl();
+    // }).addTo(map); // probably just `map`
+
+
+
+
+
+    var descriptionButtonToggle = L.easyButton({
+    	id: 'animated-marker-toggle',
+    	type: 'animate',
+    	states: [{
+    		stateName: 'add-markers',
+    		icon: 'glyphicon-question-sign',
+    		title: 'add some markers',
+    		onClick: function(control) {
+    			// map.addLayer(randomMarkers);
+    			control.state('remove-markers');
+
+    			description_box.hideControl();
+    		}
+    	}, {
+    		stateName: 'remove-markers',
+    		title: 'remove markers',
+    		icon: 'glyphicon-question-sign',
+    		onClick: function(control) {
+    			// map.removeLayer(randomMarkers);
+    			control.state('add-markers');
+
+    			description_box.showControl();
+    		}
+    	}]
+    });
+    descriptionButtonToggle.addTo(map);
+
+
+
+
+
+
 },
         // Get Token
         GetToken: function () {

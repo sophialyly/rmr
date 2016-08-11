@@ -1,0 +1,109 @@
+
+
+Leaflet_AddWMSLayer: function () {
+
+
+// var temperature = L.tileLayer.wms('http://gisonline.mwa.co.th:2558/arcgis/rest/services/mobileCache/mobileCache/MapServer/WMTS', {
+//     format: 'img/png',
+//     transparent: true,
+//     layers: 0
+// }).addTo(map);
+
+
+    var mwaORG = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '207',
+        format: 'image/png',
+        transparent: true
+    });
+
+	var mwaORG_Group = L.layerGroup()
+                        .addLayer(mwaORG);
+    map.addLayer(mwaORG_Group);   
+    layerControl.addOverlay(mwaORG_Group , "หน่วยงาน กปน.");
+
+
+
+    var mwaPipe_Tunnel = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '46',
+        format: 'image/png',
+        transparent: true
+    });
+
+	var mwaPipe_TunnelGroup = L.layerGroup()
+                        .addLayer(mwaPipe_Tunnel);
+    map.addLayer(mwaPipe_TunnelGroup);   
+    layerControl.addOverlay(mwaPipe_TunnelGroup , "ท่ออุโมงค์");
+
+
+
+    var mwaWMS_47 = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '47',
+        format: 'image/png',
+        transparent: true
+    });
+
+	var mwaWMS_47Group = L.layerGroup()
+                        .addLayer(mwaWMS_47);
+    map.addLayer(mwaWMS_47Group);   
+    layerControl.addOverlay(mwaWMS_47Group , "ท่อประธาน");
+
+
+
+    var mwaWMS_48 = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/wmsservice/MapServer/WMSServer", {
+        layers: '48',
+        format: 'image/png',
+        transparent: true
+    });
+
+    var mwaWMS_48Group = L.layerGroup()
+                        .addLayer(mwaWMS_48);
+    map.addLayer(mwaWMS_48Group);   
+    layerControl.addOverlay(mwaWMS_48Group , "ท่อจ่าย");
+
+
+
+    // var mwaPipe_Service = L.tileLayer.wms("http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", {
+    //     layers: '49',
+    //     format: 'image/png',
+    //     transparent: true
+    // });
+
+    // var mwaPipe_ServiceGroup = L.layerGroup()
+    //                     .addLayer(mwaPipe_Service);
+    // map.addLayer(mwaPipe_ServiceGroup);   
+    // layerControl.addOverlay(mwaPipe_ServiceGroup , "ท่อบริการ");
+
+
+
+
+    var mwaWMS_DMA_Boundary = L.tileLayer.wms("http://gismapservice.mwa.co.th/arcgis/services/dss/WLMA/MapServer/WMSServer", {
+        layers: '0',
+        format: 'image/png',
+        transparent: true
+    });
+
+    var mwaWMS_DMA_Boundary_Group = L.layerGroup()
+                        .addLayer(mwaWMS_DMA_Boundary);
+    // map.addLayer(mwaWMS_DMA_Boundary_Group);   
+    layerControl.addOverlay(mwaWMS_DMA_Boundary_Group , "ขอบเขต DMA");
+
+
+
+
+
+    // var mwaWMS_DMA = L.tileLayer.wms("http://gisonline.mwa.co.th:2558/arcgis/services/wmsservice/MapServer/WMSServer", {
+    //     layers: '38,39',
+    //     format: 'image/png',
+    //     transparent: true
+    // });
+
+    // var mwaWMS_DMAGroup = L.layerGroup()
+    //                     .addLayer(mwaWMS_DMA);
+    // map.addLayer(mwaWMS_DMAGroup);   
+    // layerControl.addOverlay(mwaWMS_DMAGroup , "DMA");
+
+
+
+
+    
+},

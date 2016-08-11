@@ -1,0 +1,46 @@
+Leaflet_AddEasyButton: function () {
+    // console.log('Leaflet_AddEasyButton');
+
+    // L.easyButton('glyphicon-question-sign', function(btn, map){
+    //     // helloPopup.setLatLng(map.getCenter()).openOn(map);
+    //     // alert('you just clicked a font awesome icon');
+    //     description_box.hideControl();
+    // }).addTo(map); // probably just `map`
+
+
+
+
+
+    var descriptionButtonToggle = L.easyButton({
+    	id: 'animated-marker-toggle',
+    	type: 'animate',
+    	states: [{
+    		stateName: 'add-markers',
+    		icon: 'glyphicon-question-sign',
+    		title: 'add some markers',
+    		onClick: function(control) {
+    			// map.addLayer(randomMarkers);
+    			control.state('remove-markers');
+
+    			description_box.hideControl();
+    		}
+    	}, {
+    		stateName: 'remove-markers',
+    		title: 'remove markers',
+    		icon: 'glyphicon-question-sign',
+    		onClick: function(control) {
+    			// map.removeLayer(randomMarkers);
+    			control.state('add-markers');
+
+    			description_box.showControl();
+    		}
+    	}]
+    });
+    descriptionButtonToggle.addTo(map);
+
+
+
+
+
+
+},
