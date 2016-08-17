@@ -12,6 +12,8 @@
             $('#btn-auto-update').bind('click', function(){
             	// console.log("auto update");
 
+                $('#auto-update-toggle-switch').bootstrapSwitch('toggleState');
+
             	if (autoUpdateToggle) {
 
                     $('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');

@@ -1,4 +1,4 @@
-AutoUpdate: function () {
+AutoUpdate: function (dm_name) {
 	// console.log('AutoUpdate');
 
         /* if there is a previous ajax request, then we abort it and then set xhr to null */
@@ -7,11 +7,12 @@ AutoUpdate: function () {
         //         autoUpdateRequest = null;
         // }
 
-
+        console.log("dm_name");
+        console.log(dm_name);
 
 
           var tmpData = {
-              "paramDM" : "DM-01-01-01-01"
+              "paramDM" : dm_name
           }
 
         /* and now we can safely make another ajax request since the previous one is aborted */

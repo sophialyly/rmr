@@ -26,12 +26,12 @@
                                 <form action="#" class="form-horizontal" id="formRTU_Information" method="post">
 
                                     <div class="form-group">
-                                    <label class="col-sm-3 control-label">Flow:</label>
-                                      <div class="col-sm-9 controls">
+                                    <label class="col-sm-7 control-label">Flow:</label>
+                                      <div class="col-sm-5 controls">
                                         <div class="input-group">
                                           <input type="text" name="" id="txtFlow" placeholder="Flow" class="form-control">
                                           <span class="input-group-addon">
-                                              <i class="fa fa-circle fa-1x" style="color:green"></i>
+                                              <i class="fa fa-circle fa-1x" style="color:lightgray"></i>
                                           </span>
                                         </div>
                                         <!-- <span class="help-inline">last update : </span> -->
@@ -39,25 +39,60 @@
                                     </div>
 
                                     <div class="form-group">
-                                    <label class="col-sm-3 control-label">Pressure:</label>
-                                      <div class="col-sm-9 controls">
+                                    <label class="col-sm-7 control-label">Pressure:</label>
+                                      <div class="col-sm-5 controls">
                                         <div class="input-group">
                                           <input type="text" name="" id="txtPressure" placeholder="Pressure" class="form-control">
                                           <span class="input-group-addon">
-                                              <i class="fa fa-circle fa-1x" style="color:red"></i>
+                                              <i class="fa fa-circle fa-1x" style="color:lightgray"></i>
                                           </span>
                                         </div>
                                         <!-- <span class="help-inline">last update : </span> -->
                                       </div>
                                     </div>
 
-                                    <div class="form-group form-group-sm">
-                                      <label class="col-sm-6 control-label" for="dm">Auto Update:</label>
-                                      <button class="btn btn-danger" id="btn-auto-update">
-                                          <i class="fa fa-clock-o"></i>
-                                          <!-- <i class="fa fa-spinner fa-pulse"></i> -->
-                                      </button>
+                                    <div class="form-group">
+                                    <label class="col-sm-7 control-label">Pressure Average:</label>
+                                      <div class="col-sm-5 controls">
+                                        <div class="input-group">
+                                          <input type="text" name="" id="txtPressureAverage" placeholder="Pressure Average" class="form-control">
+                                        </div>
+                                        <!-- <span class="help-inline">last update : </span> -->
+                                      </div>
                                     </div>
+
+                                    <div class="form-group">
+                                      <label class="col-sm-5 control-label" for="dm">Auto Update:</label>
+
+                                      <div class="col-sm-7 controls">
+                                        <div id="auto-update-toggle-switch" class="label-toggle-switch make-switch">
+                                          <input type="checkbox"  />
+                                        </div>
+
+                                        <!-- <i class="fa fa-clock-o"></i> -->
+                                        <!-- <button  class="btn btn-circle btn-primary btn-lg"><i class="fa fa-clock-o fa-2x"></i></button> -->
+                                        <!-- <button id="btn-auto-update" class="btn btn-circle btn-bordered thick btn-primary">
+                                          <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                                        </button> -->
+                                        <i id="auto-update-refresh-icon" class="fa fa-refresh fa-spin fa-1x fa-fw" aria-hidden="true" style="display:none"></i>
+                                      </div>
+
+
+                                      <!-- <span class="col-sm-2">
+                                        <i class="fa fa-clock-o"></i>
+                                      </span> -->
+
+                                      <!-- <button class="btn" id="btn-auto-update"> -->
+                                          <!-- <i class="fa fa-clock-o"></i> -->
+                                          <!-- <i class="fa fa-spinner fa-pulse"></i> -->
+                                      <!-- </button> -->
+                                    </div>
+
+                                    <!-- <div class="form-group">
+                                        <div class="col-sm-9 col-sm-offset-9">
+                                            <button type="button" id="btn-close-rtu-info-box col-sm-3" class="btn btn-danger">ปิด</button>
+                                        </div>
+                                    </div> -->
 
                                 </form>
                         </div>
@@ -69,7 +104,7 @@
                             <div class="mail-page ">
                               <div class="mail-nav">
                                 <ul>
-                                    <li class="hidden-xs"></li>
+                                    <li class="">Pressure Average Range</li>
                                     <li><a href="#"><i class="mail-flag-gray"></i> Error</a></li>
                                     <li><a href="#"><i class="mail-flag-black"></i> &lt; 2</a></li>
                                     <li><a href="#"><i class="mail-flag-red"></i> 2 - 6</a></li>

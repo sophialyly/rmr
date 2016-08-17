@@ -32,6 +32,8 @@
     var autoUpdateRequest = null;
     var autoUpdateTimer = null;
 
+    var currentMarker = false;
+
 
 
     /////////////////////////////////////////////////// Adress
@@ -40,6 +42,9 @@
 
         // Launch Functions
         Launch: function () {
+
+            fn.AutoUpdateSwitch();
+
             fn.Leaflet();
             fn.Leaflet_ExtraMarkers();
 
@@ -49,6 +54,8 @@
 
         // Timer
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_AutoUpdate" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_AutoUpdateSwitch" %>
+        
         // Leaflet
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet" %>
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddRtuLayer" %>
@@ -58,6 +65,7 @@
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddDescriptionBox" %>
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddWMSLayer" %>
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_AddEasyButton" %>
+        <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_Leaflet_ShowRTUInformation" %>
         // Get Token
         <%= partial js_dir + "/javascript-rmr-home-rtu-smartRtu/partials/_fn_GetToken" %>
         // Logout

@@ -1,0 +1,66 @@
+AutoUpdateSwitch: function () {
+
+
+        $('#auto-update-toggle-switch').on('click', function(e, data) {
+            
+
+
+            if(currentMarker) {
+                console.log("currentMarker is not null");
+                console.log(currentMarker);
+
+                $('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('toggleState');
+
+            } else {
+                console.log("currentMarker is null");
+                console.log(currentMarker);
+                $('#auto-update-toggle-switch').bootstrapSwitch('setState', false);
+            }
+        });
+
+
+
+   
+
+
+
+
+    $('#auto-update-toggle-switch').on('switch-change', function (e, data) {
+        // alert(data.value);
+
+        if (data.value) {
+
+        	$('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+
+            if (currentMarker) {
+                
+                autoUpdateTimer = setInterval(function() {
+                    // fn.AutoUpdate()ว
+                    fn.AutoUpdate(currentMarker.feature.properties.dm);
+                } ,3000);
+
+                autoUpdateToggle = true;
+                $("#auto-update-refresh-icon").show();
+
+            } 
+
+
+        } else {
+
+        	$('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+
+        	if (autoUpdateTimer) {
+        		clearInterval(autoUpdateTimer);
+        	}
+
+        	autoUpdateToggle = false;
+        	$("#auto-update-refresh-icon").hide();
+
+        }
+
+    });
+
+
+
+    
+},

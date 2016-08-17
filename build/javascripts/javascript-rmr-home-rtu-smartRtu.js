@@ -18431,6 +18431,8 @@ $(function() {
     var autoUpdateRequest = null;
     var autoUpdateTimer = null;
 
+    var currentMarker = false;
+
 
 
     /////////////////////////////////////////////////// Adress
@@ -18439,6 +18441,9 @@ $(function() {
 
         // Launch Functions
         Launch: function () {
+
+            fn.AutoUpdateSwitch();
+
             fn.Leaflet();
             fn.Leaflet_ExtraMarkers();
 
@@ -18447,7 +18452,7 @@ $(function() {
         },
 
         // Timer
-        AutoUpdate: function () {
+        AutoUpdate: function (dm_name) {
 	// console.log('AutoUpdate');
 
         /* if there is a previous ajax request, then we abort it and then set xhr to null */
@@ -18456,11 +18461,12 @@ $(function() {
         //         autoUpdateRequest = null;
         // }
 
-
+        console.log("dm_name");
+        console.log(dm_name);
 
 
           var tmpData = {
-              "paramDM" : "DM-01-01-01-01"
+              "paramDM" : dm_name
           }
 
         /* and now we can safely make another ajax request since the previous one is aborted */
@@ -18490,6 +18496,73 @@ $(function() {
         });
     
 },
+        AutoUpdateSwitch: function () {
+
+
+        $('#auto-update-toggle-switch').on('click', function(e, data) {
+            
+
+
+            if(currentMarker) {
+                console.log("currentMarker is not null");
+                console.log(currentMarker);
+
+                $('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('toggleState');
+
+            } else {
+                console.log("currentMarker is null");
+                console.log(currentMarker);
+                $('#auto-update-toggle-switch').bootstrapSwitch('setState', false);
+            }
+        });
+
+
+
+   
+
+
+
+
+    $('#auto-update-toggle-switch').on('switch-change', function (e, data) {
+        // alert(data.value);
+
+        if (data.value) {
+
+        	$('#btn-auto-update').html('<i class="fa fa-spinner fa-pulse"></i>');
+
+            if (currentMarker) {
+                
+                autoUpdateTimer = setInterval(function() {
+                    // fn.AutoUpdate()ว
+                    fn.AutoUpdate(currentMarker.feature.properties.dm);
+                } ,3000);
+
+                autoUpdateToggle = true;
+                $("#auto-update-refresh-icon").show();
+
+            } 
+
+
+        } else {
+
+        	$('#btn-auto-update').html('<i class="fa fa-clock-o"></i>');
+
+        	if (autoUpdateTimer) {
+        		clearInterval(autoUpdateTimer);
+        	}
+
+        	autoUpdateToggle = false;
+        	$("#auto-update-refresh-icon").hide();
+
+        }
+
+    });
+
+
+
+    
+},
+        
         // Leaflet
         Leaflet: function () {
     // console.log('Leaflet');
@@ -18572,6 +18645,23 @@ $(function() {
 
         // fn.ResetMarkerToDefault();
         // fn.ToggleFormInfo();
+
+        $('#rtu-name-info-box').html("RTU Information");
+        $('#txtFlow').val();
+        $('#txtPressure').val();
+
+        currentMarker = null;
+
+        // console.log($('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('status'));
+
+        // if ($('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('status')) {
+        //     $('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('toggleState');
+        // }
+
+        $('#auto-update-toggle-switch').bootstrapSwitch('setState', false);
+        
+        
+
     });
 
 
@@ -18611,14 +18701,16 @@ $(function() {
                     layer.on({
                         'click': function (e) {
 
-                            // currentMarker = e.target;
+                            currentMarker = e.target;
+                            // console.log(currentMarker);
+                            
                             // fn.HighlightMarkerToEdit();
                             // fn.ToggleFormInfo();
 
                             // e.target.openPopup();
                             // map.panTo(e.target.getLatLng());
 
-                            // fn.Leaflet_ShowRTUInformation(currentMarker);
+                            fn.Leaflet_ShowRTUInformation(currentMarker);
 
                         },
                         'dragstart': function(e) {
@@ -18772,10 +18864,20 @@ $(function() {
 	map.on('fullscreenchange', function () {
 	    if (map.isFullscreen()) {
 	        console.log('entered fullscreen');
+
 	    } else {
 	        console.log('exited fullscreen');
 	    }
 	});
+
+	map.scrollWheelZoom.disable();
+
+	// if (map.scrollWheelZoom.enabled()) {
+	// 	map.scrollWheelZoom.disable();
+	// }
+	// else {
+	// 	map.scrollWheelZoom.enable();
+	// }
 
 	// map.isFullscreen() // Is the map fullscreen?
 	// map.toggleFullscreen() // Either go fullscreen, or cancel the existing fullscreen.
@@ -18798,7 +18900,7 @@ $(function() {
         };
 
         infobox.refresh = function (properties) {
-            this._div.innerHTML = '<h4>RTU Information</h4>';
+            this._div.innerHTML = '<h4 id="rtu-name-info-box">RTU Information</h4>';
             this._div.innerHTML += '<hr/>';
 
             $("#rtu-info-box").show();
@@ -19103,6 +19205,47 @@ Leaflet_AddWMSLayer: function () {
 
 
 },
+        Leaflet_ShowRTUInformation: function (myCurrentMarker) {
+
+
+    // console.log('Leaflet_ShowRTUInformation');
+    // console.log(myCurrentMarker);
+    // console.log(myCurrentMarker.feature.properties.branch);
+    // console.log(myCurrentMarker.feature.properties.dm);
+    // console.log(myCurrentMarker.feature.properties.dma);
+    // console.log(myCurrentMarker.feature.properties.ip_address);
+    // console.log(myCurrentMarker.feature.properties.location);
+    // console.log(myCurrentMarker.feature.properties.logger_code);
+    // console.log(myCurrentMarker.feature.properties.remark);
+    // console.log(myCurrentMarker.feature.properties.zone);
+
+    // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
+
+    if (myCurrentMarker.feature.properties) {
+        $('#rtu-name-info-box').html(myCurrentMarker.feature.properties.dm);
+        $('#txtPressureAverage').val(myCurrentMarker.feature.properties.pressure_avg);
+
+        fn.AutoUpdate(myCurrentMarker.feature.properties.dm);
+        // $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
+        // $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
+        // $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+        // $('#txtRPC').val(myCurrentMarker.feature.properties.rtu_pin_code);
+        // $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(6) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(6) + ")");
+        // $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+    } else {
+        // console.log(myCurrentMarker);
+    }
+
+  
+
+	
+	
+
+
+
+    
+},
+
         // Get Token
         GetToken: function () {
 	// console.log('GetToken');
@@ -19170,6 +19313,8 @@ Leaflet_AddWMSLayer: function () {
 
             $('#btn-auto-update').bind('click', function(){
             	// console.log("auto update");
+
+                $('#auto-update-toggle-switch').bootstrapSwitch('toggleState');
 
             	if (autoUpdateToggle) {
 

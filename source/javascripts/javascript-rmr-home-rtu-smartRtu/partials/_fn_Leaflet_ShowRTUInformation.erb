@@ -1,0 +1,40 @@
+Leaflet_ShowRTUInformation: function (myCurrentMarker) {
+
+
+    // console.log('Leaflet_ShowRTUInformation');
+    // console.log(myCurrentMarker);
+    // console.log(myCurrentMarker.feature.properties.branch);
+    // console.log(myCurrentMarker.feature.properties.dm);
+    // console.log(myCurrentMarker.feature.properties.dma);
+    // console.log(myCurrentMarker.feature.properties.ip_address);
+    // console.log(myCurrentMarker.feature.properties.location);
+    // console.log(myCurrentMarker.feature.properties.logger_code);
+    // console.log(myCurrentMarker.feature.properties.remark);
+    // console.log(myCurrentMarker.feature.properties.zone);
+
+    // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
+
+    if (myCurrentMarker.feature.properties) {
+        $('#rtu-name-info-box').html(myCurrentMarker.feature.properties.dm);
+        $('#txtPressureAverage').val(myCurrentMarker.feature.properties.pressure_avg);
+
+        fn.AutoUpdate(myCurrentMarker.feature.properties.dm);
+        // $('#txtDMA').val(myCurrentMarker.feature.properties.dma);
+        // $('#txtIP').val(myCurrentMarker.feature.properties.ip_address);
+        // $('#txtLocation').val(myCurrentMarker.feature.properties.location);
+        // $('#txtRPC').val(myCurrentMarker.feature.properties.rtu_pin_code);
+        // $('#txtLatLng').val("(" + (myCurrentMarker.getLatLng().lat).toFixed(6) + ", " + (myCurrentMarker.getLatLng().lng).toFixed(6) + ")");
+        // $('#txtRemark').val(myCurrentMarker.feature.properties.remark);
+    } else {
+        // console.log(myCurrentMarker);
+    }
+
+  
+
+	
+	
+
+
+
+    
+},

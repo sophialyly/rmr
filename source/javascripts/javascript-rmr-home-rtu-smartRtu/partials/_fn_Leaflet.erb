@@ -79,6 +79,23 @@ Leaflet: function () {
 
         // fn.ResetMarkerToDefault();
         // fn.ToggleFormInfo();
+
+        $('#rtu-name-info-box').html("RTU Information");
+        $('#txtFlow').val();
+        $('#txtPressure').val();
+
+        currentMarker = null;
+
+        // console.log($('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('status'));
+
+        // if ($('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('status')) {
+        //     $('#auto-update-toggle-switch > .label-toggle-switch').bootstrapSwitch('toggleState');
+        // }
+
+        $('#auto-update-toggle-switch').bootstrapSwitch('setState', false);
+        
+        
+
     });
 
 

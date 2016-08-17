@@ -1939,19 +1939,29 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         }
 
 
-        /* ************************* */
+
+
+
+
+    /* rtuInformationGeoJSON Partial : Development */
+            /* ************************* */
         /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
         /* ************************* */
         $reports = array();
 
+	       $reports[] = array(
+	            "date" => date("Y-m-d"),
+	            "dm_name" => $postDM,
+	            "flow_value" => (string)rand(0,200),
+	            "pressure_value" => (string)rand(0,20)
+	        );
 
 
-       $reports[] = array(
-            "date" => "2016-01-01",
-            "dm_name" => $postDM,
-            "flow_value" => (string)rand(0,200),
-            "pressure_value" => (string)rand(0,20)
-        );
+
+
+
+
+
 
 
 
@@ -2757,7 +2767,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
         * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
         */
-        if ($ContetnType == "application/json") {
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8")) {
 
             $request = $app->request();
             $result = json_decode($request->getBody());

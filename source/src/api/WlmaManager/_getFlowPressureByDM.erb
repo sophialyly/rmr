@@ -56,19 +56,27 @@
         }
 
 
-        /* ************************* */
-        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
-        /* ************************* */
-        $reports = array();
 
 
 
-       $reports[] = array(
-            "date" => "2016-01-01",
-            "dm_name" => $postDM,
-            "flow_value" => (string)rand(0,200),
-            "pressure_value" => (string)rand(0,20)
-        );
+<% if config[:phase_environment] == "Development" %>
+
+    /* rtuInformationGeoJSON Partial : Development */
+    <%= partial "/WlmaManager/getFlowPressureByDM/_development" %>
+
+<% elsif config[:phase_environment] == "Test" %>
+
+    /* rtuInformationGeoJSON Partial : Test */
+    <%= partial "/WlmaManager/getFlowPressureByDM/_development" %>
+
+<% elsif config[:phase_environment] == "Production" %>
+
+    /* rtuInformationGeoJSON Partial : Production */
+    <%= partial "/WlmaManager/getFlowPressureByDM/_production" %>
+
+<% end %>
+
+
 
 
 

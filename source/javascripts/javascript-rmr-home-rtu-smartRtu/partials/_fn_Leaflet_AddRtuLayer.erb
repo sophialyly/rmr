@@ -18,14 +18,16 @@ Leaflet_AddRtuLayer: function () {
                     layer.on({
                         'click': function (e) {
 
-                            // currentMarker = e.target;
+                            currentMarker = e.target;
+                            // console.log(currentMarker);
+                            
                             // fn.HighlightMarkerToEdit();
                             // fn.ToggleFormInfo();
 
                             // e.target.openPopup();
                             // map.panTo(e.target.getLatLng());
 
-                            // fn.Leaflet_ShowRTUInformation(currentMarker);
+                            fn.Leaflet_ShowRTUInformation(currentMarker);
 
                         },
                         'dragstart': function(e) {
