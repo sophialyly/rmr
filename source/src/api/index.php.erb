@@ -13,18 +13,22 @@ layout: "layout-api"
     /* Connect Database Manager Partial : Localhost */
     <%= partial "/ConnectDatabase/_connectDB2_Localhost" %>
     <%= partial "/ConnectDatabase/_connectMySQL_Localhost" %>
+    <%= partial "/ConnectDatabase/_connectOracle_Localhost" %>
+
 
 <% elsif config[:phase_environment] == "Test" %>
 
     /* Connect Database Manager Partial : Localhost */
     <%= partial "/ConnectDatabase/_connectDB2_Localhost" %>
     <%= partial "/ConnectDatabase/_connectMySQL_Localhost" %>
+    <%= partial "/ConnectDatabase/_connectOracle_Localhost" %>
 
 <% elsif config[:phase_environment] == "Production" %>
 
     /* Connect Database Manager Partial : Production */
     <%= partial "/ConnectDatabase/_connectDB2_Production" %>
     <%= partial "/ConnectDatabase/_connectMySQL_Production" %>
+    <%= partial "/ConnectDatabase/_connectOracle_Production" %>
 
 <% end %>
 
@@ -133,7 +137,8 @@ layout: "layout-api"
     /* REPORT manager */
     $app->post('/reportManager/reportFlowPressureByDM/',function() use ($app, $pdo, $db, $conn_db2, $key) { reportFlowPressureByDM($app, $pdo, $db, $conn_db2, $key); });
 
-
+    /* CIS manager */
+    $app->get('/cisManager/getCISCustomer/',function() use ($app, $pdo, $db_oracle, $conn_db_oracle) { getCISCustomer($app, $pdo, $db_oracle, $conn_db_oracle); });
 
 
     // $corsOptions = array("origin" => "*");
@@ -180,6 +185,9 @@ layout: "layout-api"
 
     /* REPORT Manager Partial */
     <%= partial "/ReportManager/_reportFlowPressureByDM" %>
+
+    /* CIS Manager Partial */
+    <%= partial "/CisManager/_getCISCustomer" %>
     
     
 ?>

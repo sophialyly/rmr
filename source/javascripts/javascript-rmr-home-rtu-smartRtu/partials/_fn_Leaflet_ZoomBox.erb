@@ -1,0 +1,26 @@
+Leaflet_ZoomBox: function () {
+    // console.log('Leaflet_ZoomBox');
+
+    var zoomBoxControl = L.control.zoomBox({
+        modal: true,  // If false (default), it deactivates after each use.  
+                      // If true, zoomBox control stays active until you click on the control to deactivate.
+        // position: "topleft",                
+        // className: "customClass"  // Class to use to provide icon instead of Font Awesome
+        // title: "My custom title" // a custom title
+    });
+
+    // console.log(zoomBoxControl);
+
+    // zoomBoxControl.getContainer().addEventListener('mouseover', function () {
+    //         // Disable drag and zoom handlers.
+    //         map.dragging.disable();
+    //         map.touchZoom.disable();
+    //         map.doubleClickZoom.disable();
+    //         map.scrollWheelZoom.disable();
+    //         map.keyboard.disable();
+    // });
+
+
+    map.addControl(zoomBoxControl);
+    
+},

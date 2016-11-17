@@ -17752,6 +17752,7 @@ $(function() {
 
 	map = L.map('map', {
                             fullscreenControl: true,
+                            scrollWheelZoom: false,
 							layers: [googleRoadmapLayer] // only add one! 
 						})
 			.setView([13.708189, 100.599608], 14);
@@ -17809,7 +17810,7 @@ $(function() {
 
     fn.Leaflet_AddRtuLayer();
     fn.Leaflet_AddInfoBox();
-    // fn.Leaflet_ZoomBox();
+    fn.Leaflet_ZoomBox();
     // fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
     // fn.Leaflet_AddDMALayer();
@@ -18088,7 +18089,7 @@ Leaflet_AddWMSLayer: function () {
         };
 
         infobox.refresh = function (properties) {
-            this._div.innerHTML = '<h4>RTU Information</h4>';
+            this._div.innerHTML = '<b>RTU Information</b>';
             this._div.innerHTML += '<hr/>';
 
             // console.log(properties);
@@ -18435,6 +18436,15 @@ Leaflet_AddWMSLayer: function () {
 	    }
 	});
 
+	map.scrollWheelZoom.disable();
+
+	// if (map.scrollWheelZoom.enabled()) {
+	// 	map.scrollWheelZoom.disable();
+	// }
+	// else {
+	// 	map.scrollWheelZoom.enable();
+	// }
+	
 	// map.isFullscreen() // Is the map fullscreen?
 	// map.toggleFullscreen() // Either go fullscreen, or cancel the existing fullscreen.
 

@@ -1,0 +1,29 @@
+    /* เชื่อมต่อ Oracle */
+    $tns = "  
+    (DESCRIPTION =
+        (ADDRESS_LIST =
+          (ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.194.125)(PORT = 1521))
+        )
+        (CONNECT_DATA =
+          (SERVICE_NAME = cisdb)
+        )
+      )
+           ";
+    $db_username = "wlma";
+    $db_password = "wlma2345";
+    try{
+        $conn_db_oracle = new PDO("oci:dbname=".$tns,$db_username,$db_password);
+        $db_oracle = new NotORM($conn_db_oracle);
+    }catch(PDOException $e){
+        echo ($e->getMessage());
+    }
+
+
+    // $param = $_POST;
+    // $db_username = "youusername";
+    // $db_password = "yourpassword";
+    // $db = "oci:dbname=yoursid";
+    // $conn = new PDO($db,$db_username,$db_password);
+    // $name = $param['module'];
+    // $file = $param['file'];
+    // $stmt = $conn->exec("INSERT INTO AL_MODULE (AL_MODULENAME, AL_MODULEFILE) VALUES ('$name', '$file')");

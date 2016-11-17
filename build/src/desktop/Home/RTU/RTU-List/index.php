@@ -403,28 +403,28 @@ session_start(); //start session.
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="dm">DM:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="dm" id="txtDM" class="form-control" disabled/>
+                          <input type="text" name="dm" id="txtDM" class="form-control" readonly="readonly" style="color: black;"/>
                       </div>
                   </div>
 
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="dma">DMA:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="dma" id="txtDMA" class="form-control" disabled/>
+                          <input type="text" name="dma" id="txtDMA" class="form-control" readonly="readonly" style="color: black;"/>
                       </div>
                   </div>
 
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="ip">IP:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="ip" id="txtIP" class="form-control" disabled/>
+                          <input type="text" name="ip" id="txtIP" class="form-control" readonly="readonly" style="color: black;"/>
                       </div>
                   </div> 
 
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="location">Location:</label>
                       <div class="col-sm-9 controls">
-                          <textarea class="form-control" name="location" id="txtLocation" rows="2" disabled></textarea>
+                          <textarea class="form-control" name="location" id="txtLocation" rows="2" readonly="readonly" style="color: black;"></textarea>
                       </div>
                   </div>
 
@@ -432,7 +432,7 @@ session_start(); //start session.
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="dm">RPC:</label>
                       <div class="col-sm-9 controls">
-                          <input type="text" name="rpc" id="txtRPC" class="form-control" disabled/>
+                          <input type="text" name="rpc" id="txtRPC" class="form-control" readonly="readonly" style="color: black;"/>
                           <span class="help-inline">(RTU Pin Code, RPC-xxxx)</span>
                       </div>
 
@@ -460,7 +460,7 @@ session_start(); //start session.
                   <label class="col-sm-3 control-label">ค่าพิกัด:</label>
                     <div class="col-sm-9 controls">
                       <div class="input-group">
-                        <input type="text" name="lat_lng" id="txtLatLng" placeholder="(Latitude, Longitude)" class="form-control">
+                        <input type="text" name="lat_lng" id="txtLatLng" placeholder="(Latitude, Longitude)" class="form-control" style="color: black;">
                         <span class="input-group-btn">
                           <button class="btn btn-primary" type="button" id="btnSearchByLatLng"><i class="fa fa-search"></i></button>
                         </span>
@@ -483,7 +483,7 @@ session_start(); //start session.
                   <div class="form-group form-group-sm">
                       <label class="col-sm-3 control-label" for="remark">หมายเหตุ:</label>
                       <div class="col-sm-9 controls">
-                          <textarea class="form-control" name="remark" id="txtRemark" rows="2"></textarea>
+                          <textarea class="form-control" name="remark" id="txtRemark" rows="2" style="color: black;"></textarea>
                       </div>
                   </div>
 

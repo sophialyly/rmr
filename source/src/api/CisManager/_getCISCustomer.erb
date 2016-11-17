@@ -1,0 +1,73 @@
+    /**
+     *
+     * @apiName GetCISCustomer
+     * @apiGroup CIS Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /cisManager/getCISCustomer/ Get CIS Customer
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่แสดงรายการ Customer จากระบบ CIS
+     *
+     */
+
+    function getCISCustomer($app, $pdo, $db_oracle, $conn_db_oracle) {
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล Oracle ของ CIS */
+        /* ************************* */
+        $reports = array();
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล Oracle ของ CIS */
+        /* ************************* */
+
+        <% if config[:phase_environment] == "Development" %>
+
+
+
+        <% elsif config[:phase_environment] == "Test" %>
+
+ 
+
+        <% elsif config[:phase_environment] == "Production" %>
+
+        // select * from CISWEB2.WLMA_CUSTOMER where rownum < 1000
+        // $result = $db_oracle->WLMA_CUSTOMER->limit(10);
+
+        $stmt = $conn_db_oracle->prepare("SELECT * FROM CISWEB2.WLMA_CUSTOMER WHERE rownum < 10000");
+        $stmt->execute();
+        // $stmt->exec("SET CHARACTER SET utf8");
+        // $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        while($rs = $stmt->fetch(PDO::FETCH_ASSOC)){
+          // echo $rs['BRANCH'].'<br>';
+
+                $tmpCustName = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$rs['CUST_NAME']);
+                // $tmpCustName = $rs['CUST_NAME'];
+
+
+                $reports[] = array(
+                    "BRANCH" => $rs['BRANCH'],
+                    "CUST_NAME" => $tmpCustName
+                    );
+
+        }
+
+
+        <% end %>
+
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "reports" => $reports);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+
+    };

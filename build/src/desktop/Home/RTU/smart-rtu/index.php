@@ -293,7 +293,7 @@ session_start(); //start session.
                                     <label class="col-sm-7 control-label">Flow:</label>
                                       <div class="col-sm-5 controls">
                                         <div class="input-group">
-                                          <input type="text" name="" id="txtFlow" placeholder="Flow" class="form-control">
+                                          <input type="text" name="" id="txtFlow" placeholder="Flow" class="form-control" readonly="readonly" style="color: black;">
                                           <span class="input-group-addon">
                                               <i class="fa fa-circle fa-1x" style="color:lightgray"></i>
                                           </span>
@@ -306,7 +306,7 @@ session_start(); //start session.
                                     <label class="col-sm-7 control-label">Pressure:</label>
                                       <div class="col-sm-5 controls">
                                         <div class="input-group">
-                                          <input type="text" name="" id="txtPressure" placeholder="Pressure" class="form-control">
+                                          <input type="text" name="" id="txtPressure" placeholder="Pressure" class="form-control" readonly="readonly" style="color: black;">
                                           <span class="input-group-addon">
                                               <i class="fa fa-circle fa-1x" style="color:lightgray"></i>
                                           </span>
@@ -319,7 +319,7 @@ session_start(); //start session.
                                     <label class="col-sm-7 control-label">Pressure Average:</label>
                                       <div class="col-sm-5 controls">
                                         <div class="input-group">
-                                          <input type="text" name="" id="txtPressureAverage" placeholder="Pressure Average" class="form-control">
+                                          <input type="text" name="" id="txtPressureAverage" placeholder="Pressure Average" class="form-control" readonly="readonly" style="color: black;">
                                         </div>
                                         <!-- <span class="help-inline">last update : </span> -->
                                       </div>
@@ -368,7 +368,7 @@ session_start(); //start session.
                             <div class="mail-page ">
                               <div class="mail-nav">
                                 <ul>
-                                    <li class="">Pressure Average Range</li>
+                                    <li class="" style="color: black;">Range: </li>
                                     <li><a href="#"><i class="mail-flag-gray"></i> Error</a></li>
                                     <li><a href="#"><i class="mail-flag-black"></i> &lt; 2</a></li>
                                     <li><a href="#"><i class="mail-flag-red"></i> 2 - 6</a></li>

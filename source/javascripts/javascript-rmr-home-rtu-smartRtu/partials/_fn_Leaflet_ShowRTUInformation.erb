@@ -15,7 +15,7 @@ Leaflet_ShowRTUInformation: function (myCurrentMarker) {
     // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
 
     if (myCurrentMarker.feature.properties) {
-        $('#rtu-name-info-box').html(myCurrentMarker.feature.properties.dm);
+        $('#rtu-name-info-box').html("<b>" + myCurrentMarker.feature.properties.dm + "</b>");
         $('#txtPressureAverage').val(myCurrentMarker.feature.properties.pressure_avg);
 
         fn.AutoUpdate(myCurrentMarker.feature.properties.dm);

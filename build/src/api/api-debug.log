@@ -1,15 +1,1 @@
 /******** api-debug ********/
-exception 'Firebase\JWT\ExpiredException' with message 'Expired token' in /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/firebase/php-jwt/src/JWT.php:119
-Stack trace:
-#0 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/src/api/index.php(2990): Firebase\JWT\JWT::decode('eyJ0eXAiOiJKV1Q...', 'supersecretkeyy...', Array)
-#1 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/src/api/index.php(254): rtuInformationGeoJSON(Object(Slim\Slim), Object(PDO), Object(NotORM), '', 'supersecretkeyy...')
-#2 [internal function]: {closure}()
-#3 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/slim/slim/Slim/Route.php(468): call_user_func_array(Object(Closure), Array)
-#4 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/slim/slim/Slim/Slim.php(1357): Slim\Route->dispatch()
-#5 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/slim/slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
-#6 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/slim/slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
-#7 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/tuupola/slim-jwt-auth/src/JwtAuthentication.php(75): Slim\Middleware\MethodOverride->call()
-#8 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/slim/slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\JwtAuthentication->call()
-#9 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/packages/slim/slim/Slim/Slim.php(1302): Slim\Middleware\PrettyExceptions->call()
-#10 /Applications/XAMPP/xamppfiles/htdocs/rmr/build/src/api/index.php(272): Slim\Slim->run()
-#11 {main}

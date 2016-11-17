@@ -1,0 +1,55 @@
+    /* เชื่อมต่อ Oracle */
+    // putenv("ORACLE_SID=ZEAL");
+    // putenv("ORACLE_HOME=/Oracle/Ora81");
+    // putenv("NLS_LANG=AMERICAN_AMERCIA.TH8TISASCII");
+        //     /* เชื่อมต่อ Oracle */
+        // $tns = "  
+        // (DESCRIPTION =
+        //     (ADDRESS_LIST =
+        //       (ADDRESS = (PROTOCOL = TCP)
+        //                  (HOST = 172.16.194.125)
+        //                  (PORT = 1521)
+        //                   )
+        //     )
+        //     (CONNECT_DATA =
+        //       (SERVICE_NAME = cisdb)
+
+        //     )
+        //   )
+        //        ";
+        // $db_username = "wlma";
+        // $db_password = "wlma2345";
+        // try{
+        //     $conn_db_oracle = new PDO("oci:dbname=".$tns,$db_username,$db_password);
+        //     $db_oracle = new NotORM($conn_db_oracle);
+        // }catch(PDOException $e){
+        //     echo ($e->getMessage());
+        // }
+
+
+
+
+
+
+       try
+        {
+            $user='wlma'; // Enter your DB User Name.
+            $pass='wlma2345'; // Enter your DB Password.
+            // $dataBaseName='172.16.194.125/cisdb;charset=UTF-8'; // Enter your Database Name.
+            // $conn_db_oracle = new PDO('OCI:dbname='.$dataBaseName, $user, $pass);
+
+            $oci["host"] = '172.16.194.125';
+            $oci["username"] = 'wlma';
+            $oci["password"] = 'wlma2345';
+            $oci["database"] = 'cisdb';
+            // $conn_db_oracle = new PDO("oci:host=//".$oci["host"].":port=1521/".$oci["database"].";charset=UTF8", $oci["username"], $oci["password"]);
+            $conn_db_oracle = new PDO("oci:dbname=172.16.194.125:1521/cisdb;charset=TH8TISASCII", "wlma","wlma2345");
+            $db_oracle = new NotORM($conn_db_oracle);
+            // echo "Connection Successful";
+                    // $dbh = null; // It Will Close the connection
+        }
+        catch (PDOException $e)
+        {
+            print "Error!: " . $e->getMessage() . "";
+            die();
+        }

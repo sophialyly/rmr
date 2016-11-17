@@ -37,7 +37,7 @@
         * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
         * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
         */
-        if ($ContetnType == "application/json") {
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8") ) {
 
 	        $request = $app->request();
 	        $result = json_decode($request->getBody());

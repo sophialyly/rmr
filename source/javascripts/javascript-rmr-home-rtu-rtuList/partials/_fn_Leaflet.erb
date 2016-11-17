@@ -28,6 +28,7 @@ Leaflet: function () {
 
 	map = L.map('map', {
                             fullscreenControl: true,
+                            scrollWheelZoom: false,
 							layers: [googleRoadmapLayer] // only add one! 
 						})
 			.setView([13.708189, 100.599608], 14);
@@ -85,7 +86,7 @@ Leaflet: function () {
 
     fn.Leaflet_AddRtuLayer();
     fn.Leaflet_AddInfoBox();
-    // fn.Leaflet_ZoomBox();
+    fn.Leaflet_ZoomBox();
     // fn.Leaflet_SearchInfoBox();
     fn.Leaflet_DrawControl();
     // fn.Leaflet_AddDMALayer();

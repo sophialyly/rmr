@@ -2165,7 +2165,7 @@ $(function() {
     fn.Leaflet_AddInfoBox();
     fn.Leaflet_AddDescriptionBox();
     fn.Leaflet_FullScreen();
-    // // fn.Leaflet_ZoomBox();
+    fn.Leaflet_ZoomBox();
     // // fn.Leaflet_SearchInfoBox();
     // fn.Leaflet_DrawControl();
     // // fn.Leaflet_AddDMALayer();
@@ -2716,7 +2716,7 @@ Leaflet_AddWMSLayer: function () {
     // $('#formRTU_Information :input[name=dm]').val(myCurrentMarker.feature.properties.dm);
 
     if (myCurrentMarker.feature.properties) {
-        $('#rtu-name-info-box').html(myCurrentMarker.feature.properties.dm);
+        $('#rtu-name-info-box').html("<b>" + myCurrentMarker.feature.properties.dm + "</b>");
         $('#txtPressureAverage').val(myCurrentMarker.feature.properties.pressure_avg);
 
         fn.AutoUpdate(myCurrentMarker.feature.properties.dm);
@@ -2737,6 +2737,33 @@ Leaflet_AddWMSLayer: function () {
 
 
 
+    
+},
+
+        Leaflet_ZoomBox: function () {
+    // console.log('Leaflet_ZoomBox');
+
+    var zoomBoxControl = L.control.zoomBox({
+        modal: true,  // If false (default), it deactivates after each use.  
+                      // If true, zoomBox control stays active until you click on the control to deactivate.
+        // position: "topleft",                
+        // className: "customClass"  // Class to use to provide icon instead of Font Awesome
+        // title: "My custom title" // a custom title
+    });
+
+    // console.log(zoomBoxControl);
+
+    // zoomBoxControl.getContainer().addEventListener('mouseover', function () {
+    //         // Disable drag and zoom handlers.
+    //         map.dragging.disable();
+    //         map.touchZoom.disable();
+    //         map.doubleClickZoom.disable();
+    //         map.scrollWheelZoom.disable();
+    //         map.keyboard.disable();
+    // });
+
+
+    map.addControl(zoomBoxControl);
     
 },
 

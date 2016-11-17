@@ -9,13 +9,111 @@ session_start(); //start session.
     
 
 
-    /* Connect Database Manager Partial : Localhost */
-    $conn_db2 = "";
-        $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
+    /* Connect Database Manager Partial : Production */
+        // /* เชื่อมต่อ DB2 */
+    $driver_db2 = "{IBM DB2 ODBC DRIVER}";
+    $database_db2 = "iWLMA";
+    $hostname_db2 = "172.16.194.210";
+    $port_db2 = 50000;
+    $user_db2 = "db2admin";
+    $password_db2 = "password";
+
+    $conn_string_db2 = "DRIVER=$driver_db2;DATABASE=$database_db2;";
+    $conn_string_db2 .= "HOSTNAME=$hostname_db2;PORT=$port_db2;PROTOCOL=TCPIP;";
+    $conn_string_db2 .= "UID=$user_db2;PWD=$password_db2;";
+
+    try {
+        $conn_db2 = db2_connect($conn_string_db2, '', '');
+
+        $client = db2_client_info($conn_db2);
+
+        // if ($client) {
+        //     echo var_dump($client->APPL_CODEPAGE);
+        //     echo "DRIVER_NAME: ";           var_dump( $client->DRIVER_NAME );
+        //     echo "DRIVER_VER: ";            var_dump( $client->DRIVER_VER );
+        //     echo "DATA_SOURCE_NAME: ";      var_dump( $client->DATA_SOURCE_NAME );
+        //     echo "DRIVER_ODBC_VER: ";       var_dump( $client->DRIVER_ODBC_VER );
+        //     echo "ODBC_VER: ";              var_dump( $client->ODBC_VER );
+        //     echo "ODBC_SQL_CONFORMANCE: ";  var_dump( $client->ODBC_SQL_CONFORMANCE );
+        //     echo "APPL_CODEPAGE: ";         var_dump( $client->APPL_CODEPAGE );
+        //     echo "CONN_CODEPAGE: ";         var_dump( $client->CONN_CODEPAGE );
+        // } else {
+        //     echo "Error";
+        // }
+
+
+        if(!$conn_db2) {
+            echo db2_conn_errormsg();
+        } else {
+            //echo "Hello World, from the IBM_DB2 PHP extension!";
+            //db2_close($conn_db2);
+        }
+    } 
+    catch (Exception $e) {
+        //echo $e;
+    }
+        /* เชื่อมต่อ MySQL บนเครื่อง 172.16.194.210 (http://wlma-mt.wms.mwa/) */
+    $dsn = "mysql:dbname=rmr_db;host=localhost;charset=UTF8";
     $username = "root";
-    $password = "";
+    $password = "P@ssw0rd";
     $pdo = new PDO($dsn, $username, $password);
     $db = new NotORM($pdo);
+        /* เชื่อมต่อ Oracle */
+    // putenv("ORACLE_SID=ZEAL");
+    // putenv("ORACLE_HOME=/Oracle/Ora81");
+    // putenv("NLS_LANG=AMERICAN_AMERCIA.TH8TISASCII");
+        //     /* เชื่อมต่อ Oracle */
+        // $tns = "  
+        // (DESCRIPTION =
+        //     (ADDRESS_LIST =
+        //       (ADDRESS = (PROTOCOL = TCP)
+        //                  (HOST = 172.16.194.125)
+        //                  (PORT = 1521)
+        //                   )
+        //     )
+        //     (CONNECT_DATA =
+        //       (SERVICE_NAME = cisdb)
+
+        //     )
+        //   )
+        //        ";
+        // $db_username = "wlma";
+        // $db_password = "wlma2345";
+        // try{
+        //     $conn_db_oracle = new PDO("oci:dbname=".$tns,$db_username,$db_password);
+        //     $db_oracle = new NotORM($conn_db_oracle);
+        // }catch(PDOException $e){
+        //     echo ($e->getMessage());
+        // }
+
+
+
+
+
+
+       try
+        {
+            $user='wlma'; // Enter your DB User Name.
+            $pass='wlma2345'; // Enter your DB Password.
+            // $dataBaseName='172.16.194.125/cisdb;charset=UTF-8'; // Enter your Database Name.
+            // $conn_db_oracle = new PDO('OCI:dbname='.$dataBaseName, $user, $pass);
+
+            $oci["host"] = '172.16.194.125';
+            $oci["username"] = 'wlma';
+            $oci["password"] = 'wlma2345';
+            $oci["database"] = 'cisdb';
+            // $conn_db_oracle = new PDO("oci:host=//".$oci["host"].":port=1521/".$oci["database"].";charset=UTF8", $oci["username"], $oci["password"]);
+            $conn_db_oracle = new PDO("oci:dbname=172.16.194.125:1521/cisdb;charset=TH8TISASCII", "wlma","wlma2345");
+            $db_oracle = new NotORM($conn_db_oracle);
+            // echo "Connection Successful";
+                    // $dbh = null; // It Will Close the connection
+        }
+        catch (PDOException $e)
+        {
+            print "Error!: " . $e->getMessage() . "";
+            die();
+        }
+
 
 
 
@@ -259,7 +357,8 @@ session_start(); //start session.
     /* REPORT manager */
     $app->post('/reportManager/reportFlowPressureByDM/',function() use ($app, $pdo, $db, $conn_db2, $key) { reportFlowPressureByDM($app, $pdo, $db, $conn_db2, $key); });
 
-
+    /* CIS manager */
+    $app->get('/cisManager/getCISCustomer/',function() use ($app, $pdo, $db_oracle, $conn_db_oracle) { getCISCustomer($app, $pdo, $db_oracle, $conn_db_oracle); });
 
 
     // $corsOptions = array("origin" => "*");
@@ -1010,13 +1109,42 @@ session_start(); //start session.
         /* ************************* */
 
 
-	        // $tmpBranch_code = "B01";
-	        // $tmpRole = "user";
-	        // $rowCount = 1;
+	        $tmpUserName = $postUserName;
+	        $tmpPassword_MD5 = md5($postPassWord);
 
-	        $tmpBranch_code = "ALL";
-	        $tmpRole = "admin";
-	        $rowCount = 1;
+	        $tmpBranch_code = "";
+	        $tmpRole = "";
+	        $rowCount = 0;
+
+	        $sql = "select * from AUTH_USER_INFO Where (USER_ID = '".$tmpUserName."' and PASSWORD = '".$tmpPassword_MD5."')";
+
+	        if ($conn_db2) {
+	            // # code...
+	            $stmt = db2_exec($conn_db2, $sql);
+
+	            while ($row = db2_fetch_both($stmt)) {
+	                $tmpBranch_code = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["BRANCH_CODE"]);
+	                $tmpWorkUnit = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row["WORKUNIT"]);
+
+	                /* ******* Check Role ******* */
+
+	                $sql_checkRole = "select * from CT_WORKUNIT Where (WORKUNIT_CODE = '".$tmpWorkUnit."')";
+	                $stmt_checkRole = db2_exec($conn_db2, $sql_checkRole);
+	                while ($row_checkRole = db2_fetch_both($stmt_checkRole)) {
+	                	$tmpBranchWorkUnitFlag = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_checkRole["BRANCH_WORKUNIT_FLAG"]);
+
+		                if ($tmpBranchWorkUnitFlag == "N") {
+		                  	$tmpBranch_code = "ALL";
+		                  	$tmpRole = "admin";
+		                } else {
+		                  	$tmpBranch_code = "B".$tmpBranch_code;
+		                  	$tmpRole = "user";
+		                }
+	                }
+
+	                $rowCount++;
+	            }
+	        }
 
 
         /* ************************* */
@@ -1562,7 +1690,7 @@ $return_m = array("result" =>  $resultText);
         * apidoc @apiSampleRequest, iOS RESTKit use content-type is "application/json"
         * Web Form, Advance REST Client App use content-type is "application/x-www-form-urlencoded"
         */
-        if ($ContetnType == "application/json") {
+        if (($ContetnType == "application/json") || ($ContetnType == "application/json; charset=utf-8") ) {
 
 	        $request = $app->request();
 	        $result = json_decode($request->getBody());
@@ -1943,21 +2071,49 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
 
 
-    /* rtuInformationGeoJSON Partial : Development */
+    /* rtuInformationGeoJSON Partial : Production */
             /* ************************* */
         /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล DB2 ของ WLMA */
         /* ************************* */
         $reports = array();
 
+
+
+        $sql = "select meter_code, rtu_log_dt, log_type, value from METER_ONLINE_DATA_LAST where meter_code = '".$postDM."'";
+
+
+        if ($conn_db2) {
+            // # code...
+            $stmt = db2_exec($conn_db2, $sql);
+
+            $tmpDM = "";
+            $tmpFlowVal = "-"; 
+            $tmpPressureVal = "-";
+
+            while ($row = db2_fetch_array($stmt)) {
+                
+                $tmpDM = iconv("TIS-620", "UTF-8",$row[0]);
+                $tmpRtuLogDt = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[1]);
+                $tmpLogType = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
+                $tmpValue = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[3]);
+
+                if ($tmpLogType == "F") {
+                	$tmpFlowVal = $tmpValue;
+                } else if ($tmpLogType == "P") {
+                	$tmpPressureVal = $tmpValue;
+                }
+
+
+            }
+
+
 	       $reports[] = array(
 	            "date" => date("Y-m-d"),
-	            "dm_name" => $postDM,
-	            "flow_value" => (string)rand(0,200),
-	            "pressure_value" => (string)rand(0,20)
+	            "dm_name" => $tmpDM,
+	            "flow_value" => (string)$tmpFlowVal,
+	            "pressure_value" => (string)$tmpPressureVal
 	        );
-
-
-
+        }
 
 
 
@@ -2995,7 +3151,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         
 
 
-    /* rtuInformationGeoJSON Partial : Development */
+    /* rtuInformationGeoJSON Partial : Production */
             /* ************************* */
         /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล MySQL */
         /* ************************* */
@@ -3011,6 +3167,37 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
             $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
 
+            /* *********************************** */
+            /* เริ่มกระบวนการเชื่อมต่อกับฐานข้อมูล DB2 */
+            /* *********************************** */
+            $sql_db2 = "select to_char(log_dt, 'YYYY-MM-DD') as Date, area_code, avg(p) as AveragePressure from core_area, meter_hist 
+where meter_code in (select meter_code from core_area_meter where core_area_meter.area_code = core_area.area_code and meter_inout='I')
+and log_dt between timestamp('".date("Y-m-d")."') and timestamp('".date("Y-m-d")." 23:59:00')
+and to_char(log_dt, 'HH24') between '05' and '09'
+and area_axis_code = 'D'
+and to_char(area_code) = '".substr($result["dma_code"],4)."'
+group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
+            
+            $tmpAveragePressure = "-";
+
+            if ($conn_db2) {
+                // # code...
+                $stmt = db2_exec($conn_db2, $sql_db2);
+
+                $row = db2_fetch_array($stmt); 
+                    
+                $tmpAveragePressure = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row[2]);
+
+                if ($tmpAveragePressure) {
+                    $tmpAveragePressure = $tmpAveragePressure;
+                } else {
+                    $tmpAveragePressure = "-";
+                }
+
+            } else {
+                $tmpAveragePressure = "-";
+            }
+
 
             $tmpID = $result["id"];
             $tmpPoint = new \GeoJson\Geometry\Point([ floatval($result_rtu_pin_code["lng"]), floatval($result_rtu_pin_code["lat"])]);
@@ -3024,7 +3211,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                                    "location" => $result_rtu_pin_code["location"],
                                    "remark" => $result["remark"],
                                    "pressure_avg_date" => date("Y-m-d"),
-                                   "pressure_avg" => (string)rand(0,20));
+                                   "pressure_avg" => $tmpAveragePressure);
             $tmpFeature = new \GeoJson\Feature\Feature($tmpPoint, $tmpProperties, $tmpID, null);
 
             $features[] = $tmpFeature;
@@ -3041,7 +3228,7 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         echo json_encode($featureCollection);
 
 
-
+        
 
 
 
@@ -3273,6 +3460,24 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
 
                 $result_rtu_pin_code = $db->rtu_pin_code_tb->where("dm_code = ? and enable = 1", $result["dm_code"])->fetch();
 
+
+                $sql_flow = "SELECT * from METER_ONLINE_DATA_LAST WHERE METER_CODE = '".$result["dm_code"]."' and LOG_TYPE = 'F'";
+                $sql_pressure = "SELECT * from METER_ONLINE_DATA_LAST WHERE METER_CODE = '".$result["dm_code"]."' and LOG_TYPE = 'P'";
+
+                if ($conn_db2) {
+                    $stmt_flow = db2_exec($conn_db2, $sql_flow);
+                    $stmt_pressure = db2_exec($conn_db2, $sql_pressure);
+                }
+
+                $row_flow  = db2_fetch_both($stmt_flow);
+                $row_pressure = db2_fetch_both($stmt_pressure);
+
+                $tmpFlowValue = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_flow["VALUE"]);
+                $tmpFlowTimestamp = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_flow["RTU_LOG_DT"]);
+
+                $tmpPressureValue = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_pressure["VALUE"]);
+                $tmpPressureTimestamp= iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$row_pressure["RTU_LOG_DT"]);
+
                 $reports[] = array(
                     "id" => $result["id"],
                     "dm" => $result["dm_code"],
@@ -3288,10 +3493,10 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
                     "lat" => $result_rtu_pin_code["lat"],
                     "lng" => $result_rtu_pin_code["lng"],
                     "location" => $result_rtu_pin_code["location"],
-                    "flow_value" => rand(10,100),
-                    "flow_timestamp" => mt_rand(1, 84600),
-                    "pressure_value" => rand(0,10),
-                    "pressure_timestamp" => mt_rand(1, 84600)
+                    "flow_value" => $tmpFlowValue,
+                    "flow_timestamp" => $tmpFlowTimestamp,
+                    "pressure_value" => $tmpPressureValue,
+                    "pressure_timestamp" => $tmpPressureTimestamp
                     );
 
             }
@@ -3307,6 +3512,71 @@ group by area_code, to_char(log_dt, 'YYYY-MM-DD')";
         $resultText = "success";
 
         $reportResult = array("result" =>  $resultText, "count" => $rowCount, "rows" => $reports);
+        
+        $app->response()->header("Content-Type", "application/json");
+        echo json_encode($reportResult);
+
+
+    };
+
+    /* CIS Manager Partial */
+        /**
+     *
+     * @apiName GetCISCustomer
+     * @apiGroup CIS Manager
+     * @apiVersion 0.1.0
+     *
+     * @api {get} /cisManager/getCISCustomer/ Get CIS Customer
+     * @apiDescription คำอธิบาย : ในส่วนนี้ทำหน้าที่แสดงรายการ Customer จากระบบ CIS
+     *
+     */
+
+    function getCISCustomer($app, $pdo, $db_oracle, $conn_db_oracle) {
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล Oracle ของ CIS */
+        /* ************************* */
+        $reports = array();
+
+        /* ************************* */
+        /* เริ่มกระบวนการเชื่อมต่อฐานข้อมูล Oracle ของ CIS */
+        /* ************************* */
+
+
+        // select * from CISWEB2.WLMA_CUSTOMER where rownum < 1000
+        // $result = $db_oracle->WLMA_CUSTOMER->limit(10);
+
+        $stmt = $conn_db_oracle->prepare("SELECT * FROM CISWEB2.WLMA_CUSTOMER WHERE rownum < 10000");
+        $stmt->execute();
+        // $stmt->exec("SET CHARACTER SET utf8");
+        // $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        while($rs = $stmt->fetch(PDO::FETCH_ASSOC)){
+          // echo $rs['BRANCH'].'<br>';
+
+                $tmpCustName = iconv("TIS-620//IGNORE", "UTF-8//IGNORE",$rs['CUST_NAME']);
+                // $tmpCustName = $rs['CUST_NAME'];
+
+
+                $reports[] = array(
+                    "BRANCH" => $rs['BRANCH'],
+                    "CUST_NAME" => $tmpCustName
+                    );
+
+        }
+
+
+
+
+
+
+        /* ************************* */
+        /* เริ่มกระบวนการส่งค่ากลับ */
+        /* ************************* */
+        $resultText = "success";
+
+        $reportResult = array("result" =>  $resultText, "reports" => $reports);
         
         $app->response()->header("Content-Type", "application/json");
         echo json_encode($reportResult);
